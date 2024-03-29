@@ -5,17 +5,17 @@ import { useState, useEffect } from "react";
 
 const RootLayout = () => {
   const [open, setOpen] = useState(false);
-  const [navWidth, setNavWidth] = useState(open ? 288 : 64);
+  const [navWidth, setNavWidth] = useState(open ? 256 : 64);
 
   useEffect(() => {
-    setNavWidth(open ? 288 : 64);
+    setNavWidth(open ? 256 : 64);
     document.getElementById("parent").style.width =
       window.innerWidth - navWidth;
     document.getElementById("parent").style.marginLeft = navWidth;
   }, [open]);
   return (
     <>
-      <Sidebar open={open} setOpen={setOpen} />
+      <Sidebar open={open} setOpen={setOpen} navBg='primary' navHeading='secondary' />
       <div id="parent" className='transition-all pl-3 duration-500 '
         style={{ width: document.innerWidth - navWidth, marginLeft: navWidth }}
       >

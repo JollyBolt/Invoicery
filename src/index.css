@@ -7,7 +7,8 @@
   line-height: 1.5;
   font-weight: 400;
 
-  --primary: #460E7A;
+  /* --primary: #460E7A; */
+  --primary: #2a0948;
   --secondary: #EAB464;
   --accent: #8884FF;
   /* #DCCCBB */

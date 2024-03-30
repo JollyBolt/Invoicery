@@ -48,8 +48,7 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
                 <Link
                   to={menu?.link}
                   key={i}
-                  className={` ${menu?.margin && "mt-5"
-                    } group flex items-center text-sm  gap-3.5 font-medium py-2 pl-1 hover:bg-neutral-600/30  rounded-md`}
+                  className={` ${menu?.margin && "mt-5"} group flex items-center text-sm  gap-3.5 font-medium py-2 pl-1 hover:bg-neutral-600/30  rounded-md`}
                 >
                   <div>{React.createElement(menu?.icon, { size: "24" })}</div>
                   <h2

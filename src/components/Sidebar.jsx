@@ -105,8 +105,8 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
               }}
               to={"/"}
               className={`bg-white  overflow-hidden flex flex-nowrap  py-1 px-1 hover:text-white hover:bg-red-500 ${
-                open ? "rounded-sm" : "rounded-full"
-              } transition-all duration-200 ease-linear text-red-500  `}
+                open ? "rounded-sm delay-0" : "rounded-[50%] delay-200"
+              } transition-[border-radius] duration-400 ease-linear text-red-500  `}
             >
               <IoPowerOutline
                 size={24}

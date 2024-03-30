@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 const RootLayout = () => {
   const [open, setOpen] = useState(false);
   // const [navWidth, setNavWidth] = useState(open ? 210 : 64);
-
+  
   // useEffect(() => {
   //   setNavWidth(open ? 210 : 64);
   //   document.getElementById("parent").style.width =

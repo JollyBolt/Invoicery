@@ -14,8 +14,10 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
     <div>
       <nav id="nav" className="top-0 fixed  z-10">
         <div
-          style={{ backgroundColor: `var(--${navBg})`}}
-          className={`flex flex-col justify-between pb-5 h-screen ${open? "w-[210px]" :"w-[64px]"} transition-all duration-500 delay-[25ms] text-gray-100 px-4`}
+          style={{ backgroundColor: `var(--${navBg})` }}
+          className={`flex flex-col justify-between pb-5 h-screen ${
+            open ? "w-[210px]" : "w-[64px]"
+          } transition-all duration-500 delay-[25ms] text-gray-100 px-4`}
         >
           <div>
             <div className={`py-3 flex pl-[5px]`}>
@@ -39,26 +41,35 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
                     transitionDelay: `${2}00ms`,
                     color: `var(--${navHeading})`,
                   }}
-                  className={`whitespace-pre duration-500 text-transparent font-semibold text-lg  inline ${!open && "opacity-0 translate-x-28 overflow-hidden"}`}
+                  className={`whitespace-pre duration-500 text-transparent font-semibold text-lg  inline ${
+                    !open && "opacity-0 translate-x-28 overflow-hidden"
+                  }`}
                 >
                   Invoicery
                 </h2>
               </div>
+
               {navLinks?.map((menu, i) => (
                 <Link
                   to={menu?.link}
                   key={i}
-                  className={` ${menu?.margin && "mt-5"} group flex items-center text-sm  gap-3.5 font-medium py-2 pl-1 hover:bg-neutral-600/30  rounded-md`}
+                  className={` ${
+                    menu?.margin && "mt-5"
+                  } group flex items-center text-sm  gap-3.5 font-medium py-2 pl-1 hover:bg-neutral-600/30  rounded-md`}
                 >
                   <div>{React.createElement(menu?.icon, { size: "24" })}</div>
                   <h2
-                    className={`whitespace-pre text-md duration-300 ${!open && "opacity-0 translate-x-24 overflow-hidden"}`}
+                    className={`whitespace-pre text-md duration-300 ${
+                      !open && "opacity-0 translate-x-24 overflow-hidden"
+                    }`}
                   >
                     {menu?.name}
                   </h2>
 
                   <h2
-                    className={`${open && "hidden"} absolute left-20 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit `}
+                    className={`${
+                      open && "hidden"
+                    } absolute left-20 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit `}
                   >
                     {menu?.name}
                   </h2>
@@ -74,19 +85,47 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
                 navigate("/");
               }}
               to={"/"}
-              className={`bg-white  overflow-hidden flex flex-nowrap  py-1 px-1 hover:text-white hover:bg-red-500 ${open ? "rounded-sm delay-0" : "rounded-[50%] delay-200"
-                } transition-[border-radius] duration-400 ease-linear text-red-500  `}
+              className={`bg-white hover:text-white hover:bg-red-500 text-red-500
+               transition-[border-radius] ${open ? "rounded-sm delay-0" : "rounded-[50%] delay-300"} duration-400 ease-linear mt-5 group flex items-center text-sm gap-3.5 font-medium py-1 pl-1 `}
             >
-              <IoPowerOutline
-                size={24}
-                className={`inline  rounded-full`}
-              />
+              <div>{React.createElement(IoPowerOutline, { size: "24" })}</div>
+              <h2
+                className={`whitespace-pre text-md duration-300 ${
+                  !open && "opacity-0 translate-x-24 overflow-hidden"
+                }`}
+              >
+                Logout
+              </h2>
+              
+              {/* <h2
+                    className={`${
+                      open && "hidden"
+                    } absolute left-20 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit `}
+                  >
+                    {menu?.name}
+                  </h2> */}
+            </Link>
+
+            {/* <Link
+              onClick={() => {
+                localStorage.removeItem("loggedIn");
+                navigate("/");
+              }}
+              to={"/"}
+              className={`bg-white  overflow-hidden flex flex-nowrap  py-1 px-1 hover:text-white hover:bg-red-500 ${
+                open ? "rounded-sm delay-0" : "rounded-[50%] delay-200"
+              } transition-[border-radius] duration-400 ease-linear text-red-500  `}
+            >
+              <IoPowerOutline size={24} className={`inline  rounded-full`} />
               <span
-                className={`inline-block overflow-hidden   ${!open && "opacity-0 transition-opacity"}`}
+                className={`inline-block overflow-hidden transition-opacity duration-300 ${
+                  !open && "opacity-0  translate-x-24 overflow-hidden  "
+                }`}
               >
                 Logout
               </span>
-            </Link>
+            </Link> */}
+
             <div className="flex flex-row overflow-hidden">
               <div className="absolute flex justify-center items-center py-[1px] w-8 bg-secondary text-black  mx-auto rounded-sm border-2 border-neutral-400 border-solid">
                 <div>

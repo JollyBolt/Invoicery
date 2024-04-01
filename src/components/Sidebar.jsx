@@ -78,15 +78,15 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
             </div>
           </div>
 
-          <div className="flex flex-col gap-y-4 pt-5 border-t border-gray-500">
+          <div className="flex flex-col gap-y-4 pt-2 border-t border-gray-500">
             <Link
               onClick={() => {
                 localStorage.removeItem("loggedIn");
                 navigate("/");
               }}
               to={"/"}
-              className={`bg-white hover:text-white hover:bg-red-500 text-red-500
-               transition-[border-radius] ${open ? "rounded-sm delay-0" : "rounded-[50%] delay-300"} duration-400 ease-linear mt-5 group flex items-center text-sm gap-3.5 font-medium py-1 pl-1 `}
+              className={` hover:text-white hover:bg-red-500 text-red-500
+               transition-[border-radius] ${open ? "rounded-sm delay-0" : "rounded-[50%] delay-300"} duration-400 ease-linear  group flex items-center text-sm gap-3.5 font-medium py-1 pl-1 `}
             >
               <div>{React.createElement(IoPowerOutline, { size: "24" })}</div>
               <h2

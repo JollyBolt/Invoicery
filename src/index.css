@@ -21,3 +21,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.heading {
+  /* display: inline-block; */
+  position: relative;
+  z-index: 1;
+}
+.heading::after {
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: 6px;
+  width: 100%;
+  height: 6px;
+  background: var(--secondary);
+  z-index: -1;
+}

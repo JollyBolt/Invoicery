@@ -1,9 +1,13 @@
-import React from 'react'
+import PageWrapper from '../hoc/PageWrapper'
+import Heading from '../components/Heading'
+
 
 const Invoice = () => {
   return (
-    <div>Invoice</div>
+    <div>
+      <Heading name="Invoice"/>
+    </div>
   )
 }
 
-export default Invoice
+export default PageWrapper(Invoice,'invoice') 

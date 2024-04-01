@@ -1,9 +1,12 @@
-import React from 'react'
+import Heading from '../components/Heading'
+import PageWrapper from '../hoc/PageWrapper'
 
 const Products = () => {
   return (
-    <div>Products</div>
+    <div>
+      <Heading name="Products"/>
+    </div>
   )
 }
 
-export default Products
+export default PageWrapper(Products,'products')

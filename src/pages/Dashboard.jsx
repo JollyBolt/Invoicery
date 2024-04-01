@@ -1,9 +1,13 @@
 import React from 'react'
+import PageWrapper from '../hoc/PageWrapper'
+import Heading from '../components/Heading'
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <div>
+      <Heading name="Dashboard"/>
+    </div>
   )
 }
 
-export default Dashboard
+export default PageWrapper( Dashboard ,'dashboard')

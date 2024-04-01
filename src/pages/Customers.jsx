@@ -1,13 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import PageWrapper from "../hoc/PageWrapper";
+import Heading from '../components/Heading'
 
 const Customers = () => {
 
   return (
     <div 
     >
-      Customers
+      <Heading name="Customers"/>
+
     </div>
   );
 };
 
-export default Customers;
+export default PageWrapper(Customers,'customers');

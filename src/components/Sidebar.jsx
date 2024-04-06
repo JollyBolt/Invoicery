@@ -86,7 +86,9 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
               }}
               to={"/"}
               className={` hover:text-white hover:bg-red-500 text-red-500
-               transition-[border-radius] ${open ? "rounded-sm delay-0" : "rounded-[50%] delay-300"} duration-400 ease-linear  group flex items-center text-sm gap-3.5 font-medium py-1 pl-1 `}
+               transition-[border-radius] ${
+                 open ? "rounded-sm delay-0" : "rounded-[50%] delay-300"
+               } duration-400 ease-linear  group flex items-center text-sm gap-3.5 font-medium py-1 pl-1 `}
             >
               <div>{React.createElement(IoPowerOutline, { size: "24" })}</div>
               <h2
@@ -96,35 +98,7 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
               >
                 Logout
               </h2>
-              
-              {/* <h2
-                    className={`${
-                      open && "hidden"
-                    } absolute left-20 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit `}
-                  >
-                    {menu?.name}
-                  </h2> */}
             </Link>
-
-            {/* <Link
-              onClick={() => {
-                localStorage.removeItem("loggedIn");
-                navigate("/");
-              }}
-              to={"/"}
-              className={`bg-white  overflow-hidden flex flex-nowrap  py-1 px-1 hover:text-white hover:bg-red-500 ${
-                open ? "rounded-sm delay-0" : "rounded-[50%] delay-200"
-              } transition-[border-radius] duration-400 ease-linear text-red-500  `}
-            >
-              <IoPowerOutline size={24} className={`inline  rounded-full`} />
-              <span
-                className={`inline-block overflow-hidden transition-opacity duration-300 ${
-                  !open && "opacity-0  translate-x-24 overflow-hidden  "
-                }`}
-              >
-                Logout
-              </span>
-            </Link> */}
 
             <div className="flex flex-row overflow-hidden">
               <div className="absolute flex justify-center items-center py-[1px] w-8 bg-secondary text-black  mx-auto rounded-sm border-2 border-neutral-400 border-solid">

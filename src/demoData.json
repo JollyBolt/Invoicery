@@ -1,5 +1,53 @@
 {
     "name": "John Doe",
-    "email": "johndoe@gmail.com"
-
+    "email": "johndoe@gmail.com",
+    "customers":[
+        {
+            "name": "David Brown",
+            "email": "davidbrown@gmail.com",
+            "no_of_invoices": "5",
+            "gstin":"22AAAAA0000A1Z5",
+            "address":"F-1,b-4, Mukarramjahi Road",
+            "city":"Hyderabad",
+            "state":"Andhra Pradesh",
+            "contact":"8508908381",
+            "zip":"110024",
+            "stateCode":"07"
+        },
+        {
+            "name": "Sofia Ching",
+            "email": "sofiaching@gmail.com",
+            "no_of_invoices": "0",
+            "gstin":"22AAAAA0000A1Z5",
+            "address":"1282, Bada Bazar, Kashmere Gate",
+            "city":"New Delhi",
+            "state":"New Delhi",
+            "contact":"7050808381",
+            "zip":"110005",
+            "stateCode":"07"
+        },
+        {
+            "name": "Kevin Smith",
+            "email": "kevsmith@gmail.com",
+            "no_of_invoices": "1",
+            "gstin":"22AAAAA0000A1Z5",
+            "address":"Shop No 8, Mohan Bhagwati Complex, Main Najafgarh Road",
+            "city":"New Delhi",
+            "state":"New Delhi",
+            "contact":"99208508i1",
+            "zip":"110013",
+            "stateCode":"07"
+        },{
+            "name": "Jane Dove",
+            "email": "janedove@gmail.com",
+            "no_of_invoices": "2",
+            "gstin":"22AAAAA0000A1Z5",
+            "address":"Shop No 8, Surang Shopping Centre, Near Silver Plaza, Station Road, Santacruz(w)",
+            "city":"Mumbai",
+            "state":"Maharashtra",
+            "contact":"8808508381",
+            "zip":"110010",
+            "stateCode":"07"
+        }
+    ]
 }

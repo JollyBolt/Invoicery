@@ -8,8 +8,8 @@ const RootLayout = () => {
 
   return (
     <>
-      <Sidebar open={open} setOpen={setOpen} navBg='primary' navHeading='secondary' />
-      <div id="parent" className={`transition-all duration-500 ${open?`ml-[210px]`:`ml-[64px] `} `}
+      <Sidebar open={open} setOpen={setOpen} navBg='foreground' navHeading='secondary' />
+      <div id="parent" className={`transition-all bg-slate-100 duration-500 ml-[64px]  `}
       >
         <Outlet />
       </div>

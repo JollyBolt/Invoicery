@@ -10,9 +10,13 @@
   font-weight: 400;
 
   /* --primary: #460E7A; */
+  --primaryLight:#470a7cfb;
+  --primaryDark:#29125d;
   --primary: #2a0948;
+  --foreground:#ffffff;
   --secondary: #EAB464;
   --accent: #8884FF;
+  --rounded:4px;
   /* #DCCCBB */
   /* --secondary: #E7EBC5; */
   

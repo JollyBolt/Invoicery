@@ -1,8 +1,8 @@
 //Sidebar Icons
 import { MdDashboard } from "react-icons/md";
-import { FaBoxes } from "react-icons/fa";
-import { FaUser } from "react-icons/fa6";
-import { FaHandHoldingDollar } from "react-icons/fa6";
+import { BsBoxSeamFill } from "react-icons/bs";
+import { FaCircleUser } from "react-icons/fa6";
+import { BsPeopleFill } from "react-icons/bs";
 import { FaFileInvoiceDollar } from "react-icons/fa";
 
 //Pagination Icons
@@ -15,20 +15,28 @@ import {
 import { HiMagnifyingGlass } from "react-icons/hi2";
 
 //Create Icon
-import { FiPlusCircle } from "react-icons/fi";
+import { FaPlus } from "react-icons/fa6";
+
+//Cross Icon
+import { RxCross1 } from "react-icons/rx";
 
 //Filter Icon
 import { FaFilter } from "react-icons/fa";
 
+//Hamburger Icon
+import { HiMenuAlt2 } from "react-icons/hi";
+
 export {
   MdDashboard,
-  FaBoxes,
-  FaUser,
-  FaHandHoldingDollar,
+  BsBoxSeamFill,
+  FaCircleUser,
+  BsPeopleFill,
   FaFileInvoiceDollar,
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
   HiMagnifyingGlass,
-  FiPlusCircle,
+  FaPlus,
   FaFilter,
+  RxCross1,
+  HiMenuAlt2
 };

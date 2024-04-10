@@ -83,7 +83,7 @@ setOpen(false)
       </div>
       <div className="w-full flex justify-end flex-nowrap">
 <div className="w-1/3 flex justify-end items-center pr-10">
-<button type="button" className=" outline-1 outline p-2 outline-secondary hover:text-white  hover:bg-secondary transition-colors text-secondary rounded-sm">Create Invoice</button>
+<button type="button" className=" outline-1 outline p-2 outline-secondary hover:text-white  hover:bg-secondary transition-colors text-secondary rounded-rounded">Create Invoice</button>
 </div>
       </div>
       </div>

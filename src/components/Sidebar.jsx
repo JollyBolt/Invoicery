@@ -102,8 +102,8 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
               </h2>
             </Link>
 
-            <div className="flex flex-row overflow-hidden">
-              <div className="absolute flex justify-center items-center py-[1px] w-8  text-black  mx-auto rounded-rounded ">
+            <div className="flex  overflow-hidden pl-[6px] pr-[13px]">
+              <div className="flex  items-center py-[1px] w-full text-black  rounded-rounded ">
                 <div>
                   {data.name.split(" ").map(function (word, i) {
                     return (
@@ -114,7 +114,9 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
                   })}
                 </div>
               </div>
-              <div className="flex flex-col flex-nowrap ml-14">
+              <div className={`flex flex-col flex-nowrap [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s]  overflow-hidden  ${
+                  open? "opacity-100 translate-x-0  ":"translate-x-24"
+                }`} >
                 <h3 className="text-lg leading-none font-semibold ">
                   {data.name}
                 </h3>

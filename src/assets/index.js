@@ -26,6 +26,9 @@ import { FaFilter } from "react-icons/fa";
 //Hamburger Icon
 import { HiMenuAlt2 } from "react-icons/hi";
 
+//Action Icon
+import { BsThreeDotsVertical } from "react-icons/bs"
+
 export {
   MdDashboard,
   BsBoxSeamFill,
@@ -38,5 +41,6 @@ export {
   FaPlus,
   FaFilter,
   RxCross1,
-  HiMenuAlt2
+  HiMenuAlt2,
+  BsThreeDotsVertical,
 };

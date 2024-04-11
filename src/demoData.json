@@ -5,6 +5,7 @@
         {
             "name": "David Brown",
             "email": "davidbrown@gmail.com",
+            "organization": "Swiggy",
             "no_of_invoices": "5",
             "gstin":"22AAAAA0000A1Z5",
             "address":"F-1,b-4, Mukarramjahi Road",
@@ -17,6 +18,7 @@
         {
             "name": "Sofia Ching",
             "email": "sofiaching@gmail.com",
+            "organization": "Uber",
             "no_of_invoices": "0",
             "gstin":"22AAAAA0000A1Z5",
             "address":"1282, Bada Bazar, Kashmere Gate",
@@ -29,6 +31,7 @@
         {
             "name": "Kevin Smith",
             "email": "kevsmith@gmail.com",
+            "organization": "Samson Technologies",
             "no_of_invoices": "1",
             "gstin":"22AAAAA0000A1Z5",
             "address":"Shop No 8, Mohan Bhagwati Complex, Main Najafgarh Road",
@@ -40,6 +43,7 @@
         },{
             "name": "Jane Dove",
             "email": "janedove@gmail.com",
+            "organization": "FedEx",
             "no_of_invoices": "2",
             "gstin":"22AAAAA0000A1Z5",
             "address":"Shop No 8, Surang Shopping Centre, Near Silver Plaza, Station Road, Santacruz(w)",

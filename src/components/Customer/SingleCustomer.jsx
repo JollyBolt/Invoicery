@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { FaAngleDown } from "react-icons/fa";
 
+import { BsThreeDotsVertical } from "../../assets/index";
 function SingleCustomer({
   name,
   email,
@@ -12,14 +12,14 @@ function SingleCustomer({
   contact,
   city,
   gstin,
-  currentPage
+  currentPage,
 }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-setOpen(false)
-  },[currentPage])
-  
+    setOpen(false);
+  }, [currentPage]);
+
   return (
     <div
       onClick={(e) => {
@@ -29,7 +29,9 @@ setOpen(false)
         open ? "h-48" : "h-14"
       } overflow-hidden border-slate-400 border-b`}
     >
-      <div className={`w-full flex flex-nowrap items-center justify-between py-2 px-2 `}>
+      <div
+        className={`w-full flex flex-nowrap items-center justify-between py-2 px-2 `}
+      >
         <div className="w-4/12">
           <h3 className="text-lg pl-10 inline  font-semibold ">{name}</h3>
         </div>
@@ -42,7 +44,7 @@ setOpen(false)
             setOpen(!open);
           }}
         >
-          <FaAngleDown
+          <BsThreeDotsVertical
             className={`text-xl text-right transition-all duration-300 ${
               open && "rotate-180"
             }`}
@@ -55,7 +57,7 @@ setOpen(false)
           <span className="font-semibold">GSTIN: </span>
           <span>{gstin}</span>
         </div>
-        
+
         <div className="w-1/3 pl-5">
           <span className="font-semibold">Contact: </span>
           <span>{contact}</span>
@@ -82,12 +84,16 @@ setOpen(false)
         </div>
       </div>
       <div className="w-full flex justify-end flex-nowrap">
-<div className="w-1/3 flex justify-end items-center pr-10">
-<button type="button" className=" outline-1 outline p-2 outline-secondary hover:text-white  hover:bg-secondary transition-colors text-secondary rounded-rounded">Create Invoice</button>
-</div>
+        <div className="w-1/3 flex justify-end items-center pr-10">
+          <button
+            type="button"
+            className=" outline-1 outline p-2 outline-secondary hover:text-white  hover:bg-secondary transition-colors text-secondary rounded-rounded"
+          >
+            Create Invoice
+          </button>
+        </div>
       </div>
-      </div>
-
+    </div>
   );
 }
 

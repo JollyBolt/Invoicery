@@ -10,20 +10,20 @@ import { FaFilter } from "../assets/index";
 import { RxCross1 } from "../assets/index";
 
 import data from "../demoData.json";
-import SingleCustomer from "../components/SingleCustomer";
+import SingleCustomer from "../components/Customer/SingleCustomer";
 import { useEffect, useState } from "react";
+import CreateCustomer from "../components/Customer/CreateCustomer";
 
 const Customers = () => {
+  //pagination funciton
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(2);
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  // let currentRecords = data.customers.slice(
-  //   indexOfFirstRecord,
-  //   indexOfLastRecord
-  // );
 
-  const [nPages,setNPages] = useState(Math.ceil(data.customers.length / recordsPerPage))
+  const [nPages, setNPages] = useState(
+    Math.ceil(data.customers.length / recordsPerPage)
+  );
 
   const goToNextPage = () => {
     if (currentPage !== nPages) setCurrentPage(currentPage + 1);
@@ -33,28 +33,34 @@ const Customers = () => {
   };
   const [search, setSearch] = useState("");
 
-  useEffect(()=>{
+  //search pagination function
+  useEffect(() => {
     setCurrentPage(1);
-    if (search){
+    if (search) {
+      setNPages(
+        data.customers.filter((customer) => {
+          return customer.name.toLowerCase().includes(search.toLowerCase());
+        }).length
+          ? Math.ceil(
+              data.customers.filter((customer) => {
+                return customer.name
+                  .toLowerCase()
+                  .includes(search.toLowerCase());
+              }).length / recordsPerPage
+            )
+          : 1
+      );
+    } else {
+      setNPages(Math.ceil(data.customers.length / recordsPerPage));
+    }
+  }, [search]);
 
-      setNPages(data.customers
-        .filter((customer) => {
-          return (customer.name
-            .toLowerCase()
-            .includes(search.toLowerCase()))
-          }).length ? Math.ceil(data.customers
-            .filter((customer) => {
-              return customer.name
-              .toLowerCase()
-              .includes(search.toLowerCase())
-            }).length / recordsPerPage) : 1)
-          }else{
-            setNPages(Math.ceil(data.customers.length / recordsPerPage))
-          }
-  },[search])
+  //create function
+  const [createOpen, setCreateOpen] = useState(false);
 
   return (
     <div>
+
       <Heading name="Customers" />
 
       <div className="bg-foreground p-5 rounded-rounded mt-5 ">
@@ -74,15 +80,15 @@ const Customers = () => {
                 placeholder="Search Customers"
                 id="searchCustom"
                 className="inline text-black bg-transparent  py-0 outline-none active:outline-none w-full"
-              />
+                />
               {search && (
                 <button
-                  type="btn"
-                  className="w-fit h-fit"
-                  onClick={() => {
-                    document.getElementById("searchCustom").value = "";
-                    setSearch("");
-                  }}
+                type="btn"
+                className="w-fit h-fit"
+                onClick={() => {
+                  document.getElementById("searchCustom").value = "";
+                  setSearch("");
+                }}
                 >
                   <RxCross1 className="text-lg text-red-400" />
                 </button>
@@ -91,20 +97,27 @@ const Customers = () => {
           </div>
 
           <div className="flex flex-nowrap items-center justify-between">
+            <div id="filterBox" className="bg-green-500"></div>
             <button
               type="btn"
               className="mx-5 transition-colors px-4 h-full bg-slate-200 hover:bg-gray-300 rounded-rounded"
-            >
+              >
               <FaFilter className="inline-block text-lg" />
               <span> Filter</span>
             </button>
 
             <button
+              onClick={() => {
+                setCreateOpen(true);
+              }}
               type="button"
               className="w-fit  transition-colors p-2 bg-primaryLight hover:bg-primary rounded-full"
-            >
+              >
               <FaPlus className="inline text-white text-2xl " />
             </button>
+              {createOpen && (
+                <CreateCustomer open={createOpen} setOpen={setCreateOpen} />
+              )}
           </div>
         </div>
 
@@ -117,7 +130,7 @@ const Customers = () => {
           </div>
           <div className="w-full border-t  border-slate-300">
             {search
-              ?  data.customers
+              ? data.customers
                   .filter((customer) => {
                     return customer.name
                       .toLowerCase()
@@ -141,7 +154,7 @@ const Customers = () => {
                       />
                     );
                   })
-               : data.customers
+              : data.customers
                   .slice(indexOfFirstRecord, indexOfLastRecord)
                   .map((customer, i) => {
                     return (
@@ -166,17 +179,22 @@ const Customers = () => {
         <div className="w-full flex border-x   border-b py-2 rounded-b-rounded border-slate-300 justify-end">
           <div className="w-1/4 flex items-center justify-end text-right">
             <span className="text-lg">
-              {currentPage} of {search ? data.customers
-        .filter((customer) => {
-          return (customer.name
-            .toLowerCase()
-            .includes(search.toLowerCase()))
-          }).length ? Math.ceil(data.customers
-            .filter((customer) => {
-              return customer.name
-              .toLowerCase()
-              .includes(search.toLowerCase())
-            }).length / recordsPerPage) : 1:Math.ceil(data.customers.length / recordsPerPage)}
+              {currentPage} of{" "}
+              {search
+                ? data.customers.filter((customer) => {
+                    return customer.name
+                      .toLowerCase()
+                      .includes(search.toLowerCase());
+                  }).length
+                  ? Math.ceil(
+                      data.customers.filter((customer) => {
+                        return customer.name
+                          .toLowerCase()
+                          .includes(search.toLowerCase());
+                      }).length / recordsPerPage
+                    )
+                  : 1
+                : Math.ceil(data.customers.length / recordsPerPage)}
             </span>
             <button type="btn" onClick={goToPrevPage} className="w-fit">
               <MdOutlineKeyboardArrowLeft

@@ -3,7 +3,7 @@ import React from 'react'
 const Heading = ({name}) => {
   return (
     <div>
-        <p className='text-4xl font-black text-primary first-letter:text-5xl  uppercase'>{name}</p>
+        <p className='text-4xl font-black text-primary first-letter:text-5xl uppercase'>{name}</p>
     </div>
   )
 }

@@ -17,7 +17,7 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
           style={{ backgroundColor: `var(--${navBg})` }}
           className={`flex flex-col justify-between shadow-lg shadow-slate-300 pb-5 h-screen ${
             open ? "w-[210px]" : "w-[64px]"
-          } transition-all duration-500 delay-[25ms] text-primary px-4`}
+          } transition-all duration-500 delay-[25ms] text-black px-4`}
         >
           <div>
             <div className={`py-3 flex pl-[5px]`}>
@@ -41,7 +41,7 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
                     transitionDelay: `${2}00ms`,
                     color: `var(--${navHeading})`,
                   }}
-                  className={`whitespace-pre duration-500 text-transparent font-semibold text-lg  inline ${
+                  className={`whitespace-pre uppercase font-black duration-500 text-transparent  text-xl  inline ${
                     !open && "opacity-0 translate-x-28 overflow-hidden"
                   }`}
                 >
@@ -56,11 +56,11 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
                     key={i}
                     className={` ${
                       menu?.margin && "mt-5"
-                    } group flex items-center text-sm gap-3.5 font-medium py-2 pl-1 hover:bg-primary hover:text-white   rounded-md`}
+                    } group flex items-center text-sm gap-3.5 font-medium py-2 pl-1 hover:bg-primary text-black hover:text-white rounded-md`}
                   >
                     <div>{React.createElement(menu?.icon, { size: "24" })}</div>
                     <h2
-                      className={`whitespace-pre text-md [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s]  overflow-hidden  ${
+                      className={`whitespace-pre text-black group-hover:text-white  text-md [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s]  overflow-hidden  ${
                         open? "opacity-100 translate-x-0  ":"translate-x-24"
                       }`}
                     >
@@ -103,7 +103,7 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
             </Link>
 
             <div className="flex flex-row overflow-hidden">
-              <div className="absolute flex justify-center items-center py-[1px] w-8 bg-secondary text-black  mx-auto rounded-rounded border-2 border-neutral-400 border-solid">
+              <div className="absolute flex justify-center items-center py-[1px] w-8  text-black  mx-auto rounded-rounded ">
                 <div>
                   {data.name.split(" ").map(function (word, i) {
                     return (
@@ -115,10 +115,10 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
                 </div>
               </div>
               <div className="flex flex-col flex-nowrap ml-14">
-                <h3 className="text-lg leading-none font-semibold text-white">
+                <h3 className="text-lg leading-none font-semibold ">
                   {data.name}
                 </h3>
-                <p className="text-xs text-white">{data.email}</p>
+                <p className="text-xs ">{data.email}</p>
               </div>
             </div>
           </div>

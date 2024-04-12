@@ -17,7 +17,9 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
           style={{ backgroundColor: `var(--${navBg})` }}
           className={`flex flex-col justify-between shadow-lg shadow-slate-300 pb-5 h-screen ${
             open ? "w-[210px]" : "w-[64px]"
-          } transition-all duration-500 delay-[25ms] text-black px-4`}
+          } transition-all duration-500 delay-[25ms] text-black ${
+            open ? "pl-4 pr-2" : "px-4"
+          }`}
         >
           <div>
             <div className={`py-3 flex pl-[5px]`}>
@@ -61,7 +63,7 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
                     <div>{React.createElement(menu?.icon, { size: "24" })}</div>
                     <h2
                       className={`whitespace-pre text-black group-hover:text-white  text-md [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s]  overflow-hidden  ${
-                        open? "opacity-100 translate-x-0  ":"translate-x-24"
+                        open ? "opacity-100 translate-x-0  " : "translate-x-24"
                       }`}
                     >
                       {menu?.name}
@@ -95,15 +97,15 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
               <div>{React.createElement(IoPowerOutline, { size: "24" })}</div>
               <h2
                 className={`whitespace-pre text-md [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s]  overflow-hidden  ${
-                  open? "opacity-100 translate-x-0  ":"translate-x-24"
+                  open ? "opacity-100 translate-x-0  " : "translate-x-24"
                 }`}
               >
                 Logout
               </h2>
             </Link>
 
-            <div className="flex  overflow-hidden pl-[6px] pr-[13px]">
-              <div className="flex  items-center py-[1px] w-full text-black  rounded-rounded ">
+            {/* <div className="flex  overflow-hidden ">
+              <div className="flex items-center py-[1px] w-full text-black  rounded-rounded ">
                 <div>
                   {data.name.split(" ").map(function (word, i) {
                     return (
@@ -121,6 +123,29 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
                   {data.name}
                 </h3>
                 <p className="text-xs ">{data.email}</p>
+              </div>
+            </div> */}
+            <div
+              className={` group flex items-center text-sm gap-3.5 font-medium py-2 pl-1  text-black  rounded-md`}
+            >
+              <div className="flex flex-row flex-nowrap">
+                {data.name.split(" ").map(function (word, i) {
+                  return (
+                    <span key={i} className="inline-block text-lg">
+                      {word[0]}
+                    </span>
+                  );
+                })}
+              </div>
+              <div
+                className={`flex flex-col whitespace-pre text-blac text-md [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s]  overflow-hidden  ${
+                  open ? "opacity-100 translate-x-0  " : "translate-x-24"
+                }`}
+              >
+                <h3 className="text-lg leading-none font-semibold ">
+                  {data.name}
+                </h3>
+                <p className="text-[10px] ">{data.email}</p>
               </div>
             </div>
           </div>

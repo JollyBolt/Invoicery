@@ -29,6 +29,9 @@ import { HiMenuAlt2 } from "react-icons/hi";
 //Action Icon
 import { BsThreeDotsVertical } from "react-icons/bs"
 
+
+import { SlSocialDropbox } from "react-icons/sl";
+
 export {
   MdDashboard,
   BsBoxSeamFill,
@@ -43,4 +46,5 @@ export {
   RxCross1,
   HiMenuAlt2,
   BsThreeDotsVertical,
+  SlSocialDropbox,
 };

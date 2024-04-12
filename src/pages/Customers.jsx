@@ -8,6 +8,7 @@ import {
 import { HiMagnifyingGlass } from "../assets/index";
 import { FaFilter } from "../assets/index";
 import { RxCross1 } from "../assets/index";
+import { SlSocialDropbox } from "../assets/index";
 
 import data from "../demoData.json";
 import SingleCustomer from "../components/Customer/SingleCustomer";
@@ -59,17 +60,18 @@ const Customers = () => {
   const [createOpen, setCreateOpen] = useState(false);
 
   return (
-    <div className="">
+    <div className="h-full">
+      <CreateCustomer />
       <Heading name="Customers" />
       <div
-        className={`bg-foreground min-h-[60vh] p-5 rounded-rounded mt-5 ${
+        className={`bg-foreground min-h-full p-5 rounded-rounded mt-5 ${
           data.customers &&
-          "flex flex-col flex-nowrap justify-center items-center gay-y-5"
+          "flex flex-col flex-nowrap justify-center items-center gap-y-5"
         }`}
       >
-        {createOpen && (
+        {/* {createOpen && (
           <CreateCustomer open={createOpen} setOpen={setCreateOpen} />
-        )}
+        )} */}
         {!data.customers ? (
           <>
             <div className="flex flex-nowrap  justify-between flex-row w-full rounded-t-sm">
@@ -115,9 +117,12 @@ const Customers = () => {
                 </button>
 
                 <button
-                  onClick={() => {
-                    setCreateOpen(true);
-                  }}
+                  onClick={() =>
+                    document.getElementById("my_modal_3").showModal()
+                  }
+                  // onClick={() => {
+                  //   setCreateOpen(true);
+                  // }}
                   type="button"
                   className="w-fit  transition-colors p-2 bg-primaryLight hover:bg-primary rounded-full"
                 >
@@ -217,18 +222,26 @@ const Customers = () => {
             </div>
           </>
         ) : (
-          <h2 className="text-lg text-center my-auto">
-            You don't have any customers.{" "}
-            <span
-              onClick={() => {
-                setCreateOpen(true);
-              }}
-              className="hover:underline hover:underline-offset-2 transition-all text-primaryLight hover:cursor-pointer"
-            >
-              Click here{" "}
-            </span>
-            to add new customer.
-          </h2>
+          <>
+            <h2 className="text-lg text-center ">
+              You don't have any customers. Click{" "}
+              <span
+                onClick={() =>
+                  document.getElementById("my_modal_3").showModal()
+                }
+                // onClick={() => {
+                //   setCreateOpen(true);
+                // }}
+                className="hover:underline hover:underline-offset-2 transition-all text-primaryLight hover:cursor-pointer"
+              >
+                 here{" "}
+              </span>
+              to add new customer.
+            </h2>
+            <div className="">
+              <SlSocialDropbox className="text-gray-500 text-[13em]"/>
+            </div>
+          </>
         )}
       </div>
     </div>

@@ -60,7 +60,7 @@ const Customers = () => {
   const [createOpen, setCreateOpen] = useState(false);
 
   return (
-    <div className="h-full">
+    <div className="h-full w-full">
       <CreateCustomer />
       <Heading name="Customers" />
       <div

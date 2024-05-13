@@ -34,6 +34,7 @@ import React from "react";
 // export default CreateCustomer;
 
 export default function CreateCustomer() {
+  
   return (
     <dialog id="my_modal_3" className="modal h-full w-full">
       <div className="modal-box h-fit w-2/3 max-w-none pb-0 rounded-rounded  mx-auto">
@@ -59,7 +60,9 @@ export default function CreateCustomer() {
             </div>
 
             <div className="w-1/2 flex flex-nowrap justify-center">
-              <p className="w-1/3 text-md font-semibold  py-2 text-center">Last Name</p>
+              <p className="w-1/3 text-md font-semibold  py-2 text-center">
+                Last Name
+              </p>
               <input
                 type="text"
                 className="w-2/3 p-2 bg-transparent border-b border-gray-300 focus:outline-none focus:border-black text-sm transition-colors duration-200"
@@ -77,7 +80,9 @@ export default function CreateCustomer() {
             </div>
 
             <div className="w-1/2 flex flex-nowrap justify-center">
-              <p className="w-1/3 text-md font-semibold  py-2 text-center">Contact No.</p>
+              <p className="w-1/3 text-md font-semibold  py-2 text-center">
+                Contact No.
+              </p>
               <input
                 type="text"
                 className="w-2/3 p-2 bg-transparent border-b border-gray-300 focus:outline-none focus:border-black text-sm transition-colors duration-200"
@@ -99,10 +104,8 @@ export default function CreateCustomer() {
               className="w-1/2 p-2 bg-transparent border-b border-gray-300 focus:outline-none focus:border-black  transition-colors duration-200"
             />
           </div> */}
-          <h3 className="mt-5">
-            Organization Details
-          </h3>
- <div className="flex flex-nowrap w-full justify-betweem">
+          <h3 className="mt-5">Organization Details</h3>
+          <div className="flex flex-nowrap w-full justify-betweem">
             <div className="w-1/2 flex flex-nowrap justify-center">
               <p className="w-1/3 text-md font-semibold  p-2">Oganization</p>
               <input
@@ -112,14 +115,15 @@ export default function CreateCustomer() {
             </div>
 
             <div className="w-1/2 flex flex-nowrap justify-center">
-              <p className="w-1/3 text-md font-semibold  py-2 text-center">GSTIN</p>
+              <p className="w-1/3 text-md font-semibold  py-2 text-center">
+                GSTIN
+              </p>
               <input
                 type="text"
                 className="w-2/3 p-2 bg-transparent border-b border-gray-300 focus:outline-none focus:border-black text-sm transition-colors duration-200"
               />
             </div>
           </div>
-
 
           <h3 className="mt-5">Billing Address</h3>
 
@@ -142,7 +146,9 @@ export default function CreateCustomer() {
             </div>
 
             <div className="w-1/2 flex flex-nowrap justify-center">
-              <p className="w-1/3 text-md font-semibold  py-2 text-center">State</p>
+              <p className="w-1/3 text-md font-semibold  py-2 text-center">
+                State
+              </p>
               <input
                 type="text"
                 className="w-2/3 p-2 bg-transparent border-b border-gray-300 focus:outline-none focus:border-black text-sm transition-colors duration-200"
@@ -160,7 +166,9 @@ export default function CreateCustomer() {
             </div>
 
             <div className="w-1/2 flex flex-nowrap justify-center">
-              <p className="w-1/3 text-md font-semibold  py-2 text-center">ZIP</p>
+              <p className="w-1/3 text-md font-semibold  py-2 text-center">
+                ZIP
+              </p>
               <input
                 type="text"
                 className="w-2/3 p-2 bg-transparent border-b border-gray-300 focus:outline-none focus:border-black text-sm transition-colors duration-200"
@@ -196,7 +204,6 @@ export default function CreateCustomer() {
               className="w-1/2 p-2 bg-transparent border-b border-gray-300 focus:outline-none focus:border-black  transition-colors duration-200"
             />
           </div> */}
-
 
           <div className="w-full flex gap-x-2 justify-end mt-2 mb-3">
             <form className="dialog">

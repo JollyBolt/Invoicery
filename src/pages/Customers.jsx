@@ -57,7 +57,7 @@ const Customers = () => {
   }, [search]);
 
   //create function
-  const [createOpen, setCreateOpen] = useState(false);
+  // const [createOpen, setCreateOpen] = useState(false);
 
   return (
     <div className="h-full w-full">
@@ -66,13 +66,15 @@ const Customers = () => {
       <div
         className={`bg-foreground min-h-full p-5 rounded-rounded mt-5 ${
           data.customers &&
-          "flex flex-col flex-nowrap justify-center items-center gap-y-5"
+          "flex flex-col flex-nowrap justify-center items-center "
         }`}
       >
+
         {/* {createOpen && (
           <CreateCustomer open={createOpen} setOpen={setCreateOpen} />
         )} */}
-        {!data.customers ? (
+
+        {data.customers ? (
           <>
             <div className="flex flex-nowrap  justify-between flex-row w-full rounded-t-sm">
               <div className=" w-1/3 pl-2 border-b border-neutral-800">
@@ -108,13 +110,13 @@ const Customers = () => {
 
               <div className="flex flex-nowrap items-center justify-between">
                 <div id="filterBox" className="bg-green-500"></div>
-                <button
+                {/* <button
                   type="btn"
                   className="mx-5 transition-colors px-4 h-full bg-slate-200 hover:bg-gray-300 rounded-rounded"
                 >
                   <FaFilter className="inline-block text-lg" />
                   <span> Filter</span>
-                </button>
+                </button> */}
 
                 <button
                   onClick={() =>

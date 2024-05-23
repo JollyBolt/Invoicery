@@ -11,17 +11,17 @@
   font-weight: 400;
 
   /* --primary: #460E7A; */
-  --primaryLight:#3d1df1fb;
-  --primaryDark:#220468;
+  --primaryLight: #3d1df1fb;
+  --primaryDark: #220468;
   --primary: #2807a0;
   /* --primary: #2a0948; */
-  --foreground:#ffffff;
+  --foreground: #ffffff;
   --secondary: #1E2EDE;
   --accent: #8884FF;
-  --rounded:4px;
+  --rounded: 4px;
   /* #DCCCBB */
   /* --secondary: #E7EBC5; */
-  
+
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -33,6 +33,7 @@
   position: relative;
   z-index: 1;
 }
+
 .heading::after {
   position: absolute;
   content: "";

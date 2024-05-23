@@ -13,6 +13,9 @@ export default {
       borderRadius: {
         rounded: "var(--rounded)",
       },
+      fontFamily:{
+        numbers: ["Oswald"],
+      }
     },
   },
   plugins: [require("daisyui")],

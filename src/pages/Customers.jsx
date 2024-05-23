@@ -1,6 +1,6 @@
 import PageWrapper from "../hoc/PageWrapper";
 import Heading from "../components/Heading";
-import { FaPlus } from "../assets/index";
+import { AddCustomer, FaPlus } from "../assets/index";
 import {
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
@@ -43,12 +43,12 @@ const Customers = () => {
           return customer.name.toLowerCase().includes(search.toLowerCase());
         }).length
           ? Math.ceil(
-              data.customers.filter((customer) => {
-                return customer.name
-                  .toLowerCase()
-                  .includes(search.toLowerCase());
-              }).length / recordsPerPage
-            )
+            data.customers.filter((customer) => {
+              return customer.name
+                .toLowerCase()
+                .includes(search.toLowerCase());
+            }).length / recordsPerPage
+          )
           : 1
       );
     } else {
@@ -60,7 +60,7 @@ const Customers = () => {
   // const [createOpen, setCreateOpen] = useState(false);
 
   return (
-    <div className="h-full w-full">
+    <div className="min-h-[calc(100dvh-40px)] flex flex-col w-full">
       <CreateCustomer />
       <Heading name="Customers" />
       <div
@@ -143,68 +143,67 @@ const Customers = () => {
               <div className="w-full border-t  border-slate-300">
                 {search
                   ? data.customers
-                      .filter((customer) => {
-                        return customer.name
-                          .toLowerCase()
-                          .includes(search.toLowerCase());
-                      })
-                      .slice(indexOfFirstRecord, indexOfLastRecord)
-                      .map((customer, i) => {
-                        return (
-                          <SingleCustomer
-                            key={i}
-                            name={customer.name}
-                            email={customer.email}
-                            no_of_invoices={customer.no_of_invoices}
-                            gstin={customer.gstin}
-                            address={customer.address}
-                            state={customer.state}
-                            zip={customer.zip}
-                            contact={customer.contact}
-                            city={customer.city}
-                            currentPage={currentPage}
-                          />
-                        );
-                      })
+                    .filter((customer) => {
+                      return customer.name
+                        .toLowerCase()
+                        .includes(search.toLowerCase());
+                    })
+                    .slice(indexOfFirstRecord, indexOfLastRecord)
+                    .map((customer, i) => {
+                      return (
+                        <SingleCustomer
+                          key={i}
+                          name={customer.name}
+                          email={customer.email}
+                          no_of_invoices={customer.no_of_invoices}
+                          gstin={customer.gstin}
+                          address={customer.address}
+                          state={customer.state}
+                          zip={customer.zip}
+                          contact={customer.contact}
+                          city={customer.city}
+                          currentPage={currentPage}
+                        />
+                      );
+                    })
                   : data.customers
-                      .slice(indexOfFirstRecord, indexOfLastRecord)
-                      .map((customer, i) => {
-                        return (
-                          <SingleCustomer
-                            key={i}
-                            name={customer.name}
-                            email={customer.email}
-                            no_of_invoices={customer.no_of_invoices}
-                            gstin={customer.gstin}
-                            address={customer.address}
-                            state={customer.state}
-                            zip={customer.zip}
-                            contact={customer.contact}
-                            city={customer.city}
-                            currentPage={currentPage}
-                          />
-                        );
-                      })}
+                    .slice(indexOfFirstRecord, indexOfLastRecord)
+                    .map((customer, i) => {
+                      return (
+                        <SingleCustomer
+                          key={i}
+                          name={customer.name}
+                          email={customer.email}
+                          no_of_invoices={customer.no_of_invoices}
+                          gstin={customer.gstin}
+                          address={customer.address}
+                          state={customer.state}
+                          zip={customer.zip}
+                          contact={customer.contact}
+                          city={customer.city}
+                          currentPage={currentPage}
+                        />
+                      );
+                    })}
               </div>
             </div>
-
             <div className="w-full flex border-x   border-b py-2 rounded-b-rounded border-slate-300 justify-end">
               <div className="w-1/4 flex items-center justify-end text-right">
                 <span className="text-lg">
                   {currentPage} of{" "}
                   {search
                     ? data.customers.filter((customer) => {
-                        return customer.name
-                          .toLowerCase()
-                          .includes(search.toLowerCase());
-                      }).length
+                      return customer.name
+                        .toLowerCase()
+                        .includes(search.toLowerCase());
+                    }).length
                       ? Math.ceil(
-                          data.customers.filter((customer) => {
-                            return customer.name
-                              .toLowerCase()
-                              .includes(search.toLowerCase());
-                          }).length / recordsPerPage
-                        )
+                        data.customers.filter((customer) => {
+                          return customer.name
+                            .toLowerCase()
+                            .includes(search.toLowerCase());
+                        }).length / recordsPerPage
+                      )
                       : 1
                     : Math.ceil(data.customers.length / recordsPerPage)}
                 </span>
@@ -224,8 +223,8 @@ const Customers = () => {
             </div>
           </>
         ) : (
-          <>
-            <h2 className="text-lg text-center ">
+          <div className="h-full flex flex-1 flex-col justify-evenly items-center">
+            <h2 className="text-xl text-center ">
               You don't have any customers. Click{" "}
               <span
                 onClick={() =>
@@ -236,14 +235,15 @@ const Customers = () => {
                 // }}
                 className="hover:underline hover:underline-offset-2 transition-all text-primaryLight hover:cursor-pointer"
               >
-                 here{" "}
+                here{" "}
               </span>
               to add new customer.
             </h2>
-            <div className="">
-              <SlSocialDropbox className="text-gray-500 text-[13em]"/>
+            <div className="float-end">
+              {/* <SlSocialDropbox className="text-gray-500 text-[13em]" /> */}
+              <img src={AddCustomer} alt="" />
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>

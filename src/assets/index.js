@@ -44,6 +44,11 @@ import { FaAngleRight } from "react-icons/fa";
 //Tick Icon
 import { FaCheck } from "react-icons/fa6";
 
+//Chart Icons
+import { FaAngleLeft } from "react-icons/fa";
+import { FaAngleRight } from "react-icons/fa";
+
+import { FaRupeeSign } from "react-icons/fa";
 
 //Up Down Arrows
 import { RiExpandUpDownLine } from "react-icons/ri";
@@ -70,4 +75,9 @@ export {
   FaRupeeSign,
   FaFileInvoice,
   RiExpandUpDownLine,
+  NoData,
+  AddCustomer,
+  FaAngleLeft,
+  FaAngleRight,
+  FaRupeeSign
 };

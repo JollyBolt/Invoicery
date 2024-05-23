@@ -8,7 +8,7 @@ import {
 import { HiMagnifyingGlass } from "../assets/index";
 import { FaFilter } from "../assets/index";
 import { RxCross1 } from "../assets/index";
-import { SlSocialDropbox } from "../assets/index";
+
 
 import data from "../demoData.json";
 import SingleCustomer from "../components/Customer/SingleCustomer";

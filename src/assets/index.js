@@ -29,8 +29,8 @@ import { HiMenuAlt2 } from "react-icons/hi";
 //Action Icon
 import { BsThreeDotsVertical } from "react-icons/bs"
 
-
-import { SlSocialDropbox } from "react-icons/sl";
+//Tick Icon
+import { FaCheck } from "react-icons/fa6";
 
 export {
   MdDashboard,
@@ -46,5 +46,5 @@ export {
   RxCross1,
   HiMenuAlt2,
   BsThreeDotsVertical,
-  SlSocialDropbox,
+  FaCheck,
 };

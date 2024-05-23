@@ -5,6 +5,10 @@ import { FaCircleUser } from "react-icons/fa6";
 import { BsPeopleFill } from "react-icons/bs";
 import { FaFileInvoiceDollar } from "react-icons/fa";
 
+//svg
+import NoData from "./svg/no_data.svg"
+import AddCustomer from "./svg/add_customer.svg"
+
 //Pagination Icons
 import {
   MdOutlineKeyboardArrowLeft,
@@ -29,6 +33,11 @@ import { HiMenuAlt2 } from "react-icons/hi";
 //Action Icon
 import { BsThreeDotsVertical } from "react-icons/bs"
 
+//Chart Icons
+import { FaAngleLeft } from "react-icons/fa";
+import { FaAngleRight } from "react-icons/fa";
+
+import { FaRupeeSign } from "react-icons/fa";
 
 import { SlSocialDropbox } from "react-icons/sl";
 
@@ -47,4 +56,9 @@ export {
   HiMenuAlt2,
   BsThreeDotsVertical,
   SlSocialDropbox,
+  NoData,
+  AddCustomer,
+  FaAngleLeft,
+  FaAngleRight,
+  FaRupeeSign
 };

@@ -41,8 +41,8 @@ import { FaFileInvoice } from "react-icons/fa";
 import { FaAngleLeft } from "react-icons/fa";
 import { FaAngleRight } from "react-icons/fa";
 
-
-import { SlSocialDropbox } from "react-icons/sl";
+//Tick Icon
+import { FaCheck } from "react-icons/fa6";
 
 export {
   MdDashboard,
@@ -58,7 +58,7 @@ export {
   RxCross1,
   HiMenuAlt2,
   BsThreeDotsVertical,
-  SlSocialDropbox,
+  FaCheck,
   NoData,
   AddCustomer,
   FaAngleLeft,

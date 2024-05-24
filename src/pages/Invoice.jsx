@@ -11,12 +11,12 @@ const Invoice = () => {
       <div className="text-sm breadcrumbs">
         <ul>
           <li>
-            <Link to={"/invoice"} className={`${location.pathname==='/invoice'?'text-red-500 pointer-events-none no-underline':''}`}>
+            <Link to={"/invoice"} className={`${location.pathname==='/invoice'?'text-primaryLight pointer-events-none no-underline':''}`}>
               Invoices
             </Link>
           </li>
           <li>
-            <Link to={"/invoice/createInvoice"} className={`${location.pathname==='/invoice/createInvoice'?'text-red-500 pointer-events-none no-underline':''}`}>Create Invoice</Link>
+            <Link to={"/invoice/createInvoice"} className={`${location.pathname==='/invoice/createInvoice'?'text-primaryLight pointer-events-none no-underline':''}`}>Create Invoice</Link>
           </li>
           {/* <li>Add Document</li> */}
         </ul>

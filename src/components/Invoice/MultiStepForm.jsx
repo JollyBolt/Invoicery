@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, useAnimate, AnimatePresence } from "framer-motion";
 import { FaCheck } from "../../assets/index";
+import { FiMoon, FiSun } from "react-icons/fi";
 
 function MultiStepForm() {
   const [step, setStep] = useState(1);
@@ -12,7 +13,7 @@ function MultiStepForm() {
       case 2:
         return <AddProducts />;
       case 3:
-        return <Signature />;
+        return <TaxesNDiscounts />;
       case 4:
         return <Finish />;
     }
@@ -73,7 +74,7 @@ function Stepper({ step }) {
   }, []);
 
   return (
-    <div className="w-full  py-2 flex justify-center items-center mb-20">
+    <div className="w-full pointer-events-none py-2 flex justify-center items-center mb-14">
       <div className="relative flex w-full justify-between items-center">
         {/* Horizontal Progress Bar */}
         <div className="absolute  overflow-visible left-0 bg-gray-200 h-1 w-full">
@@ -115,7 +116,9 @@ function Stepper({ step }) {
           >
             {step > 3 ? <FaCheck /> : 3}
           </div>
-          <p className="absolute top-12 text-xs">Signature</p>
+          <p className="absolute top-12 text-xs text-center">
+            Taxes & Discounts
+          </p>
         </div>
 
         <div className="flex flex-col items-center gap-y-2">
@@ -148,6 +151,7 @@ const AddCustomer = () => {
     return customer.name.toLowerCase().includes(value.toLowerCase());
   });
 
+  const [savedCustomer, setSavedCustomer] = useState(null);
   // const [vis, setVis] = useState(false);
 
   // useEffect(() => {
@@ -168,7 +172,7 @@ const AddCustomer = () => {
       >
         <p className="text-xl">Choose the customer you want to bill.</p>
 
-        <div className="overflow-visible h-[200px] flex flex-col gap-y-4 w-full mt-2">
+        <div className="overflow-visible relative gap-x-2 w-full mt-2 flex flex-nowrap">
           <input
             type="text"
             // onFocus={() => {
@@ -177,16 +181,29 @@ const AddCustomer = () => {
             //   }
             // }}
             // onBlur={() => setVis(false)}
-            className="focus:outline-black bg-transparent px-2 py-1 text-lg w-full outline outline-gray-300 transition-colors duration-500 outline-1 rounded-rounded peer"
+            className="focus:outline-black bg-transparent px-2 py-1 text-lg w-2/3 outline outline-gray-300 transition-colors duration-500 outline-1 rounded-rounded peer"
             placeholder="Type at least 3 characters"
             value={value}
             onChange={(e) => {
               setValue(e.target.value);
             }}
           />
+
+          <motion.button
+            initial={{ scale: 1 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ duration: 0.1 }}
+            onClick={() => {
+              setSavedCustomer(value);
+            }}
+            className="text-white hover:bg-primaryLight text-md font-semibold py-1 px-3 rounded-rounded bg-primary"
+          >
+            Save Customer
+          </motion.button>
+
           {value.length >= 3 && (
             <motion.div
-              className={`w-full transition-all opacity-0 peer-focus:opacity-100 duration-300 drop-shadow-lg bg-white
+              className={`w-full transition-all absolute opacity-0 top-12 z-10 peer-focus:opacity-100 duration-300 drop-shadow-lg bg-white
             `}
             >
               {filteredPeople.length ? (
@@ -209,6 +226,12 @@ const AddCustomer = () => {
             </motion.div>
           )}
         </div>
+
+        {/* {
+  savedCustomer && <div>
+   { people[people.indexOf(value)].name}
+  </div>
+} */}
       </motion.div>
     </AnimatePresence>
   );
@@ -243,24 +266,15 @@ const AddProducts = () => {
 
   const [productData, setProductData] = useState([]);
 
-  const [productForm, setProductForm] = useState({
-    name: "",
-    price: "",
-    quantity: "",
-  });
-
   const handleSubmit = () => {
-    setProductForm({
-      name: value,
-      // price: "",
-      quantity: document.getElementById("productQty").value,
-    });
-    setProductData(productData + [productForm]);
-    setProductForm({
-      name: "",
-      // price: "",
-      quantity: "",
-    });
+    setProductData([
+      ...productData,
+      {
+        name: value,
+        // price: "",
+        quantity: document.getElementById("productQty").value,
+      },
+    ]);
   };
   return (
     <>
@@ -280,14 +294,42 @@ const AddProducts = () => {
             <span className="text-lg font-semibold">+</span> Add Products
           </button>
 
-          <div className="flex flex-col overflow-y-scroll h-[50vh]">
+          <div className="flex flex-col overflow-y-scroll h-[50vh] mt-2">
             {productData &&
               productData.map((product, ind) => {
                 return (
-                  <div className="flex flex-nowrap w-full justify-evenly">
-                    <div>Product Name:{product.name}</div>
-                    {/* <div>Product Price:{product.price}</div> */}
-                    <div>Quantity:{product.quantity}</div>
+                  <div
+                    key={product.name}
+                    className="flex flex-nowrap w-full justify-between items-center"
+                  >
+                    <div className="flex flex-nowrap justify-between w-5/6 items-center text-lg">
+                      <div>
+                        <span className="font-semibold">Product Name: </span>
+                        {product.name}
+                      </div>
+                      {/* <div>Product Price:{product.price}</div> */}
+                      <div>
+                        <span className="font-semibold">Quantity: </span>
+                        {product.quantity}
+                      </div>
+                    </div>
+                    <button
+                      data-key={product.name}
+                      onClick={(e) => {
+                        setProductData(
+                          productData.filter((product, ind) => {
+                            if (
+                              product.name != e.target.getAttribute("data-key")
+                            ) {
+                              return product;
+                            }
+                          })
+                        );
+                      }}
+                      className="text-red-500 text-xl font-thin py-1 px-3 rounded-full hover:bg-gray-200"
+                    >
+                      X
+                    </button>
                   </div>
                 );
               })}
@@ -336,8 +378,8 @@ const AddProducts = () => {
                     />
                     {value.length >= 3 && (
                       <motion.div
-                        className={`w-full drop-shadow-lg bg-white 
-                    transition-all opacity-0 peer-focus:opacity-100 duration-300
+                        className={`w-full drop-shadow-lg bg-white -z-10
+                    transition-all opacity-0 peer-focus:opacity-100 peer-focus:z-10 duration-300
                     `}
                       >
                         {filteredPeople.length ? (
@@ -363,15 +405,16 @@ const AddProducts = () => {
                     )}
                   </div>
 
-                  <div className="flex flex-nowrap items-center justify-evenly mb-2 mt-10">
-                    <h3 className="text-xl">Choose Quantity</h3>
+                  <div className="flex flex-nowrap items-center justify-center gap-x-2 my-2">
+                    <h3 className="text-xl">Choose Quantity : </h3>
                     <input
                       type="number"
                       name="qty"
                       min={1}
+                      max={999}
                       defaultValue="1"
                       id="productQty"
-                      className="text-lg outline outline-1 outline-gray-300 rounded-rounded h-fit w-14 pl-2"
+                      className="text-lg outline outline-1 text-center outline-gray-300 rounded-rounded h-fit w-14"
                     />
                   </div>
                 </form>
@@ -404,7 +447,12 @@ const AddProducts = () => {
   );
 };
 
-const Signature = () => {
+const TaxesNDiscounts = () => {
+  const [selected, setSelected] = useState("percent");
+
+  const TOGGLE_CLASSES =
+    "font-medium flex items-center gap-2 cursor-pointer px-3 md:pl-3 md:pr-3.5 text-lg py-3 md:py-1.5 transition-colors relative z-10";
+
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -412,9 +460,109 @@ const Signature = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 1 }}
-        className="w-full"
+        className="w-full relative"
       >
-        <h1>Signature</h1>
+        <form>
+          <div className="flex flex-col gap-y-3 w-2/3">
+            <p className="text-2xl font-semibold">Add Taxes</p>
+            <div className="flex flex-nowrap items-center gap-x-4">
+              <p className="text-xl w-1/5">IGST</p>
+              <span>:</span>
+              <div className="bg-white outline outline-1 outline-gray-300 rounded-rounded ">
+                <input
+                  defaultValue={"0.0"}
+                  min={0.0}
+                  type="number"
+                  className="text-lg text-center h-fit w-14 focus:outline-none outline-none"
+                />
+                <span className="pr-2 text-lg text-gray-400 pointer-events-none">
+                  %
+                </span>
+              </div>
+            </div>
+            <div className="flex flex-nowrap items-center gap-x-4">
+              <p className="text-xl w-1/5">CGST</p>
+              <span>:</span>
+              <div className="bg-white outline outline-1 outline-gray-300 rounded-rounded ">
+                <input
+                  defaultValue={"0.0"}
+                  min={0.0}
+                  type="number"
+                  className="text-lg text-center h-fit w-14 focus:outline-none outline-none"
+                />
+                <span className="pr-2 text-lg text-gray-400 pointer-events-none">
+                  %
+                </span>
+              </div>
+            </div>
+            <div className="flex flex-nowrap items-center gap-x-4">
+              <p className="text-xl w-1/5">SGST</p>
+              <span>:</span>
+              <div className="bg-white outline outline-1 outline-gray-300 rounded-rounded ">
+                <input
+                  defaultValue={"0.0"}
+                  min={0.0}
+                  type="number"
+                  className="text-lg text-center h-fit w-14 focus:outline-none outline-none"
+                />
+                <span className="pr-2 text-lg text-gray-400 pointer-events-none">
+                  %
+                </span>
+              </div>
+            </div>
+
+            <div className="w-2/3 mt-4 flex flex-col">
+              <p className="text-2xl font-semibold">Add Discounts</p>
+              <div className="mt-3 flex flex-nowrap justify-between">
+                <input
+                  type="number"
+                  name="discount"
+                  defaultValue={"0.0"}
+                  min={0.0}
+                  className="text-xl text-center h-fit w-20 outline py-2 outline-1 outline-gray-300 rounded-rounded"
+                />
+
+                <div className="relative flex w-fit items-center rounded-rounded">
+                  <p
+                    className={`${TOGGLE_CLASSES} ${
+                      selected === "percent" ? "text-white" : "text-slate-400"
+                    }`}
+                    onClick={() => {
+                      setSelected("percent");
+                    }}
+                  >
+                    <span className="relative z-10">%</span>
+                  </p>
+                  <p
+                    className={`${TOGGLE_CLASSES} ${
+                      selected === "rupee" ? "text-white" : "text-slate-800"
+                    }`}
+                    onClick={() => {
+                      setSelected("rupee");
+                    }}
+                  >
+                    <span className="relative z-10">&#x20B9;</span>
+                  </p>
+                  <div
+                    className={`absolute inset-0 z-0 flex ${
+                      selected === "rupee" ? "justify-end" : "justify-start"
+                    }`}
+                  >
+                    <motion.span
+                      layout
+                      transition={{
+                        type: "spring",
+                        damping: 15,
+                        stiffness: 250,
+                      }}
+                      className="h-full w-1/2 rounded-rounded bg-primary"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
       </motion.div>
     </AnimatePresence>
   );

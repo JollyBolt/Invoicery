@@ -148,15 +148,15 @@ const AddCustomer = () => {
     return customer.name.toLowerCase().includes(value.toLowerCase());
   });
 
-  const [vis, setVis] = useState(false);
+  // const [vis, setVis] = useState(false);
 
-  useEffect(() => {
-    if (value.length >= 3) {
-      setVis(true);
-    } else {
-      setVis(false);
-    }
-  }, [value]);
+  // useEffect(() => {
+  //   if (value.length >= 3) {
+  //     setVis(true);
+  //   } else {
+  //     setVis(false);
+  //   }
+  // }, [value]);
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -171,32 +171,33 @@ const AddCustomer = () => {
         <div className="overflow-visible h-[200px] flex flex-col gap-y-4 w-full mt-2">
           <input
             type="text"
-            onFocus={() => {
-              if (value.length >= 3) {
-                setVis(true);
-              }
-            }}
-            onBlur={() => setVis(false)}
-            className="focus:outline-black bg-transparent px-2 py-1 text-lg w-full outline outline-gray-300 transition-colors duration-500 outline-1 rounded-rounded"
+            // onFocus={() => {
+            //   if (value.length >= 3) {
+            //     setVis(true);
+            //   }
+            // }}
+            // onBlur={() => setVis(false)}
+            className="focus:outline-black bg-transparent px-2 py-1 text-lg w-full outline outline-gray-300 transition-colors duration-500 outline-1 rounded-rounded peer"
             placeholder="Type at least 3 characters"
             value={value}
             onChange={(e) => {
               setValue(e.target.value);
             }}
           />
-          {vis && (
+          {value.length >= 3 && (
             <motion.div
-              className={`w-full transition-all duration-200 drop-shadow-lg bg-white 
-            ${vis ? "opacity-100 translate-y-0" : " opacity-0 translate-y-10"}
+              className={`w-full transition-all opacity-0 peer-focus:opacity-100 duration-300 drop-shadow-lg bg-white
             `}
             >
               {filteredPeople.length ? (
                 filteredPeople.map((person, ind) => {
                   return (
                     <h2
-                      onClick={() => setValue(person.name)}
+                      onClick={() => {
+                        setValue(person.name);
+                      }}
                       key={ind}
-                      className="text-lg pl-2 py-1 hover:bg-gray-200 hover:cursor-pointer"
+                      className="text-lg pl-2 py-1 w-full text-left hover:bg-gray-200 hover:cursor-pointer"
                     >
                       {person.name}
                     </h2>
@@ -230,15 +231,37 @@ const AddProducts = () => {
     return customer.name.toLowerCase().includes(value.toLowerCase());
   });
 
-  const [vis, setVis] = useState(false);
-  useEffect(() => {
-    if (value.length >= 3) {
-      setVis(true);
-    } else {
-      setVis(false);
-    }
-  }, [value]);
+  // const [vis, setVis] = useState(false);
 
+  // useEffect(() => {
+  //   if (value.length >= 3) {
+  //     setVis(true);
+  //   } else {
+  //     setVis(false);
+  //   }
+  // }, [value]);
+
+  const [productData, setProductData] = useState([]);
+
+  const [productForm, setProductForm] = useState({
+    name: "",
+    price: "",
+    quantity: "",
+  });
+
+  const handleSubmit = () => {
+    setProductForm({
+      name: value,
+      // price: "",
+      quantity: document.getElementById("productQty").value,
+    });
+    setProductData(productData + [productForm]);
+    setProductForm({
+      name: "",
+      // price: "",
+      quantity: "",
+    });
+  };
   return (
     <>
       <AnimatePresence mode="wait">
@@ -256,8 +279,23 @@ const AddProducts = () => {
           >
             <span className="text-lg font-semibold">+</span> Add Products
           </button>
+
+          <div className="flex flex-col overflow-y-scroll h-[50vh]">
+            {productData &&
+              productData.map((product, ind) => {
+                return (
+                  <div className="flex flex-nowrap w-full justify-evenly">
+                    <div>Product Name:{product.name}</div>
+                    {/* <div>Product Price:{product.price}</div> */}
+                    <div>Quantity:{product.quantity}</div>
+                  </div>
+                );
+              })}
+          </div>
         </motion.div>
       </AnimatePresence>
+
+      {/* Modal Starts */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -265,74 +303,82 @@ const AddProducts = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             // onClick={() => setIsOpen(false)}
-            className="bg-slate-900/20 backdrop-blur p-8 fixed inset-0 z-50 grid place-items-center  overflow-y-scroll "
+            className="bg-slate-900/20 backdrop-blur p-8 fixed inset-0 z-20 grid place-items-center  overflow-y-scroll "
           >
             <motion.div
               initial={{ scale: 0, rotate: "12.5deg" }}
               animate={{ scale: 1, rotate: "0deg" }}
               exit={{ scale: 0, rotate: "0deg" }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-gradient-to-br bg-white p-6 rounded-lg w-full max-w-lg shadow-xl cursor-default relative overflow-hidden"
+              className=" bg-white p-6 rounded-lg w-full max-w-md shadow-xl cursor-default relative overflow-hidden"
             >
               <div className="relative z-10">
                 <h3 className="text-2xl font-bold mb-2">Choose Product</h3>
 
-                {/* Form Starts */}
-                <div className="overflow-visible flex flex-col gap-y-4 w-full mt-2">
-                  <input
-                    type="text"
-                    onFocus={() => {
-                      if (value.length >= 3) {
-                        setVis(true);
-                      }
-                    }}
-                    onBlur={() => setVis(false)}
-                    className="focus:outline-black bg-transparent px-2 py-1 text-lg w-full outline outline-gray-300 transition-colors duration-500 outline-1 rounded-rounded"
-                    placeholder="Type at least 3 characters"
-                    value={value}
-                    onChange={(e) => {
-                      setValue(e.target.value);
-                    }}
-                  />
-                  {vis && (
-                    <motion.div
-                      className={`w-full transition-all duration-200 drop-shadow-lg bg-white 
-            ${vis ? "opacity-100 translate-y-0" : " opacity-0 translate-y-10"}
-            `}
-                    >
-                      {filteredPeople.length ? (
-                        filteredPeople.map((person, ind) => {
-                          return (
-                            <h2
-                              onClick={() => setValue(person.name)}
-                              key={ind}
-                              className="text-lg pl-2 py-1 hover:bg-gray-200 hover:cursor-pointer"
-                            >
-                              {person.name}
-                            </h2>
-                          );
-                        })
-                      ) : (
-                        <h2 className="text-lg pl-2 py-1">No Matches Found.</h2>
-                      )}
-                    </motion.div>
-                  )}
-                </div>
+                {/* Modal Form Starts */}
 
-                <div className="flex flex-nowrap items-center justify-evenly mb-2 mt-10">
-                  <h3 className="text-xl">Choose Quantity</h3>
-                  <input
-                    type="number"
-                    name="qty"
-                    min={1}
-                    defaultValue="1"
-                    className="text-lg outline outline-1 outline-gray-300 rounded-rounded h-fit w-10 pl-2"
-                  />
-                </div>
+                <form>
+                  <div className="overflow-visible h-[50px] flex flex-col gap-y-2 w-full mt-2">
+                    <input
+                      type="text"
+                      // onFocus={() => {
+                      //   if (value.length >= 3) {
+                      //     setVis(true);
+                      //   }
+                      // }}
+                      // onBlur={() => setVis(false)}
+                      className="focus:outline-black bg-transparent peer px-2 py-1 text-lg w-full outline outline-gray-300 transition-colors duration-500 outline-1 rounded-rounded"
+                      placeholder="Type at least 3 characters"
+                      value={value}
+                      onChange={(e) => {
+                        setValue(e.target.value);
+                      }}
+                    />
+                    {value.length >= 3 && (
+                      <motion.div
+                        className={`w-full drop-shadow-lg bg-white 
+                    transition-all opacity-0 peer-focus:opacity-100 duration-300
+                    `}
+                      >
+                        {filteredPeople.length ? (
+                          filteredPeople.map((person, ind) => {
+                            return (
+                              <h2
+                                onClick={() => {
+                                  setValue(person.name);
+                                }}
+                                key={ind}
+                                className="text-lg pl-2 py-1 hover:bg-gray-200 hover:cursor-pointer"
+                              >
+                                {person.name}
+                              </h2>
+                            );
+                          })
+                        ) : (
+                          <h2 className="text-lg pl-2 py-1">
+                            No Matches Found.
+                          </h2>
+                        )}
+                      </motion.div>
+                    )}
+                  </div>
 
-                {/* Form Ends */}
+                  <div className="flex flex-nowrap items-center justify-evenly mb-2 mt-10">
+                    <h3 className="text-xl">Choose Quantity</h3>
+                    <input
+                      type="number"
+                      name="qty"
+                      min={1}
+                      defaultValue="1"
+                      id="productQty"
+                      className="text-lg outline outline-1 outline-gray-300 rounded-rounded h-fit w-14 pl-2"
+                    />
+                  </div>
+                </form>
 
-                <div className="flex gap-2 justify-end">
+                {/* Modal Form Ends */}
+
+                <div className="flex gap-2 justify-end mt-7">
                   <button
                     onClick={() => setIsOpen(false)}
                     className="bg-transparent hover:bg-gray-200 transition-colors font-semibold w-1/5 py-2 rounded-rounded"
@@ -340,7 +386,10 @@ const AddProducts = () => {
                     Cancel
                   </button>
                   <button
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => {
+                      handleSubmit();
+                      setIsOpen(false);
+                    }}
                     className="bg-primary hover:opacity-90 transition-opacity text-white font-semibold hover:bg-primaryLight py-2 rounded-rounded w-1/4"
                   >
                     Add Product

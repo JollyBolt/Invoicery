@@ -208,7 +208,6 @@ export default function CreateCustomer() {
           <div className="w-full flex gap-x-2 justify-end mt-2 mb-3">
             <form className="dialog">
               <button
-                type="btn"
                 className="btn bg-transparent w-fit h-fit text-md shadow-none rounded-rounded border-none text-black hover:border-none hover:bg-slate-300"
               >
                 Cancel

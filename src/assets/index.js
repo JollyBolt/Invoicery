@@ -32,6 +32,10 @@ import { BsThreeDotsVertical } from "react-icons/bs"
 //Tick Icon
 import { FaCheck } from "react-icons/fa6";
 
+
+//Up Down Arrows
+import { RiExpandUpDownLine } from "react-icons/ri";
+
 export {
   MdDashboard,
   BsBoxSeamFill,
@@ -47,4 +51,5 @@ export {
   HiMenuAlt2,
   BsThreeDotsVertical,
   FaCheck,
+  RiExpandUpDownLine,
 };

@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { motion, useAnimate, AnimatePresence } from "framer-motion";
-import { FaCheck } from "../../assets/index";
-import { FiMoon, FiSun } from "react-icons/fi";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-function MultiStepForm() {
-  const [step, setStep] = useState(1);
+
+function MultiStepForm({step,setStep}) {
+  // const [step, setStep] = useState(1);
 
   const formSwitch = () => {
     switch (step) {
@@ -19,9 +18,9 @@ function MultiStepForm() {
     }
   };
   return (
-    <div className="w-full mt-5">
-      <Stepper step={step} />
-      <div className="h-[60vh]">{formSwitch()}</div>
+    <div className="w-full h-full">
+      {/* <Stepper step={step} /> */}
+      <div className=" mb-10 ">{formSwitch()}</div>
 
       <div className="flex w-full justify-between">
         <button
@@ -30,7 +29,7 @@ function MultiStepForm() {
               setStep(step - 1);
             }
           }}
-          className="text-black hover:bg-gray-300  text-xl py-1 px-3"
+          className="text-black hover:bg-gray-300 duration-150 transition-colors rounded-rounded  text-xl py-1 px-3"
         >
           Go Back
         </button>
@@ -51,90 +50,7 @@ function MultiStepForm() {
 
 export default MultiStepForm;
 
-function Stepper({ step }) {
-  const [scope, animate] = useAnimate();
-  const initialAnimate = async () => {
-    await animate(scope.current, { scaleX: 0 });
-    await animate(scope.current, { backgroundColor: "var(--primary)" });
-  };
-  useEffect(() => {
-    if (step === 1) {
-      animate(scope.current, { scaleX: 0 }, { duration: 0.3 });
-    } else if (step === 2) {
-      animate(scope.current, { scaleX: 0.34 }, { duration: 0.3 });
-    } else if (step === 3) {
-      animate(scope.current, { scaleX: 0.67 }, { duration: 0.3 });
-    } else if (step === 4) {
-      animate(scope.current, { scaleX: 1 }, { duration: 0.3 });
-    }
-  }, [step]);
 
-  useEffect(() => {
-    initialAnimate();
-  }, []);
-
-  return (
-    <div className="w-full pointer-events-none py-2 flex justify-center items-center mb-14">
-      <div className="relative flex w-full justify-between items-center">
-        {/* Horizontal Progress Bar */}
-        <div className="absolute  overflow-visible left-0 bg-gray-200 h-1 w-full">
-          <motion.div
-            ref={scope}
-            className=" origin-left bg-transparent h-full w-full"
-          ></motion.div>
-        </div>
-        <div className="flex flex-col items-center gap-y-2">
-          <div
-            className={`rounded-full ${
-              step >= 1 ? "bg-primary" : "bg-gray-200"
-            } text-white z-10 w-10 h-10 flex justify-center items-center`}
-          >
-            {step > 1 ? <FaCheck /> : 1}
-          </div>
-          <p className="absolute top-12 text-xs text-center">Add Customers</p>
-        </div>
-
-        <div className="flex flex-col gap-y-2 items-center">
-          <div
-            className={`rounded-full transition-colors duration-300 ${
-              step >= 2 ? "bg-primary text-white" : "bg-gray-200 text-black"
-            } z-10 w-10 h-10 flex justify-center items-center`}
-          >
-            {step > 2 ? <FaCheck /> : 2}
-          </div>
-          <p className="absolute top-12 text-xs text-center">
-            Add
-            <br /> Products
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-y-2 items-center">
-          <div
-            className={`rounded-full transition-colors duration-300 ${
-              step >= 3 ? "bg-primary text-white" : "bg-gray-200 text-black"
-            } z-10 w-10 h-10 flex justify-center items-center`}
-          >
-            {step > 3 ? <FaCheck /> : 3}
-          </div>
-          <p className="absolute top-12 text-xs text-center">
-            Taxes & Discounts
-          </p>
-        </div>
-
-        <div className="flex flex-col items-center gap-y-2">
-          <div
-            className={`rounded-full transition-colors duration-300 ${
-              step >= 4 ? "bg-primary text-white" : "bg-gray-200 text-black"
-            } z-10 w-10 h-10 flex justify-center items-center`}
-          >
-            4
-          </div>
-          <p className="absolute top-12 text-xs">Finish</p>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 const AddCustomer = () => {
   const people = [
@@ -289,50 +205,61 @@ const AddProducts = () => {
           <button
             onClick={() => setIsOpen(true)}
             type="button"
-            className="outline outline-1 outline-primary text-primary hover:bg-primary hover:text-white p-1 rounded-rounded text-md"
+            className="outline outline-1 outline-primary text-primary hover:bg-primary hover:text-white p-1 rounded-rounded text-md float-right mb-4"
           >
             <span className="text-lg font-semibold">+</span> Add Products
           </button>
 
-          <div className="flex flex-col overflow-y-scroll h-[50vh] mt-2">
-            {productData &&
-              productData.map((product, ind) => {
-                return (
-                  <div
-                    key={product.name}
-                    className="flex flex-nowrap w-full justify-between items-center"
-                  >
-                    <div className="flex flex-nowrap justify-between w-5/6 items-center text-lg">
-                      <div>
-                        <span className="font-semibold">Product Name: </span>
+          <div className="grid grid-cols-8 gap-0 overflow-y-scroll auto-rows-max  mt-4 w-full">
+            {productData.length !== 0 && (
+              <>
+                <div className="col-span-1  font-semibold p-2 border-black border">
+                  S No.
+                </div>
+                <div className="col-span-3  font-semibold border-black p-2 border-y border-r">
+                  Product Name
+                </div>
+                <div className="col-span-2 p-2 border-r border-y border-black font-semibold">
+                  Quantity
+                </div>
+                <div className="col-span-2 self-center p-2 border-y border-r font-semibold border-black">Actions</div>
+                {productData.map((product, ind) => {
+                  return (
+                    <>
+                      <div className="col-span-1 self-center p-2 border-x border-b border-black">
+                        {ind + 1}
+                      </div>
+                      <div className="col-span-3 self-center p-2 border-r border-b border-black">
                         {product.name}
                       </div>
-                      {/* <div>Product Price:{product.price}</div> */}
-                      <div>
-                        <span className="font-semibold">Quantity: </span>
+                      <div className="col-span-2 self-center p-2 border-r border-b border-black">
                         {product.quantity}
                       </div>
-                    </div>
-                    <button
-                      data-key={product.name}
-                      onClick={(e) => {
-                        setProductData(
-                          productData.filter((product, ind) => {
-                            if (
-                              product.name != e.target.getAttribute("data-key")
-                            ) {
-                              return product;
-                            }
-                          })
-                        );
-                      }}
-                      className="text-red-500 text-xl font-thin py-1 px-3 rounded-full hover:bg-gray-200"
-                    >
-                      X
-                    </button>
-                  </div>
-                );
-              })}
+                      <div className="col-span-2 self-center border-b border-r border-black p-2">
+                        <button
+                          data-key={product.name}
+                          onClick={(e) => {
+                            setProductData(
+                              productData.filter((product, ind) => {
+                                if (
+                                  product.name !=
+                                  e.target.getAttribute("data-key")
+                                ) {
+                                  return product;
+                                }
+                              })
+                            );
+                          }}
+                          className="text-red-500 text-sm hover:underline hover:underline-offset-2 rounded-rounded  h-full "
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </>
+                  );
+                })}
+              </>
+            )}
           </div>
         </motion.div>
       </AnimatePresence>
@@ -432,6 +359,7 @@ const AddProducts = () => {
                     onClick={() => {
                       handleSubmit();
                       setIsOpen(false);
+                      setValue("");
                     }}
                     className="bg-primary hover:opacity-90 transition-opacity text-white font-semibold hover:bg-primaryLight py-2 rounded-rounded w-1/4"
                   >
@@ -576,9 +504,13 @@ const Finish = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 1 }}
-        className="w-full"
+        className="w-full overflow-y-scroll "
       >
-        <h1>Finish</h1>
+        <div className="w-full">
+          <h1 className="text-2xl font-semibold">
+            Review the Invoice Information.
+          </h1>
+        </div>
       </motion.div>
     </AnimatePresence>
   );

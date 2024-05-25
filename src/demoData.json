@@ -53,5 +53,27 @@
             "zip":"110010",
             "stateCode":"07"
         }
+    ],
+    "products":[
+        {
+            "name":"hammer",
+            "HSN_Code":9953,
+            "price":7543
+        },
+        {
+            "name":"nail",
+            "HSN_Code":9953,
+            "price":43
+        },
+        {
+            "name":"bump cutter",
+            "HSN_Code":9953,
+            "price":75439
+        },
+        {
+            "name":"disk",
+            "HSN_Code":9953,
+            "price":754
+        }
     ]
 }

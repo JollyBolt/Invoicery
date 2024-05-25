@@ -33,11 +33,14 @@ import { HiMenuAlt2 } from "react-icons/hi";
 //Action Icon
 import { BsThreeDotsVertical } from "react-icons/bs"
 
+//Dashboard
+import { FaRupeeSign } from "react-icons/fa";
+import { FaFileInvoice } from "react-icons/fa";
+
 //Chart Icons
 import { FaAngleLeft } from "react-icons/fa";
 import { FaAngleRight } from "react-icons/fa";
 
-import { FaRupeeSign } from "react-icons/fa";
 
 import { SlSocialDropbox } from "react-icons/sl";
 
@@ -60,5 +63,6 @@ export {
   AddCustomer,
   FaAngleLeft,
   FaAngleRight,
-  FaRupeeSign
+  FaRupeeSign,
+  FaFileInvoice
 };

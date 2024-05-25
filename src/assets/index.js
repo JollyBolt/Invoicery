@@ -48,7 +48,6 @@ import { FaCheck } from "react-icons/fa6";
 import { FaAngleLeft } from "react-icons/fa";
 import { FaAngleRight } from "react-icons/fa";
 
-import { FaRupeeSign } from "react-icons/fa";
 
 //Up Down Arrows
 import { RiExpandUpDownLine } from "react-icons/ri";
@@ -79,5 +78,6 @@ export {
   AddCustomer,
   FaAngleLeft,
   FaAngleRight,
-  FaRupeeSign
+  FaRupeeSign,
+  FaFileInvoice
 };

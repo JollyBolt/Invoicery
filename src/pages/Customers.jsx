@@ -64,10 +64,9 @@ const Customers = () => {
       <CreateCustomer />
       <Heading name="Customers" />
       <div
-        className={`bg-foreground min-h-full p-5 rounded-rounded mt-5 ${
-          data.customers &&
+        className={`bg-foreground min-h-full p-5 rounded-rounded mt-5 ${data.customers &&
           "flex flex-col flex-nowrap justify-center items-center "
-        }`}
+          }`}
       >
 
         {/* {createOpen && (
@@ -141,8 +140,8 @@ const Customers = () => {
                 <div className="w-1/12 font-semibold">&nbsp;</div>
               </div>
               <div className="w-full border-t  border-slate-300">
-                {search
-                  ? data.customers
+                {
+                  data.customers
                     .filter((customer) => {
                       return customer.name
                         .toLowerCase()
@@ -166,25 +165,7 @@ const Customers = () => {
                         />
                       );
                     })
-                  : data.customers
-                    .slice(indexOfFirstRecord, indexOfLastRecord)
-                    .map((customer, i) => {
-                      return (
-                        <SingleCustomer
-                          key={i}
-                          name={customer.name}
-                          email={customer.email}
-                          no_of_invoices={customer.no_of_invoices}
-                          gstin={customer.gstin}
-                          address={customer.address}
-                          state={customer.state}
-                          zip={customer.zip}
-                          contact={customer.contact}
-                          city={customer.city}
-                          currentPage={currentPage}
-                        />
-                      );
-                    })}
+                }
               </div>
             </div>
             <div className="w-full flex border-x   border-b py-2 rounded-b-rounded border-slate-300 justify-end">

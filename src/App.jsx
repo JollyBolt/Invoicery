@@ -5,6 +5,7 @@ import Customers from './pages/Customers';
 import Products from './pages/Products';
 import Invoice from './pages/Invoice';
 import Profile from './pages/Profile';
+import CreateInvoice from "./components/Invoice/CreateInvoice";
 
 
 function App() {
@@ -15,7 +16,11 @@ function App() {
           <Route path="/" element={ <Dashboard /> }/>
           <Route path="/customers" element={ <Customers /> }/>
           <Route path="/products" element={ <Products /> }/>
-          <Route path="/invoice" element={ <Invoice /> }/>
+          <Route path="/invoice" element={ <Invoice /> }>
+            <Route path="/invoice/createInvoice" element={ <CreateInvoice /> }/>
+            {/* <Route path="/invoice/editInvoice" element={ <Invoice /> }/>
+            <Route path="/invoice/viewInvoice" element={ <Invoice /> }/> */}
+          </Route>
           <Route path="/profile" element={ <Profile /> }/>
         </Route>
       </Routes>

@@ -1,79 +1,360 @@
 {
     "name": "John Doe",
     "email": "johndoe@gmail.com",
-    "customers":[
+    "customers": [
         {
             "name": "David Brown",
             "email": "davidbrown@gmail.com",
             "organization": "Swiggy",
             "no_of_invoices": "5",
-            "gstin":"22AAAAA0000A1Z5",
-            "address":"F-1,b-4, Mukarramjahi Road",
-            "city":"Hyderabad",
-            "state":"Andhra Pradesh",
-            "contact":"8508908381",
-            "zip":"110024",
-            "stateCode":"07"
+            "gstin": "22AAAAA0000A1Z5",
+            "address": "F-1,b-4, Mukarramjahi Road",
+            "city": "Hyderabad",
+            "state": "Andhra Pradesh",
+            "contact": "8508908381",
+            "zip": "110024",
+            "stateCode": "07"
         },
         {
             "name": "Sofia Ching",
             "email": "sofiaching@gmail.com",
             "organization": "Uber",
             "no_of_invoices": "0",
-            "gstin":"22AAAAA0000A1Z5",
-            "address":"1282, Bada Bazar, Kashmere Gate",
-            "city":"New Delhi",
-            "state":"New Delhi",
-            "contact":"7050808381",
-            "zip":"110005",
-            "stateCode":"07"
+            "gstin": "22AAAAA0000A1Z5",
+            "address": "1282, Bada Bazar, Kashmere Gate",
+            "city": "New Delhi",
+            "state": "New Delhi",
+            "contact": "7050808381",
+            "zip": "110005",
+            "stateCode": "07"
         },
         {
             "name": "Kevin Smith",
             "email": "kevsmith@gmail.com",
             "organization": "Samson Technologies",
             "no_of_invoices": "1",
-            "gstin":"22AAAAA0000A1Z5",
-            "address":"Shop No 8, Mohan Bhagwati Complex, Main Najafgarh Road",
-            "city":"New Delhi",
-            "state":"New Delhi",
-            "contact":"99208508i1",
-            "zip":"110013",
-            "stateCode":"07"
-        },{
+            "gstin": "22AAAAA0000A1Z5",
+            "address": "Shop No 8, Mohan Bhagwati Complex, Main Najafgarh Road",
+            "city": "New Delhi",
+            "state": "New Delhi",
+            "contact": "99208508i1",
+            "zip": "110013",
+            "stateCode": "07"
+        },
+        {
             "name": "Jane Dove",
             "email": "janedove@gmail.com",
             "organization": "FedEx",
             "no_of_invoices": "2",
-            "gstin":"22AAAAA0000A1Z5",
-            "address":"Shop No 8, Surang Shopping Centre, Near Silver Plaza, Station Road, Santacruz(w)",
-            "city":"Mumbai",
-            "state":"Maharashtra",
-            "contact":"8808508381",
-            "zip":"110010",
-            "stateCode":"07"
+            "gstin": "22AAAAA0000A1Z5",
+            "address": "Shop No 8, Surang Shopping Centre, Near Silver Plaza, Station Road, Santacruz(w)",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "contact": "8808508381",
+            "zip": "110010",
+            "stateCode": "07"
         }
     ],
-    "products":[
+    "products": [
         {
-            "name":"hammer",
-            "HSN_Code":9953,
-            "price":7543
+            "id": 1,
+            "name": "Artichoke - Hearts, Canned",
+            "hsn_code": 9954,
+            "price": "8878.68"
         },
         {
-            "name":"nail",
-            "HSN_Code":9953,
-            "price":43
+            "id": 2,
+            "name": "Coffee - Irish Cream",
+            "hsn_code": 9954,
+            "price": "4459.24"
         },
         {
-            "name":"bump cutter",
-            "HSN_Code":9953,
-            "price":75439
+            "id": 3,
+            "name": "Juice - Apple, 1.36l",
+            "hsn_code": 9954,
+            "price": "9877.74"
         },
         {
-            "name":"disk",
-            "HSN_Code":9953,
-            "price":754
+            "id": 4,
+            "name": "Trout Rainbow Whole",
+            "hsn_code": 9954,
+            "price": "4604.20"
+        },
+        {
+            "id": 5,
+            "name": "Food Colouring - Red",
+            "hsn_code": 9954,
+            "price": "1045.35"
+        },
+        {
+            "id": 6,
+            "name": "Glass Clear 8 Oz",
+            "hsn_code": 9954,
+            "price": "8151.19"
+        },
+        {
+            "id": 7,
+            "name": "Mushroom - Portebello",
+            "hsn_code": 9954,
+            "price": "4387.30"
+        },
+        {
+            "id": 8,
+            "name": "Salmon Steak - Cohoe 6 Oz",
+            "hsn_code": 9954,
+            "price": "276.08"
+        },
+        {
+            "id": 9,
+            "name": "Langers - Mango Nectar",
+            "hsn_code": 9954,
+            "price": "3032.22"
+        },
+        {
+            "id": 10,
+            "name": "Sole - Iqf",
+            "hsn_code": 9954,
+            "price": "7970.69"
+        },
+        {
+            "id": 11,
+            "name": "Bread - White, Unsliced",
+            "hsn_code": 9954,
+            "price": "3981.35"
+        },
+        {
+            "id": 12,
+            "name": "Bread - Corn Muffaleta Onion",
+            "hsn_code": 9954,
+            "price": "5086.84"
+        },
+        {
+            "id": 13,
+            "name": "Wine - Placido Pinot Grigo",
+            "hsn_code": 9954,
+            "price": "2289.88"
+        },
+        {
+            "id": 14,
+            "name": "Lobster - Live",
+            "hsn_code": 9954,
+            "price": "840.00"
+        },
+        {
+            "id": 15,
+            "name": "Lady Fingers",
+            "hsn_code": 9954,
+            "price": "4285.20"
+        },
+        {
+            "id": 16,
+            "name": "Jameson - Irish Whiskey",
+            "hsn_code": 9954,
+            "price": "6105.29"
+        },
+        {
+            "id": 17,
+            "name": "Chinese Foods - Cantonese",
+            "hsn_code": 9954,
+            "price": "2038.58"
+        },
+        {
+            "id": 18,
+            "name": "Glaze - Clear",
+            "hsn_code": 9954,
+            "price": "5612.55"
+        },
+        {
+            "id": 19,
+            "name": "Wine - Baron De Rothschild",
+            "hsn_code": 9954,
+            "price": "2532.81"
+        },
+        {
+            "id": 20,
+            "name": "Country Roll",
+            "hsn_code": 9954,
+            "price": "1210.83"
+        },
+        {
+            "id": 21,
+            "name": "Bread - Corn Muffaletta",
+            "hsn_code": 9954,
+            "price": "8275.22"
+        },
+        {
+            "id": 22,
+            "name": "Lettuce - Escarole",
+            "hsn_code": 9954,
+            "price": "9573.09"
+        },
+        {
+            "id": 23,
+            "name": "Soup - Campbells Beef Noodle",
+            "hsn_code": 9954,
+            "price": "5364.48"
+        },
+        {
+            "id": 24,
+            "name": "Potatoes - Fingerling 4 Oz",
+            "hsn_code": 9954,
+            "price": "5756.48"
+        },
+        {
+            "id": 25,
+            "name": "Chilli Paste, Ginger Garlic",
+            "hsn_code": 9954,
+            "price": "7063.42"
+        },
+        {
+            "id": 26,
+            "name": "Cake - Pancake",
+            "hsn_code": 9954,
+            "price": "6392.24"
+        },
+        {
+            "id": 27,
+            "name": "Liners - Baking Cups",
+            "hsn_code": 9954,
+            "price": "4778.04"
+        },
+        {
+            "id": 28,
+            "name": "Bread Base - Goodhearth",
+            "hsn_code": 9954,
+            "price": "7359.54"
+        },
+        {
+            "id": 29,
+            "name": "Flavouring Vanilla Artificial",
+            "hsn_code": 9954,
+            "price": "9227.39"
+        },
+        {
+            "id": 30,
+            "name": "Dragon Fruit",
+            "hsn_code": 9954,
+            "price": "6468.75"
+        },
+        {
+            "id": 31,
+            "name": "Cheese - Marble",
+            "hsn_code": 9954,
+            "price": "8148.29"
+        },
+        {
+            "id": 32,
+            "name": "Lobster - Baby, Boiled",
+            "hsn_code": 9954,
+            "price": "2657.28"
+        },
+        {
+            "id": 33,
+            "name": "Wine - Sake",
+            "hsn_code": 9954,
+            "price": "5111.27"
+        },
+        {
+            "id": 34,
+            "name": "Bandage - Flexible Neon",
+            "hsn_code": 9954,
+            "price": "9246.98"
+        },
+        {
+            "id": 35,
+            "name": "Boogies",
+            "hsn_code": 9954,
+            "price": "7247.58"
+        },
+        {
+            "id": 36,
+            "name": "Wine - Chateau Bonnet",
+            "hsn_code": 9954,
+            "price": "2093.91"
+        },
+        {
+            "id": 37,
+            "name": "Hot Choc Vending",
+            "hsn_code": 9954,
+            "price": "848.84"
+        },
+        {
+            "id": 38,
+            "name": "Fork - Plastic",
+            "hsn_code": 9954,
+            "price": "2325.46"
+        },
+        {
+            "id": 39,
+            "name": "Bread - Corn Muffaletta",
+            "hsn_code": 9954,
+            "price": "2222.96"
+        },
+        {
+            "id": 40,
+            "name": "Pasta - Fusili, Dry",
+            "hsn_code": 9954,
+            "price": "3479.39"
+        },
+        {
+            "id": 41,
+            "name": "Beef - Tenderloin Tails",
+            "hsn_code": 9954,
+            "price": "852.13"
+        },
+        {
+            "id": 42,
+            "name": "Sauce - Caesar Dressing",
+            "hsn_code": 9954,
+            "price": "1747.04"
+        },
+        {
+            "id": 43,
+            "name": "Remy Red Berry Infusion",
+            "hsn_code": 9954,
+            "price": "8072.52"
+        },
+        {
+            "id": 44,
+            "name": "Beef - Tongue, Fresh",
+            "hsn_code": 9954,
+            "price": "4009.87"
+        },
+        {
+            "id": 45,
+            "name": "Rabbit - Saddles",
+            "hsn_code": 9954,
+            "price": "7542.18"
+        },
+        {
+            "id": 46,
+            "name": "Beans - Turtle, Black, Dry",
+            "hsn_code": 9954,
+            "price": "559.15"
+        },
+        {
+            "id": 47,
+            "name": "Flour - Rye",
+            "hsn_code": 9954,
+            "price": "2048.98"
+        },
+        {
+            "id": 48,
+            "name": "Wine - Vovray Sec Domaine Huet",
+            "hsn_code": 9954,
+            "price": "5705.92"
+        },
+        {
+            "id": 49,
+            "name": "Cheese - Bocconcini",
+            "hsn_code": 9954,
+            "price": "3795.10"
+        },
+        {
+            "id": 50,
+            "name": "Chevril",
+            "hsn_code": 9954,
+            "price": "2237.75"
         }
     ]
 }

@@ -53,7 +53,7 @@ const LineChart = ({ currentYear }) => {
             {
                 label: 'Monthly Revenue',
                 data: monthlyRevenue,
-                backgroundColor: '#3700FF',
+                backgroundColor: '#3700FF90',
                 borderColor: '#2807a0',
                 // hoverBackgroundColor: '#3D0CF0',
                 pointStyle: 'circle',

@@ -12,19 +12,19 @@ import {
 } from "../assets/index";
 import data from "../demoData.json";
 import { useEffect, useState } from "react";
-import CreateCustomer from "../components/Customer/CreateCustomer";
 import ProductField from "../components/Products/ProductField";
 import AddProductModal from "../components/Products/AddProductModal";
 
 const Products = () => {
   //pagination funciton
   const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage] = useState(2);
+  const recordsPerPage = 10;
+
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
 
   const [nPages, setNPages] = useState(
-    Math.ceil(data.customers.length / recordsPerPage)
+    Math.ceil(data.products.length / recordsPerPage)
   );
 
   const goToNextPage = () => {
@@ -35,17 +35,33 @@ const Products = () => {
   };
   const [search, setSearch] = useState("");
 
-  //search pagination function
+  /**
+ * This effect hook is used to handle the pagination and search functionality for the products.
+ * It updates the current page and the number of pages based on the search query.
+ *
+ * @param {Object} props - The component's props.
+ * @param {Array} props.data.products - The array of products data.
+ * @param {number} props.recordsPerPage - The number of records to display per page.
+ * @param {Function} props.setCurrentPage - The function to set the current page.
+ * @param {Function} props.setNPages - The function to set the number of pages.
+ * @param {string} props.search - The search query.
+ * @param {Function} props.setSearch - The function to set the search query.
+ *
+ * @returns {void}
+ */
   useEffect(() => {
+    // Reset the current page to 1 when the search query changes
     setCurrentPage(1);
+
     if (search) {
+      // If there is a search query, calculate the number of pages based on the filtered products
       setNPages(
-        data.customers.filter((customer) => {
-          return customer.name.toLowerCase().includes(search.toLowerCase());
+        data.products.filter((product) => {
+          return product.name.toLowerCase().includes(search.toLowerCase());
         }).length
           ? Math.ceil(
-            data.customers.filter((customer) => {
-              return customer.name
+            data.products.filter((product) => {
+              return product.name
                 .toLowerCase()
                 .includes(search.toLowerCase());
             }).length / recordsPerPage
@@ -53,18 +69,17 @@ const Products = () => {
           : 1
       );
     } else {
-      setNPages(Math.ceil(data.customers.length / recordsPerPage));
+      // If there is no search query, calculate the number of pages based on all products
+      setNPages(Math.ceil(data.products.length / recordsPerPage));
     }
-  }, [search]);
+  }, [search]); // Dependency on the search query
 
   return (
     <div className="min-h-[calc(100dvh-40px)] flex flex-col w-full">
       <AddProductModal />
       <Heading name="Products" />
       <div
-        className={`bg-foreground min-h-full p-5 rounded-rounded mt-5 ${
-          data.products && "flex flex-col flex-nowrap justify-center items-center "
-        }`}
+        className={`bg-foreground min-h-[83dvh] p-5 rounded-rounded mt-5 ${data.products && "flex flex-col flex-nowrap  items-center "}`}
       >
         {data.products ? (
           <>
@@ -101,7 +116,7 @@ const Products = () => {
               </div>
 
               <div className="flex flex-nowrap items-center justify-between">
-                <div id="filterBox" className="bg-green-500"></div>
+                {/* <div id="filterBox" className="bg-green-500"></div> */}
                 <button
                   onClick={() =>
                     document.getElementById("my_modal_3").showModal()
@@ -109,7 +124,7 @@ const Products = () => {
                   type="button"
                   className="w-fit transition-colors p-2 px-4 bg-primary hover:bg-primaryLight rounded-rounded text-white flex items-center text-lg gap-2"
                 >
-                  <FaPlus  />
+                  <FaPlus />
                   <span>Add Product</span>
                 </button>
               </div>
@@ -126,8 +141,8 @@ const Products = () => {
               <div className="w-full border-t border-slate-300">
                 {
                   data.products
-                    .filter((customer) => {
-                      return customer.name
+                    .filter((product) => {
+                      return product.name
                         .toLowerCase()
                         .includes(search.toLowerCase());
                     })
@@ -136,9 +151,9 @@ const Products = () => {
                       return (
                         <ProductField
                           key={i}
-                          index={i}
+                          index={product.id}
                           name={product.name}
-                          hsncode={product.HSN_Code}
+                          hsncode={product.hsn_code}
                           price={product.price}
                           currentPage={currentPage}
                         />
@@ -152,20 +167,20 @@ const Products = () => {
                 <span className="text-lg">
                   {currentPage} of{" "}
                   {search
-                    ? data.customers.filter((customer) => {
-                      return customer.name
+                    ? data.products.filter((product) => {
+                      return product.name
                         .toLowerCase()
                         .includes(search.toLowerCase());
                     }).length
                       ? Math.ceil(
-                        data.customers.filter((customer) => {
-                          return customer.name
+                        data.products.filter((product) => {
+                          return product.name
                             .toLowerCase()
                             .includes(search.toLowerCase());
                         }).length / recordsPerPage
                       )
                       : 1
-                    : Math.ceil(data.customers.length / recordsPerPage)}
+                    : Math.ceil(data.products.length / recordsPerPage)}
                 </span>
                 <button type="btn" onClick={goToPrevPage} className="w-fit">
                   <MdOutlineKeyboardArrowLeft
@@ -185,7 +200,7 @@ const Products = () => {
         ) : (
           <div className="h-full flex flex-1 flex-col justify-evenly items-center">
             <h2 className="text-xl text-center ">
-              You don't have any customers. Click{" "}
+              You don't have any products. Click{" "}
               <span
                 onClick={() =>
                   document.getElementById("my_modal_3").showModal()
@@ -197,7 +212,7 @@ const Products = () => {
               >
                 here{" "}
               </span>
-              to add new customer.
+              to add new product.
             </h2>
             <div className="float-end">
               {/* <SlSocialDropbox className="text-gray-500 text-[13em]" /> */}

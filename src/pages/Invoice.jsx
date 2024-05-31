@@ -1,26 +1,17 @@
 import PageWrapper from "../hoc/PageWrapper";
 import Heading from "../components/Heading";
-import { Link, useLocation } from "react-router-dom";
-import CreateInvoice from "../components/Invoice/CreateInvoice";
+import { Outlet,useNavigate } from "react-router-dom";
 
 const Invoice = () => {
-  const location=useLocation()
+  const navigate=useNavigate()
   return (
     <div>
       <Heading name="Invoice" />
       <div className="text-sm breadcrumbs">
-        <ul>
-          <li>
-            <Link to={"/invoice"} className={`${location.pathname==='/invoice'?'text-primaryLight pointer-events-none no-underline':''}`}>
-              Invoices
-            </Link>
-          </li>
-          <li>
-            <Link to={"/invoice/createInvoice"} className={`${location.pathname==='/invoice/createInvoice'?'text-primaryLight pointer-events-none no-underline':''}`}>Create Invoice</Link>
-          </li>
-          {/* <li>Add Document</li> */}
-        </ul>
-        <CreateInvoice/>
+        <button onClick={()=>navigate('./createInvoice')}>
+          Create Invoice
+        </button>
+        <Outlet/>
       </div>
     </div>
   );

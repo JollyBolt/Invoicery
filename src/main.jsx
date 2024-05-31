@@ -5,6 +5,7 @@ import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { disableReactDevTools } from '@fvilers/disable-react-devtools';
 import { Provider } from 'react-redux'
+import store from './redux/store.js'
 
 if (process.env.NODE_ENV === 'production') {
   disableReactDevTools();

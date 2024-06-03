@@ -1,15 +1,17 @@
-import React from 'react'
+import React from "react";
 
-const Stats = ({title,number,icon}) => {
+const Stats = ({ title, number, icon }) => {
   return (
-    <div className='col-span-2 bg-white rounded-rounded p-5 py-8 flex flex-col  '>
-        <div className='text-base flex justify-between items-center'>
-         <p className=' font-light uppercase'>{title}</p>
-         <p className='text-primary text-2xl font-numbers '>{icon}</p>
-        </div>
-         <span className='flex h-full items-center text-6xl font-semibold text-primary font-numbers'>{number}</span>
-        </div>
-  )
-}
+    <div className="col-span-2 flex flex-col rounded-rounded bg-white p-5 py-8">
+      <div className="flex items-center justify-between text-base">
+        <p className="font-light uppercase">{title}</p>
+        <p className="font-numbers text-2xl text-primary">{icon}</p>
+      </div>
+      <span className="flex h-full items-center font-numbers text-6xl font-semibold text-primary">
+        {number}
+      </span>
+    </div>
+  );
+};
 
-export default Stats
+export default Stats;

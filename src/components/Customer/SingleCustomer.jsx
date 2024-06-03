@@ -25,34 +25,34 @@ function SingleCustomer({
       onClick={(e) => {
         setOpen(!open);
       }}
-      className={`transition-[height] hover:bg-gray-100 ease-out hover:cursor-pointer duration-500 ${
+      className={`transition-[height] duration-500 ease-out hover:cursor-pointer hover:bg-gray-100 ${
         open ? "h-48" : "h-14"
-      } overflow-hidden border-slate-400 border-b`}
+      } overflow-hidden border-b border-slate-400`}
     >
       <div
-        className={`w-full flex flex-nowrap items-center justify-between py-2 px-2 `}
+        className={`flex w-full flex-nowrap items-center justify-between px-2 py-2`}
       >
         <div className="w-4/12">
-          <h3 className="text-lg pl-10 inline  font-semibold ">{name}</h3>
+          <h3 className="inline pl-10 text-lg font-semibold">{name}</h3>
         </div>
-        <h4 className="text-md  w-4/12">{email}</h4>
-        <h4 className="text-md text-center w-2/12">{no_of_invoices}</h4>
+        <h4 className="text-md w-4/12">{email}</h4>
+        <h4 className="text-md w-2/12 text-center">{no_of_invoices}</h4>
         <button
           type="btn"
-          className={`h-fit p-2  w-1/12 `}
+          className={`h-fit w-1/12 p-2`}
           onClick={() => {
             setOpen(!open);
           }}
         >
           <BsThreeDotsVertical
-            className={`text-xl text-right transition-all duration-300 ${
+            className={`text-right text-xl transition-all duration-300 ${
               open && "rotate-180"
             }`}
           />
         </button>
       </div>
 
-      <div className="w-full mx-auto flex flex-wrap justify-evenly">
+      <div className="mx-auto flex w-full flex-wrap justify-evenly">
         <div className="w-1/3 pl-5">
           <span className="font-semibold">GSTIN: </span>
           <span>{gstin}</span>
@@ -83,11 +83,11 @@ function SingleCustomer({
           <span>{zip}</span>
         </div>
       </div>
-      <div className="w-full flex justify-end flex-nowrap">
-        <div className="w-1/3 flex justify-end items-center pr-10">
+      <div className="flex w-full flex-nowrap justify-end">
+        <div className="flex w-1/3 items-center justify-end pr-10">
           <button
             type="button"
-            className=" outline-1 outline p-2 outline-secondary hover:text-white  hover:bg-secondary transition-colors text-secondary rounded-rounded"
+            className="rounded-rounded p-2 text-secondary outline outline-1 outline-secondary transition-colors hover:bg-secondary hover:text-white"
           >
             Create Invoice
           </button>

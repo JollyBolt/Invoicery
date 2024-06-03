@@ -1,11 +1,18 @@
-import React from 'react'
+import React from "react";
 
-function CustomerDetail({name,organization,email,zip,city,address,state,stateCode,gstin,contact}) {
-  return (
-    <div>
-      
-    </div>
-  )
+function CustomerDetail({
+  name,
+  organization,
+  email,
+  zip,
+  city,
+  address,
+  state,
+  stateCode,
+  gstin,
+  contact,
+}) {
+  return <div></div>;
 }
 
-export default CustomerDetail
+export default CustomerDetail;

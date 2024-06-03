@@ -6,8 +6,8 @@ import { BsPeopleFill } from "react-icons/bs";
 import { FaFileInvoiceDollar } from "react-icons/fa";
 
 //svg
-import NoData from "./svg/no_data.svg"
-import AddCustomer from "./svg/add_customer.svg"
+import NoData from "./svg/no_data.svg";
+import AddCustomer from "./svg/add_customer.svg";
 
 //Pagination Icons
 import {
@@ -31,7 +31,7 @@ import { FaFilter } from "react-icons/fa";
 import { HiMenuAlt2 } from "react-icons/hi";
 
 //Action Icon
-import { BsThreeDotsVertical } from "react-icons/bs"
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 //Dashboard
 import { FaRupeeSign } from "react-icons/fa";
@@ -43,7 +43,6 @@ import { FaAngleRight } from "react-icons/fa";
 
 //Tick Icon
 import { FaCheck } from "react-icons/fa6";
-
 
 //Up Down Arrows
 import { RiExpandUpDownLine } from "react-icons/ri";
@@ -72,6 +71,5 @@ export {
   FaRupeeSign,
   FaFileInvoice,
   RiExpandUpDownLine,
-SlSocialDropbox
-
+  SlSocialDropbox,
 };

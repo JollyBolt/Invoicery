@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+axios.defaults.withCredentials=true;
 
 const fetchAllCustomers = createAsyncThunk(
   "customers/fetchAllCustomers",

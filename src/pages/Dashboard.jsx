@@ -57,7 +57,7 @@ const Dashboard = () => {
 
       {loading ? (
         <Loader />
-      ) : loggedIn === false ? (
+      ) : loggedIn !== false ? (
         <Auth />
       ) : (
         <div className="grid grid-cols-8 gap-4 py-5">

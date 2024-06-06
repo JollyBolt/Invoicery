@@ -81,7 +81,7 @@ const Products = () => {
   //Checking if authtoken exists, i.e., logged in on refresh
   const { refreshAuth } = authSlice.actions;
   const dispatch = useDispatch();
-  const { loggedIn, loading } = useSelector((state) => state.auth);
+  const { loggedIn } = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(refreshAuth());
   }, []);
@@ -90,10 +90,10 @@ const Products = () => {
     <div className="flex min-h-[calc(100dvh-40px)] w-full flex-col">
       <AddProductModal />
       <Heading name="Products" />
-      {loading ? (
-        <Loader />
-      ) : loggedIn === false ? (
-        <Auth />
+      {loggedIn === false ? (
+        <>
+          <Auth />
+        </>
       ) : (
         <div
           className={`mt-5 min-h-[83dvh] rounded-rounded bg-foreground p-5 ${data.products && "flex flex-col flex-nowrap items-center"}`}

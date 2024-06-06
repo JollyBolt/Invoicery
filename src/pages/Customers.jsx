@@ -62,7 +62,7 @@ const Customers = () => {
   //Checking if authtoken exists, i.e., logged in on refresh
   const { refreshAuth } = authSlice.actions;
   const dispatch = useDispatch();
-  const { loggedIn, loading } = useSelector((state) => state.auth);
+  const { loggedIn } = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(refreshAuth());
   }, []);
@@ -72,10 +72,10 @@ const Customers = () => {
       <CreateCustomer />
       <Heading name="Customers" />
 
-      {loading ? (
-        <Loader />
-      ) : loggedIn === false ? (
-        <Auth />
+      {loggedIn === false ? (
+        <>
+          <Auth />
+        </>
       ) : (
         <div
           className={`mt-5 min-h-full rounded-rounded bg-foreground p-5 ${

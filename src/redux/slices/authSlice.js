@@ -5,16 +5,29 @@ axios.defaults.withCredentials = true;
 import getCookieValue from "../../utils/getCookieValue";
 
 const login = createAsyncThunk("auth/login", async (body) => {
-  const res = await axios.post(`http://localhost:4598/api/v1/auth/login`, body);
-  return res.data;
+  try {
+    const res = await axios.post(
+      `http://localhost:4598/api/v1/auth/login`,
+      body,
+    );
+    return res.data;
+  } catch (err) {
+    console.log(err);
+    return rejectWithValue(err);
+  }
 });
 
 const signup = createAsyncThunk("auth/signup", async (body) => {
-  const res = await axios.post(
-    `http://localhost:4598/api/v1/auth/signup`,
-    body,
-  );
-  return res.data;
+  try {
+    const res = await axios.post(
+      `http://localhost:4598/api/v1/auth/signup`,
+      body,
+    );
+    return res.data;
+  } catch (err) {
+    console.log(err);
+    return rejectWithValue(err);
+  }
 });
 
 const authSlice = createSlice({
@@ -40,6 +53,8 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(login.pending, (state) => {
       state.loading = true;
+      state.loggedIn = false;
+      state.error = "";
     });
     builder.addCase(login.fulfilled, (state, action) => {
       state.loading = false;

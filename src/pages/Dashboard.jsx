@@ -15,7 +15,6 @@ import Stats from "../components/Dashboard/Stats";
 
 import { useSelector, useDispatch } from "react-redux";
 import { authSlice } from "../redux/slices/authSlice";
-import Loader from "../components/Loader";
 import Auth from "../components/Auth";
 
 const Dashboard = () => {
@@ -46,7 +45,7 @@ const Dashboard = () => {
   //Checking if authtoken exists, i.e., logged in on refresh
   const { refreshAuth } = authSlice.actions;
   const dispatch = useDispatch();
-  const { loggedIn, loading } = useSelector((state) => state.auth.loggedIn);
+  const { loggedIn  } = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(refreshAuth());
   }, []);
@@ -55,10 +54,10 @@ const Dashboard = () => {
     <div>
       <Heading name="Dashboard" />
 
-      {loading ? (
-        <Loader />
-      ) : loggedIn !== false ? (
+      {loggedIn === false ? (
+        <>
         <Auth />
+        </>
       ) : (
         <div className="grid grid-cols-8 gap-4 py-5">
           <Stats

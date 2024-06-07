@@ -7,7 +7,7 @@ function CreateInvoice() {
   const [step, setStep] = useState(1);
   return (
     <>
-    <div className="bg-white h-full">
+    <div className="bg-white rounded-rounded h-full">
 <Stepper step={step}/>
       <div className="flex flex-nowrap justify-between h-full
       ">

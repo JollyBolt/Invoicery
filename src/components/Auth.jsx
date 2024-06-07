@@ -7,6 +7,7 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/slices/authSlice.js";
 import { useNavigate } from "react-router-dom";
+
 function Auth() {
   const [open, setOpen] = useState(false);
   return (

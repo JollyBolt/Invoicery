@@ -1,17 +1,68 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
+import { useForm, useFieldArray } from "react-hook-form";
+import { DevTool } from "@hookform/devtools";
 function MultiStepForm({ step, setStep }) {
-  // const [step, setStep] = useState(1);
+  const form = useForm({
+    defaultValues: {
+      customer: "",
+      products: [
+        {
+          name: "",
+          quantity: "",
+        },
+      ],
+      discount: {
+        value: 0.0,
+        type: "percent",
+      },
+      taxes: {
+        igst: 0.0,
+        cgst: 0.0,
+        sgst: 0.0,
+      },
+    },
+  });
+
+  const { register, handleSubmit, formState, control, setValue, watch } = form;
+  const { errors } = formState;
+
+  const { fields, append, remove } = useFieldArray({
+    name: "products",
+    control,
+  });
 
   const formSwitch = () => {
     switch (step) {
       case 1:
-        return <AddCustomer />;
+        return (
+          <AddCustomer
+            register={register}
+            errors={errors}
+            setValue={setValue}
+            watch={watch}
+          />
+        );
       case 2:
-        return <AddProducts />;
+        return (
+          <AddProducts
+            register={register}
+            errors={errors}
+            fields={fields}
+            append={append}
+            remove={remove}
+            setValue={setValue}
+            watch={watch}
+          />
+        );
       case 3:
-        return <TaxesNDiscounts />;
+        return (
+          <TaxesNDiscounts
+            register={register}
+            errors={errors}
+            setValue={setValue}
+          />
+        );
       case 4:
         return <Finish />;
     }
@@ -19,16 +70,17 @@ function MultiStepForm({ step, setStep }) {
   return (
     <div className="h-full w-full">
       {/* <Stepper step={step} /> */}
-      <div className="mb-10">{formSwitch()}</div>
-
+      <div className="mb-10">
+        <form>{formSwitch()}</form>
+      </div>
+      <DevTool control={control} />
       <div className="flex w-full justify-between">
         <button
+          disabled={step === 1}
           onClick={() => {
-            if (step > 1) {
-              setStep(step - 1);
-            }
+            setStep(step - 1);
           }}
-          className="rounded-rounded px-3 py-1 text-xl text-black transition-colors duration-150 hover:bg-gray-300"
+          className="rounded-rounded px-3 py-1 text-xl text-black transition-colors duration-150 hover:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-transparent"
         >
           Go Back
         </button>
@@ -49,7 +101,7 @@ function MultiStepForm({ step, setStep }) {
 
 export default MultiStepForm;
 
-const AddCustomer = () => {
+const AddCustomer = ({ register, errors, watch, setValue }) => {
   const people = [
     { id: 1, name: "Wade Cooper" },
     { id: 2, name: "Arlene Mccoy" },
@@ -59,24 +111,12 @@ const AddCustomer = () => {
     { id: 6, name: "Hellen Schmidt" },
   ];
 
-  const [value, setValue] = useState("");
+  const [value, setValueState] = useState("");
   const filteredPeople = people.filter((customer) => {
     return customer.name.toLowerCase().includes(value.toLowerCase());
   });
-
-  const [savedCustomer, setSavedCustomer] = useState(null);
-  // const [vis, setVis] = useState(false);
-
-  // useEffect(() => {
-  //   if (value.length >= 3) {
-  //     setVis(true);
-  //   } else {
-  //     setVis(false);
-  //   }
-  // }, [value]);
   return (
     <>
-      {/* <AnimatePresence mode="wait"> */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -89,42 +129,34 @@ const AddCustomer = () => {
         <div className="relative mt-2 flex w-full flex-nowrap gap-x-2 overflow-visible">
           <input
             type="text"
+            {...register("customer", {
+              required: {
+                value: true,
+                message: "Please select a customer",
+              },
+              onChange: (e) => {
+                setValueState(watch("customer"));
+              },
+            })}
             // onFocus={() => {
             //   if (value.length >= 3) {
             //     setVis(true);
             //   }
             // }}
             // onBlur={() => setVis(false)}
-            className="peer w-2/3 rounded-rounded bg-transparent px-2 py-1 text-lg outline outline-1 outline-gray-300 transition-colors duration-500 focus:outline-black"
+            className="peer w-full rounded-rounded bg-transparent px-2 py-1 text-lg outline outline-1 outline-gray-300 transition-colors duration-500 focus:outline-black"
             placeholder="Type at least 3 characters"
-            value={value}
-            onChange={(e) => {
-              setValue(e.target.value);
-            }}
           />
-
-          <motion.button
-            initial={{ scale: 1 }}
-            whileTap={{ scale: 0.9 }}
-            transition={{ duration: 0.1 }}
-            onClick={() => {
-              setSavedCustomer(value);
-            }}
-            className="text-md rounded-rounded bg-primary px-3 py-1 font-semibold text-white hover:bg-primaryLight"
-          >
-            Save Customer
-          </motion.button>
-
-          {value.length >= 3 && (
+          {watch("customer").length >= 3 && (
             <motion.div
-              className={`absolute top-12 z-10 w-full bg-white opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:opacity-100`}
+              className={`absolute top-12 -z-10 w-full bg-white opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
             >
               {filteredPeople.length ? (
                 filteredPeople.map((person, ind) => {
                   return (
                     <h2
                       onClick={() => {
-                        setValue(person.name);
+                        setValue("customer", person.name);
                       }}
                       key={ind}
                       className="w-full py-1 pl-2 text-left text-lg hover:cursor-pointer hover:bg-gray-200"
@@ -139,19 +171,20 @@ const AddCustomer = () => {
             </motion.div>
           )}
         </div>
-
-        {/* {
-  savedCustomer && <div>
-   { people[people.indexOf(value)].name}
-  </div>
-} */}
       </motion.div>
-      {/* </AnimatePresence> */}
     </>
   );
 };
 
-const AddProducts = () => {
+const AddProducts = ({
+  fields,
+  errors,
+  append,
+  remove,
+  register,
+  watch,
+  setValue,
+}) => {
   const people = [
     { id: 1, name: "Wade Cooper" },
     { id: 2, name: "Arlene Mccoy" },
@@ -162,37 +195,13 @@ const AddProducts = () => {
   ];
 
   const [isOpen, setIsOpen] = useState(false);
-
-  const [value, setValue] = useState("");
+  const [value, setValueState] = useState("");
   const filteredPeople = people.filter((customer) => {
     return customer.name.toLowerCase().includes(value.toLowerCase());
   });
 
-  // const [vis, setVis] = useState(false);
-
-  // useEffect(() => {
-  //   if (value.length >= 3) {
-  //     setVis(true);
-  //   } else {
-  //     setVis(false);
-  //   }
-  // }, [value]);
-
-  const [productData, setProductData] = useState([]);
-
-  const handleSubmit = () => {
-    setProductData([
-      ...productData,
-      {
-        name: value,
-        // price: "",
-        quantity: document.getElementById("productQty").value,
-      },
-    ]);
-  };
   return (
     <>
-      {/* <AnimatePresence mode="wait"> */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -200,180 +209,106 @@ const AddProducts = () => {
         transition={{ duration: 1 }}
         className="w-full"
       >
+        <div className="mb-5 mt-2 flex flex-col gap-y-4">
+          {fields.map((field, ind) => {
+            //RHF recommends using field.id as key instead of ind
+            return (
+              <div
+                className="flex w-full flex-nowrap justify-between gap-x-2"
+                key={field.id}
+              >
+                <div className="relative flex w-3/5 flex-col overflow-visible">
+                  <input
+                    className="peer w-full rounded-md border px-3 py-2 text-lg transition-colors duration-150 focus:border-black focus:outline-none"
+                    type="text"
+                    placeholder="Product Name"
+                    {...register(`products[${ind}].name`, {
+                      required: {
+                        value: true,
+                        message: "Please enter a customer name",
+                      },
+                      onChange: (e) => {
+                        setValueState(watch(`products[${ind}]`).name);
+                      },
+                    })}
+                  />
+                  {watch(`products[${ind}]`).name.length >= 3 && (
+                    <motion.div
+                      className={`absolute top-12 -z-10 max-h-[100px] w-full overflow-scroll bg-white opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
+                    >
+                      {filteredPeople.length ? (
+                        filteredPeople.map((person, i) => {
+                          return (
+                            <h2
+                              onClick={() => {
+                                setValue(`products[${ind}].name`, person.name);
+                              }}
+                              key={i}
+                              className="py-1 pl-2 text-lg hover:cursor-pointer hover:bg-gray-200"
+                            >
+                              {person.name}
+                            </h2>
+                          );
+                        })
+                      ) : (
+                        <h2 className="py-1 pl-2 text-lg">No Matches Found.</h2>
+                      )}
+                    </motion.div>
+                  )}
+                </div>
+                <input
+                  type="number"
+                  placeholder="Quantity"
+                  className="w-1/6 rounded border pl-2 text-lg transition-colors duration-150 focus:border-black focus:outline-none"
+                  min={1}
+                  max={999}
+                  {...register(`products[${ind}].quantity`, {
+                    valueAsNumber: {
+                      value: true,
+                      message: "Please enter a valid number",
+                    },
+                  })}
+                />
+                {ind > 0 ? ( //can't remove all fields, atleast one field has to be added
+                  <button
+                    className="flex w-fit flex-nowrap items-center justify-center rounded-full p-2 text-xl text-white transition-colors hover:bg-neutral-200"
+                    type="button"
+                    onClick={() => remove(ind)}
+                  >
+                    <span className="bg-transparent px-2 text-xl font-light text-red-500">
+                      X
+                    </span>
+                  </button>
+                ) : (
+                  <button
+                    disabled={true}
+                    className="flex w-fit select-none flex-nowrap items-center justify-center rounded-full p-2 text-xl text-white"
+                    type="button"
+                    onClick={() => remove(ind)}
+                  >
+                    <span className="bg-transparent px-2 text-xl font-light text-white">
+                      X
+                    </span>
+                  </button>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
         <button
-          onClick={() => setIsOpen(true)}
+          onClick={() => append({ name: "", quantity: "" })}
           type="button"
           className="text-md float-right mb-4 rounded-rounded p-1 text-primary outline outline-1 outline-primary hover:bg-primary hover:text-white"
         >
           <span className="text-lg font-semibold">+</span> Add Products
         </button>
-
-        <div className="mt-4 grid w-full auto-rows-max grid-cols-8 gap-0 overflow-y-scroll">
-          {productData.length !== 0 && (
-            <>
-              <div className="col-span-1 border border-black p-2 font-semibold">
-                S No.
-              </div>
-              <div className="col-span-3 border-y border-r border-black p-2 font-semibold">
-                Product Name
-              </div>
-              <div className="col-span-2 border-y border-r border-black p-2 font-semibold">
-                Quantity
-              </div>
-              <div className="col-span-2 self-center border-y border-r border-black p-2 font-semibold">
-                Actions
-              </div>
-              {productData.map((product, ind) => {
-                return (
-                  <>
-                    <div className="col-span-1 self-center border-x border-b border-black p-2">
-                      {ind + 1}
-                    </div>
-                    <div className="col-span-3 self-center border-b border-r border-black p-2">
-                      {product.name}
-                    </div>
-                    <div className="col-span-2 self-center border-b border-r border-black p-2">
-                      {product.quantity}
-                    </div>
-                    <div className="col-span-2 self-center border-b border-r border-black p-2">
-                      <button
-                        data-key={product.name}
-                        onClick={(e) => {
-                          setProductData(
-                            productData.filter((product, ind) => {
-                              if (
-                                product.name !=
-                                e.target.getAttribute("data-key")
-                              ) {
-                                return product;
-                              }
-                            }),
-                          );
-                        }}
-                        className="h-full rounded-rounded text-sm text-red-500 hover:underline hover:underline-offset-2"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </>
-                );
-              })}
-            </>
-          )}
-        </div>
       </motion.div>
-      {/* </AnimatePresence> */}
-
-      {/* Modal Starts */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            // onClick={() => setIsOpen(false)}
-            className="fixed inset-0 z-20 grid place-items-center overflow-y-scroll bg-slate-900/20 p-8 backdrop-blur"
-          >
-            <motion.div
-              initial={{ scale: 0, rotate: "12.5deg" }}
-              animate={{ scale: 1, rotate: "0deg" }}
-              exit={{ scale: 0, rotate: "0deg" }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-md cursor-default overflow-hidden rounded-lg bg-white p-6 shadow-xl"
-            >
-              <div className="relative z-10">
-                <h3 className="mb-2 text-2xl font-bold">Choose Product</h3>
-
-                {/* Modal Form Starts */}
-
-                <form>
-                  <div className="mt-2 flex h-[50px] w-full flex-col gap-y-2 overflow-visible">
-                    <input
-                      type="text"
-                      // onFocus={() => {
-                      //   if (value.length >= 3) {
-                      //     setVis(true);
-                      //   }
-                      // }}
-                      // onBlur={() => setVis(false)}
-                      className="peer w-full rounded-rounded bg-transparent px-2 py-1 text-lg outline outline-1 outline-gray-300 transition-colors duration-500 focus:outline-black"
-                      placeholder="Type at least 3 characters"
-                      value={value}
-                      onChange={(e) => {
-                        setValue(e.target.value);
-                      }}
-                    />
-                    {value.length >= 3 && (
-                      <motion.div
-                        className={`-z-10 w-full bg-white opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
-                      >
-                        {filteredPeople.length ? (
-                          filteredPeople.map((person, ind) => {
-                            return (
-                              <h2
-                                onClick={() => {
-                                  setValue(person.name);
-                                }}
-                                key={ind}
-                                className="py-1 pl-2 text-lg hover:cursor-pointer hover:bg-gray-200"
-                              >
-                                {person.name}
-                              </h2>
-                            );
-                          })
-                        ) : (
-                          <h2 className="py-1 pl-2 text-lg">
-                            No Matches Found.
-                          </h2>
-                        )}
-                      </motion.div>
-                    )}
-                  </div>
-
-                  <div className="my-2 flex flex-nowrap items-center justify-center gap-x-2">
-                    <h3 className="text-xl">Choose Quantity : </h3>
-                    <input
-                      type="number"
-                      name="qty"
-                      min={1}
-                      max={999}
-                      defaultValue="1"
-                      id="productQty"
-                      className="h-fit w-14 rounded-rounded text-center text-lg outline outline-1 outline-gray-300"
-                    />
-                  </div>
-                </form>
-
-                {/* Modal Form Ends */}
-
-                <div className="mt-7 flex justify-end gap-2">
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="w-1/5 rounded-rounded bg-transparent py-2 font-semibold transition-colors hover:bg-gray-200"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={() => {
-                      handleSubmit();
-                      setIsOpen(false);
-                      setValue("");
-                    }}
-                    className="w-1/4 rounded-rounded bg-primary py-2 font-semibold text-white transition-opacity hover:bg-primaryLight hover:opacity-90"
-                  >
-                    Add Product
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 };
 
-const TaxesNDiscounts = () => {
+const TaxesNDiscounts = ({ register, setValue, errors }) => {
   const [selected, setSelected] = useState("percent");
 
   const TOGGLE_CLASSES =
@@ -381,7 +316,6 @@ const TaxesNDiscounts = () => {
 
   return (
     <>
-      {/* <AnimatePresence mode="wait"> */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -397,7 +331,9 @@ const TaxesNDiscounts = () => {
               <span>:</span>
               <div className="rounded-rounded bg-white outline outline-1 outline-gray-300">
                 <input
-                  defaultValue={"0.0"}
+                  {...register("taxes.igst", {
+                    valueAsNumber: true,
+                  })}
                   min={0.0}
                   type="number"
                   className="h-fit w-14 text-center text-lg outline-none focus:outline-none"
@@ -412,7 +348,9 @@ const TaxesNDiscounts = () => {
               <span>:</span>
               <div className="rounded-rounded bg-white outline outline-1 outline-gray-300">
                 <input
-                  defaultValue={"0.0"}
+                  {...register("taxes.cgst", {
+                    valueAsNumber: true,
+                  })}
                   min={0.0}
                   type="number"
                   className="h-fit w-14 text-center text-lg outline-none focus:outline-none"
@@ -427,7 +365,9 @@ const TaxesNDiscounts = () => {
               <span>:</span>
               <div className="rounded-rounded bg-white outline outline-1 outline-gray-300">
                 <input
-                  defaultValue={"0.0"}
+                  {...register("taxes.sgst", {
+                    valueAsNumber: true,
+                  })}
                   min={0.0}
                   type="number"
                   className="h-fit w-14 text-center text-lg outline-none focus:outline-none"
@@ -443,8 +383,9 @@ const TaxesNDiscounts = () => {
               <div className="mt-3 flex flex-nowrap justify-between">
                 <input
                   type="number"
-                  name="discount"
-                  defaultValue={"0.0"}
+                  {...register("discount.value", {
+                    valueAsNumber: true,
+                  })}
                   min={0.0}
                   className="h-fit w-20 rounded-rounded py-2 text-center text-xl outline outline-1 outline-gray-300"
                 />
@@ -456,6 +397,7 @@ const TaxesNDiscounts = () => {
                     }`}
                     onClick={() => {
                       setSelected("percent");
+                      setValue("discount.type", "percent");
                     }}
                   >
                     <span className="relative z-10">%</span>
@@ -466,6 +408,7 @@ const TaxesNDiscounts = () => {
                     }`}
                     onClick={() => {
                       setSelected("rupee");
+                      setValue("discount.type", "rupee");
                     }}
                   >
                     <span className="relative z-10">&#x20B9;</span>
@@ -491,7 +434,6 @@ const TaxesNDiscounts = () => {
           </div>
         </form>
       </motion.div>
-      {/* </AnimatePresence> */}
     </>
   );
 };

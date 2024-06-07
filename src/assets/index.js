@@ -49,6 +49,9 @@ import { RiExpandUpDownLine } from "react-icons/ri";
 
 import { SlSocialDropbox } from "react-icons/sl";
 
+//Left Arrow
+import { HiArrowLongLeft } from "react-icons/hi2"
+
 export {
   MdDashboard,
   BsBoxSeamFill,
@@ -72,4 +75,5 @@ export {
   FaFileInvoice,
   RiExpandUpDownLine,
   SlSocialDropbox,
+  HiArrowLongLeft
 };

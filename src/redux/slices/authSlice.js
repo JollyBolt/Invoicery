@@ -4,6 +4,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 import getCookieValue from "../../utils/getCookieValue";
 
+
 const login = createAsyncThunk("auth/login", async (body) => {
   try {
     const res = await axios.post(
@@ -19,6 +20,7 @@ const login = createAsyncThunk("auth/login", async (body) => {
 
 const signup = createAsyncThunk("auth/signup", async (body) => {
   try {
+    console.log(body);
     const res = await axios.post(
       `http://localhost:4598/api/v1/auth/signup`,
       body,
@@ -75,6 +77,7 @@ const authSlice = createSlice({
       state.loading = false;
       state.loggedIn = true;
       state.error = "";
+      window.location.pathname='/'
     });
     builder.addCase(signup.rejected, (state, action) => {
       state.loading = false;

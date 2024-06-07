@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-
-function MultiStepForm({step,setStep}) {
+function MultiStepForm({ step, setStep }) {
   // const [step, setStep] = useState(1);
 
   const formSwitch = () => {
@@ -18,9 +17,9 @@ function MultiStepForm({step,setStep}) {
     }
   };
   return (
-    <div className="w-full h-full">
+    <div className="h-full w-full">
       {/* <Stepper step={step} /> */}
-      <div className=" mb-10 ">{formSwitch()}</div>
+      <div className="mb-10">{formSwitch()}</div>
 
       <div className="flex w-full justify-between">
         <button
@@ -29,7 +28,7 @@ function MultiStepForm({step,setStep}) {
               setStep(step - 1);
             }
           }}
-          className="text-black hover:bg-gray-300 duration-150 transition-colors rounded-rounded  text-xl py-1 px-3"
+          className="rounded-rounded px-3 py-1 text-xl text-black transition-colors duration-150 hover:bg-gray-300"
         >
           Go Back
         </button>
@@ -39,7 +38,7 @@ function MultiStepForm({step,setStep}) {
               setStep(step + 1);
             }
           }}
-          className="text-white bg-primary hover:bg-primaryLight transition-colors rounded-rounded duration-150 font-semibold text-xl py-1 px-3"
+          className="rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight"
         >
           {step === 4 ? "Save" : "Next"}
         </button>
@@ -49,8 +48,6 @@ function MultiStepForm({step,setStep}) {
 }
 
 export default MultiStepForm;
-
-
 
 const AddCustomer = () => {
   const people = [
@@ -78,17 +75,18 @@ const AddCustomer = () => {
   //   }
   // }, [value]);
   return (
-    <AnimatePresence mode="wait">
+    <>
+      {/* <AnimatePresence mode="wait"> */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 1 }}
-        className="w-full "
+        className="w-full"
       >
         <p className="text-xl">Choose the customer you want to bill.</p>
 
-        <div className="overflow-visible relative gap-x-2 w-full mt-2 flex flex-nowrap">
+        <div className="relative mt-2 flex w-full flex-nowrap gap-x-2 overflow-visible">
           <input
             type="text"
             // onFocus={() => {
@@ -97,7 +95,7 @@ const AddCustomer = () => {
             //   }
             // }}
             // onBlur={() => setVis(false)}
-            className="focus:outline-black bg-transparent px-2 py-1 text-lg w-2/3 outline outline-gray-300 transition-colors duration-500 outline-1 rounded-rounded peer"
+            className="peer w-2/3 rounded-rounded bg-transparent px-2 py-1 text-lg outline outline-1 outline-gray-300 transition-colors duration-500 focus:outline-black"
             placeholder="Type at least 3 characters"
             value={value}
             onChange={(e) => {
@@ -112,15 +110,14 @@ const AddCustomer = () => {
             onClick={() => {
               setSavedCustomer(value);
             }}
-            className="text-white hover:bg-primaryLight text-md font-semibold py-1 px-3 rounded-rounded bg-primary"
+            className="text-md rounded-rounded bg-primary px-3 py-1 font-semibold text-white hover:bg-primaryLight"
           >
             Save Customer
           </motion.button>
 
           {value.length >= 3 && (
             <motion.div
-              className={`w-full transition-all absolute opacity-0 top-12 z-10 peer-focus:opacity-100 duration-300 drop-shadow-lg bg-white
-            `}
+              className={`absolute top-12 z-10 w-full bg-white opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:opacity-100`}
             >
               {filteredPeople.length ? (
                 filteredPeople.map((person, ind) => {
@@ -130,14 +127,14 @@ const AddCustomer = () => {
                         setValue(person.name);
                       }}
                       key={ind}
-                      className="text-lg pl-2 py-1 w-full text-left hover:bg-gray-200 hover:cursor-pointer"
+                      className="w-full py-1 pl-2 text-left text-lg hover:cursor-pointer hover:bg-gray-200"
                     >
                       {person.name}
                     </h2>
                   );
                 })
               ) : (
-                <h2 className="text-lg pl-2 py-1">No Matches Found.</h2>
+                <h2 className="py-1 pl-2 text-lg">No Matches Found.</h2>
               )}
             </motion.div>
           )}
@@ -149,7 +146,8 @@ const AddCustomer = () => {
   </div>
 } */}
       </motion.div>
-    </AnimatePresence>
+      {/* </AnimatePresence> */}
+    </>
   );
 };
 
@@ -194,75 +192,77 @@ const AddProducts = () => {
   };
   return (
     <>
-      <AnimatePresence mode="wait">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
-          className="w-full"
+      {/* <AnimatePresence mode="wait"> */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 1 }}
+        className="w-full"
+      >
+        <button
+          onClick={() => setIsOpen(true)}
+          type="button"
+          className="text-md float-right mb-4 rounded-rounded p-1 text-primary outline outline-1 outline-primary hover:bg-primary hover:text-white"
         >
-          <button
-            onClick={() => setIsOpen(true)}
-            type="button"
-            className="outline outline-1 outline-primary text-primary hover:bg-primary hover:text-white p-1 rounded-rounded text-md float-right mb-4"
-          >
-            <span className="text-lg font-semibold">+</span> Add Products
-          </button>
+          <span className="text-lg font-semibold">+</span> Add Products
+        </button>
 
-          <div className="grid grid-cols-8 gap-0 overflow-y-scroll auto-rows-max  mt-4 w-full">
-            {productData.length !== 0 && (
-              <>
-                <div className="col-span-1  font-semibold p-2 border-black border">
-                  S No.
-                </div>
-                <div className="col-span-3  font-semibold border-black p-2 border-y border-r">
-                  Product Name
-                </div>
-                <div className="col-span-2 p-2 border-r border-y border-black font-semibold">
-                  Quantity
-                </div>
-                <div className="col-span-2 self-center p-2 border-y border-r font-semibold border-black">Actions</div>
-                {productData.map((product, ind) => {
-                  return (
-                    <>
-                      <div className="col-span-1 self-center p-2 border-x border-b border-black">
-                        {ind + 1}
-                      </div>
-                      <div className="col-span-3 self-center p-2 border-r border-b border-black">
-                        {product.name}
-                      </div>
-                      <div className="col-span-2 self-center p-2 border-r border-b border-black">
-                        {product.quantity}
-                      </div>
-                      <div className="col-span-2 self-center border-b border-r border-black p-2">
-                        <button
-                          data-key={product.name}
-                          onClick={(e) => {
-                            setProductData(
-                              productData.filter((product, ind) => {
-                                if (
-                                  product.name !=
-                                  e.target.getAttribute("data-key")
-                                ) {
-                                  return product;
-                                }
-                              })
-                            );
-                          }}
-                          className="text-red-500 text-sm hover:underline hover:underline-offset-2 rounded-rounded  h-full "
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </>
-                  );
-                })}
-              </>
-            )}
-          </div>
-        </motion.div>
-      </AnimatePresence>
+        <div className="mt-4 grid w-full auto-rows-max grid-cols-8 gap-0 overflow-y-scroll">
+          {productData.length !== 0 && (
+            <>
+              <div className="col-span-1 border border-black p-2 font-semibold">
+                S No.
+              </div>
+              <div className="col-span-3 border-y border-r border-black p-2 font-semibold">
+                Product Name
+              </div>
+              <div className="col-span-2 border-y border-r border-black p-2 font-semibold">
+                Quantity
+              </div>
+              <div className="col-span-2 self-center border-y border-r border-black p-2 font-semibold">
+                Actions
+              </div>
+              {productData.map((product, ind) => {
+                return (
+                  <>
+                    <div className="col-span-1 self-center border-x border-b border-black p-2">
+                      {ind + 1}
+                    </div>
+                    <div className="col-span-3 self-center border-b border-r border-black p-2">
+                      {product.name}
+                    </div>
+                    <div className="col-span-2 self-center border-b border-r border-black p-2">
+                      {product.quantity}
+                    </div>
+                    <div className="col-span-2 self-center border-b border-r border-black p-2">
+                      <button
+                        data-key={product.name}
+                        onClick={(e) => {
+                          setProductData(
+                            productData.filter((product, ind) => {
+                              if (
+                                product.name !=
+                                e.target.getAttribute("data-key")
+                              ) {
+                                return product;
+                              }
+                            }),
+                          );
+                        }}
+                        className="h-full rounded-rounded text-sm text-red-500 hover:underline hover:underline-offset-2"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </>
+                );
+              })}
+            </>
+          )}
+        </div>
+      </motion.div>
+      {/* </AnimatePresence> */}
 
       {/* Modal Starts */}
       <AnimatePresence>
@@ -272,22 +272,22 @@ const AddProducts = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             // onClick={() => setIsOpen(false)}
-            className="bg-slate-900/20 backdrop-blur p-8 fixed inset-0 z-20 grid place-items-center  overflow-y-scroll "
+            className="fixed inset-0 z-20 grid place-items-center overflow-y-scroll bg-slate-900/20 p-8 backdrop-blur"
           >
             <motion.div
               initial={{ scale: 0, rotate: "12.5deg" }}
               animate={{ scale: 1, rotate: "0deg" }}
               exit={{ scale: 0, rotate: "0deg" }}
               onClick={(e) => e.stopPropagation()}
-              className=" bg-white p-6 rounded-lg w-full max-w-md shadow-xl cursor-default relative overflow-hidden"
+              className="relative w-full max-w-md cursor-default overflow-hidden rounded-lg bg-white p-6 shadow-xl"
             >
               <div className="relative z-10">
-                <h3 className="text-2xl font-bold mb-2">Choose Product</h3>
+                <h3 className="mb-2 text-2xl font-bold">Choose Product</h3>
 
                 {/* Modal Form Starts */}
 
                 <form>
-                  <div className="overflow-visible h-[50px] flex flex-col gap-y-2 w-full mt-2">
+                  <div className="mt-2 flex h-[50px] w-full flex-col gap-y-2 overflow-visible">
                     <input
                       type="text"
                       // onFocus={() => {
@@ -296,7 +296,7 @@ const AddProducts = () => {
                       //   }
                       // }}
                       // onBlur={() => setVis(false)}
-                      className="focus:outline-black bg-transparent peer px-2 py-1 text-lg w-full outline outline-gray-300 transition-colors duration-500 outline-1 rounded-rounded"
+                      className="peer w-full rounded-rounded bg-transparent px-2 py-1 text-lg outline outline-1 outline-gray-300 transition-colors duration-500 focus:outline-black"
                       placeholder="Type at least 3 characters"
                       value={value}
                       onChange={(e) => {
@@ -305,9 +305,7 @@ const AddProducts = () => {
                     />
                     {value.length >= 3 && (
                       <motion.div
-                        className={`w-full drop-shadow-lg bg-white -z-10
-                    transition-all opacity-0 peer-focus:opacity-100 peer-focus:z-10 duration-300
-                    `}
+                        className={`-z-10 w-full bg-white opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
                       >
                         {filteredPeople.length ? (
                           filteredPeople.map((person, ind) => {
@@ -317,14 +315,14 @@ const AddProducts = () => {
                                   setValue(person.name);
                                 }}
                                 key={ind}
-                                className="text-lg pl-2 py-1 hover:bg-gray-200 hover:cursor-pointer"
+                                className="py-1 pl-2 text-lg hover:cursor-pointer hover:bg-gray-200"
                               >
                                 {person.name}
                               </h2>
                             );
                           })
                         ) : (
-                          <h2 className="text-lg pl-2 py-1">
+                          <h2 className="py-1 pl-2 text-lg">
                             No Matches Found.
                           </h2>
                         )}
@@ -332,7 +330,7 @@ const AddProducts = () => {
                     )}
                   </div>
 
-                  <div className="flex flex-nowrap items-center justify-center gap-x-2 my-2">
+                  <div className="my-2 flex flex-nowrap items-center justify-center gap-x-2">
                     <h3 className="text-xl">Choose Quantity : </h3>
                     <input
                       type="number"
@@ -341,17 +339,17 @@ const AddProducts = () => {
                       max={999}
                       defaultValue="1"
                       id="productQty"
-                      className="text-lg outline outline-1 text-center outline-gray-300 rounded-rounded h-fit w-14"
+                      className="h-fit w-14 rounded-rounded text-center text-lg outline outline-1 outline-gray-300"
                     />
                   </div>
                 </form>
 
                 {/* Modal Form Ends */}
 
-                <div className="flex gap-2 justify-end mt-7">
+                <div className="mt-7 flex justify-end gap-2">
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="bg-transparent hover:bg-gray-200 transition-colors font-semibold w-1/5 py-2 rounded-rounded"
+                    className="w-1/5 rounded-rounded bg-transparent py-2 font-semibold transition-colors hover:bg-gray-200"
                   >
                     Cancel
                   </button>
@@ -361,7 +359,7 @@ const AddProducts = () => {
                       setIsOpen(false);
                       setValue("");
                     }}
-                    className="bg-primary hover:opacity-90 transition-opacity text-white font-semibold hover:bg-primaryLight py-2 rounded-rounded w-1/4"
+                    className="w-1/4 rounded-rounded bg-primary py-2 font-semibold text-white transition-opacity hover:bg-primaryLight hover:opacity-90"
                   >
                     Add Product
                   </button>
@@ -382,64 +380,65 @@ const TaxesNDiscounts = () => {
     "font-medium flex items-center gap-2 cursor-pointer px-3 md:pl-3 md:pr-3.5 text-lg py-3 md:py-1.5 transition-colors relative z-10";
 
   return (
-    <AnimatePresence mode="wait">
+    <>
+      {/* <AnimatePresence mode="wait"> */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 1 }}
-        className="w-full relative"
+        className="relative w-full"
       >
         <form>
-          <div className="flex flex-col gap-y-3 w-2/3">
+          <div className="flex w-2/3 flex-col gap-y-3">
             <p className="text-2xl font-semibold">Add Taxes</p>
             <div className="flex flex-nowrap items-center gap-x-4">
-              <p className="text-xl w-1/5">IGST</p>
+              <p className="w-1/5 text-xl">IGST</p>
               <span>:</span>
-              <div className="bg-white outline outline-1 outline-gray-300 rounded-rounded ">
+              <div className="rounded-rounded bg-white outline outline-1 outline-gray-300">
                 <input
                   defaultValue={"0.0"}
                   min={0.0}
                   type="number"
-                  className="text-lg text-center h-fit w-14 focus:outline-none outline-none"
+                  className="h-fit w-14 text-center text-lg outline-none focus:outline-none"
                 />
-                <span className="pr-2 text-lg text-gray-400 pointer-events-none">
+                <span className="pointer-events-none pr-2 text-lg text-gray-400">
                   %
                 </span>
               </div>
             </div>
             <div className="flex flex-nowrap items-center gap-x-4">
-              <p className="text-xl w-1/5">CGST</p>
+              <p className="w-1/5 text-xl">CGST</p>
               <span>:</span>
-              <div className="bg-white outline outline-1 outline-gray-300 rounded-rounded ">
+              <div className="rounded-rounded bg-white outline outline-1 outline-gray-300">
                 <input
                   defaultValue={"0.0"}
                   min={0.0}
                   type="number"
-                  className="text-lg text-center h-fit w-14 focus:outline-none outline-none"
+                  className="h-fit w-14 text-center text-lg outline-none focus:outline-none"
                 />
-                <span className="pr-2 text-lg text-gray-400 pointer-events-none">
+                <span className="pointer-events-none pr-2 text-lg text-gray-400">
                   %
                 </span>
               </div>
             </div>
             <div className="flex flex-nowrap items-center gap-x-4">
-              <p className="text-xl w-1/5">SGST</p>
+              <p className="w-1/5 text-xl">SGST</p>
               <span>:</span>
-              <div className="bg-white outline outline-1 outline-gray-300 rounded-rounded ">
+              <div className="rounded-rounded bg-white outline outline-1 outline-gray-300">
                 <input
                   defaultValue={"0.0"}
                   min={0.0}
                   type="number"
-                  className="text-lg text-center h-fit w-14 focus:outline-none outline-none"
+                  className="h-fit w-14 text-center text-lg outline-none focus:outline-none"
                 />
-                <span className="pr-2 text-lg text-gray-400 pointer-events-none">
+                <span className="pointer-events-none pr-2 text-lg text-gray-400">
                   %
                 </span>
               </div>
             </div>
 
-            <div className="w-2/3 mt-4 flex flex-col">
+            <div className="mt-4 flex w-2/3 flex-col">
               <p className="text-2xl font-semibold">Add Discounts</p>
               <div className="mt-3 flex flex-nowrap justify-between">
                 <input
@@ -447,7 +446,7 @@ const TaxesNDiscounts = () => {
                   name="discount"
                   defaultValue={"0.0"}
                   min={0.0}
-                  className="text-xl text-center h-fit w-20 outline py-2 outline-1 outline-gray-300 rounded-rounded"
+                  className="h-fit w-20 rounded-rounded py-2 text-center text-xl outline outline-1 outline-gray-300"
                 />
 
                 <div className="relative flex w-fit items-center rounded-rounded">
@@ -492,19 +491,21 @@ const TaxesNDiscounts = () => {
           </div>
         </form>
       </motion.div>
-    </AnimatePresence>
+      {/* </AnimatePresence> */}
+    </>
   );
 };
 
 const Finish = () => {
   return (
-    <AnimatePresence mode="wait">
+    <>
+      {/* <AnimatePresence mode="wait"> */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 1 }}
-        className="w-full overflow-y-scroll "
+        className="w-full overflow-y-scroll"
       >
         <div className="w-full">
           <h1 className="text-2xl font-semibold">
@@ -512,6 +513,7 @@ const Finish = () => {
           </h1>
         </div>
       </motion.div>
-    </AnimatePresence>
+      {/* </AnimatePresence> */}
+    </>
   );
 };

@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/slices/authSlice.js";
+import { useNavigate } from "react-router-dom";
 function Auth() {
   const [open, setOpen] = useState(false);
   return (
@@ -30,6 +31,8 @@ function Auth() {
 }
 
 const Modal = ({ open, setOpen }) => {
+  const navigate = useNavigate();
+
   const loginSchema = yup.object({
     email: yup
       .string()
@@ -148,7 +151,7 @@ const Modal = ({ open, setOpen }) => {
               </div>
               <p>
                 Don't Have an account?{" "}
-                <span className="text-blue-500 hover:cursor-pointer hover:underline hover:underline-offset-2">
+                <span className="text-blue-500 hover:cursor-pointer hover:underline hover:underline-offset-2" onClick={()=>{navigate('/signup')}}>
                   Sign Up
                 </span>{" "}
                 now to access all features.
@@ -157,7 +160,7 @@ const Modal = ({ open, setOpen }) => {
             <button
               onClick={() => setOpen(false)}
               type="button"
-              className="absolute right-10 top-4 p-2 text-3xl font-semibold text-white"
+              className="absolute right-10 top-4 p-2 text-3xl font-thin text-white"
             >
               X
             </button>

@@ -6,7 +6,7 @@ import Products from './pages/Products';
 import Invoice from './pages/Invoice';
 import Profile from './pages/Profile';
 import CreateInvoice from "./components/Invoice/CreateInvoice";
-
+import Signup from "./pages/Signup";
 
 function App() {
   return (
@@ -23,6 +23,7 @@ function App() {
           </Route>
           <Route path="/profile" element={ <Profile /> }/>
         </Route>
+            <Route path="/signup" element={ <Signup /> }/>
       </Routes>
     </>
   )

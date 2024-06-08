@@ -141,8 +141,10 @@ const Modal = ({ open, setOpen }) => {
                 )}
               </form>
               <DevTool control={control} />
+              <p className="mt-2
+              ">Forgot your Password? <span className="text-primaryLight hover:underline hover:underline-offset-2 hover:cursor-pointer">Click</span> to change password.</p>
               <div className="inline-flex w-full items-center justify-center">
-                <hr className="my-8 h-px w-full border-0 bg-gray-300" />
+                <hr className="mb-8 mt-4 h-px w-full border-0 bg-gray-300" />
                 <span className="absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium text-gray-400">
                   OR
                 </span>
@@ -152,7 +154,12 @@ const Modal = ({ open, setOpen }) => {
               </div>
               <p>
                 Don't Have an account?{" "}
-                <span className="text-blue-500 hover:cursor-pointer hover:underline hover:underline-offset-2" onClick={()=>{navigate('/signup')}}>
+                <span
+                  className="text-primaryLight hover:cursor-pointer hover:underline hover:underline-offset-2"
+                  onClick={() => {
+                    navigate("/signup");
+                  }}
+                >
                   Sign Up
                 </span>{" "}
                 now to access all features.
@@ -174,8 +181,3 @@ const Modal = ({ open, setOpen }) => {
 
 export default Auth;
 
-// <div className="absolute inset-0 flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm">
-//   <div className="h-3/4 w-2/3 rounded-rounded bg-white px-7 py-5">
-//     bfhosin
-//   </div>
-// </div>

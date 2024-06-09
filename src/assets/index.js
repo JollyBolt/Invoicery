@@ -49,6 +49,9 @@ import { RiExpandUpDownLine } from "react-icons/ri";
 
 import { SlSocialDropbox } from "react-icons/sl";
 
+//Auth
+import { FcGoogle } from "react-icons/fc";
+
 //Left Arrow
 import { HiArrowLongLeft } from "react-icons/hi2"
 
@@ -75,5 +78,6 @@ export {
   FaFileInvoice,
   RiExpandUpDownLine,
   SlSocialDropbox,
+  FcGoogle,
   HiArrowLongLeft
 };

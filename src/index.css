@@ -1,9 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .float-label {
+    @apply absolute left-1 top-0 translate-y-[-50%] bg-white px-2 text-sm font-semibold text-gray-500 transition-all duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:translate-y-[-50%] peer-focus:top-0;
+  }
+}
 
 :root {
   font-family: "Figtree", serif;
@@ -16,12 +21,11 @@
   --primary: #2807a0;
   /* --primary: #2a0948; */
   --foreground: #ffffff;
-  --secondary: #1E2EDE;
-  --accent: #8884FF;
+  --secondary: #1e2ede;
+  --accent: #8884ff;
   --rounded: 4px;
   /* #DCCCBB */
   /* --secondary: #E7EBC5; */
-
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -53,7 +57,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
 }

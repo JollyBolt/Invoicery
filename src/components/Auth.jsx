@@ -94,71 +94,64 @@ const Modal = ({ open, setOpen }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm"
+            className="absolute inset-0 flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm z-[100]"
           >
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0 }}
               transition={{ ease: "easeOut", delay: 0 }}
-              className="flex w-[25vw] flex-col rounded-rounded bg-white p-10"
+              className="flex w-[400px] flex-col rounded-rounded bg-white p-10"
             >
-              <h1 className="mb-4 text-4xl font-bold">Sign In</h1>
+              <h1 className="mb-4 text-4xl text-center font-bold">Welcome Back</h1>
               <form
                 onSubmit={onSubmit}
                 noValidate
                 className="flex w-full flex-col"
               >
-                <div className="flex w-full flex-nowrap justify-between">
-                  <label
-                    htmlFor="email"
-                    className="text-lg font-semibold text-gray-500"
-                  >
-                    Email Address
-                  </label>
+                <p className="text-gray-500 my-2">Log in to invoicey.</p>
+                <div className="relative flex w-full flex-nowrap justify-between">
                   <input
                     type="text"
                     id="email"
+                    placeholder="email"
                     {...register("email")}
-                    className="peer rounded-rounded border border-gray-300 p-3 transition-colors duration-150 focus:border-black focus:outline-none"
+                    className="peer w-full rounded-rounded border border-gray-300 p-3 transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
                   />
+                  <label htmlFor="email" className="float-label">
+                    Email
+                  </label>
                 </div>
-                <p className="mb-2 mt-1 w-3/4 self-end text-sm text-red-500">
+                <p className="mb-2 mt-1 w-3/4 text-sm text-red-500">
                   {errors.email ? (
                     errors.email?.message
                   ) : (
                     <span className="select-none">&nbsp;</span>
                   )}
                 </p>
-                <div className="flex w-full flex-nowrap justify-between">
-                  <label
-                    htmlFor="email"
-                    className="absolute left-1 top-1/2 translate-y-[-50%] bg-white px-2 text-sm font-semibold text-gray-500 transition-all duration-200 peer-focus:top-0"
-                  >
-                    Email
-                  </label>
-                </div>
+
+                {/*Password*/}
+
                 <div className="relative flex w-full flex-col flex-nowrap">
                   <input
                     {...register("password")}
                     type="password"
                     id="password"
-                    className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 focus:border-black focus:outline-none"
+                    placeholder="password"
+                    className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
                   />
-                  <label
-                    htmlFor="password"
-                    className="absolute left-1 top-1/2 translate-y-[-50%] bg-white px-2 text-sm font-semibold text-gray-500 transition-all duration-200 peer-focus:top-0"
-                  >
+                  <label htmlFor="password" className="float-label">
                     Password
                   </label>
                 </div>
-                <p className="mb-2 mt-1 w-3/4 self-end text-sm text-red-500">
+                <p className="mb-2 mt-1 w-3/4 text-sm text-red-500">
                   {errors.password ? (
                     errors.password?.message
                   ) : (
                     <span className="select-none">&nbsp;</span>
                   )}
                 </p>
+
                 {loading ? (
                   <div className="flex w-full justify-center rounded-rounded bg-primary text-center">
                     <img src="/src/assets/Loading2.gif" className="w-11" />
@@ -174,28 +167,18 @@ const Modal = ({ open, setOpen }) => {
                   />
                 )}
               </form>
-              <DevTool control={control} />
-              <p className="mt-2
-              ">Forgot your Password? <span className="text-primaryLight hover:underline hover:underline-offset-2 hover:cursor-pointer">Click</span> to change password.</p>
-              <div classNameName="inline-flex w-full items-center justify-center">
-                <hr classNameName="mb-8 mt-4 h-px w-full border-0 bg-gray-300" />
-                <span classNameName="absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium text-gray-400">
+
+              {/* <DevTool control={control} /> */}
+
+              <div className="relative my-5 flex w-full items-center justify-center ">
+                <hr className="my-5  w-full border bg-gray-300" />
+                <span className="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white p-1 font-medium text-gray-400">
                   OR
                 </span>
               </div>
+
+              {/* Google Auth */}
               <div className="w-full flex-1">
-                {/* <div className="w-full"> */}
-                {/* <GoogleLogin
-                  theme="filled_blue"
-                  // width="300"
-                  onSuccess={(credentialResponse) => {
-                    const decoded = jwtDecode(credentialResponse?.credential);
-                    console.log(decoded);
-                  }}
-                  onError={() => {
-                    console.log("Login Failed");
-                  }}
-                /> */}
                 <button
                   onClick={googleLogin}
                   className="flex w-full items-center gap-3 rounded-rounded border-2 p-2 px-4 text-2xl"
@@ -208,18 +191,25 @@ const Modal = ({ open, setOpen }) => {
                   </span>
                 </button>
               </div>
-              <p>
-                Don't Have an account?{" "}
-                <span
-                  className="text-primaryLight hover:cursor-pointer hover:underline hover:underline-offset-2"
-                  onClick={() => {
-                    navigate("/signup");
-                  }}
-                >
-                  Sign Up
-                </span>{" "}
-                now to access all features.
-              </p>
+
+              <div className="mt-10 flex items-center justify-between">
+                <div>
+                  New here?{" "}
+                  <span
+                    className="text-primaryLight hover:cursor-pointer hover:underline hover:underline-offset-2"
+                    onClick={() => {
+                      navigate("/signup");
+                    }}
+                  >
+                    Sign Up
+                  </span>
+                </div>
+                <div>
+                  <p className="my-2 text-primaryLight hover:cursor-pointer hover:underline hover:underline-offset-2">
+                    Forgot Password?{" "}
+                  </p>
+                </div>
+              </div>
             </motion.div>
             <button
               onClick={() => setOpen(false)}
@@ -236,4 +226,3 @@ const Modal = ({ open, setOpen }) => {
 };
 
 export default Auth;
-

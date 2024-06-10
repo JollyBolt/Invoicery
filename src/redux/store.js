@@ -15,6 +15,7 @@ const store = configureStore({
         //A custom middleware that detects if any non-serializable values have been included in state or dispatched actions. We add actions that have no serializable part in state to ingnoredActions
         ignoredActions: [
           "auth/login",
+          "auth/signup",
           "products/editProduct",
           "products/fetchSingleProduct",
           "products/postProduct",

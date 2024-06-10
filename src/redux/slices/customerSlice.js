@@ -1,24 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-axios.defaults.withCredentials=true;
+axios.defaults.withCredentials = true;
 
 const fetchAllCustomers = createAsyncThunk(
   "customers/fetchAllCustomers",
   async () => {
     const res = await axios.get("https://jsonplaceholder.typicode.com/users");
     return res.data.map((customer) => customer); //return value of each callback of map is added to an array which is finally returned by the map function
-  }
+  },
 );
 
 const fetchSingleCustomer = createAsyncThunk(
   "customers/fetchSingleCustomer",
   async (id) => {
     const res = await axios.get(
-      `https://jsonplaceholder.typicode.com/users/${id}`
+      `https://jsonplaceholder.typicode.com/users/${id}`,
     );
     return res.data;
-  }
+  },
 );
 
 const postCustomer = createAsyncThunk(
@@ -26,10 +26,15 @@ const postCustomer = createAsyncThunk(
   async (customer) => {
     const res = await axios.post(
       "https://jsonplaceholder.typicode.com/users",
-      customer
+      customer,
+      {
+        headers: {
+          Authorization: "Bearer" + document.cookie.split("=")[1],
+        },
+      },
     );
     return res.data;
-  }
+  },
 );
 
 const editCustomer = createAsyncThunk(
@@ -37,20 +42,20 @@ const editCustomer = createAsyncThunk(
   async (customer) => {
     const res = await axios.put(
       `https://jsonplaceholder.typicode.com/users/${customer.id}`,
-      customer
+      customer,
     );
     return res.data;
-  }
+  },
 );
 
 const deleteCustomer = createAsyncThunk(
   "customers/deleteCustomer",
   async (id) => {
     const res = await axios.delete(
-      `https://jsonplaceholder.typicode.com/users/${id}`
+      `https://jsonplaceholder.typicode.com/users/${id}`,
     );
     return res.data;
-  }
+  },
 );
 
 const customerSlice = createSlice({

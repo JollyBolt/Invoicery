@@ -67,9 +67,10 @@ const Customers = () => {
     dispatch(refreshAuth());
   }, []);
 
+  const [open, setOpen]=useState(false);
   return (
     <div className="flex min-h-[calc(100dvh-40px)] w-full flex-col">
-      <CreateCustomer />
+      <CreateCustomer open={open} setOpen={setOpen} />
       <Heading name="Customers" />
 
       {loggedIn === false ? (
@@ -133,7 +134,8 @@ const Customers = () => {
 
                   <button
                     onClick={() =>
-                      document.getElementById("my_modal_3").showModal()
+                      // document.getElementById("my_modal_3").showModal()
+                      setOpen(true)
                     }
                     // onClick={() => {
                     //   setCreateOpen(true);
@@ -221,7 +223,8 @@ const Customers = () => {
                 You don't have any customers. Click{" "}
                 <span
                   onClick={() =>
-                    document.getElementById("my_modal_3").showModal()
+                    // document.getElementById("my_modal_3").showModal()
+                    setOpen(true)
                   }
                   // onClick={() => {
                   //   setCreateOpen(true);

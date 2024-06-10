@@ -6,7 +6,7 @@
 
 @layer components {
   .float-label {
-    @apply absolute left-1 top-0 translate-y-[-50%] bg-white px-2 text-sm font-semibold text-gray-500 transition-all duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:translate-y-[-50%] peer-focus:top-0;
+    @apply absolute left-1 top-0 translate-y-[-50%] bg-white px-2 text-sm font-semibold text-gray-500 transition-all duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:translate-y-[-50%] peer-placeholder-shown:cursor-text peer-focus:top-0;
   }
 }
 

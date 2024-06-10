@@ -94,7 +94,7 @@ const Modal = ({ open, setOpen }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm z-[100]"
+            className="absolute inset-0 z-[100] flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm"
           >
             <motion.div
               initial={{ scale: 0 }}
@@ -103,13 +103,15 @@ const Modal = ({ open, setOpen }) => {
               transition={{ ease: "easeOut", delay: 0 }}
               className="flex w-[400px] flex-col rounded-rounded bg-white p-10"
             >
-              <h1 className="mb-4 text-4xl text-center font-bold">Welcome Back</h1>
+              <h1 className="mb-4 text-center text-4xl font-bold">
+                Welcome Back
+              </h1>
               <form
                 onSubmit={onSubmit}
                 noValidate
                 className="flex w-full flex-col"
               >
-                <p className="text-gray-500 my-2">Log in to invoicey.</p>
+                <p className="my-2 text-gray-500">Log in to invoicey.</p>
                 <div className="relative flex w-full flex-nowrap justify-between">
                   <input
                     type="text"
@@ -170,9 +172,9 @@ const Modal = ({ open, setOpen }) => {
 
               {/* <DevTool control={control} /> */}
 
-              <div className="relative my-5 flex w-full items-center justify-center ">
-                <hr className="my-5  w-full border bg-gray-300" />
-                <span className="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white p-1 font-medium text-gray-400">
+              <div className="relative my-5 flex w-full items-center justify-center">
+                <hr className="my-5 w-full border bg-gray-300" />
+                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-1 font-medium text-gray-400">
                   OR
                 </span>
               </div>

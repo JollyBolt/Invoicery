@@ -30,7 +30,7 @@ const postProduct = createAsyncThunk(
         product,
         {
           headers: {
-            "authToken": document.cookie.split("=")[1],
+            Authorization: "Bearer" + document.cookie.split("=")[1],
           },
         },
       );
@@ -122,36 +122,35 @@ const productSlice = createSlice({
       state.loading = false;
       // state.products = [];
       state.error = action.error.message;
+    });
+    //Edit product
+    builder.addCase(editProduct.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(editProduct.fulfilled, (state, action) => {
+      state.loading = false;
+      // state.products = action.payload;
+      state.error = "";
+    });
+    builder.addCase(editProduct.rejected, (state, action) => {
+      state.loading = false;
+      // state.products = [];
+      state.error = action.error.message;
+    });
 
-      //Edit product
-      builder.addCase(editProduct.pending, (state) => {
-        state.loading = true;
-      });
-      builder.addCase(editProduct.fulfilled, (state, action) => {
-        state.loading = false;
-        // state.products = action.payload;
-        state.error = "";
-      });
-      builder.addCase(editProduct.rejected, (state, action) => {
-        state.loading = false;
-        // state.products = [];
-        state.error = action.error.message;
-      });
-
-      //Delete product
-      builder.addCase(deleteProduct.pending, (state) => {
-        state.loading = true;
-      });
-      builder.addCase(deleteProduct.fulfilled, (state, action) => {
-        state.loading = false;
-        // state.products = action.payload;
-        state.error = "";
-      });
-      builder.addCase(deleteProduct.rejected, (state, action) => {
-        state.loading = false;
-        // state.products = [];
-        state.error = action.error.message;
-      });
+    //Delete product
+    builder.addCase(deleteProduct.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteProduct.fulfilled, (state, action) => {
+      state.loading = false;
+      // state.products = action.payload;
+      state.error = "";
+    });
+    builder.addCase(deleteProduct.rejected, (state, action) => {
+      state.loading = false;
+      // state.products = [];
+      state.error = action.error.message;
     });
   },
 });

@@ -3,17 +3,16 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { postProduct } from "../../redux/slices/productSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 import { DevTool } from "@hookform/devtools";
 
 const AddProductModal = ({ isOpen, setIsOpen }) => {
   const productSchema = yup.object({
     name: yup.string().required("Product Name is required"),
-    hsn: yup.string().required("HSN Code is required"),
+    hsn_code: yup.string(),
     price: yup
       .number("Please enter valid price")
-      .integer()
       .required("Price is required"),
   });
 
@@ -21,7 +20,7 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
     defaultValues: {
       name: "",
       hsn_code: "",
-      price: 0.0,
+      price: "",
     },
     // mode: "all",
     resolver: yupResolver(productSchema),
@@ -30,15 +29,15 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
   const { register, handleSubmit, formState, reset, clearErrors, control } =
     form;
   const { errors, isSubmitting } = formState;
-
+  // const { loading } = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const onSubmit = async (e) => {
     e.preventDefault();
     await handleSubmit(handlePost)(e);
   };
   const handlePost = ({ name, hsn_code, price }) => {
-    console.log("object");
-    // dispatch(login({ name, hsn_code,price }));
+    // console.log("object");
+    dispatch(postProduct({ name, hsn_code, price }));
   };
 
   return (
@@ -46,7 +45,7 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
       {/* <DevTool control={control} /> */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div className="absolute inset-0 flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="absolute inset-0 flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm">
             <motion.div
               className="w-full"
               initial={{ scale: 0.4, opacity: 0 }}
@@ -81,14 +80,21 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                   <div>
                     <div className="mt-4 grid grid-cols-1 gap-3">
                       <div>
-                        <label className="block font-medium">
-                          Product Name
-                        </label>
-                        <input
-                          {...register("name")}
-                          type="text"
-                          className="w-full rounded-md border p-2"
-                        />
+                        <div className="relative flex w-full flex-col flex-nowrap">
+                          <input
+                            id="productName"
+                            {...register("name")}
+                            type="text"
+                            placeholder="Product Name"
+                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+                          />
+                          <label
+                            htmlFor="productName"
+                            className="float-label"
+                          >
+                            Product Name<span className="text-red-500">&#42;</span>
+                          </label>
+                        </div>
                         <p className="text-xs text-red-500">
                           {errors.name ? (
                             errors.name?.message
@@ -98,12 +104,18 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                         </p>
                       </div>
                       <div>
-                        <label className="block font-medium">HSN Code</label>
+                        <div className="relative flex w-full flex-col flex-nowrap">
                         <input
+                          id="hsnCode"
                           {...register("hsn_code")}
                           type="text"
-                          className="w-full rounded-md border p-2"
-                        />
+                          placeholder="HSN Code"
+                          className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+                          />
+                        <label htmlFor="hsnCode" className="float-label">
+                          HSN Code
+                        </label>
+                          </div>
                         <p className="text-xs text-red-500">
                           {errors.hsn_code ? (
                             errors.hsn_code?.message
@@ -113,13 +125,19 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                         </p>
                       </div>
                       <div>
-                        <label className="block font-medium">Price(INR)</label>
+                        <div className="relative flex w-full flex-col flex-nowrap">
                         <input
+                          id="price"
                           {...register("price")}
                           type="number"
                           min={0.0}
-                          className="w-full rounded-md border p-2"
-                        />
+                          placeholder="HSN Code"
+                          className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+                          />
+                        <label htmlFor="price" className="float-label">
+                          Price(INR)<span className="text-red-500">&#42;</span>
+                        </label>
+                          </div>
                         <p className="text-xs text-red-500">
                           {errors.price ? (
                             errors.price?.message
@@ -145,19 +163,25 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                     Cancel
                   </button>
                   {/* </form> */}
-                  <motion.input
-                    initial={{ scale: 1 }}
-                    whileTap={{ scale: 0.85 }}
-                    transition={{ delay: 0 }}
-                    type="submit"
-                    value="Submit"
-                    // disabled={isSubmitting}
-                    className="text-md rounded-rounded bg-primary px-2 py-1 text-lg font-semibold text-white transition-colors duration-200 hover:cursor-pointer hover:bg-primaryLight"
-                  />
+                  {isSubmitting ? (
+                    <div className="flex w-20 justify-center rounded-rounded bg-primary text-center">
+                      <img src="/src/assets/Loading2.gif" className="w-9" />
+                    </div>
+                  ) : (
+                    <motion.input
+                      initial={{ scale: 1 }}
+                      whileTap={{ scale: 0.85 }}
+                      transition={{ delay: 0 }}
+                      type="submit"
+                      value="Submit"
+                      // disabled={isSubmitting}
+                      className="text-md rounded-rounded bg-primary px-2 py-1 font-semibold text-white transition-colors duration-200 hover:cursor-pointer hover:bg-primaryLight"
+                    />
+                  )}
                 </div>
               </form>
             </motion.div>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </>

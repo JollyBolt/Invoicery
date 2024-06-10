@@ -86,9 +86,10 @@ const Products = () => {
     dispatch(refreshAuth());
   }, []);
 
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="flex min-h-[calc(100dvh-40px)] w-full flex-col">
-      <AddProductModal />
+      <AddProductModal isOpen={isOpen} setIsOpen={setIsOpen} />
       <Heading name="Products" />
       {loggedIn === false ? (
         <>
@@ -136,7 +137,8 @@ const Products = () => {
                   {/* <div id="filterBox" className="bg-green-500"></div> */}
                   <button
                     onClick={() =>
-                      document.getElementById("my_modal_3").showModal()
+                      // document.getElementById("my_modal_3").showModal()
+                      setIsOpen(true)
                     }
                     type="button"
                     className="flex w-fit items-center gap-2 rounded-rounded bg-primary p-2 px-4 text-lg text-white transition-colors hover:bg-primaryLight"

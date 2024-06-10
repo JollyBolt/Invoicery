@@ -81,7 +81,7 @@ export default function CreateCustomer() {
           </div>
         </div>
         <div className="mb-3 mt-2 flex w-full justify-end gap-x-2">
-          <form className="dialog">
+          <form method="dialog">
             <button className="text-md btn h-fit w-fit rounded-rounded border-none bg-transparent text-black shadow-none hover:border-none hover:bg-slate-300">
               Cancel
             </button>

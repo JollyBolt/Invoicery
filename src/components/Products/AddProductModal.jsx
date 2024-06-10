@@ -1,57 +1,167 @@
-import React from 'react'
+import React, { useState } from "react";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { postProduct } from "../../redux/slices/productSlice";
+import { useDispatch } from "react-redux";
+import { motion, AnimatePresence } from "framer-motion";
+import { DevTool } from "@hookform/devtools";
 
-const AddProductModal = () => {
+const AddProductModal = ({ isOpen, setIsOpen }) => {
+  const productSchema = yup.object({
+    name: yup.string().required("Product Name is required"),
+    hsn: yup.string().required("HSN Code is required"),
+    price: yup
+      .number("Please enter valid price")
+      .integer()
+      .required("Price is required"),
+  });
+
+  const form = useForm({
+    defaultValues: {
+      name: "",
+      hsn_code: "",
+      price: 0.0,
+    },
+    // mode: "all",
+    resolver: yupResolver(productSchema),
+  });
+
+  const { register, handleSubmit, formState, reset, clearErrors, control } =
+    form;
+  const { errors, isSubmitting } = formState;
+
+  const dispatch = useDispatch();
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    await handleSubmit(handlePost)(e);
+  };
+  const handlePost = ({ name, hsn_code, price }) => {
+    console.log("object");
+    // dispatch(login({ name, hsn_code,price }));
+  };
+
   return (
-        <dialog id="my_modal_3" className="modal h-full w-full">
-          <div className="modal-box h-fit w-1/3 max-w-none pb-0 rounded-rounded  mx-auto">
-            <div className="flex w-full flex-nowrap justify-between mx-auto mb-2">
-              <h3 className="font-extrabold text-3xl font-sans">Add a Product</h3>
-              <form method="dialog">
-                {/* if there is a button in form, it will close the modal */}
-                <button className="btn btn-sm btn-circle btn-ghost  text-lg ">
-                  ✕
-                </button>
-              </form>
-            </div>
-          <hr />
-          <div className="space-y-4 my-6">
-            <div>
-              <div className="grid grid-cols-1 gap-3 mt-4">
-                <div>
-                  <label className="block font-medium">Product Name</label>
-                  <input type="text" className="w-full border rounded-md p-2" />
-                </div>
-                <div>
-                  <label className="block font-medium">HSN Code</label>
-                  <input type="text" className="w-full border rounded-md p-2" />
-                </div>
-                <div>
-                  <label className="block font-medium">Price(INR)</label>
-                  <input type="email" className="w-full border rounded-md p-2" />
-                </div>
-              </div>
-            </div>
-
-          </div>
-              <div className="w-full flex gap-x-2 justify-end mt-2 mb-3">
-                <form className="dialog">
+    <>
+      {/* <DevTool control={control} /> */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div className="absolute inset-0 flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm">
+            <motion.div
+              className="w-full"
+              initial={{ scale: 0.4, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.4, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <form
+                onSubmit={onSubmit}
+                noValidate
+                className="mx-auto w-1/3 max-w-none rounded-rounded bg-white p-2 px-4"
+              >
+                <div className="mx-auto mb-2 flex w-full flex-nowrap justify-between">
+                  <h3 className="font-sans text-3xl font-extrabold">
+                    Add a Product
+                  </h3>
+                  {/* if there is a button in form, it will close the modal */}
                   <button
-                    type="btn"
-                    className="btn bg-transparent w-fit h-fit text-md shadow-none rounded-rounded border-none text-black hover:border-none hover:bg-slate-300"
+                    type="button"
+                    onClick={() => {
+                      clearErrors();
+                      reset();
+                      setIsOpen(false);
+                    }}
+                    className="btn btn-circle btn-ghost btn-sm text-lg"
+                  >
+                    ✕
+                  </button>
+                </div>
+                <hr />
+                <div className="my-6 space-y-4">
+                  <div>
+                    <div className="mt-4 grid grid-cols-1 gap-3">
+                      <div>
+                        <label className="block font-medium">
+                          Product Name
+                        </label>
+                        <input
+                          {...register("name")}
+                          type="text"
+                          className="w-full rounded-md border p-2"
+                        />
+                        <p className="text-xs text-red-500">
+                          {errors.name ? (
+                            errors.name?.message
+                          ) : (
+                            <span className="select-none">&nbsp;</span>
+                          )}
+                        </p>
+                      </div>
+                      <div>
+                        <label className="block font-medium">HSN Code</label>
+                        <input
+                          {...register("hsn_code")}
+                          type="text"
+                          className="w-full rounded-md border p-2"
+                        />
+                        <p className="text-xs text-red-500">
+                          {errors.hsn_code ? (
+                            errors.hsn_code?.message
+                          ) : (
+                            <span className="select-none">&nbsp;</span>
+                          )}
+                        </p>
+                      </div>
+                      <div>
+                        <label className="block font-medium">Price(INR)</label>
+                        <input
+                          {...register("price")}
+                          type="number"
+                          min={0.0}
+                          className="w-full rounded-md border p-2"
+                        />
+                        <p className="text-xs text-red-500">
+                          {errors.price ? (
+                            errors.price?.message
+                          ) : (
+                            <span className="select-none">&nbsp;</span>
+                          )}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="mb-3 mt-2 flex w-full justify-end gap-x-4">
+                  {/* <form method="dialog"> */}
+                  <button
+                    onClick={() => {
+                      clearErrors();
+                      reset();
+                      setIsOpen(false);
+                    }}
+                    type="button"
+                    className="text-md rounded-rounded border-none bg-transparent px-2 py-1 text-lg text-black shadow-none transition-colors duration-200 hover:border-none hover:bg-gray-200"
                   >
                     Cancel
                   </button>
-                </form>
-                <button
-                  type="btn"
-                  className="btn bg-primary text-white h-fit w-fit text-md rounded-rounded hover:border-primary hover:text-primary hover:bg-white"
-                >
-                  SAVE
-                </button>
-              </div>
-            </div>
-        </dialog>
-  )
-}
+                  {/* </form> */}
+                  <motion.input
+                    initial={{ scale: 1 }}
+                    whileTap={{ scale: 0.85 }}
+                    transition={{ delay: 0 }}
+                    type="submit"
+                    value="Submit"
+                    // disabled={isSubmitting}
+                    className="text-md rounded-rounded bg-primary px-2 py-1 text-lg font-semibold text-white transition-colors duration-200 hover:cursor-pointer hover:bg-primaryLight"
+                  />
+                </div>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
 
-export default AddProductModal
+export default AddProductModal;

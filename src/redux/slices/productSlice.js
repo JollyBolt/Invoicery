@@ -1,53 +1,74 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-axios.defaults.withCredentials=true;
+axios.defaults.withCredentials = true;
 
 const fetchAllProducts = createAsyncThunk(
   "products/fetchAllProducts",
   async () => {
     const res = await axios.get("https://jsonplaceholder.typicode.com/users");
     return res.data.map((product) => product); //return value of each callback of map is added to an array which is finally returned by the map function
-  }
+  },
 );
 
 const fetchSingleProduct = createAsyncThunk(
   "products/fetchSingleProduct",
   async (id) => {
     const res = await axios.get(
-      `https://jsonplaceholder.typicode.com/users/${id}`
+      `https://jsonplaceholder.typicode.com/users/${id}`,
     );
     return res.data;
-  }
+  },
 );
 
 const postProduct = createAsyncThunk(
   "products/postProduct",
   async (product) => {
-    const res = await axios.post(
-      "https://jsonplaceholder.typicode.com/users",
-      product
-    );
-    return res.data;
-  }
+    try {
+      const res = await axios.post(
+        "http://localhost:4598/api/v1/product/createproduct",
+        product,
+        {
+          headers: {
+            "authToken": document.cookie.split("=")[1],
+          },
+        },
+      );
+      console.log(res.data);
+      return res.data;
+    } catch (e) {
+      console.log(e);
+      return rejectWithValue(e);
+    }
+  },
 );
 
 const editProduct = createAsyncThunk(
   "products/editProduct",
   async (product) => {
-    const res = await axios.put(
-      `https://jsonplaceholder.typicode.com/users/${product.id}`,
-      product
-    );
-    return res.data;
-  }
+    try {
+      const res = await axios.put(
+        `https://jsonplaceholder.typicode.com/users/${product.id}`,
+        product,
+      );
+      return res.data;
+    } catch (e) {
+      console.log(e);
+      return rejectWithValue(e);
+    }
+  },
 );
 
 const deleteProduct = createAsyncThunk("products/deleteProduct", async (id) => {
-  const res = await axios.delete(
-    `https://jsonplaceholder.typicode.com/users/${id}`
-  );
-  return res.data;
+  try {
+    const res = await axios.delete(
+      `https://jsonplaceholder.typicode.com/users/${id}`,
+    );
+    return res.data;
+  } catch (e) {
+    console.log(e);
+    return rejectWithValue(e);
+  }
 });
 
 const productSlice = createSlice({

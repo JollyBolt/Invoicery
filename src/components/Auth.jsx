@@ -37,26 +37,26 @@ function Auth() {
 }
 
 const Modal = ({ open, setOpen }) => {
-  const googleLogin = useGoogleLogin({
-    onSuccess: async (response) => {
-      try {
-        // console.log(response.access_token)
-        const res = await axios.get(
-          "https://www.googleapis.com/oauth2/v3/userinfo ",
-          {
-            withCredentials: true,
-            headers: {
-              Authorization: `Bearer ${response.accessToken}`,
-              "Access-Control-Allow-Origin": "*",
-            },
-          },
-        );
-        console.log(res);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-  });
+  // const googleLogin = useGoogleLogin({
+  //   onSuccess: async (response) => {
+  //     try {
+  //       // console.log(response.access_token)
+  //       const res = await axios.get(
+  //         "https://www.googleapis.com/oauth2/v3/userinfo ",
+  //         {
+  //           withCredentials: true,
+  //           headers: {
+  //             Authorization: `Bearer ${response.accessToken}`,
+  //             "Access-Control-Allow-Origin": "*",
+  //           },
+  //         },
+  //       );
+  //       console.log(res);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   },
+  // });
 
   const navigate = useNavigate();
 
@@ -86,6 +86,7 @@ const Modal = ({ open, setOpen }) => {
   const handleLogin = ({ email, password }) => {
     dispatch(login({ email, password }));
   };
+  // const handleGoogleLogin = ()
   return (
     <>
       <AnimatePresence>
@@ -111,7 +112,7 @@ const Modal = ({ open, setOpen }) => {
                 noValidate
                 className="flex w-full flex-col"
               >
-                <p className="my-2 text-gray-500">Log in to invoicey.</p>
+                <p className="mb-4 text-gray-500">Log in to invoicery.</p>
                 <div className="relative flex w-full flex-nowrap justify-between">
                   <input
                     type="text"
@@ -181,7 +182,7 @@ const Modal = ({ open, setOpen }) => {
 
               {/* Google Auth */}
               <div className="w-full flex-1">
-                <button
+                {/* <button
                   onClick={googleLogin}
                   className="flex w-full items-center gap-3 rounded-rounded border-2 p-2 px-4 text-2xl"
                 >
@@ -191,7 +192,19 @@ const Modal = ({ open, setOpen }) => {
                   <span className="text-lg font-semibold">
                     Sign in with Google
                   </span>
-                </button>
+                </button> */}
+                {/* import {GoogleLogin} from '@react-oauth/google'; */}
+                <GoogleLogin
+                  size="large"
+                  width={320}
+                  onSuccess={(credentialResponse) => {
+                    const decoded = jwtDecode(credentialResponse?.credential)
+                    // console.log(decoded);
+                  }}
+                  onError={() => {
+                    console.log("Login Failed");
+                  }}
+                />
               </div>
 
               <div className="mt-10 flex items-center justify-between">

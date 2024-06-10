@@ -80,7 +80,7 @@ function MultiStepForm({ step, setStep }) {
           onClick={() => {
             setStep(step - 1);
           }}
-          className="rounded-rounded px-3 py-1 text-xl text-black transition-colors duration-150 hover:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-transparent"
+          className=" px-3 py-1 text-xl text-black transition-colors duration-150 hover:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-transparent"
         >
           Go Back
         </button>
@@ -90,7 +90,7 @@ function MultiStepForm({ step, setStep }) {
               setStep(step + 1);
             }
           }}
-          className="rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight"
+          className=" bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight"
         >
           {step === 4 ? "Save" : "Next"}
         </button>

@@ -11,9 +11,7 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
   const productSchema = yup.object({
     name: yup.string().required("Product Name is required"),
     hsn_code: yup.string(),
-    price: yup
-      .number("Please enter valid price")
-      .required("Price is required"),
+    price: yup.number("Please enter valid price").required("Price is required"),
   });
 
   const form = useForm({
@@ -88,11 +86,9 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                             placeholder="Product Name"
                             className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
                           />
-                          <label
-                            htmlFor="productName"
-                            className="float-label"
-                          >
-                            Product Name<span className="text-red-500">&#42;</span>
+                          <label htmlFor="productName" className="float-label">
+                            Product Name
+                            <span className="text-red-500">&#42;</span>
                           </label>
                         </div>
                         <p className="text-xs text-red-500">
@@ -105,17 +101,17 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                       </div>
                       <div>
                         <div className="relative flex w-full flex-col flex-nowrap">
-                        <input
-                          id="hsnCode"
-                          {...register("hsn_code")}
-                          type="text"
-                          placeholder="HSN Code"
-                          className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+                          <input
+                            id="hsnCode"
+                            {...register("hsn_code")}
+                            type="text"
+                            placeholder="HSN Code"
+                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
                           />
-                        <label htmlFor="hsnCode" className="float-label">
-                          HSN Code
-                        </label>
-                          </div>
+                          <label htmlFor="hsnCode" className="float-label">
+                            HSN Code
+                          </label>
+                        </div>
                         <p className="text-xs text-red-500">
                           {errors.hsn_code ? (
                             errors.hsn_code?.message
@@ -126,18 +122,19 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                       </div>
                       <div>
                         <div className="relative flex w-full flex-col flex-nowrap">
-                        <input
-                          id="price"
-                          {...register("price")}
-                          type="number"
-                          min={0.0}
-                          placeholder="HSN Code"
-                          className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+                          <input
+                            id="price"
+                            {...register("price")}
+                            type="number"
+                            min={0.0}
+                            placeholder="HSN Code"
+                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
                           />
-                        <label htmlFor="price" className="float-label">
-                          Price(INR)<span className="text-red-500">&#42;</span>
-                        </label>
-                          </div>
+                          <label htmlFor="price" className="float-label">
+                            Price(INR)
+                            <span className="text-red-500">&#42;</span>
+                          </label>
+                        </div>
                         <p className="text-xs text-red-500">
                           {errors.price ? (
                             errors.price?.message

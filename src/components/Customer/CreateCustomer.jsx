@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
+import { postCustomer } from "../../redux/slices/customerSlice";
 export default function CreateCustomer({ open, setOpen }) {
   const customerSchema = yup.object({
     client: yup.string().required("Client name is required"),
@@ -55,14 +56,34 @@ export default function CreateCustomer({ open, setOpen }) {
   });
   const { register, handleSubmit, reset, clearErrors, formState } = form;
   const { errors, isSubmitting } = formState;
-
+  const dispatch = useDispatch();
   const onSubmit = async (e) => {
     e.preventDefault();
     await handleSubmit(handlePost)(e);
   };
-  const handlePost = () => {
-    console.log("object");
-    // dispatch(postProduct({ name, hsn_code, price }));
+  const handlePost = ({
+    client,
+    email,
+    phone,
+    contactPerson,
+    streetAddress,
+    city,
+    state,
+    stateCode,
+    zip,
+    gstin,
+  }) => {
+    // console.log("object");
+    dispatch(
+      postCustomer({
+        client,
+        email,
+        phone,
+        contactPerson,
+        address: { streetAddress, city, state, stateCode, zip },
+        gstin,
+      }),
+    );
   };
 
   return (

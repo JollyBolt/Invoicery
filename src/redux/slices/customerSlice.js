@@ -25,14 +25,15 @@ const postCustomer = createAsyncThunk(
   "customers/postCustomer",
   async (customer) => {
     const res = await axios.post(
-      "https://jsonplaceholder.typicode.com/users",
+      "http://localhost:4598/api/v1/customer/createcustomer",
       customer,
       {
         headers: {
-          Authorization: "Bearer" + document.cookie.split("=")[1],
+          Authorization: "Bearer " + document.cookie.split("=")[1],
         },
       },
     );
+    console.log(res.data)
     return res.data;
   },
 );

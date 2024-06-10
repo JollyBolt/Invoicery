@@ -83,14 +83,13 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
           </div>
 
           <div className="flex flex-col gap-y-4 overflow-hidden border-t border-gray-500 pt-2">
-            <Link
+            <button
               onClick={() => {
                 // localStorage.removeItem("loggedIn");
                 document.cookie = "authToken= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
                 // navigate("/");
                 window.location.reload()
               }}
-              to={"/"}
               className={`text-red-500 transition-[border-radius] hover:bg-red-500 hover:text-white ${
                 open ? "rounded-rounded delay-0" : "rounded-[50%] delay-300"
               } duration-400 group flex items-center gap-3.5 py-1 pl-1 text-sm font-medium ease-linear`}
@@ -103,7 +102,7 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
               >
                 Logout
               </h2>
-            </Link>
+            </button>
 
             {/* <div className="flex  overflow-hidden ">
               <div className="flex items-center py-[1px] w-full text-black  rounded-rounded ">

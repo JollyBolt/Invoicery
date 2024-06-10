@@ -30,7 +30,7 @@ const postProduct = createAsyncThunk(
         product,
         {
           headers: {
-            Authorization: "Bearer" + document.cookie.split("=")[1],
+            Authorization: "Bearer " + document.cookie.split("=")[1],
           },
         },
       );

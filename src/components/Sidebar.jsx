@@ -85,8 +85,10 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
           <div className="flex flex-col gap-y-4 overflow-hidden border-t border-gray-500 pt-2">
             <Link
               onClick={() => {
-                localStorage.removeItem("loggedIn");
-                navigate("/");
+                // localStorage.removeItem("loggedIn");
+                document.cookie = "authToken= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+                // navigate("/");
+                window.location.reload()
               }}
               to={"/"}
               className={`text-red-500 transition-[border-radius] hover:bg-red-500 hover:text-white ${

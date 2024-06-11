@@ -1,13 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import getCookieValue from "../../utils/getCookieValue";
 axios.defaults.withCredentials = true;
 
 const fetchAllProducts = createAsyncThunk(
   "products/fetchAllProducts",
   async () => {
-    const res = await axios.get("https://jsonplaceholder.typicode.com/users");
-    return res.data.map((product) => product); //return value of each callback of map is added to an array which is finally returned by the map function
+    try {
+      // console.log(getCookieValue('authToken'));
+      const res = await axios.get(
+        "http://localhost:4598/api/v1/product/getallproducts",
+        {
+          headers: {
+            Authorization: "Bearer " + getCookieValue("authToken"),
+          },
+        },
+      );
+      return res.data; //return value of each callback of map is added to an array which is finally returned by the map function
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error);
+    }
   },
 );
 
@@ -30,7 +44,7 @@ const postProduct = createAsyncThunk(
         product,
         {
           headers: {
-            Authorization: "Bearer " + document.cookie.split("=")[1],
+            Authorization: "Bearer" + getCookieValue("authToken"),
           },
         },
       );
@@ -84,6 +98,7 @@ const productSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchAllProducts.fulfilled, (state, action) => {
+      // console.log(action.payload);
       state.loading = false;
       state.products = action.payload;
       state.error = "";

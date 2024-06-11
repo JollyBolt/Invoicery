@@ -41,11 +41,9 @@ const Breadcrumb = () => {
           return (
             // Render the last breadcrumb segment without a link.
             index === path.length - 1 ? (
-              <span>
+              <span key={index}>
                 &nbsp; {">"}&nbsp;
-                <span key={index} className="capitalize text-gray-500">
-                  {name}
-                </span>
+                <span className="capitalize text-gray-500">{name}</span>
               </span>
             ) : (
               // Render the other breadcrumb segments with a link.

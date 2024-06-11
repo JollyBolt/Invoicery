@@ -84,7 +84,7 @@ const Modal = ({ open, setOpen }) => {
     await handleSubmit(handleLogin)(e);
   };
   const handleLogin = ({ email, password }) => {
-    dispatch(login({ email, password }));
+    dispatch(login({ email, password ,mode:"password" }));
   };
   // const handleGoogleLogin = ()
   return (

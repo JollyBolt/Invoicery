@@ -198,7 +198,7 @@ const Modal = ({ open, setOpen }) => {
                   size="large"
                   width={320}
                   onSuccess={(credentialResponse) => {
-                    const decoded = jwtDecode(credentialResponse?.credential)
+                    const decoded = jwtDecode(credentialResponse?.credential);
                     // console.log(decoded);
                   }}
                   onError={() => {

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useForm, useFieldArray } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
+import { useReactToPrint } from "react-to-print";
+
 function MultiStepForm({ step, setStep }) {
   const form = useForm({
     defaultValues: {
@@ -34,7 +36,15 @@ function MultiStepForm({ step, setStep }) {
 
   const formSwitch = () => {
     switch (step) {
-      case 1:
+      case 2:
+        return (
+          <InvoiceDetails
+            register={register}
+            errors={errors}
+            setValue={setValue}
+          />
+        );
+      case 3:
         return (
           <AddCustomer
             register={register}
@@ -43,7 +53,7 @@ function MultiStepForm({ step, setStep }) {
             watch={watch}
           />
         );
-      case 2:
+      case 4:
         return (
           <AddProducts
             register={register}
@@ -55,7 +65,7 @@ function MultiStepForm({ step, setStep }) {
             watch={watch}
           />
         );
-      case 3:
+      case 5:
         return (
           <TaxesNDiscounts
             register={register}
@@ -63,43 +73,58 @@ function MultiStepForm({ step, setStep }) {
             setValue={setValue}
           />
         );
-      case 4:
+      case 6:
+        return (
+          <TermsNConditions
+            register={register}
+            errors={errors}
+            setValue={setValue}
+          />
+        );
+      case 7:
         return <Finish />;
     }
   };
   return (
-    <div className="h-full w-full">
+    <div className="flex h-full w-full flex-col">
       {/* <Stepper step={step} /> */}
-      <div className="mb-10">
+      <div className="mb-10 flex-1">
         <form>{formSwitch()}</form>
       </div>
       <DevTool control={control} />
       <div className="flex w-full justify-between">
         <button
-          disabled={step === 1}
+          // disabled={step === 1}
           onClick={() => {
             setStep(step - 1);
           }}
-          className=" px-3 py-1 text-xl text-black transition-colors duration-150 hover:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-transparent"
+          className="rounded-rounded px-3 py-1 text-xl text-black transition-colors duration-150 hover:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-transparent"
         >
           Go Back
         </button>
-        <button
+        <motion.button
+          initial={{ scale: 1 }}
+          whileTap={{ scale: 0.85 }}
+          transition={{ duration: 0.2 }}
           onClick={() => {
-            if (step < 4) {
+            if (step < 7) {
               setStep(step + 1);
             }
           }}
-          className=" bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight"
+          className="rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight"
         >
-          {step === 4 ? "Save" : "Next"}
-        </button>
+          {step === 7 ? "Save" : "Next"}
+        </motion.button>
       </div>
     </div>
   );
 }
 
 export default MultiStepForm;
+
+const InvoiceDetails = ({ register, setValue }) => {
+  return <></>;
+};
 
 const AddCustomer = ({ register, errors, watch, setValue }) => {
   const people = [
@@ -116,9 +141,9 @@ const AddCustomer = ({ register, errors, watch, setValue }) => {
     return customer.name.toLowerCase().includes(value.toLowerCase());
   });
 
-useEffect(()=>{
-  setValueState(watch("customer"));
-},[])
+  useEffect(() => {
+    setValueState(watch("customer"));
+  }, []);
 
   return (
     <>
@@ -131,7 +156,7 @@ useEffect(()=>{
       >
         <p className="text-xl">Choose the customer you want to bill.</p>
 
-        <div className="relative mt-2 flex w-full justify-between flex-nowrap gap-x-2 overflow-visible">
+        <div className="relative mt-2 flex w-full flex-nowrap justify-between gap-x-2 overflow-visible">
           <input
             type="text"
             {...register("customer", {
@@ -163,7 +188,7 @@ useEffect(()=>{
 
           {watch("customer").length >= 3 && (
             <motion.div
-              className={`absolute top-12 -z-10 w-2/3 bg-white opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-10 max-h-[70px] overflow-scroll peer-focus:opacity-100`}
+              className={`absolute top-12 -z-10 max-h-[70px] w-2/3 overflow-scroll bg-white opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
             >
               {filteredPeople.length ? (
                 filteredPeople.map((person, ind) => {
@@ -214,9 +239,6 @@ const AddProducts = ({
     return customer.name.toLowerCase().includes(value.toLowerCase());
   });
 
-
-
-  
   return (
     <>
       <motion.div
@@ -455,7 +477,14 @@ const TaxesNDiscounts = ({ register, setValue, errors }) => {
   );
 };
 
+const TermsNConditions = ({ register, errors, setValue }) => {
+  return <></>;
+};
+
 const Finish = () => {
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
   return (
     <>
       {/* <AnimatePresence mode="wait"> */}
@@ -471,6 +500,7 @@ const Finish = () => {
             Review the Invoice Information.
           </h1>
         </div>
+        <button onClick={handlePrint}>Print</button>
       </motion.div>
       {/* </AnimatePresence> */}
     </>

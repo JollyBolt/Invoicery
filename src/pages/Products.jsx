@@ -82,9 +82,15 @@ const Products = () => {
   const { refreshAuth } = authSlice.actions;
   const dispatch = useDispatch();
   const { loggedIn } = useSelector((state) => state.auth);
+  
   useEffect(() => {
+    if (!loggedIn) {
     dispatch(refreshAuth());
-  }, []);
+    }
+else{
+      console.log("object")
+    }
+  }, [loggedIn]);
 
   const [isOpen, setIsOpen] = useState(false);
   return (

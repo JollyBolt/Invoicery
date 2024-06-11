@@ -29,7 +29,7 @@ const postCustomer = createAsyncThunk(
       customer,
       {
         headers: {
-          Authorization: "Bearer " + document.cookie.split("=")[1],
+          Authorization: "Bearer" + getCookieValue("authToken"),
         },
       },
     );

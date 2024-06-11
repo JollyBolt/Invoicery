@@ -18,6 +18,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { authSlice } from "../redux/slices/authSlice";
 import Loader from "../components/Loader";
 import Auth from "../components/Auth";
+import Table from "../components/Table/Table";
+import { productColumns } from "../components/Table/Columns";
+import { fetchAllProducts } from "../redux/slices/productSlice";
+import { get } from "react-hook-form";
 
 const Products = () => {
   //pagination funciton
@@ -82,14 +86,16 @@ const Products = () => {
   const { refreshAuth } = authSlice.actions;
   const dispatch = useDispatch();
   const { loggedIn } = useSelector((state) => state.auth);
-  
+  const { products } = useSelector((state) => state.products);
+
   useEffect(() => {
-    if (!loggedIn) {
-    dispatch(refreshAuth());
+    async function getProducts() {
+      await dispatch(refreshAuth());
+      if (loggedIn) {
+        await dispatch(fetchAllProducts());
+      }
     }
-else{
-      console.log("object")
-    }
+    getProducts()
   }, [loggedIn]);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -155,7 +161,7 @@ else{
                 </div>
               </div>
 
-              <div className="borde-x mx-auto mt-4 flex w-full flex-col overflow-y-scroll rounded-t-rounded border-t border-slate-300">
+              {/* <div className="borde-x mx-auto mt-4 flex w-full flex-col overflow-y-scroll rounded-t-rounded border-t border-slate-300">
                 <div className="flex h-14 w-full flex-row flex-nowrap items-center justify-between bg-primaryLight px-5 py-2 text-lg text-white">
                   <h3 className="w-1/4 font-semibold">S No.</h3>
                   <h3 className="w-1/4 font-semibold">NAME</h3>
@@ -217,7 +223,8 @@ else{
                     />
                   </button>
                 </div>
-              </div>
+              </div> */}
+                <Table tableColumns={productColumns} tableData={products} />
             </>
           ) : (
             <div className="flex h-full flex-1 flex-col items-center justify-evenly">

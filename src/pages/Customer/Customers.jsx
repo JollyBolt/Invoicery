@@ -1,73 +1,72 @@
-import PageWrapper from "../hoc/PageWrapper";
-import Heading from "../components/Heading";
-import { AddCustomer, FaPlus } from "../assets/index";
+import PageWrapper from "../../hoc/PageWrapper"
+import Heading from "../../components/Heading"
 import {
+  AddCustomer,
+  FaPlus,
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
-} from "../assets/index";
-import { HiMagnifyingGlass } from "../assets/index";
-import { FaFilter } from "../assets/index";
-import { RxCross1 } from "../assets/index";
-
-import data from "../demoData.json";
-import SingleCustomer from "../components/Customer/SingleCustomer";
-import { useEffect, useState } from "react";
-import CreateCustomer from "../components/Customer/CreateCustomer";
-import { useDispatch, useSelector } from "react-redux";
-import { authSlice } from "../redux/slices/authSlice";
-import Loader from "../components/Loader";
-import Auth from "../components/Auth";
+  HiMagnifyingGlass,
+  RxCross1,
+} from "../../assets/index"
+import data from "../../demoData.json"
+import SingleCustomer from "../../components/Customer/SingleCustomer"
+import { useEffect, useState } from "react"
+import CreateCustomer from "../../components/Customer/CreateCustomer"
+import { useDispatch, useSelector } from "react-redux"
+import { authSlice } from "../../redux/slices/authSlice"
+import Loader from "../../components/Loader"
+import Auth from "../../components/Auth"
 
 const Customers = () => {
   //pagination funciton
-  const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage] = useState(2);
-  const indexOfLastRecord = currentPage * recordsPerPage;
-  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const [currentPage, setCurrentPage] = useState(1)
+  const [recordsPerPage] = useState(2)
+  const indexOfLastRecord = currentPage * recordsPerPage
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage
 
   const [nPages, setNPages] = useState(
     Math.ceil(data.customers.length / recordsPerPage),
-  );
+  )
 
   const goToNextPage = () => {
-    if (currentPage !== nPages) setCurrentPage(currentPage + 1);
-  };
+    if (currentPage !== nPages) setCurrentPage(currentPage + 1)
+  }
   const goToPrevPage = () => {
-    if (currentPage !== 1) setCurrentPage(currentPage - 1);
-  };
-  const [search, setSearch] = useState("");
+    if (currentPage !== 1) setCurrentPage(currentPage - 1)
+  }
+  const [search, setSearch] = useState("")
 
   //search pagination function
   useEffect(() => {
-    setCurrentPage(1);
+    setCurrentPage(1)
     if (search) {
       setNPages(
         data.customers.filter((customer) => {
-          return customer.name.toLowerCase().includes(search.toLowerCase());
+          return customer.name.toLowerCase().includes(search.toLowerCase())
         }).length
           ? Math.ceil(
               data.customers.filter((customer) => {
                 return customer.name
                   .toLowerCase()
-                  .includes(search.toLowerCase());
+                  .includes(search.toLowerCase())
               }).length / recordsPerPage,
             )
           : 1,
-      );
+      )
     } else {
-      setNPages(Math.ceil(data.customers.length / recordsPerPage));
+      setNPages(Math.ceil(data.customers.length / recordsPerPage))
     }
-  }, [search]);
+  }, [search])
 
   //Checking if authtoken exists, i.e., logged in on refresh
-  const { refreshAuth } = authSlice.actions;
-  const dispatch = useDispatch();
-  const { loggedIn } = useSelector((state) => state.auth);
+  const { refreshAuth } = authSlice.actions
+  const dispatch = useDispatch()
+  const { loggedIn } = useSelector((state) => state.auth)
   useEffect(() => {
-    dispatch(refreshAuth());
-  }, []);
+    dispatch(refreshAuth())
+  }, [])
 
-  const [open, setOpen]=useState(false);
+  const [open, setOpen] = useState(false)
   return (
     <div className="flex min-h-[calc(100dvh-40px)] w-full flex-col">
       <CreateCustomer open={open} setOpen={setOpen} />
@@ -96,8 +95,8 @@ const Customers = () => {
                     <HiMagnifyingGlass className="inline pr-2 text-4xl" />
                     <input
                       onChange={(e) => {
-                        setSearch(e.target.value);
-                        searchPagination();
+                        setSearch(e.target.value)
+                        searchPagination()
                       }}
                       type="text"
                       autoComplete="off"
@@ -112,8 +111,8 @@ const Customers = () => {
                         type="btn"
                         className="h-fit w-fit"
                         onClick={() => {
-                          document.getElementById("searchCustom").value = "";
-                          setSearch("");
+                          document.getElementById("searchCustom").value = ""
+                          setSearch("")
                         }}
                       >
                         <RxCross1 className="text-lg text-red-400" />
@@ -160,7 +159,7 @@ const Customers = () => {
                     .filter((customer) => {
                       return customer.name
                         .toLowerCase()
-                        .includes(search.toLowerCase());
+                        .includes(search.toLowerCase())
                     })
                     .slice(indexOfFirstRecord, indexOfLastRecord)
                     .map((customer, i) => {
@@ -178,7 +177,7 @@ const Customers = () => {
                           city={customer.city}
                           currentPage={currentPage}
                         />
-                      );
+                      )
                     })}
                 </div>
               </div>
@@ -190,13 +189,13 @@ const Customers = () => {
                       ? data.customers.filter((customer) => {
                           return customer.name
                             .toLowerCase()
-                            .includes(search.toLowerCase());
+                            .includes(search.toLowerCase())
                         }).length
                         ? Math.ceil(
                             data.customers.filter((customer) => {
                               return customer.name
                                 .toLowerCase()
-                                .includes(search.toLowerCase());
+                                .includes(search.toLowerCase())
                             }).length / recordsPerPage,
                           )
                         : 1
@@ -244,7 +243,7 @@ const Customers = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default PageWrapper(Customers, "customers");
+export default PageWrapper(Customers, "customers")

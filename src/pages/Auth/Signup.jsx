@@ -3,12 +3,12 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { signup } from "../redux/slices/authSlice";
+import { signup } from "../../redux/slices/authSlice";
 import { DevTool } from "@hookform/devtools";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { HiArrowLongLeft } from "../assets/index";
-import { authSlice } from "../redux/slices/authSlice";
+import { HiArrowLongLeft } from "../../assets/index";
+import { authSlice } from "../../redux/slices/authSlice";
 
 function Signup() {
   const signupSchema = yup.object({

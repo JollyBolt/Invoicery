@@ -6,12 +6,13 @@ import {
   HiMagnifyingGlass,
   RxCross1,
 } from "../../assets/index"
-import data from "../../demoData.json"
-import SingleCustomer from "../../components/Customer/SingleCustomer"
 import { useEffect, useState } from "react"
 import CreateCustomer from "../../components/Customer/CreateCustomer"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchAllCustomers } from "../../redux/slices/customerSlice"
+import Table from "../../components/Table/Table"
+import { customerColumns } from "../../components/Table/Columns"
+import EditCustomer from "../../components/Customer/EditCustomer"
 
 const CustomerTable = () => {
   //pagination funciton
@@ -20,8 +21,10 @@ const CustomerTable = () => {
   const indexOfLastRecord = currentPage * recordsPerPage
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage
 
+  const { customers } = useSelector((state) => state.customers)
+
   const [nPages, setNPages] = useState(
-    Math.ceil(data.customers.length / recordsPerPage),
+    Math.ceil(customers.length / recordsPerPage),
   )
 
   const goToNextPage = () => {
@@ -37,11 +40,11 @@ const CustomerTable = () => {
     setCurrentPage(1)
     if (search) {
       setNPages(
-        data.customers.filter((customer) => {
+        customers.filter((customer) => {
           return customer.name.toLowerCase().includes(search.toLowerCase())
         }).length
           ? Math.ceil(
-              data.customers.filter((customer) => {
+              customers.filter((customer) => {
                 return customer.name
                   .toLowerCase()
                   .includes(search.toLowerCase())
@@ -50,17 +53,17 @@ const CustomerTable = () => {
           : 1,
       )
     } else {
-      setNPages(Math.ceil(data.customers.length / recordsPerPage))
+      setNPages(Math.ceil(customers.length / recordsPerPage))
     }
   }, [search])
 
   const [open, setOpen] = useState(false)
+  const [openEditModal, setOpenEditModal] = useState(false)
 
   //Checking if authtoken exists, i.e., logged in on refresh
 
   const dispatch = useDispatch()
   const { loggedIn } = useSelector((state) => state.auth)
-  const { customers } = useSelector((state) => state.customers)
 
   useEffect(() => {
     async function getCustomers() {
@@ -74,14 +77,15 @@ const CustomerTable = () => {
   return (
     <>
       <CreateCustomer open={open} setOpen={setOpen} />
+      <EditCustomer open={openEditModal} setOpen={setOpenEditModal} />
 
       <div
         className={`min-h-[83dvh] rounded-rounded bg-foreground p-5 ${
-          // data.customers &&
+          // customers &&
           "flex flex-col flex-nowrap"
         }`}
       >
-        {data.customers ? (
+        {customers ? (
           <>
             <div className="flex w-full flex-row flex-nowrap justify-between rounded-t-sm">
               <div className="w-1/3 border-b border-neutral-800 pl-2">
@@ -116,15 +120,8 @@ const CustomerTable = () => {
               </div>
 
               <div className="flex flex-nowrap items-center justify-between">
-                <div id="filterBox" className="bg-green-500"></div>
                 <button
-                  onClick={() =>
-                    // document.getElementById("my_modal_3").showModal()
-                    setOpen(true)
-                  }
-                  // onClick={() => {
-                  //   setCreateOpen(true);
-                  // }}
+                  onClick={() => setOpen(true)}
                   type="button"
                   className="w-fit rounded-full bg-primaryLight p-2 transition-colors hover:bg-primary"
                 >
@@ -133,87 +130,14 @@ const CustomerTable = () => {
               </div>
             </div>
 
-            <div className="mx-auto mt-4 flex w-full flex-col overflow-y-scroll rounded-t-rounded border-x border-t border-solid border-slate-300">
-              <div className="flex w-full flex-row flex-nowrap justify-between py-2">
-                <h3 className="w-4/12 pl-20 font-semibold">Name</h3>
-                <h3 className="w-4/12 pl-20 font-semibold">Email</h3>
-                <h3 className="w-2/12 text-center font-semibold">Invoices</h3>
-                <div className="w-1/12 font-semibold">&nbsp;</div>
-              </div>
-              <div className="w-full border-t border-slate-300">
-                {data.customers
-                  .filter((customer) => {
-                    return customer.name
-                      .toLowerCase()
-                      .includes(search.toLowerCase())
-                  })
-                  .slice(indexOfFirstRecord, indexOfLastRecord)
-                  .map((customer, i) => {
-                    return (
-                      <SingleCustomer
-                        key={i}
-                        name={customer.name}
-                        email={customer.email}
-                        no_of_invoices={customer.no_of_invoices}
-                        gstin={customer.gstin}
-                        address={customer.address}
-                        state={customer.state}
-                        zip={customer.zip}
-                        contact={customer.contact}
-                        city={customer.city}
-                        currentPage={currentPage}
-                      />
-                    )
-                  })}
-              </div>
-            </div>
-            <div className="flex w-full justify-end rounded-b-rounded border-x border-b border-slate-300 py-2">
-              <div className="flex w-1/4 items-center justify-end text-right">
-                <span className="text-lg">
-                  {currentPage} of{" "}
-                  {search
-                    ? data.customers.filter((customer) => {
-                        return customer.name
-                          .toLowerCase()
-                          .includes(search.toLowerCase())
-                      }).length
-                      ? Math.ceil(
-                          data.customers.filter((customer) => {
-                            return customer.name
-                              .toLowerCase()
-                              .includes(search.toLowerCase())
-                          }).length / recordsPerPage,
-                        )
-                      : 1
-                    : Math.ceil(data.customers.length / recordsPerPage)}
-                </span>
-                <button type="btn" onClick={goToPrevPage} className="w-fit">
-                  <MdOutlineKeyboardArrowLeft
-                    aria-disabled={currentPage === 1}
-                    className={`text- h-fit text-4xl font-bold aria-disabled:text-gray-400 aria-disabled:hover:cursor-default`}
-                  />
-                </button>
-                <button type="btn" className="w-fit" onClick={goToNextPage}>
-                  <MdOutlineKeyboardArrowRight
-                    aria-disabled={currentPage === nPages}
-                    className={`text- h-fit text-4xl font-bold aria-disabled:text-gray-400 aria-disabled:hover:cursor-default`}
-                  />
-                </button>
-              </div>
-            </div>
+            <Table tableColumns={customerColumns} tableData={customers} />
           </>
         ) : (
           <div className="flex h-full flex-1 flex-col items-center justify-evenly">
             <h2 className="text-center text-xl">
               You don't have any customers. Click{" "}
               <span
-                onClick={() =>
-                  // document.getElementById("my_modal_3").showModal()
-                  setOpen(true)
-                }
-                // onClick={() => {
-                //   setCreateOpen(true);
-                // }}
+                onClick={() => setOpen(true)}
                 className="text-primaryLight transition-all hover:cursor-pointer hover:underline hover:underline-offset-2"
               >
                 here{" "}

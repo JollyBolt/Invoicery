@@ -4,53 +4,40 @@ import {
   getCoreRowModel,
   flexRender,
 } from "@tanstack/react-table"
-import { BsThreeDotsVertical } from "../../assets"
 
 const Table = ({ tableColumns, tableData }) => {
-  const [showActions, setShowActions] = useState(false)
   const columns = useMemo(() => tableColumns, [])
   const data = useMemo(() => tableData, [tableData])
-  // console.log(data)
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   })
   return (
-    <table className="w-full">
-      <thead>
+    <table className="mt-5 w-full rounded-rounded overflow-hidden">
+      <thead className="h-14 rounded-rounded bg-primary text-left text-white text-xl">
         {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id}>
-            <th>Index</th>
+          <tr className="p-5" key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
-              <th key={header.id}>
+              <th className="px-5" key={header.id}>
                 {flexRender(
                   header.column.columnDef.header,
                   header.getContext(),
                 )}
               </th>
             ))}
-            <th>Actions</th>
           </tr>
         ))}
       </thead>
       <tbody>
         {table.getRowModel().rows.map((row, index) => (
-          <tr key={row.id}>
-            <td>{index + 1}</td>
+          <tr className="h-10 even:bg-gray-100 odd:bg-gray-200" key={row.id}>
             {row.getVisibleCells().map((cell) => (
-              <td key={cell.id}>
+              <td className="px-5 py-[10px]" key={cell.id}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </td>
             ))}
-            <td>
-              <button>
-                <BsThreeDotsVertical />
-                <div
-                  className={`absolute ${!showActions && "hidden"} flex flex-col`}
-                ></div>
-              </button>
-            </td>
           </tr>
         ))}
       </tbody>

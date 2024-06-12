@@ -11,6 +11,7 @@ import SingleCustomer from "../../components/Customer/SingleCustomer"
 import { useEffect, useState } from "react"
 import CreateCustomer from "../../components/Customer/CreateCustomer"
 import { useDispatch, useSelector } from "react-redux"
+import { fetchAllCustomers } from "../../redux/slices/customerSlice"
 
 const CustomerTable = () => {
   //pagination funciton
@@ -55,12 +56,20 @@ const CustomerTable = () => {
 
   const [open, setOpen] = useState(false)
 
-
   //Checking if authtoken exists, i.e., logged in on refresh
 
   const dispatch = useDispatch()
   const { loggedIn } = useSelector((state) => state.auth)
+  const { customers } = useSelector((state) => state.customers)
 
+  useEffect(() => {
+    async function getCustomers() {
+      if (loggedIn) {
+        await dispatch(fetchAllCustomers())
+      }
+    }
+    getCustomers()
+  }, [loggedIn])
 
   return (
     <>

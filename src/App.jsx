@@ -4,7 +4,6 @@ import Dashboard from "./pages/Dashboard"
 import Products from "./pages/Products"
 import InvoiceTable from "./pages/Invoice/InvoiceTable"
 import Profile from "./pages/Profile"
-import CreateInvoice from "./components/Invoice/CreateInvoice"
 import InvoiceLayout from "./layout/InvoiceLayout"
 import Signup from "./pages/Auth/Signup"
 import EditInvoice from "./pages/Invoice/EditInvoice"
@@ -12,6 +11,7 @@ import ViewInvoice from "./pages/Invoice/ViewInvoice"
 import CustomerLayout from "./layout/CustomerLayout"
 import CustomerDetail from "./pages/Customer/CustomerDetail"
 import CustomerTable from "./pages/Customer/CustomerTable"
+import CreateInvoice from "./pages/Invoice/CreateInvoice"
 
 function App() {
   return (

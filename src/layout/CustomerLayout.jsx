@@ -15,11 +15,9 @@ const CustomerLayout = () => {
     useEffect(() => {
       dispatch(refreshAuth())
     }, [])
-  const [open, setOpen] = useState(false)
 
   return (
     <div className="flex min-h-[calc(100dvh-40px)] w-full flex-col">
-      <CreateCustomer open={open} setOpen={setOpen} />
       <Heading name="Customers" />
       <div className="mt-5">{loggedIn === false ? <Auth /> : <Outlet />}</div>
     </div>

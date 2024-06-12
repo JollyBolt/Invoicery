@@ -8,7 +8,6 @@ const fetchAllProducts = createAsyncThunk(
   "products/fetchAllProducts",
   async () => {
     try {
-      // console.log(getCookieValue('authToken'));
       const res = await axios.get(
         "http://localhost:4598/api/v1/product/getallproducts",
         {
@@ -17,7 +16,7 @@ const fetchAllProducts = createAsyncThunk(
           },
         },
       )
-      return res.data //return value of each callback of map is added to an array which is finally returned by the map function
+      return res.data 
     } catch (error) {
       console.log(error)
       return rejectWithValue(error)

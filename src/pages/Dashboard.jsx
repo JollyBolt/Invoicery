@@ -14,7 +14,6 @@ import {
 import Stats from "../components/Dashboard/Stats";
 
 import { useSelector, useDispatch } from "react-redux";
-import { authSlice } from "../redux/slices/authSlice";
 import Auth from "../components/Auth";
 
 const Dashboard = () => {
@@ -43,12 +42,8 @@ const Dashboard = () => {
   };
 
   //Checking if authtoken exists, i.e., logged in on refresh
-  const { refreshAuth } = authSlice.actions;
   const dispatch = useDispatch();
   const { loggedIn  } = useSelector((state) => state.auth);
-  useEffect(() => {
-    dispatch(refreshAuth());
-  }, []);
 
   return (
     <div>

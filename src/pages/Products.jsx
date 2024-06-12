@@ -15,13 +15,11 @@ import { useEffect, useState } from "react";
 import ProductField from "../components/Products/ProductField";
 import AddProductModal from "../components/Products/AddProductModal";
 import { useDispatch, useSelector } from "react-redux";
-import { authSlice } from "../redux/slices/authSlice";
+import Auth from "../components/Auth"
 import Loader from "../components/Loader";
-import Auth from "../components/Auth";
 import Table from "../components/Table/Table";
 import { productColumns } from "../components/Table/Columns";
 import { fetchAllProducts } from "../redux/slices/productSlice";
-import { get } from "react-hook-form";
 
 const Products = () => {
   //pagination funciton
@@ -83,14 +81,12 @@ const Products = () => {
   }, [search]); // Dependency on the search query
 
   //Checking if authtoken exists, i.e., logged in on refresh
-  const { refreshAuth } = authSlice.actions;
   const dispatch = useDispatch();
   const { loggedIn } = useSelector((state) => state.auth);
   const { products } = useSelector((state) => state.products);
 
   useEffect(() => {
     async function getProducts() {
-      await dispatch(refreshAuth());
       if (loggedIn) {
         await dispatch(fetchAllProducts());
       }

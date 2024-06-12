@@ -11,7 +11,6 @@ import SingleCustomer from "../../components/Customer/SingleCustomer"
 import { useEffect, useState } from "react"
 import CreateCustomer from "../../components/Customer/CreateCustomer"
 import { useDispatch, useSelector } from "react-redux"
-import { authSlice } from "../../redux/slices/authSlice"
 
 const CustomerTable = () => {
   //pagination funciton
@@ -58,12 +57,10 @@ const CustomerTable = () => {
 
 
   //Checking if authtoken exists, i.e., logged in on refresh
-  const { refreshAuth } = authSlice.actions
+
   const dispatch = useDispatch()
   const { loggedIn } = useSelector((state) => state.auth)
-  useEffect(() => {
-    dispatch(refreshAuth())
-  }, [])
+
 
   return (
     <>

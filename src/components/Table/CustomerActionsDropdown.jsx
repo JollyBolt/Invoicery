@@ -19,7 +19,7 @@ const CustomerActionsDropdown = ({ row }) => {
             className="border p-2 hover:bg-gray-50"
             onClick={() => {
               setOpen((prev) => !prev)
-              navigate(`/customerDetail/${row.original._id}`)
+              navigate(`./customerDetail/${row.original._id}`)
             }}
           >
             View

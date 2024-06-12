@@ -16,6 +16,7 @@ const fetchAllCustomers = createAsyncThunk(
           },
         },
       )
+
       return res.data
     } catch (error) {
       console.log(error)
@@ -36,6 +37,7 @@ const fetchSingleCustomer = createAsyncThunk(
           },
         },
       )
+      console.log(res.data)
       return res.data
     } catch (e) {
       console.log(e)

@@ -5,14 +5,20 @@ import { fetchSingleCustomer } from "../../redux/slices/customerSlice"
 
 const CustomerDetail = () => {
   const id = useParams().id
-  // console.log(id)
   const dispatch = useDispatch()
-  const { customers } = useSelector((state) => state.customers)
-  const customerDetails = customers[0]
-  // useEffect(() => {
-  //   dispatch(fetchSingleCustomer(id))
-  // }, [])
-  // console.log(customerDetails)
+  const { loading } = useSelector((state) => state.customers)
+  const customerDetails = useSelector((state) => state.customers.customers)
+  const { loggedIn } = useSelector((state) => state.auth)
+
+  useEffect(() => {
+    async function getCustomer() {
+      if (loggedIn) {
+        await dispatch(fetchSingleCustomer(id))
+      }
+    }
+    getCustomer()
+  }, [loggedIn])
+
   return <div>CustomerDetail</div>
 }
 

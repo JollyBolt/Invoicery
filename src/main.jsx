@@ -8,12 +8,9 @@ import { Provider } from "react-redux"
 import store from "./redux/store.js"
 import { GoogleOAuthProvider } from "@react-oauth/google"
 
-
 if (process.env.NODE_ENV === "production") {
   disableReactDevTools()
 }
-
-
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

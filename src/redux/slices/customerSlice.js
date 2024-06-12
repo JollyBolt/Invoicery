@@ -6,8 +6,20 @@ axios.defaults.withCredentials = true
 const fetchAllCustomers = createAsyncThunk(
   "customers/fetchAllCustomers",
   async () => {
-    const res = await axios.get("https://jsonplaceholder.typicode.com/users")
-    return res.data.map((customer) => customer) //return value of each callback of map is added to an array which is finally returned by the map function
+    try {
+      const res = await axios.get(
+        "http://localhost:4598/api/v1/customers/getallcustomers",
+        {
+          headers: {
+            Authorization: "Bearer " + getCookieValue("authToken"),
+          },
+        },
+      )
+      return res.data 
+    } catch (error) {
+      console.log(error)
+      return rejectWithValue(error)
+    }
   },
 )
 

@@ -9,9 +9,9 @@ const CustomerDetail = () => {
   const dispatch = useDispatch()
   const { customers } = useSelector((state) => state.customers)
   const customerDetails = customers[0]
-  useEffect(() => {
-    dispatch(fetchSingleCustomer(id))
-  }, [])
+  // useEffect(() => {
+  //   dispatch(fetchSingleCustomer(id))
+  // }, [])
   // console.log(customerDetails)
   return <div>CustomerDetail</div>
 }

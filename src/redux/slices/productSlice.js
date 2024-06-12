@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import axios from "axios"
 import getCookieValue from "../../utils/getCookieValue"
+import axios from "axios"
 axios.defaults.withCredentials = true
 
 const fetchAllProducts = createAsyncThunk(

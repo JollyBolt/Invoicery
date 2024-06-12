@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect, useRef } from "react";
-import MultiStepForm1 from "./MultiStepForm1";
+import MultiStepFormGST from "./MultiStepFormGST";
 import { useAnimate, motion } from "framer-motion";
 import InvoicePreview from "./InvoicePreview";
 // import { useReactToPrint } from "react-to-print";
@@ -95,7 +96,7 @@ function CreateInvoice() {
                 </div>
               </div>
             ) : (
-              <MultiStepForm1
+              <MultiStepFormGST
                 step={step}
                 setStep={setStep}
                 printDocRef={componentRef}

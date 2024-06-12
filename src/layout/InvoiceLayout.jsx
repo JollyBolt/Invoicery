@@ -21,7 +21,7 @@ const InvoiceLayout = () => {
   return (
     <div>
       <Heading name="Invoice" />
-      <div>{loggedIn === false ? <Auth /> : <Outlet />}</div>
+      <div className="mt-5">{loggedIn === false ? <Auth /> : <Outlet />}</div>
     </div>
   )
 }

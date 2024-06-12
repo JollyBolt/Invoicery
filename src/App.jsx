@@ -6,7 +6,7 @@ import InvoiceTable from "./pages/Invoice/InvoiceTable"
 import Profile from "./pages/Profile"
 import CreateInvoice from "./components/Invoice/CreateInvoice"
 import InvoiceLayout from "./layout/InvoiceLayout"
-import Signup from './pages/Auth/Signup';
+import Signup from "./pages/Auth/Signup"
 import EditInvoice from "./pages/Invoice/EditInvoice"
 import ViewInvoice from "./pages/Invoice/ViewInvoice"
 import CustomerLayout from "./layout/CustomerLayout"
@@ -19,16 +19,16 @@ function App() {
       <Routes>
         <Route path="/" element={<RootLayout />}>
           <Route index element={<Dashboard />} />
-          <Route path="customers" element={ <CustomerLayout /> } >
+          <Route path="customers" element={<CustomerLayout />}>
             <Route index element={<CustomerTable />} />
-            <Route path="customerDetail" element={<CustomerDetail />} />
+            <Route path="customerDetail/:id" element={<CustomerDetail />} />
           </Route>
           <Route path="products" element={<Products />} />
           <Route path="invoice" element={<InvoiceLayout />}>
             <Route index element={<InvoiceTable />} />
             <Route path="createInvoice" element={<CreateInvoice />} />
-            <Route path="editInvoice" element={<EditInvoice />} />
-            <Route path="viewInvoice" element={<ViewInvoice />} />
+            <Route path="editInvoice/:id" element={<EditInvoice />} />
+            <Route path="viewInvoice/:id" element={<ViewInvoice />} />
           </Route>
           <Route path="profile" element={<Profile />} />
         </Route>

@@ -15,7 +15,7 @@ const fetchAllCustomers = createAsyncThunk(
           },
         },
       )
-      return res.data 
+      return res.data
     } catch (error) {
       console.log(error)
       return rejectWithValue(error)
@@ -26,10 +26,20 @@ const fetchAllCustomers = createAsyncThunk(
 const fetchSingleCustomer = createAsyncThunk(
   "customers/fetchSingleCustomer",
   async (id) => {
-    const res = await axios.get(
-      `https://jsonplaceholder.typicode.com/users/${id}`,
-    )
-    return res.data
+    try {
+      const res = await axios.get(
+        `http://localhost:4598/api/v1/customer/getcustomer/${id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + getCookieValue("authToken"),
+          },
+        },
+      )
+      return res.data
+    } catch (e) {
+      console.log(e)
+      return rejectWithValue(e)
+    }
   },
 )
 
@@ -52,22 +62,42 @@ const postCustomer = createAsyncThunk(
 
 const editCustomer = createAsyncThunk(
   "customers/editCustomer",
-  async (customer) => {
-    const res = await axios.put(
-      `https://jsonplaceholder.typicode.com/users/${customer.id}`,
-      customer,
-    )
-    return res.data
+  async (id, customer) => {
+    try {
+      const res = await axios.put(
+        `http://localhost:4598/api/v1/customer/editcustomer/${id}`,
+        customer,
+        {
+          headers: {
+            Authorization: "Bearer " + getCookieValue("authToken"),
+          },
+        },
+      )
+      return res.data
+    } catch (e) {
+      console.log(e)
+      return rejectWithValue(e)
+    }
   },
 )
 
 const deleteCustomer = createAsyncThunk(
   "customers/deleteCustomer",
   async (id) => {
-    const res = await axios.delete(
-      `https://jsonplaceholder.typicode.com/users/${id}`,
-    )
-    return res.data
+    try {
+      const res = await axios.delete(
+        `http://localhost:4598/api/v1/customer/deletecustomer/${id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + getCookieValue("authToken"),
+          },
+        },
+      )
+      return res.data
+    } catch (e) {
+      console.log(e)
+      return rejectWithValue(e)
+    }
   },
 )
 

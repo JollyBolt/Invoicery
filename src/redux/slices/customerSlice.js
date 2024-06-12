@@ -9,7 +9,7 @@ const fetchAllCustomers = createAsyncThunk(
   async () => {
     try {
       const res = await axios.get(
-        "http://localhost:4598/api/v1/customers/getallcustomers",
+        "http://localhost:4598/api/v1/customer/getallcustomers",
         {
           headers: {
             Authorization: "Bearer " + getCookieValue("authToken"),

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import getCookieValue from "../../utils/getCookieValue";
 import axios from "axios";
+axios.defaults.withCredentials = true
 
 const createInvoice = createAsyncThunk("invoice/create", async (body) => {
     try {

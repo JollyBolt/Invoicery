@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-axios.defaults.withCredentials = true;
 import getCookieValue from "../../utils/getCookieValue";
+axios.defaults.withCredentials = true;
 
 
 const login = createAsyncThunk("auth/login", async (body) => {

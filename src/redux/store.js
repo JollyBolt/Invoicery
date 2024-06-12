@@ -1,11 +1,12 @@
-import { productSlice } from "./slices/productSlice";
-import { customerSlice } from "./slices/customerSlice";
-import { configureStore } from "@reduxjs/toolkit";
-import { authSlice } from "./slices/authSlice";
-
+import { productSlice } from "./slices/productSlice"
+import { customerSlice } from "./slices/customerSlice"
+import { configureStore } from "@reduxjs/toolkit"
+import { authSlice } from "./slices/authSlice"
+import { userSlice } from "./slices/userSlice"
 const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
+    user: userSlice.reducer,
     products: productSlice.reducer,
     customers: customerSlice.reducer,
   },
@@ -16,6 +17,7 @@ const store = configureStore({
         ignoredActions: [
           "auth/login",
           "auth/signup",
+          "user/getProfile",
           "products/editProduct",
           "products/fetchSingleProduct",
           "products/postProduct",
@@ -27,6 +29,6 @@ const store = configureStore({
         ],
       },
     }),
-});
+})
 
-export default store;
+export default store

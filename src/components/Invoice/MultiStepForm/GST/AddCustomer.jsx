@@ -4,7 +4,14 @@ import { useForm, useFieldArray } from "react-hook-form"
 import { DevTool } from "@hookform/devtools"
 import { useReactToPrint } from "react-to-print"
 
-const AddCustomer = ({ register, errors, watch, setValue }) => {
+const AddCustomer = ({
+  register,
+  errors,
+  watch,
+  setValue,
+  setInvoiceState,
+  invoiceState,
+}) => {
   const people = [
     { id: 1, name: "Wade Cooper" },
     { id: 2, name: "Arlene Mccoy" },
@@ -46,16 +53,16 @@ const AddCustomer = ({ register, errors, watch, setValue }) => {
                 setValueState(watch("customer"))
               },
             })}
-            // onFocus={() => {
-            //   if (value.length >= 3) {
-            //     setVis(true);
-            //   }
-            // }}
-            // onBlur={() => setVis(false)}
             className="peer w-2/3 rounded-rounded bg-transparent px-2 py-1 text-lg outline outline-1 outline-gray-300 transition-colors duration-500 focus:outline-black"
             placeholder="Type at least 3 characters"
           />
           <motion.button
+            onClick={(e) => {
+              setInvoiceState({
+                ...invoiceState,
+                customer: { ...customer, name: watch("customer.name") },
+              })
+            }}
             initial={{ scale: 1 }}
             whileTap={{ scale: 0.85 }}
             type="button"
@@ -88,6 +95,7 @@ const AddCustomer = ({ register, errors, watch, setValue }) => {
             </motion.div>
           )}
         </div>
+        {/* Display of Customer Data after fetch */}
       </motion.div>
     </>
   )

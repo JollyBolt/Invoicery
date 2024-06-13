@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { motion } from "framer-motion"
-
+import DiscountInput from "./DiscountInput"
 const AddProducts = ({
   fields,
   errors,
@@ -9,6 +9,8 @@ const AddProducts = ({
   register,
   watch,
   setValue,
+  invoiceState,
+  setInvoiceState,
 }) => {
   const people = [
     { id: 1, name: "Wade Cooper" },
@@ -41,7 +43,7 @@ const AddProducts = ({
                 className="flex w-full flex-nowrap justify-between gap-x-2"
                 key={field.id}
               >
-                <div className="relative flex w-3/5 flex-col overflow-visible">
+                <div className="relative flex w-2/6 flex-col overflow-visible">
                   <input
                     className="peer w-full rounded-md border px-3 py-2 text-lg transition-colors duration-150 focus:border-black focus:outline-none"
                     type="text"
@@ -93,6 +95,13 @@ const AddProducts = ({
                     },
                   })}
                 />
+                <DiscountInput
+                  index={ind}
+                  register={register}
+                  setValue={setValue}
+                  invoiceState={invoiceState}
+                  setInvoiceState={setInvoiceState}
+                />
                 {ind > 0 ? ( //can't remove all fields, atleast one field has to be added
                   <button
                     className="flex w-fit flex-nowrap items-center justify-center rounded-full p-2 text-xl text-white transition-colors hover:bg-neutral-200"
@@ -121,7 +130,13 @@ const AddProducts = ({
         </div>
 
         <button
-          onClick={() => append({ name: "", quantity: "" })}
+          onClick={() =>
+            append({
+              name: "",
+              quantity: "",
+              discount: { type: "percent", value: 0.0 },
+            })
+          }
           type="button"
           className="text-md float-right mb-4 rounded-rounded p-1 text-primary outline outline-1 outline-primary hover:bg-primary hover:text-white"
         >

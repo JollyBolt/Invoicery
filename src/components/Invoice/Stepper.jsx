@@ -13,7 +13,7 @@ const Stepper = ({ step, template }) => {
       )
       await animate(
         scope.current,
-        { scaleX: 0.14 },
+        { scaleX: 0.125 },
         { duration: 0.3, delay: 0 },
       )
     } else if (template === "food") {
@@ -33,18 +33,20 @@ const Stepper = ({ step, template }) => {
   useEffect(() => {
     if (template === "gst") {
       if (step === 1) {
-        animate(scope.current, { scaleX: 0.14 }, { duration: 0.3 })
+        animate(scope.current, { scaleX: 0.125 }, { duration: 0.3 })
       } else if (step === 2) {
-        animate(scope.current, { scaleX: 0.28 }, { duration: 0.3 })
+        animate(scope.current, { scaleX: 0.25 }, { duration: 0.3 })
       } else if (step === 3) {
-        animate(scope.current, { scaleX: 0.42 }, { duration: 0.3 })
+        animate(scope.current, { scaleX: 0.375 }, { duration: 0.3 })
       } else if (step === 4) {
-        animate(scope.current, { scaleX: 0.56 }, { duration: 0.3 })
+        animate(scope.current, { scaleX: 0.5 }, { duration: 0.3 })
       } else if (step === 5) {
-        animate(scope.current, { scaleX: 0.7 }, { duration: 0.3 })
+        animate(scope.current, { scaleX: 0.625 }, { duration: 0.3 })
       } else if (step === 6) {
-        animate(scope.current, { scaleX: 0.84 }, { duration: 0.3 })
+        animate(scope.current, { scaleX: 0.75 }, { duration: 0.3 })
       } else if (step === 7) {
+        animate(scope.current, { scaleX: 0.875 }, { duration: 0.3 })
+      } else if (step === 8) {
         animate(scope.current, { scaleX: 1 }, { duration: 0.3 })
       }
     } else if (template === "food") {
@@ -75,12 +77,14 @@ const Stepper = ({ step, template }) => {
       case 3:
         return "Add Customer"
       case 4:
-        return "Add Products"
+        return "Address Details"
       case 5:
-        return "Taxes & Discounts"
+        return "Add Products"
       case 6:
-        return "Terms & Conditions"
+        return "Taxes & Discounts"
       case 7:
+        return "Terms & Conditions"
+      case 8:
         return "Review Information"
     }
   }
@@ -114,7 +118,7 @@ const Stepper = ({ step, template }) => {
       <div className="relative flex w-full flex-col justify-between gap-y-4">
         <div className="pl-4 text-lg text-gray-400">
           <p className="pl-1">
-            Step {step} of {template === "gst" ? 7 : template === "food" && 5}
+            Step {step} of {template === "gst" ? 8 : template === "food" && 5}
           </p>
           <h1 className="text-4xl font-bold text-black">{templateSwitch()}</h1>
         </div>

@@ -70,9 +70,9 @@ const Taxes = ({ register, setValue, errors }) => {
             </div>
           </div>
 
-          <div className="mt-4 flex w-2/3 flex-col">
-            <p className="text-2xl font-semibold">Add Discounts</p>
-            <div className="mt-3 flex flex-nowrap justify-between">
+          {/* <div className="mt-4 flex w-2/3 flex-col">
+            <p className="text-2xl font-semibold">Add Discounts</p> */}
+            {/* <div className="mt-3 flex flex-nowrap justify-between">
               <input
                 type="number"
                 {...register("discount.value", {
@@ -121,8 +121,8 @@ const Taxes = ({ register, setValue, errors }) => {
                   />
                 </div>
               </div>
-            </div>
-          </div>
+            </div> */}
+          {/* </div> */}
         </div>
       </motion.div>
     </>

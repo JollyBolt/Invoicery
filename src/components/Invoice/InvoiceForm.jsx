@@ -6,8 +6,7 @@ import { useAnimate, motion } from "framer-motion"
 import InvoicePreview from "./InvoicePreview"
 // import { useReactToPrint } from "react-to-print";
 
-function InvoiceForm({template,setTemplate}) {
-
+function InvoiceForm({ template, setTemplate, invoiceState, setInvoiceState }) {
   const [step, setStep] = useState(1)
   const componentRef = useRef()
 
@@ -23,7 +22,10 @@ function InvoiceForm({template,setTemplate}) {
                 initial={{ scale: 1 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ duration: 0.12 }}
-                onClick={() => setTemplate("gst")}
+                onClick={() => {
+                  setTemplate("gst")
+                  setInvoiceState({ ...invoiceState, template: "gst" })
+                }}
                 className={`h-fit w-2/5 rounded-rounded p-2 transition-colors duration-200 ${template === "gst" ? "bg-blue-500" : "bg-green-500"}`}
               >
                 <h1 className="text-center text-2xl font-semibold">
@@ -50,7 +52,10 @@ function InvoiceForm({template,setTemplate}) {
                 whileTap={{ scale: 0.95 }}
                 transition={{ duration: 0.12 }}
                 type="button"
-                onClick={() => setTemplate("food")}
+                onClick={() => {
+                  setTemplate("food")
+                  setInvoiceState({ ...invoiceState, template: "food" })
+                }}
                 className={`h-fit w-2/5 rounded-rounded p-2 transition-colors duration-200 ${template === "food" ? "bg-blue-500" : "bg-green-500"}`}
               >
                 <h1 className="text-center text-2xl font-semibold">
@@ -99,6 +104,8 @@ function InvoiceForm({template,setTemplate}) {
             step={step}
             setStep={setStep}
             printDocRef={componentRef}
+            invoiceState={invoiceState}
+            setInvoiceState={setInvoiceState}
           />
         )}
       </div>

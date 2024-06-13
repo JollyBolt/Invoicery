@@ -1,15 +1,21 @@
 import { motion } from "framer-motion"
 import { useForm, useFieldArray } from "react-hook-form"
 import { DevTool } from "@hookform/devtools"
-import InvoiceDetails from './InvoiceDetails';
-import AddCustomer from "./AddCustomer";
-import AddProducts from './Addproducts';
-import Taxes from './Taxes';
-import TermsNConditions from './TnC';
-import Finish from './Finish';
+import InvoiceDetails from "./InvoiceDetails"
+import AddCustomer from "./AddCustomer"
+import AddProducts from "./AddProducts"
+import Taxes from "./Taxes"
+import TermsNConditions from "./TnC"
+import Finish from "./Finish"
+import AddressDetails from "./AddressDetails"
 
-
-function MultiStepFormGST({ step, setStep, printDocRef }) {
+function MultiStepFormGST({
+  step,
+  setStep,
+  printDocRef,
+  invoiceState,
+  setInvoiceState,
+}) {
   const form = useForm({
     defaultValues: {
       invoiceNumber: "",
@@ -18,13 +24,23 @@ function MultiStepFormGST({ step, setStep, printDocRef }) {
         {
           name: "",
           quantity: "",
+          discount: {
+            value: '',
+            type: "percent",
+          },
         },
       ],
       termsNConditions: [{ tnc: "" }],
-      discount: {
-        value: 0.0,
-        type: "percent",
-      },
+      billingCity: "",
+      shippingStreetAddress: "",
+      shippingCity: "",
+      shippingState: "",
+      shippingStateCode: "",
+      shippingZip: "",
+      // discount: {
+      //   value: 0.0,
+      //   type: "percent",
+      // },
       taxes: {
         igst: 0.0,
         cgst: 0.0,
@@ -32,7 +48,7 @@ function MultiStepFormGST({ step, setStep, printDocRef }) {
       },
       date: "",
     },
-    mode: "all",
+    mode: "onBlur",
   })
 
   const { register, handleSubmit, formState, control, setValue, watch } = form
@@ -57,6 +73,8 @@ function MultiStepFormGST({ step, setStep, printDocRef }) {
             errors={errors}
             setValue={setValue}
             watch={watch}
+            invoiceState={invoiceState}
+            setInvoiceState={setInvoiceState}
           />
         )
       case 3:
@@ -66,9 +84,21 @@ function MultiStepFormGST({ step, setStep, printDocRef }) {
             errors={errors}
             setValue={setValue}
             watch={watch}
+            invoiceState={invoiceState}
+            setInvoiceState={setInvoiceState}
           />
         )
       case 4:
+        return (
+          <AddressDetails
+            register={register}
+            errors={errors}
+            watch={watch}
+            invoiceState={invoiceState}
+            setInvoiceState={setInvoiceState}
+          />
+        )
+      case 5:
         return (
           <AddProducts
             register={register}
@@ -78,19 +108,30 @@ function MultiStepFormGST({ step, setStep, printDocRef }) {
             remove={remove}
             setValue={setValue}
             watch={watch}
+            invoiceState={invoiceState}
+            setInvoiceState={setInvoiceState}
           />
         )
-      case 5:
+      case 6:
         return (
           <Taxes
             register={register}
             errors={errors}
             setValue={setValue}
+            invoiceState={invoiceState}
+            setInvoiceState={setInvoiceState}
           />
         )
-      case 6:
-        return <TermsNConditions register={register} tNc={tNc} />
       case 7:
+        return (
+          <TermsNConditions
+            register={register}
+            tNc={tNc}
+            invoiceState={invoiceState}
+            setInvoiceState={setInvoiceState}
+          />
+        )
+      case 8:
         return <Finish printDocRef={printDocRef} />
     }
   }
@@ -98,7 +139,7 @@ function MultiStepFormGST({ step, setStep, printDocRef }) {
     <div className="flex h-full w-full flex-col">
       {/* <Stepper step={step} /> */}
       <div className="mb-10 flex-1">
-        <form>{formSwitch()}</form>
+        <form noValidate>{formSwitch()}</form>
       </div>
       <DevTool control={control} />
       <div className="flex w-full justify-between">
@@ -116,13 +157,15 @@ function MultiStepFormGST({ step, setStep, printDocRef }) {
           whileTap={{ scale: 0.85 }}
           transition={{ duration: 0.2 }}
           onClick={() => {
-            if (step < 7) {
+            if (step < 8) {
               setStep(step + 1)
+            } else if ((step = 8)) {
+              console.log(invoiceState)
             }
           }}
           className="rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight"
         >
-          {step === 7 ? "Save" : "Next"}
+          {step === 8 ? "Save" : "Next"}
         </motion.button>
       </div>
     </div>
@@ -130,13 +173,3 @@ function MultiStepFormGST({ step, setStep, printDocRef }) {
 }
 
 export default MultiStepFormGST
-
-
-
-
-
-
-
-
-
-

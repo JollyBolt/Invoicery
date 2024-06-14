@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 
-const TermsNConditions = ({ register, tNc }) => {
+const TermsNConditions = ({ register, tNc, invoiceState }) => {
   const { fields, append, remove } = tNc
   return (
     <>
@@ -23,7 +23,24 @@ const TermsNConditions = ({ register, tNc }) => {
                     className="peer w-full rounded-md border px-3 py-2 text-lg transition-colors duration-150 focus:border-black focus:outline-none"
                     type="text"
                     placeholder="Terms and Conditions"
-                    {...register(`termsNConditions[${ind}].tnc`)}
+                    {...register(`termsNConditions[${ind}].tnc`, {
+                      onBlur: (e) => {
+                        setInvoiceState({
+                          ...invoiceState,
+                          termsNConditions: termsNConditions.map(
+                            (FieldObject, i) => {
+                              if (i === ind) {
+                                return {
+                                  tnc: e.target.value,
+                                }
+                              } else {
+                                return FieldObject
+                              }
+                            },
+                          ),
+                        })
+                      },
+                    })}
                   />
                 </div>
 

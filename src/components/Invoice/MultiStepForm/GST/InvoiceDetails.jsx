@@ -26,7 +26,7 @@ const InvoiceDetails = ({
                     value: /^[0-9]+$/,
                     message: "Invoice Number must be a number",
                   },
-                  onBlur: () => {
+                  onBlur: (e) => {
                     setInvoiceState({
                       ...invoiceState,
                       invoiceNumber: e.target.value,

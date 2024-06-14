@@ -81,7 +81,7 @@ const Stepper = ({ step, template }) => {
       case 5:
         return "Add Products"
       case 6:
-        return "Taxes & Discounts"
+        return "Add Taxes"
       case 7:
         return "Terms & Conditions"
       case 8:

@@ -19,9 +19,27 @@ function DiscountInput({
         placeholder="Discount"
         {...register(`products[${index}].discount.value`, {
           valueAsNumber: true,
+          onBlur: (e) => {
+            setInvoiceState({
+              ...invoiceState,
+              products: invoiceState.products.map((FieldObject, i) => {
+                if (i === index) {
+                  return {
+                    ...FieldObject,
+                    discount: {
+                      ...FieldObject.discount,
+                      value: e.target.value,
+                    },
+                  }
+                } else {
+                  return FieldObject
+                }
+              }),
+            })
+          },
         })}
         min={0.0}
-        className="border-1 w-full rounded-l-rounded border-y focus:outline-none border-l border-gray-200 pl-2 text-lg"
+        className="border-1 w-full rounded-l-rounded border-y border-l border-gray-200 pl-2 text-lg focus:outline-none"
       />
 
       <div className="border-1 outlin relative flex w-fit items-center rounded-r-rounded border border-gray-200">
@@ -32,6 +50,22 @@ function DiscountInput({
           onClick={() => {
             setSelected("percent")
             setValue(`products[${index}].discount.type`, "percent")
+            setInvoiceState({
+              ...invoiceState,
+              products: invoiceState.products.map((FieldObject, i) => {
+                if (i === index) {
+                  return {
+                    ...FieldObject,
+                    discount: {
+                      ...FieldObject.discount,
+                      type: "percent",
+                    },
+                  }
+                } else {
+                  return FieldObject
+                }
+              }),
+            })
           }}
         >
           <span className="relative z-10">%</span>
@@ -43,6 +77,22 @@ function DiscountInput({
           onClick={() => {
             setSelected("rupee")
             setValue(`products[${index}]discount.type`, "rupee")
+            setInvoiceState({
+              ...invoiceState,
+              products: invoiceState.products.map((FieldObject, i) => {
+                if (i === index) {
+                  return {
+                    ...FieldObject,
+                    discount: {
+                      ...FieldObject.discount,
+                      value: "rupee",
+                    },
+                  }
+                } else {
+                  return FieldObject
+                }
+              }),
+            })
           }}
         >
           <span className="relative z-10">&#x20B9;</span>

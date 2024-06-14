@@ -58,11 +58,11 @@ function AddressDetails({
                       setInvoiceState({
                         ...invoiceState,
                         customer: {
-                          ...customer,
+                          ...invoiceState.customer,
                           address: {
-                            ...address,
+                            ...invoiceState.customer.address,
                             shipping: {
-                              ...shipping,
+                              ...invoiceState.customer.address.shipping,
                               streetAddress: e.target.value,
                             },
                           },
@@ -97,10 +97,13 @@ function AddressDetails({
                         setInvoiceState({
                           ...invoiceState,
                           customer: {
-                            ...customer,
+                            ...invoiceState.customer,
                             address: {
-                              ...address,
-                              shipping: { ...shipping, city: e.target.value },
+                              ...invoiceState.customer.address,
+                              shipping: {
+                                ...invoiceState.customer.address.shipping,
+                                city: e.target.value,
+                              },
                             },
                           },
                         })
@@ -133,10 +136,13 @@ function AddressDetails({
                         setInvoiceState({
                           ...invoiceState,
                           customer: {
-                            ...customer,
+                            ...invoiceState.customer,
                             address: {
-                              ...address,
-                              shipping: { ...shipping, state: e.target.value },
+                              ...invoiceState.customer.address,
+                              shipping: {
+                                ...invoiceState.customer.address.shipping,
+                                state: e.target.value,
+                              },
                             },
                           },
                         })
@@ -183,11 +189,11 @@ function AddressDetails({
                         setInvoiceState({
                           ...invoiceState,
                           customer: {
-                            ...customer,
+                            ...invoiceState.customer,
                             address: {
-                              ...address,
+                              ...invoiceState.customer.address,
                               shipping: {
-                                ...shipping,
+                                ...invoiceState.customer.address.shipping,
                                 stateCode: e.target.value,
                               },
                             },
@@ -234,10 +240,13 @@ function AddressDetails({
                         setInvoiceState({
                           ...invoiceState,
                           customer: {
-                            ...customer,
+                            ...invoiceState.customer,
                             address: {
-                              ...address,
-                              shipping: { ...shipping, zip: e.target.value },
+                              ...invoiceState.customer.address,
+                              shipping: {
+                                ...invoiceState.customer.address.shipping,
+                                zip: e.target.value,
+                              },
                             },
                           },
                         })

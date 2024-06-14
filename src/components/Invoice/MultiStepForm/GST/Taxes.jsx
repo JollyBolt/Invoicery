@@ -1,7 +1,13 @@
 import React, { useState } from "react"
 import { motion } from "framer-motion"
 
-const Taxes = ({ register, setValue, errors }) => {
+const Taxes = ({
+  register,
+  setValue,
+  errors,
+  invoiceState,
+  setInvoiceState,
+}) => {
   const [selected, setSelected] = useState("percent")
 
   const TOGGLE_CLASSES =
@@ -25,6 +31,12 @@ const Taxes = ({ register, setValue, errors }) => {
               <input
                 {...register("taxes.igst", {
                   valueAsNumber: true,
+                  onBlur: (e) => {
+                    setInvoiceState({
+                      ...invoiceState,
+                      taxes: { ...taxes, igst: e.target.value },
+                    })
+                  },
                 })}
                 min={0.0}
                 type="number"
@@ -42,6 +54,12 @@ const Taxes = ({ register, setValue, errors }) => {
               <input
                 {...register("taxes.cgst", {
                   valueAsNumber: true,
+                  onBlur: (e) => {
+                    setInvoiceState({
+                      ...invoiceState,
+                      taxes: { ...taxes, cgst: e.target.value },
+                    })
+                  },
                 })}
                 min={0.0}
                 type="number"
@@ -59,6 +77,12 @@ const Taxes = ({ register, setValue, errors }) => {
               <input
                 {...register("taxes.sgst", {
                   valueAsNumber: true,
+                  onBlur: (e) => {
+                    setInvoiceState({
+                      ...invoiceState,
+                      taxes: { ...taxes, sgst: e.target.value },
+                    })
+                  },
                 })}
                 min={0.0}
                 type="number"
@@ -69,60 +93,6 @@ const Taxes = ({ register, setValue, errors }) => {
               </span>
             </div>
           </div>
-
-          {/* <div className="mt-4 flex w-2/3 flex-col">
-            <p className="text-2xl font-semibold">Add Discounts</p> */}
-            {/* <div className="mt-3 flex flex-nowrap justify-between">
-              <input
-                type="number"
-                {...register("discount.value", {
-                  valueAsNumber: true,
-                })}
-                min={0.0}
-                className="h-fit w-20 rounded-rounded py-2 text-center text-xl outline outline-1 outline-gray-300"
-              />
-
-              <div className="relative flex w-fit items-center rounded-rounded">
-                <p
-                  className={`${TOGGLE_CLASSES} ${
-                    selected === "percent" ? "text-white" : "text-slate-400"
-                  }`}
-                  onClick={() => {
-                    setSelected("percent")
-                    setValue("discount.type", "percent")
-                  }}
-                >
-                  <span className="relative z-10">%</span>
-                </p>
-                <p
-                  className={`${TOGGLE_CLASSES} ${
-                    selected === "rupee" ? "text-white" : "text-slate-800"
-                  }`}
-                  onClick={() => {
-                    setSelected("rupee")
-                    setValue("discount.type", "rupee")
-                  }}
-                >
-                  <span className="relative z-10">&#x20B9;</span>
-                </p>
-                <div
-                  className={`absolute inset-0 z-0 flex ${
-                    selected === "rupee" ? "justify-end" : "justify-start"
-                  }`}
-                >
-                  <motion.span
-                    layout
-                    transition={{
-                      type: "spring",
-                      damping: 15,
-                      stiffness: 250,
-                    }}
-                    className="h-full w-1/2 rounded-rounded bg-primary"
-                  />
-                </div>
-              </div>
-            </div> */}
-          {/* </div> */}
         </div>
       </motion.div>
     </>

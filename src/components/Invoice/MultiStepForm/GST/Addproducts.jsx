@@ -51,10 +51,25 @@ const AddProducts = ({
                     {...register(`products[${ind}].name`, {
                       required: {
                         value: true,
-                        message: "Please enter a customer name",
+                        message: "Please enter a Product name",
                       },
                       onChange: (e) => {
                         setValueState(watch(`products[${ind}]`).name)
+                      },
+                      onBlur: (e) => {
+                        setInvoiceState({
+                          ...invoiceState,
+                          products: invoiceState.products.map((FieldObject, i) => {
+                            if (i === ind) {
+                              return {
+                                ...FieldObject,
+                                name: e.target.value,
+                              }
+                            } else {
+                              return FieldObject
+                            }
+                          }),
+                        })
                       },
                     })}
                   />
@@ -92,6 +107,21 @@ const AddProducts = ({
                     valueAsNumber: {
                       value: true,
                       message: "Please enter a valid number",
+                    },
+                    onBlur: (e) => {
+                      setInvoiceState({
+                        ...invoiceState,
+                        products: invoiceState.products.map((FieldObject, i) => {
+                          if (i === ind) {
+                            return {
+                              ...FieldObject,
+                              quantity: e.target.value,
+                            }
+                          } else {
+                            return FieldObject
+                          }
+                        }),
+                      })
                     },
                   })}
                 />

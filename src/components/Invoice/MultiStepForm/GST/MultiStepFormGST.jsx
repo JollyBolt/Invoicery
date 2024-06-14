@@ -141,7 +141,7 @@ function MultiStepFormGST({
       <div className="mb-10 flex-1">
         <form noValidate>{formSwitch()}</form>
       </div>
-      <DevTool control={control} />
+      {/* <DevTool control={control} /> */}
       <div className="flex w-full justify-between">
         <button
           // disabled={step === 1}

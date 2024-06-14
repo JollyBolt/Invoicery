@@ -42,20 +42,26 @@ const AddCustomer = ({
         <p className="text-xl">Choose the customer you want to bill.</p>
 
         <div className="relative mt-2 flex w-full flex-nowrap justify-between gap-x-2 overflow-visible">
-          <input
-            type="text"
-            {...register("customer", {
-              required: {
-                value: true,
-                message: "Please select a customer",
-              },
-              onChange: (e) => {
-                setValueState(watch("customer"))
-              },
-            })}
-            className="peer w-2/3 rounded-rounded bg-transparent px-2 py-1 text-lg outline outline-1 outline-gray-300 transition-colors duration-500 focus:outline-black"
-            placeholder="Type at least 3 characters"
-          />
+          <div className="flex w-2/3 flex-col">
+            <input
+              type="text"
+              {...register("customer", {
+                required: "Please select a customer",
+                onChange: (e) => {
+                  setValueState(watch("customer"))
+                },
+              })}
+              className="peer w-full rounded-rounded bg-transparent px-2 py-1 text-lg outline outline-1 outline-gray-300 transition-colors duration-500 focus:outline-black"
+              placeholder="Type at least 3 characters"
+            />
+            <p className="absolute top-9 mt-1 text-sm text-red-500">
+              {errors.customer ? (
+                errors.customer?.message
+              ) : (
+                <span className="select-none">&nbsp;</span>
+              )}
+            </p>
+          </div>
           <motion.button
             onClick={(e) => {
               setInvoiceState({

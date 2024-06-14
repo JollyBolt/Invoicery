@@ -49,6 +49,7 @@ function CreateInvoice() {
       sgst: "",
       igst: "",
     },
+    termsNConditions:[{tnc:""}]
   })
   return (
     <>

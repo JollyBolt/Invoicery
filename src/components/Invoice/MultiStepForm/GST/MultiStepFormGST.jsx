@@ -3,11 +3,11 @@ import { useForm, useFieldArray } from "react-hook-form"
 import { DevTool } from "@hookform/devtools"
 import InvoiceDetails from "./InvoiceDetails"
 import AddCustomer from "./AddCustomer"
-import AddProducts from "./AddProducts"
 import Taxes from "./Taxes"
 import TermsNConditions from "./TnC"
 import Finish from "./Finish"
 import AddressDetails from "./AddressDetails"
+import AddProducts from './Addproducts';
 
 function MultiStepFormGST({
   step,

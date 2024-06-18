@@ -7,7 +7,7 @@ import Taxes from "./Taxes"
 import TermsNConditions from "./TnC"
 import Finish from "./Finish"
 import AddressDetails from "./AddressDetails"
-import AddProducts from './Addproducts';
+import AddProducts from './AddProducts';
 
 function MultiStepFormGST({
   step,

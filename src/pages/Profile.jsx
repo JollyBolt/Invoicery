@@ -7,6 +7,7 @@ import { getProfile } from "../redux/slices/userSlice"
 import Auth from "../components/Auth"
 import EditProfile from "../components/Profile/EditProfile"
 import Loader from "../components/Loader"
+
 const Profile = () => {
   //Checking if authtoken exists, i.e., logged in on refresh
   const [open, setOpen] = useState(false)
@@ -15,14 +16,7 @@ const Profile = () => {
   const { loggedIn } = useSelector((state) => state.auth)
   const { user, loading } = useSelector((state) => state.user)
 
-  useEffect(() => {
-    async function getUserData() {
-      if (loggedIn) {
-        await dispatch(getProfile())
-      }
-    }
-    getUserData()
-  }, [loggedIn])
+
 
   return (
     <div className="flex min-h-[calc(100dvh-40px)] w-full flex-col">

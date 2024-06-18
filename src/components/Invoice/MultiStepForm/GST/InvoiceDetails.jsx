@@ -22,10 +22,6 @@ const InvoiceDetails = ({
               <input
                 {...register("invoiceNumber", {
                   required: "Invoice Number is required",
-                  pattern: {
-                    value: /^[0-9]+$/,
-                    message: "Invoice Number must be a number",
-                  },
                   onBlur: (e) => {
                     setInvoiceState({
                       ...invoiceState,

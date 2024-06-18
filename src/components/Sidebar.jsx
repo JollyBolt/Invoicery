@@ -1,14 +1,30 @@
-import { Link, useLocation } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import { HiMenuAlt2 } from "../assets/index";
-import { navLinks } from "../constants";
-import { useNavigate } from "react-router-dom";
-import { IoPowerOutline } from "react-icons/io5";
-import data from "../demoData.json";
+import { Link, useLocation } from "react-router-dom"
+import React, { useEffect, useState } from "react"
+import { HiMenuAlt2 } from "../assets/index"
+import { navLinks } from "../constants"
+import { useNavigate } from "react-router-dom"
+import { IoPowerOutline } from "react-icons/io5"
+import data from "../demoData.json"
+import { useDispatch, useSelector } from "react-redux"
+import { getProfile } from "../redux/slices/userSlice"
 
 function Sidebar({ open, setOpen, navBg, navHeading }) {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  const dispatch = useDispatch()
+  const { user,loading } = useSelector((state) => state.user)
+  const { loggedIn } = useSelector((state) => state.auth)
+
+  useEffect(() => {
+    async function getUserData() {
+      if (loggedIn) {
+        await dispatch(getProfile())
+        // console.log(user)
+      }
+    }
+    getUserData()
+  }, [loggedIn])
 
   return (
     <div>
@@ -86,7 +102,8 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
             <button
               onClick={() => {
                 // localStorage.removeItem("loggedIn");
-                document.cookie = "authToken= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+                document.cookie =
+                  "authToken= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
                 // navigate("/");
                 window.location.reload()
               }}
@@ -129,12 +146,12 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
               className={`group flex items-center gap-3.5 rounded-md py-2 pl-1 text-sm font-medium text-black`}
             >
               <div className="flex flex-row flex-nowrap">
-                {data.name.split(" ").map(function (word, i) {
+                {user.name && user.name.split(" ").map(function (word, i) {
                   return (
                     <span key={i} className="inline-block text-lg">
                       {word[0]}
                     </span>
-                  );
+                  )
                 })}
               </div>
               <div
@@ -143,16 +160,16 @@ function Sidebar({ open, setOpen, navBg, navHeading }) {
                 }`}
               >
                 <h3 className="text-lg font-semibold leading-none">
-                  {data.name}
+                  {user.name}
                 </h3>
-                <p className="text-[10px]">{data.email}</p>
+                <p className="text-[10px]">{user.email}</p>
               </div>
             </div>
           </div>
         </div>
       </nav>
     </div>
-  );
+  )
 }
 
-export default Sidebar;
+export default Sidebar

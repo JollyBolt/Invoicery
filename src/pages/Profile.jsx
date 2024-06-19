@@ -9,17 +9,26 @@ import EditProfile from "../components/Profile/EditProfile"
 import Loader from "../components/Loader"
 
 const Profile = () => {
-  //Checking if authtoken exists, i.e., logged in on refresh
   const [open, setOpen] = useState(false)
 
+  const [details, setDelails] = useState("organization")
+
   const dispatch = useDispatch()
+  //Checking if authtoken exists, i.e., logged in on refresh
   const { loggedIn } = useSelector((state) => state.auth)
   const { user, loading } = useSelector((state) => state.user)
 
-
+  useEffect(() => {
+    async function getUserData() {
+      if (loggedIn) {
+        await dispatch(getProfile())
+      }
+    }
+    getUserData()
+  }, [loggedIn])
 
   return (
-    <div className="flex min-h-[calc(100dvh-40px)] w-full flex-col">
+    <div className="flex h-[calc(100dvh-40px)] w-full flex-col overflow-scroll">
       {open && <EditProfile open={open} setOpen={setOpen} />}
       <Heading name="Profile" />
       {!loggedIn ? (
@@ -27,97 +36,97 @@ const Profile = () => {
       ) : loading ? (
         <Loader />
       ) : (
-        <div className="mt-4 flex h-full w-full flex-nowrap justify-between">
-          <div className="flex h-full w-1/3 flex-col items-center justify-between gap-y-10 rounded-rounded bg-foreground px-5 pt-5">
-            <div className="w-full rounded-rounded bg-primary text-center text-[185px] font-bold text-white">
-              {user.name.split(" ")[0][0] + user.name.split(" ")[1][0]}
-            </div>
-            <div className="flex w-full flex-col gap-y-4">
-              <h1 className="text-center text-6xl font-bold">{user.name}</h1>
-              <p className="flex w-full flex-nowrap text-lg">
-                <span className="w-1/3 text-xl font-semibold">
-                  Organization:
-                </span>{" "}
-                {user.org}
+        <div className="mt-4 flex h-[83dvh] w-full flex-col flex-nowrap overflow-hidden rounded-rounded bg-foreground">
+          <div className="w-full bg-primary p-5 text-white shadow-md shadow-slate-400">
+            <p className="p-3 text-6xl font-black">{user.name}</p>
+            <div className="flex items-center gap-20">
+              <p className="p-3 text-lg font-light">
+                Email: <span className="font-bold">{user.email}</span>
               </p>
-              <p className="flex w-full flex-nowrap text-lg">
-                <span className="w-1/3 text-xl font-semibold">Email ID:</span>{" "}
-                {user.email}
-              </p>
-              <p className="flex w-full flex-nowrap text-lg">
-                <span className="w-1/3 text-xl font-semibold">Phone No:</span>{" "}
-                {user.phone}
+              <p className="p-3 text-lg font-light">
+                Phone: <span className="font-bold">{user.phone}</span>
               </p>
               <motion.button
                 initial={{ scale: 1 }}
                 whileTap={{ scale: 0.93 }}
                 transition={{ duration: 0.2 }}
                 onClick={() => setOpen(true)}
-                className="my-8 h-full w-full rounded-rounded bg-primary px-3 py-3 text-2xl font-semibold text-white transition-colors duration-200 hover:bg-primaryLight"
+                className="rounded-rounded bg-primary p-3 text-lg font-semibold text-white transition-colors duration-200 hover:bg-primaryLight"
               >
                 Edit Profile
               </motion.button>
             </div>
           </div>
 
-          <div className="flex h-full w-3/5 flex-1 flex-col justify-between gap-y-10 px-10">
-            <div className="flex h-full w-full flex-col gap-y-7 rounded-rounded bg-foreground p-7">
-              <h1 className="text-5xl font-semibold">Address Details</h1>
-              <hr className="border-1 w-full border-gray-200" />
-              <div className="flex w-full flex-col gap-y-7 ">
-                <p className="flex w-full text-xl">
-                  <span className="w-1/4 text-xl font-semibold">
-                    Street Address:{" "}
-                  </span>
-                  {user.address.streetAddress}
-                </p>
-                <div className="flex w-full flex-nowrap justify-between text-xl">
-                  <span className="flex w-1/2">
-                    <span className="w-1/2 font-semibold">City: </span>
-                    {user.address.city}
-                  </span>
-                  <span className="flex w-1/2">
-                    <span className="w-1/2 font-semibold">State: </span>
-                    {user.address.state}
-                  </span>
-                </div>
-                <div className="flex w-full flex-nowrap text-xl">
-                  <span className="flex w-1/2">
-                    <span className="w-1/2 font-semibold">ZIP Code: </span>
-                    {user.address.zip}
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="flex h-full w-full flex-col gap-y-8 rounded-rounded bg-foreground px-7 py-8">
-              <h1 className="text-5xl font-semibold">Banking Details</h1>
-              <hr className="border-1 w-full border-gray-200" />
-              <div className="flex w-full flex-nowrap text-xl">
-                <span className=" flex w-1/2">
-                  <span className="text-xl font-semibold w-1/2">Bank Name: </span>
-                  {user.banking.bankName}
-                </span>
-                <span className="flex w-1/2">
-                  <span className="text-xl font-semibold w-1/2">Bank Branch: </span>
-                  {user.banking.branch}
-                </span>
-              </div>
-              <div className="flex w-full flex-nowrap text-xl">
-                <span className="flex w-1/2">
-                  <span className="text-xl font-semibold w-1/2">
-                    Account Number:{" "}
-                  </span>
-                  {user.banking.accountNumber}
-                </span>
-                <span className="flex w-1/2">
-                  <span className="text-xl font-semibold w-1/2">IFSC Code: </span>
-                  {user.banking.ifsc}
-                </span>
-              </div>
-              <p className="w-full text-xl flex">
-                <span className="text-xl font-semibold w-1/4">GSTIN Number: </span>
-                {user.gstin}
+          <div className="flex h-full w-full p-3">
+            <div className="h-full w-1/4 border-r p-3">
+              <p
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "organization" ? "bg-primary text-white" : "hover:bg-gray-50"} transition-all`}
+                onClick={() => setDelails("organization")}
+              >
+                Organization Details
               </p>
+              <p
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "banking" ? "bg-primary text-white" : "hover:bg-gray-50"} transition-all`}
+                onClick={() => setDelails("banking")}
+              >
+                Banking Details
+              </p>
+            </div>
+            <div className="p-3">
+              <div
+                className={`${details == "banking" && "hidden"} flex w-full flex-col gap-5 p-5 text-xl`}
+              >
+                <p className="flex">
+                  <p className="w-52">Name</p>
+                  <span className="font-semibold">{user.org.name}</span>
+                </p>
+                <p className="flex">
+                  <p className="w-52">Email</p>
+                  <span className="font-semibold">{user.org.email}</span>
+                </p>
+                <p className="flex">
+                  <p className="w-52">GSTIN</p>
+                  <span className="font-semibold">{user.org.gstin}</span>
+                </p>
+                <p className="flex">
+                  <p className="w-52">Street Address</p>
+                  <span className="font-semibold">{user.org.address.streetAddress}</span>
+                </p>
+                <p className="flex">
+                  <p className="w-52">City</p>
+                  <span className="font-semibold">{user.org.address.city}</span>
+                </p>
+                <p className="flex">
+                  <p className="w-52">State</p>
+                  <span className="font-semibold">{user.org.address.state}</span>
+                </p>
+                <p className="flex">
+                  <p className="w-52">Zip</p>
+                  <span className="font-semibold">{user.org.address.zip}</span>
+                </p>
+              </div>
+
+              <div
+                className={`${details == "organization" && "hidden"} flex w-full flex-col gap-5 p-5 text-xl`}
+              >
+                <p className="flex">
+                  <p className="w-52">Bank</p>
+                  <span className="font-semibold">{user.banking.bankName}</span>
+                </p>
+                <p className="flex">
+                  <p className="w-52">Branch</p>
+                  <span className="font-semibold">{user.banking.branch}</span>
+                </p>
+                <p className="flex">
+                  <p className="w-52">Account Number</p>
+                  <span className="font-semibold">{user.banking.accountNumber}</span>
+                </p>
+                <p className="flex">
+                  <p className="w-52">IFSC</p>
+                  <span className="font-semibold">{user.banking.ifsc}</span>
+                </p>
+              </div>
             </div>
           </div>
         </div>

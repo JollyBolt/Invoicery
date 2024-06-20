@@ -48,16 +48,6 @@ export const customerColumns = [
     },
     {
         id: 'col4',
-        header: 'State',
-        accessorKey: 'address.state'
-    },
-    {
-        id: 'col5',
-        header: 'City',
-        accessorKey: 'address.city'
-    },
-    {
-        id: 'col6',
         cell: (row) => <CustomerActionsDropdown row={ row.row }  /> 
     }
 ]

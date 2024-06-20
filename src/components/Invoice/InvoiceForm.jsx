@@ -4,12 +4,19 @@ import Stepper from "../../components/Invoice/Stepper"
 
 import { useAnimate, motion } from "framer-motion"
 import InvoicePreview from "./InvoicePreview"
-// import { useReactToPrint } from "react-to-print";
+import { useReactToPrint } from "react-to-print"
 
-function InvoiceForm({ template, setTemplate, invoiceState, setInvoiceState }) {
+function InvoiceForm({
+  template,
+  setTemplate,
+  invoiceState,
+  setInvoiceState,
+  printDocRef,
+}) {
   const [step, setStep] = useState(1)
-  const componentRef = useRef()
-
+  const handlePrint = useReactToPrint({
+    content: () => printDocRef.current,
+  })
   return (
     <>
       <Stepper step={step} template={template} />
@@ -84,6 +91,9 @@ function InvoiceForm({ template, setTemplate, invoiceState, setInvoiceState }) {
               >
                 Go Back
               </button>
+              <button type="button" onClick={handlePrint}>
+                Print
+              </button>
               <motion.button
                 initial={{ scale: 1 }}
                 whileTap={{ scale: 0.85 }}
@@ -103,7 +113,8 @@ function InvoiceForm({ template, setTemplate, invoiceState, setInvoiceState }) {
           <MultiStepFormGST
             step={step}
             setStep={setStep}
-            printDocRef={componentRef}
+            // printDocRef={componentRef}
+            handlePrint={handlePrint}
             invoiceState={invoiceState}
             setInvoiceState={setInvoiceState}
           />

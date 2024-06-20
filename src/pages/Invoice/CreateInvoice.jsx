@@ -49,7 +49,7 @@ function CreateInvoice() {
       sgst: "",
       igst: "",
     },
-    termsNConditions:[{tnc:""}]
+    termsNConditions: [{ tnc: "" }],
   })
   return (
     <>
@@ -59,6 +59,7 @@ function CreateInvoice() {
             template={template}
             setTemplate={setTemplate}
             invoiceState={invoiceState}
+            printDocRef={componentRef}
             setInvoiceState={setInvoiceState}
           />
         </div>

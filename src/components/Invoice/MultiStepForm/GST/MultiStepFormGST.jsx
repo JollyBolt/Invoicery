@@ -14,9 +14,10 @@ import { useReactToPrint } from "react-to-print"
 function MultiStepFormGST({
   step,
   setStep,
-  printDocRef,
+  // printDocRef,
   invoiceState,
   setInvoiceState,
+  handlePrint,
 }) {
   const form = useForm({
     defaultValues: {
@@ -145,12 +146,12 @@ function MultiStepFormGST({
           />
         )
       case 9:
-        return <Finish printDocRef={printDocRef} />
+        return <Finish
+        //  printDocRef={printDocRef}
+          />
     }
   }
-  const handlePrint = useReactToPrint({
-    content: () => printDocRef.current,
-  })
+
   return (
     <div className="flex h-full w-full flex-col">
       {/* <Stepper step={step} /> */}

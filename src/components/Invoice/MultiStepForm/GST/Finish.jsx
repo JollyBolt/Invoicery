@@ -1,10 +1,10 @@
 import { motion } from "framer-motion"
 import { useReactToPrint } from "react-to-print"
 
-const Finish = ({ printDocRef }) => {
-  const handlePrint = useReactToPrint({
-    content: () => printDocRef.current,
-  })
+const Finish = ({ printDocRef,handlePrint }) => {
+  // const handlePrint = useReactToPrint({
+  //   content: () => printDocRef.current,
+  // })
   return (
     <>
       <motion.div

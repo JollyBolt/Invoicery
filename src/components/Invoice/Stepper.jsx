@@ -77,14 +77,16 @@ const Stepper = ({ step, template }) => {
       case 3:
         return "Add Customer"
       case 4:
-        return "Address Details"
+        return "Billing Address Details"
       case 5:
-        return "Add Products"
+        return "Shipping Address Details"
       case 6:
-        return "Add Taxes"
+        return "Add Products"
       case 7:
-        return "Terms & Conditions"
+        return "Add Taxes"
       case 8:
+        return "Terms & Conditions"
+      case 9:
         return "Review Information"
     }
   }
@@ -118,7 +120,7 @@ const Stepper = ({ step, template }) => {
       <div className="relative flex w-full flex-col justify-between gap-y-4">
         <div className="pl-4 text-lg text-gray-400">
           <p className="pl-1">
-            Step {step} of {template === "gst" ? 8 : template === "food" && 5}
+            Step {step} of {template === "gst" ? 9 : template === "food" && 5}
           </p>
           <h1 className="text-4xl font-bold text-black">{templateSwitch()}</h1>
         </div>

@@ -33,20 +33,22 @@ const Stepper = ({ step, template }) => {
   useEffect(() => {
     if (template === "gst") {
       if (step === 1) {
-        animate(scope.current, { scaleX: 0.125 }, { duration: 0.3 })
+        animate(scope.current, { scaleX: 0.11 }, { duration: 0.3 })
       } else if (step === 2) {
-        animate(scope.current, { scaleX: 0.25 }, { duration: 0.3 })
+        animate(scope.current, { scaleX: 0.22 }, { duration: 0.3 })
       } else if (step === 3) {
-        animate(scope.current, { scaleX: 0.375 }, { duration: 0.3 })
+        animate(scope.current, { scaleX: 0.33 }, { duration: 0.3 })
       } else if (step === 4) {
-        animate(scope.current, { scaleX: 0.5 }, { duration: 0.3 })
+        animate(scope.current, { scaleX: 0.44 }, { duration: 0.3 })
       } else if (step === 5) {
-        animate(scope.current, { scaleX: 0.625 }, { duration: 0.3 })
+        animate(scope.current, { scaleX: 0.55 }, { duration: 0.3 })
       } else if (step === 6) {
-        animate(scope.current, { scaleX: 0.75 }, { duration: 0.3 })
+        animate(scope.current, { scaleX: 0.66 }, { duration: 0.3 })
       } else if (step === 7) {
-        animate(scope.current, { scaleX: 0.875 }, { duration: 0.3 })
+        animate(scope.current, { scaleX: 0.77 }, { duration: 0.3 })
       } else if (step === 8) {
+        animate(scope.current, { scaleX: 0.88 }, { duration: 0.3 })
+      } else if (step === 9) {
         animate(scope.current, { scaleX: 1 }, { duration: 0.3 })
       }
     } else if (template === "food") {

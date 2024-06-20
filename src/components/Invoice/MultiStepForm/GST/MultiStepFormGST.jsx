@@ -9,6 +9,7 @@ import Finish from "./Finish"
 import BillingAddressDetails from "./BillingAddressDetails"
 import AddProducts from "./AddProducts"
 import ShippingAddressDetails from "./ShippingAddressDetails"
+import { useReactToPrint } from "react-to-print"
 
 function MultiStepFormGST({
   step,
@@ -147,6 +148,9 @@ function MultiStepFormGST({
         return <Finish printDocRef={printDocRef} />
     }
   }
+  const handlePrint = useReactToPrint({
+    content: () => printDocRef.current,
+  })
   return (
     <div className="flex h-full w-full flex-col">
       {/* <Stepper step={step} /> */}
@@ -163,6 +167,9 @@ function MultiStepFormGST({
           className="rounded-rounded px-3 py-1 text-xl text-black transition-colors duration-150 hover:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-transparent"
         >
           Go Back
+        </button>
+        <button type="button" onClick={handlePrint}>
+          Print
         </button>
         <motion.button
           initial={{ scale: 1 }}

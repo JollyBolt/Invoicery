@@ -29,8 +29,8 @@ const Profile = () => {
 
   return (
     <div className="flex h-[calc(100dvh-40px)] w-full flex-col overflow-scroll">
-      {open && <EditProfile open={open} setOpen={setOpen} />}
       <Heading name="Profile" />
+      {!loading && <EditProfile open={open} setOpen={setOpen} />}
       {!loggedIn ? (
         <Auth />
       ) : loading ? (
@@ -77,61 +77,61 @@ const Profile = () => {
               <div
                 className={`${details == "banking" && "hidden"} flex w-full flex-col gap-5 p-5 text-xl`}
               >
-                <p className="flex">
+                <div className="flex">
                   <p className="w-52">Name</p>
                   <span className="font-semibold">{user.org.name}</span>
-                </p>
-                <p className="flex">
+                </div>
+                <div className="flex">
                   <p className="w-52">Email</p>
                   <span className="font-semibold">{user.org.email}</span>
-                </p>
-                <p className="flex">
+                </div>
+                <div className="flex">
                   <p className="w-52">GSTIN</p>
                   <span className="font-semibold">{user.org.gstin}</span>
-                </p>
-                <p className="flex">
+                </div>
+                <div className="flex">
                   <p className="w-52">Street Address</p>
                   <span className="font-semibold">
                     {user.org.address.streetAddress}
                   </span>
-                </p>
-                <p className="flex">
+                </div>
+                <div className="flex">
                   <p className="w-52">City</p>
                   <span className="font-semibold">{user.org.address.city}</span>
-                </p>
-                <p className="flex">
+                </div>
+                <div className="flex">
                   <p className="w-52">State</p>
                   <span className="font-semibold">
                     {user.org.address.state}
                   </span>
-                </p>
-                <p className="flex">
+                </div>
+                <div className="flex">
                   <p className="w-52">Zip</p>
                   <span className="font-semibold">{user.org.address.zip}</span>
-                </p>
+                </div>
               </div>
 
               <div
                 className={`${details == "organization" && "hidden"} flex w-full flex-col gap-5 p-5 text-xl`}
               >
-                <p className="flex">
+                <div className="flex">
                   <p className="w-52">Bank</p>
                   <span className="font-semibold">{user.banking.bankName}</span>
-                </p>
-                <p className="flex">
+                </div>
+                <div className="flex">
                   <p className="w-52">Branch</p>
                   <span className="font-semibold">{user.banking.branch}</span>
-                </p>
-                <p className="flex">
+                </div>
+                <div className="flex">
                   <p className="w-52">Account Number</p>
                   <span className="font-semibold">
                     {user.banking.accountNumber}
                   </span>
-                </p>
-                <p className="flex">
+                </div>
+                <div className="flex">
                   <p className="w-52">IFSC</p>
                   <span className="font-semibold">{user.banking.ifsc}</span>
-                </p>
+                </div>
               </div>
             </div>
           </div>

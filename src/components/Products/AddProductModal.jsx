@@ -43,7 +43,7 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
       {/* <DevTool control={control} /> */}
       <AnimatePresence>
         {isOpen && (
-          <div className="absolute inset-0 flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="absolute inset-0 z-[100] flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm">
             <motion.div
               className="w-full"
               initial={{ scale: 0.4, opacity: 0 }}

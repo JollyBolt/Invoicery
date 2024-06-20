@@ -23,6 +23,25 @@ const getProfile = createAsyncThunk("user/getProfile", async () => {
   }
 })
 
+const editProfile = createAsyncThunk("user/editProfile", async (body) => {
+  try {
+    const res = await axios.put(
+      "http://localhost:4598/api/v1/user/updateUser",
+      body,
+      {
+        headers: {
+          Authorization: "Bearer " + getCookieValue("authToken"),
+        },
+      },
+    )
+    console.log(res.data)
+    return res.data
+  } catch (err) {
+    console.log(err)
+    return rejectWithValue(err)
+  }
+})
+
 const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -47,4 +66,4 @@ const userSlice = createSlice({
   },
 })
 
-export { getProfile, userSlice }
+export { getProfile, editProfile, userSlice }

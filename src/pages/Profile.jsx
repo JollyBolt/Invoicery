@@ -11,7 +11,7 @@ import Loader from "../components/Loader"
 const Profile = () => {
   const [open, setOpen] = useState(false)
 
-  const [details, setDelails] = useState("organization")
+  const [details, setDetails] = useState("organization")
 
   const dispatch = useDispatch()
   //Checking if authtoken exists, i.e., logged in on refresh
@@ -62,13 +62,13 @@ const Profile = () => {
             <div className="h-full w-1/4 border-r p-3">
               <p
                 className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "organization" ? "bg-primary text-white" : "hover:bg-gray-50"} transition-all`}
-                onClick={() => setDelails("organization")}
+                onClick={() => setDetails("organization")}
               >
                 Organization Details
               </p>
               <p
                 className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "banking" ? "bg-primary text-white" : "hover:bg-gray-50"} transition-all`}
-                onClick={() => setDelails("banking")}
+                onClick={() => setDetails("banking")}
               >
                 Banking Details
               </p>
@@ -91,7 +91,9 @@ const Profile = () => {
                 </p>
                 <p className="flex">
                   <p className="w-52">Street Address</p>
-                  <span className="font-semibold">{user.org.address.streetAddress}</span>
+                  <span className="font-semibold">
+                    {user.org.address.streetAddress}
+                  </span>
                 </p>
                 <p className="flex">
                   <p className="w-52">City</p>
@@ -99,7 +101,9 @@ const Profile = () => {
                 </p>
                 <p className="flex">
                   <p className="w-52">State</p>
-                  <span className="font-semibold">{user.org.address.state}</span>
+                  <span className="font-semibold">
+                    {user.org.address.state}
+                  </span>
                 </p>
                 <p className="flex">
                   <p className="w-52">Zip</p>
@@ -120,7 +124,9 @@ const Profile = () => {
                 </p>
                 <p className="flex">
                   <p className="w-52">Account Number</p>
-                  <span className="font-semibold">{user.banking.accountNumber}</span>
+                  <span className="font-semibold">
+                    {user.banking.accountNumber}
+                  </span>
                 </p>
                 <p className="flex">
                   <p className="w-52">IFSC</p>

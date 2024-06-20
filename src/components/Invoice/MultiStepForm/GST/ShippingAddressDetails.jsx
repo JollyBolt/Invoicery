@@ -114,7 +114,7 @@ function ShippingAddressDetails({
                   {...register("shippingStreetAddress", {
                     required: "Street Address is required",
                     disabled: checked,
-                    onBlur: (e) => {
+                    onChange: (e) => {
                       setInvoiceState({
                         ...invoiceState,
                         customer: {
@@ -154,7 +154,7 @@ function ShippingAddressDetails({
                     {...register("shippingCity", {
                       required: "City is required",
                       disabled: checked,
-                      onBlur: (e) => {
+                      onChange: (e) => {
                         setInvoiceState({
                           ...invoiceState,
                           customer: {
@@ -194,7 +194,7 @@ function ShippingAddressDetails({
                     {...register("shippingState", {
                       required: "State is required",
                       disabled: checked,
-                      onBlur: (e) => {
+                      onChange: (e) => {
                         setInvoiceState({
                           ...invoiceState,
                           customer: {
@@ -248,7 +248,7 @@ function ShippingAddressDetails({
                         value: /^[0-9]+$/,
                         message: "State Code must be only digits",
                       },
-                      onBlur: (e) => {
+                      onChange: (e) => {
                         setInvoiceState({
                           ...invoiceState,
                           customer: {
@@ -300,7 +300,7 @@ function ShippingAddressDetails({
                         value: /^[0-9]+$/,
                         message: "ZIP Code must be only digits",
                       },
-                      onBlur: (e) => {
+                      onChange: (e) => {
                         setInvoiceState({
                           ...invoiceState,
                           customer: {

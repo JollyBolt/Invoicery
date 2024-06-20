@@ -53,17 +53,18 @@ function CreateInvoice() {
   })
   return (
     <>
-      <div className="flex w-full">
-        <div className="flex h-[80vh] w-1/2 shrink-0 flex-col rounded-r-3xl bg-white">
+      <div className="flex w-full gap-5">
+        <div className="flex h-[80vh] w-[45%] shrink-0 flex-col rounded-r-3xl bg-white">
           <InvoiceForm
             template={template}
             setTemplate={setTemplate}
             invoiceState={invoiceState}
             printDocRef={componentRef}
             setInvoiceState={setInvoiceState}
+            printDocRef={componentRef}
           />
         </div>
-        <div className="h-[80vh] w-full overflow-hidden overflow-y-scroll px-10">
+        <div className="h-[80vh] w-full overflow-hidden overflow-y-scroll ">
           <InvoicePreview
             template={template}
             ref={componentRef}

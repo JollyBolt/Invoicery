@@ -15,7 +15,7 @@ const getProfile = createAsyncThunk("user/getProfile", async () => {
         Authorization: "Bearer " + getCookieValue("authToken"),
       },
     })
-    console.log(res.data)
+    // console.log(res.data)
     return res.data
   } catch (err) {
     console.log(err)

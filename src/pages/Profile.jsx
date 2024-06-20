@@ -104,8 +104,14 @@ const Profile = () => {
                   <span className="font-semibold">
                     {user.org.address.state}
                   </span>
-                </div>
-                <div className="flex">
+                </p>
+                <p className="flex">
+                  <p className="w-52">Country</p>
+                  <span className="font-semibold">
+                    {user.org.address.country}
+                  </span>
+                </p>
+                <p className="flex">
                   <p className="w-52">Zip</p>
                   <span className="font-semibold">{user.org.address.zip}</span>
                 </div>

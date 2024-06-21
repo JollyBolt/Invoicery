@@ -99,7 +99,7 @@ const Profile = () => {
                   <p className="w-52">City</p>
                   <span className="font-semibold">{user.org.address.city}</span>
                 </div>
-                <div className="flex">
+                <p className="flex">
                   <p className="w-52">State</p>
                   <span className="font-semibold">
                     {user.org.address.state}
@@ -114,7 +114,7 @@ const Profile = () => {
                 <p className="flex">
                   <p className="w-52">Zip</p>
                   <span className="font-semibold">{user.org.address.zip}</span>
-                </div>
+                </p>
               </div>
 
               <div

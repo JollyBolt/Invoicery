@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { motion } from "framer-motion"
 import DiscountInput from "./DiscountInput"
+import { useDebounce } from "../../../../hooks/useDebounce"
 const AddProducts = ({
   fields,
   errors,
@@ -22,6 +23,7 @@ const AddProducts = ({
   ]
 
   const [value, setValueState] = useState("")
+  const debouncedSearch = useDebounce(value)
   const filteredPeople = people.filter((customer) => {
     return customer.name.toLowerCase().includes(value.toLowerCase())
   })

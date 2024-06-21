@@ -61,7 +61,6 @@ function CreateInvoice() {
             invoiceState={invoiceState}
             printDocRef={componentRef}
             setInvoiceState={setInvoiceState}
-            printDocRef={componentRef}
           />
         </div>
         <div className="h-[80vh] w-full overflow-hidden overflow-y-scroll ">

@@ -1,5 +1,6 @@
 import CustomerActionsDropdown from "./CustomerActionsDropdown"
 import ProductActionsDropdown from "./ProductActionsDropdown"
+import InvoiceActionsDropdown from './InvoiceActionsDropdown';
 
 export const productColumns = [
   {
@@ -53,5 +54,57 @@ export const customerColumns = [
 ]
 
 export const invoiceColumns = [
+  {
+    id: "col1",
+    header: "Index",
+    cell: (row) => {
+      return row.row.index + 1
+    },
+  },
+  {
+    id: "col2",
+    header: "Invoice Number",
+    accessorKey: "invoiceNumber",
+  },
+  {
+    id: "col3",
+    header: "Issued To",
+    accessorKey: "customer.name",
+  },
+  {
+    id: "col4",
+    header: "Amount",
+    accessorKey: "amount",
+  },
+  {
+    id: "col5",
+    header: "Date",
+    cell: (row) => {
+      return (
+        row.row.date.day + '/' + row.row.date.month + '/' + row.row.date.year
+      )
+    }
+  },
+  {
+    id: "col5",
+    cell: (row) => <InvoiceActionsDropdown row={row.row} />,
+  },
+]
 
+export const recentInvoices = [
+  {
+    id: "col2",
+    header: "Invoice Number",
+    accessorKey: "invoiceNumber",
+  },
+  {
+    id: "col3",
+    header: "Issued To",
+    accessorKey: "customer.name",
+  },
+  {
+    id: "col4",
+    header: "Amount",
+    accessorKey: "amount",
+  }
 ]

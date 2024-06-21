@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import MultiStepFormGST from "./MultiStepForm/GST/MultiStepFormGST"
 import Stepper from "../../components/Invoice/Stepper"
-
 import { useAnimate, motion } from "framer-motion"
 import InvoicePreview from "./InvoicePreview"
 import { useReactToPrint } from "react-to-print"
@@ -113,7 +112,7 @@ function InvoiceForm({
           <MultiStepFormGST
             step={step}
             setStep={setStep}
-            // printDocRef={componentRef}
+            // printDocRef={printDocRef}
             handlePrint={handlePrint}
             invoiceState={invoiceState}
             setInvoiceState={setInvoiceState}

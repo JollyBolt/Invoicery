@@ -68,7 +68,7 @@ const CustomerTable = () => {
   useEffect(() => {
     async function getCustomers() {
       if (loggedIn) {
-        await dispatch(fetchAllCustomers())
+        await dispatch(fetchAllCustomers({}))
       }
     }
     getCustomers()

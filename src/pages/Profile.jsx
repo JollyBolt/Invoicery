@@ -36,7 +36,7 @@ const Profile = () => {
       ) : loading ? (
         <Loader />
       ) : (
-        <div className="mt-4 flex h-[83dvh] w-full flex-col flex-nowrap overflow-hidden rounded-rounded bg-foreground">
+        <div className="mt-4 flex h-[82dvh] w-full flex-col flex-nowrap overflow-hidden rounded-rounded bg-foreground">
           <div className="w-full bg-primary p-5 text-white shadow-md shadow-slate-400">
             <p className="p-3 text-6xl font-black">{user.name}</p>
             <div className="flex items-center gap-20">

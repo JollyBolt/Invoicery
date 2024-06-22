@@ -30,7 +30,7 @@ const InvoiceTable = () => {
     dispatch(refreshAuth())
   }, [])
   return (
-    <div className="min-h-[83dvh] rounded-rounded bg-foreground p-5">
+    <div className="min-h-[82dvh] rounded-rounded bg-foreground p-5">
       <div className="flex w-full flex-row flex-nowrap justify-between rounded-t-sm bg-white">
         <div className="w-1/3 border-b border-neutral-800 pl-2">
           <div className="justfy-betweem flex h-fit w-full flex-nowrap items-center">

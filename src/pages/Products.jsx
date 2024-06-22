@@ -1,12 +1,8 @@
 import PageWrapper from "../hoc/PageWrapper"
 import Heading from "../components/Heading"
 import {
-  MdOutlineKeyboardArrowLeft,
-  MdOutlineKeyboardArrowRight,
   HiMagnifyingGlass,
-  FaFilter,
   RxCross1,
-  SlSocialDropbox,
   AddCustomer,
   FaPlus,
 } from "../assets/index"
@@ -17,66 +13,13 @@ import Auth from "../components/Auth"
 import Table from "../components/Table/Table"
 import { productColumns } from "../components/Table/Columns"
 import { fetchAllProducts } from "../redux/slices/productSlice"
+import { useDebounce } from "../hooks/useDebounce"
 
 const Products = () => {
-
   const { products } = useSelector((state) => state.products)
 
-  //pagination funciton
-  const [currentPage, setCurrentPage] = useState(1)
-  const recordsPerPage = 10
-
-  const indexOfLastRecord = currentPage * recordsPerPage
-  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage
-
-  const [nPages, setNPages] = useState(
-    Math.ceil(products.length / recordsPerPage),
-  )
-
-  const goToNextPage = () => {
-    if (currentPage !== nPages) setCurrentPage(currentPage + 1)
-  }
-  const goToPrevPage = () => {
-    if (currentPage !== 1) setCurrentPage(currentPage - 1)
-  }
   const [search, setSearch] = useState("")
-
-  /**
-   * This effect hook is used to handle the pagination and search functionality for the products.
-   * It updates the current page and the number of pages based on the search query.
-   *
-   * @param {Object} props - The component's props.
-   * @param {Array} props.products - The array of products data.
-   * @param {number} props.recordsPerPage - The number of records to display per page.
-   * @param {Function} props.setCurrentPage - The function to set the current page.
-   * @param {Function} props.setNPages - The function to set the number of pages.
-   * @param {string} props.search - The search query.
-   * @param {Function} props.setSearch - The function to set the search query.
-   *
-   * @returns {void}
-   */
-  useEffect(() => {
-    // Reset the current page to 1 when the search query changes
-    setCurrentPage(1)
-
-    if (search) {
-      // If there is a search query, calculate the number of pages based on the filtered products
-      setNPages(
-        products.filter((product) => {
-          return product.name.toLowerCase().includes(search.toLowerCase())
-        }).length
-          ? Math.ceil(
-              products.filter((product) => {
-                return product.name.toLowerCase().includes(search.toLowerCase())
-              }).length / recordsPerPage,
-            )
-          : 1,
-      )
-    } else {
-      // If there is no search query, calculate the number of pages based on all products
-      setNPages(Math.ceil(products.length / recordsPerPage))
-    }
-  }, [search]) // Dependency on the search query
+  const debouncedSearch = useDebounce(search)
 
   //Checking if authtoken exists, i.e., logged in on refresh
   const dispatch = useDispatch()
@@ -85,11 +28,11 @@ const Products = () => {
   useEffect(() => {
     async function getProducts() {
       if (loggedIn) {
-        await dispatch(fetchAllProducts())
+        await dispatch(fetchAllProducts({ search: debouncedSearch }))
       }
     }
     getProducts()
-  }, [loggedIn])
+  }, [loggedIn, debouncedSearch])
 
   const [isOpen, setIsOpen] = useState(false)
   return (
@@ -102,7 +45,7 @@ const Products = () => {
         </>
       ) : (
         <div
-          className={`mt-5 min-h-[83dvh] rounded-rounded bg-foreground p-5 ${products && "flex flex-col flex-nowrap items-center"}`}
+          className={`mt-5 min-h-[82dvh] rounded-rounded bg-foreground p-5 ${products && "flex flex-col flex-nowrap items-center"}`}
         >
           {products ? (
             <>
@@ -113,7 +56,6 @@ const Products = () => {
                     <input
                       onChange={(e) => {
                         setSearch(e.target.value)
-                        searchPagination()
                       }}
                       type="text"
                       autoComplete="off"
@@ -140,9 +82,7 @@ const Products = () => {
 
                 <div className="flex flex-nowrap items-center justify-between">
                   <button
-                    onClick={() =>
-                      setIsOpen(true)
-                    }
+                    onClick={() => setIsOpen(true)}
                     type="button"
                     className="flex w-fit items-center gap-2 rounded-rounded bg-primary p-2 px-4 text-lg text-white transition-colors hover:bg-primaryLight"
                   >
@@ -151,10 +91,7 @@ const Products = () => {
                   </button>
                 </div>
               </div>
-              <Table
-                tableColumns={productColumns}
-                tableData={products}
-              />
+              <Table tableColumns={productColumns} tableData={products} />
             </>
           ) : (
             <div className="flex h-full flex-1 flex-col items-center justify-evenly">

@@ -11,7 +11,7 @@ const store = configureStore({
     user: userSlice.reducer,
     products: productSlice.reducer,
     customers: customerSlice.reducer,
-    invoices: invoicesSlice.reducer,
+    invoices: invoiceSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

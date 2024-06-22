@@ -12,8 +12,9 @@ function DiscountInput({
   const [selected, setSelected] = useState("percent")
   const TOGGLE_CLASSES =
     "font-medium flex items-center cursor-pointer px-3 md:pl-3 md:pr-3.5 text-lg py-2 md:py-1.5 transition-colors relative z-10"
+  
   return (
-    <div className="flex w-2/6 flex-nowrap">
+    <div className="flex w-1/2 flex-nowrap">
       <input
         type="number"
         placeholder="Discount"

@@ -101,63 +101,57 @@ const InvoicePreview = forwardRef((props, ref) => {
       </div>
 
       {/* Table */}
-      <div className="grid grid-cols-10 border border-b-0 border-r-0 border-black text-sm">
-        <div className="border-b border-r border-black bg-primary p-1 text-white">
+      <div className="grid grid-cols-10 border border-b-0 border-r-0 border-black text-base font-bold">
+        <div className=" border-r border-black bg-primary p-2 text-white">
           S.No
         </div>
-        <div className="col-span-3 border-b border-r border-black bg-primary p-1 text-white">
+        <div className="col-span-3 border-b border-r border-black bg-primary p-2 text-white">
           Item
         </div>
-        <div className="border-b border-r border-black bg-primary p-1 text-white">
-          HSN Code
+        <div className=" border-r border-black bg-primary p-2 text-white">
+          HSN <br /> Code
         </div>
-        <div className="border-b border-r border-black bg-primary p-1 text-white">
+        <div className=" border-r border-black bg-primary p-2 text-white">
           Qty
         </div>
-        <div className="border-b border-r border-black bg-primary p-1 text-white">
+        <div className=" border-r border-black bg-primary p-2 text-white">
           Price
         </div>
-        <div className="border-b border-r border-black bg-primary p-1 text-white">
+        <div className=" border-r border-black bg-primary p-2 text-white">
           Discount
         </div>
-        <div className="border-b border-r border-black bg-primary p-1 text-white">
-          Final Price
+        <div className=" border-r border-black bg-primary p-2 text-white">
+          Final <br /> Price
         </div>
-        <div className="border-b border-r border-black bg-primary p-1 text-white">
+        <div className=" border-r border-black bg-primary p-2 text-white">
           Amount <br /> (INR)
         </div>
-        {/* <div className="bg-primary p-1 text-white">Amount <br /> (INR)</div> */}
-        {products.map((product, index) => {
-          return (
-            <>
-              <div className="border-b border-r border-black p-1">
-                {index + 1}
-              </div>
-              <div className="col-span-3 border-b border-r border-black p-1">
-                {product.name}
-              </div>
-              <div className="border-b border-r border-black p-1">
-                {product.hsn_code}
-              </div>
-              <div className="border-b border-r border-black p-1">
-                {product.quantity}
-              </div>
-              <div className="border-b border-r border-black p-1">
-                {product.price}
-              </div>
-              <div className="border-b border-r border-black p-1">
-                {product.discount.value}
-              </div>
-              <div className="border-b border-r border-black p-1">
-                {product.price - product.discount.value}
-              </div>
-              <div className="border-b border-r border-black p-1">
-                {product.price * product.quantity}
-              </div>
-            </>
-          )
-        })}
-        <div className="col-span-9 items-end border-b border-r border-black p-1">
+      </div>
+      {/* <div className="bg-primary p-1 text-white">Amount <br /> (INR)</div> */}
+      {products.map((product, index) => {
+        return (
+          <div key={index} className="grid grid-cols-10 border border-b-0 border-r-0 border-black text-sm">
+            <div className="border-r border-black p-2">{index + 1}</div>
+            <div className="col-span-3 border-r border-black p-2">
+              {product.name}
+            </div>
+            <div className="border-r border-black p-2">{product.hsn_code}</div>
+            <div className="border-r border-black p-2">{product.quantity}</div>
+            <div className="border-r border-black p-2">{product.price}</div>
+            <div className="border-r border-black p-2">
+              {product.discount.value}
+            </div>
+            <div className="border-r border-black p-2">
+              {product.price - product.discount.value}
+            </div>
+            <div className="border-r border-black p-2">
+              {product.price * product.quantity}
+            </div>
+          </div>
+        )
+      })}
+      <div className="grid grid-cols-10 border border-b-0 border-r-0 border-black text-sm">
+        <div className="col-span-9 items-end border-b border-r border-black p-1 text-right">
           Sub Total
         </div>
         <div className="border-b border-r border-black p-1"> 2500</div>

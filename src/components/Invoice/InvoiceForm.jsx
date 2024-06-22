@@ -20,7 +20,7 @@ function InvoiceForm({
     <>
       <Stepper step={step} template={template} />
 
-      <div className="h-full bg-white p-14">
+      <div className="h-full max-h-[82dvh]  bg-white p-4">
         {step === 1 ? (
           <div className="flex h-full w-full flex-col gap-y-5">
             <div className="flex h-full w-full flex-1 justify-center gap-10">

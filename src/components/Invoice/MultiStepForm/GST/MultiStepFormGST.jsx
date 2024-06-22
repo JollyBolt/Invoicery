@@ -154,14 +154,11 @@ function MultiStepFormGST({
 
   return (
     <div className="flex h-full w-full flex-col">
-      {/* <Stepper step={step} /> */}
-      <div className="mb-10 flex-1">
+      <div className="mb-10 max-h-[60dvh] overflow-y-scroll p-3 flex-1">
         <form noValidate>{formSwitch()}</form>
       </div>
-      {/* <DevTool control={control} /> */}
       <div className="flex w-full justify-between">
         <button
-          // disabled={step === 1}
           onClick={() => {
             setStep(step - 1)
           }}

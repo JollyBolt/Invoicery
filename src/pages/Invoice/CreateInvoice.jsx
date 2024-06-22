@@ -53,8 +53,8 @@ function CreateInvoice() {
   })
   return (
     <>
-      <div className="flex w-full gap-5">
-        <div className="flex h-[80vh] w-[45%] shrink-0 flex-col rounded-r-3xl bg-white">
+      <div className="flex w-full gap-2">
+        <div className="flex h-[80vh] w-[40%] shrink-0 flex-col rounded-r-3xl overflow-hidden bg-white">
           <InvoiceForm
             template={template}
             setTemplate={setTemplate}

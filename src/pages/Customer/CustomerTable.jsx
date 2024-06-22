@@ -16,46 +16,46 @@ import EditCustomer from "../../components/Customer/EditCustomer"
 
 const CustomerTable = () => {
   //pagination funciton
-  const [currentPage, setCurrentPage] = useState(1)
-  const [recordsPerPage] = useState(2)
-  const indexOfLastRecord = currentPage * recordsPerPage
-  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage
+  // const [currentPage, setCurrentPage] = useState(1)
+  // const [recordsPerPage] = useState(2)
+  // const indexOfLastRecord = currentPage * recordsPerPage
+  // const indexOfFirstRecord = indexOfLastRecord - recordsPerPage
 
   const { customers } = useSelector((state) => state.customers)
 
-  const [nPages, setNPages] = useState(
-    Math.ceil(customers.length / recordsPerPage),
-  )
+  // const [nPages, setNPages] = useState(
+  //   Math.ceil(customers.length / recordsPerPage),
+  // )
 
-  const goToNextPage = () => {
-    if (currentPage !== nPages) setCurrentPage(currentPage + 1)
-  }
-  const goToPrevPage = () => {
-    if (currentPage !== 1) setCurrentPage(currentPage - 1)
-  }
+  // const goToNextPage = () => {
+  //   if (currentPage !== nPages) setCurrentPage(currentPage + 1)
+  // }
+  // const goToPrevPage = () => {
+  //   if (currentPage !== 1) setCurrentPage(currentPage - 1)
+  // }
   const [search, setSearch] = useState("")
 
   //search pagination function
-  useEffect(() => {
-    setCurrentPage(1)
-    if (search) {
-      setNPages(
-        customers.filter((customer) => {
-          return customer.name.toLowerCase().includes(search.toLowerCase())
-        }).length
-          ? Math.ceil(
-              customers.filter((customer) => {
-                return customer.name
-                  .toLowerCase()
-                  .includes(search.toLowerCase())
-              }).length / recordsPerPage,
-            )
-          : 1,
-      )
-    } else {
-      setNPages(Math.ceil(customers.length / recordsPerPage))
-    }
-  }, [search])
+  // useEffect(() => {
+  //   setCurrentPage(1)
+  //   if (search) {
+  //     setNPages(
+  //       customers.filter((customer) => {
+  //         return customer.name.toLowerCase().includes(search.toLowerCase())
+  //       }).length
+  //         ? Math.ceil(
+  //             customers.filter((customer) => {
+  //               return customer.name
+  //                 .toLowerCase()
+  //                 .includes(search.toLowerCase())
+  //             }).length / recordsPerPage,
+  //           )
+  //         : 1,
+  //     )
+  //   } else {
+  //     setNPages(Math.ceil(customers.length / recordsPerPage))
+  //   }
+  // }, [search])
 
   const [open, setOpen] = useState(false)
   const [openEditModal, setOpenEditModal] = useState(false)

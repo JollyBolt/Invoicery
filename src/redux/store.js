@@ -1,6 +1,6 @@
 import { productSlice } from "./slices/productSlice"
 import { customerSlice } from "./slices/customerSlice"
-import { invoicesSlice } from "./slices/invoiceSlice"
+import { invoiceSlice } from "./slices/invoiceSlice"
 import { authSlice } from "./slices/authSlice"
 import { userSlice } from "./slices/userSlice"
 import { configureStore } from "@reduxjs/toolkit"

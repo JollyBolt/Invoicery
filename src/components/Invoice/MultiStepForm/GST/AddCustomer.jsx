@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { useForm, useFieldArray } from "react-hook-form"
-import { DevTool } from "@hookform/devtools"
-import { useReactToPrint } from "react-to-print"
+import { motion} from "framer-motion"
+import { useDebounce } from "../../../../hooks/useDebounce"
+import { useDispatch, useSelector } from "react-redux"
+import { fetchAllCustomers } from "../../../../redux/slices/customerSlice"
 
 const AddCustomer = ({
   register,
@@ -12,19 +12,23 @@ const AddCustomer = ({
   setInvoiceState,
   invoiceState,
 }) => {
-  const people = [
-    { id: 1, name: "Wade Cooper" },
-    { id: 2, name: "Arlene Mccoy" },
-    { id: 3, name: "Devon Webb" },
-    { id: 4, name: "Tom Cook" },
-    { id: 5, name: "Tanya Fox" },
-    { id: 6, name: "Hellen Schmidt" },
-  ]
+
 
   const [value, setValueState] = useState("")
-  const filteredPeople = people.filter((customer) => {
-    return customer.name.toLowerCase().includes(value.toLowerCase())
-  })
+  const [selectedCustomer, setSelectedCustomer] = useState(null)
+  const debouncedValue = useDebounce(value)
+  const { customers } = useSelector((state) => state.customers)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    async function getRecomendations() {
+      if (debouncedValue.length > 2) {
+        await dispatch(fetchAllCustomers({ search: debouncedValue }))
+      }
+    }
+    getRecomendations()
+  }, [debouncedValue])
 
   useEffect(() => {
     setValueState(watch("customer"))
@@ -45,6 +49,7 @@ const AddCustomer = ({
           <div className="flex w-2/3 flex-col">
             <input
               type="text"
+              autoComplete="off"
               {...register("customer", {
                 required: "Please select a customer",
                 onChange: (e) => {
@@ -61,47 +66,61 @@ const AddCustomer = ({
                 <span className="select-none">&nbsp;</span>
               )}
             </p>
+            {debouncedValue.length > 2 && (
+              <motion.div
+                className={`absolute top-12 -z-10 max-h-[70px] w-2/3 overflow-scroll bg-white opacity-100 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
+              >
+                {customers.length ? (
+                  customers.map((customer, ind) => {
+                    return (
+                      <h2
+                        onClick={() => {
+                          setValue("customer", customer.client)
+                          setValueState(customer.client)
+                          setSelectedCustomer(customer)
+                        }}
+                        key={ind}
+                        className="w-full py-1 pl-2 text-left text-lg hover:cursor-pointer hover:bg-gray-200"
+                      >
+                        {customer.client}
+                      </h2>
+                    )
+                  })
+                ) : (
+                  <h2 className="py-1 pl-2 text-lg">No Matches Found.</h2>
+                )}
+              </motion.div>
+            )}
           </div>
           <motion.button
             onClick={(e) => {
               setInvoiceState({
                 ...invoiceState,
-                customer: { ...customer, name: watch("customer.name") },
+                customer: { ...customers, name: watch("customer.name") },
               })
             }}
             initial={{ scale: 1 }}
-            whileTap={{ scale: 0.85 }}
+            whileTap={{ scale: selectedCustomer === null ? 1 : 0.85 }}
+            disabled={selectedCustomer === null}
             type="button"
-            className="rounded-rounded bg-primary px-2 py-1 text-lg font-semibold text-white transition-colors duration-150 hover:bg-primaryLight"
+            className="rounded-rounded bg-primary px-2 py-1 text-lg font-semibold text-white transition-colors duration-150 hover:bg-primaryLight disabled:opacity-25 disabled:hover:bg-primary"
           >
             Save Customer
           </motion.button>
-
-          {watch("customer").length >= 3 && (
-            <motion.div
-              className={`absolute top-12 -z-10 max-h-[70px] w-2/3 overflow-scroll bg-white opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
-            >
-              {filteredPeople.length ? (
-                filteredPeople.map((person, ind) => {
-                  return (
-                    <h2
-                      onClick={() => {
-                        setValue("customer", person.name)
-                      }}
-                      key={ind}
-                      className="w-full py-1 pl-2 text-left text-lg hover:cursor-pointer hover:bg-gray-200"
-                    >
-                      {person.name}
-                    </h2>
-                  )
-                })
-              ) : (
-                <h2 className="py-1 pl-2 text-lg">No Matches Found.</h2>
-              )}
-            </motion.div>
-          )}
         </div>
         {/* Display of Customer Data after fetch */}
+        {selectedCustomer !== null && (
+          <div className="mt-10 w-full text-xl">
+            <div className="flex">
+              <p className="w-36">Customer</p>
+                          <p>{ selectedCustomer.client }</p>
+            </div>
+            <div className="flex mt-5" >
+              <p className="w-36">GSTIN</p>
+                          <p>{ selectedCustomer.gstin }</p>
+            </div>
+          </div>
+        )}
       </motion.div>
     </>
   )

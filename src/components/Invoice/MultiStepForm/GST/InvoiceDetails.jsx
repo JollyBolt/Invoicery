@@ -53,11 +53,16 @@ const InvoiceDetails = ({
                   required: "Please select a date",
                   onBlur: (e) => {
                     e.target.type = "text"
+                    // console.log({
+                    //   day: new Date(e.target.value).getDate(),
+                    //   month: new Date(e.target.value).getMonth(),
+                    //   year: new Date(e.target.value).getFullYear(),
+                    // })
                     setInvoiceState({
                       ...invoiceState,
                       invoiceDate: {
-                        day: new Date(e.target.value).getDay(),
-                        month: new Date(e.target.value).getMonth(),
+                        day: new Date(e.target.value).getDate(),
+                        month: new Date(e.target.value).getMonth() + 1,
                         year: new Date(e.target.value).getFullYear(),
                       },
                     })

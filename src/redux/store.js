@@ -1,14 +1,17 @@
 import { productSlice } from "./slices/productSlice"
 import { customerSlice } from "./slices/customerSlice"
-import { configureStore } from "@reduxjs/toolkit"
+import { invoicesSlice } from "./slices/invoiceSlice"
 import { authSlice } from "./slices/authSlice"
 import { userSlice } from "./slices/userSlice"
+import { configureStore } from "@reduxjs/toolkit"
+
 const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
     user: userSlice.reducer,
     products: productSlice.reducer,
     customers: customerSlice.reducer,
+    invoices: invoicesSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -26,6 +29,9 @@ const store = configureStore({
           "customers/fetchSingleCustomer",
           "customers/postCustomer",
           "customers/deleteCustomer",
+          "invoices/fetchSingleInvoice",
+          "invoices/createInvoice",
+          "invoices/deleteInvoice",
         ],
       },
     }),

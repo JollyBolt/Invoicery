@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { motion} from "framer-motion"
+import { motion } from "framer-motion"
 import { useDebounce } from "../../../../hooks/useDebounce"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchAllCustomers } from "../../../../redux/slices/customerSlice"
@@ -12,8 +12,6 @@ const AddCustomer = ({
   setInvoiceState,
   invoiceState,
 }) => {
-
-
   const [value, setValueState] = useState("")
   const [selectedCustomer, setSelectedCustomer] = useState(null)
   const debouncedValue = useDebounce(value)
@@ -113,11 +111,11 @@ const AddCustomer = ({
           <div className="mt-10 w-full text-xl">
             <div className="flex">
               <p className="w-36">Customer</p>
-                          <p>{ selectedCustomer.client }</p>
+              <p>{selectedCustomer.client}</p>
             </div>
-            <div className="flex mt-5" >
+            <div className="mt-5 flex">
               <p className="w-36">GSTIN</p>
-                          <p>{ selectedCustomer.gstin }</p>
+              <p>{selectedCustomer.gstin}</p>
             </div>
           </div>
         )}

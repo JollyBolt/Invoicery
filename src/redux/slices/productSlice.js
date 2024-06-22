@@ -6,13 +6,18 @@ axios.defaults.withCredentials = true
 
 const fetchAllProducts = createAsyncThunk(
   "products/fetchAllProducts",
-  async () => {
+  async ({search="",page=0,limit=10}) => {
     try {
       const res = await axios.get(
         "http://localhost:4598/api/v1/product/getallproducts",
         {
           headers: {
             Authorization: "Bearer " + getCookieValue("authToken"),
+          },
+          params: {
+            search: search,
+            page: page,
+            limit: limit,
           },
         },
       )

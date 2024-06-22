@@ -1,5 +1,6 @@
 import React, { forwardRef, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
+import { getProfile } from "../../redux/slices/userSlice"
 
 const InvoicePreview = forwardRef((props, ref) => {
   const dispatch = useDispatch()
@@ -14,8 +15,8 @@ const InvoicePreview = forwardRef((props, ref) => {
     }
     getUserData()
   }, [])
-  // const { invoiceState } = props
-  // const { invoiceNumber } = invoiceState
+  const { invoiceState } = props
+  const { invoiceNumber, invoiceDate } = invoiceState
   const products = [
     {
       name: "Product 1 ",
@@ -44,7 +45,7 @@ const InvoicePreview = forwardRef((props, ref) => {
       {/* Organisation Details */}
       <div className="flex justify-between border border-b-0 border-black p-1">
         <div className="text-xs">
-          <p className="text-2xl font-black uppercase">{ user?.org?.name }</p>
+          <p className="text-2xl font-black uppercase">{user?.org?.name}</p>
           <p className="">5832/33,Plot - 3A/UA, 2nd Floor, Jawahar Nagar</p>
           <p>New Delhi - 110007, Delhi, India</p>
           <p>Phone: 9350232008</p>
@@ -52,17 +53,25 @@ const InvoicePreview = forwardRef((props, ref) => {
           <p>GSTIN: {user?.org?.gstin}</p>
         </div>
         <div className="flex w-2/6 flex-col justify-evenly text-sm">
-          <p className="bg-primary p-3 text-xl font-bold text-white">
+          <div className="bg-primary p-3 text-xl font-bold text-white">
             Tax Invoice
-          </p>
-          <p className="flex">
+          </div>
+          <div className="flex">
             <p className="w-32">Invoice Number</p>
-            <span className="font-bold">INV2301</span>
-          </p>
-          <p className="flex">
+            <span className="font-bold">{invoiceNumber}</span>
+          </div>
+          <div className="flex">
             <p className="w-32">Invoice Date</p>
-            <span className="font-bold">12/01/2023</span>
-          </p>
+            {invoiceDate.day && (
+              <span className="font-bold">
+                {invoiceDate.day +
+                  "/" +
+                  invoiceDate.month +
+                  "/" +
+                  invoiceDate.year}
+              </span>
+            )}
+          </div>
         </div>
       </div>
 

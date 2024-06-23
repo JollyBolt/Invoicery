@@ -1,12 +1,22 @@
 import { motion } from "framer-motion"
+import { useEffect } from "react"
 
 const InvoiceDetails = ({
   register,
   errors,
   watch,
+  setValue,
   invoiceState,
   setInvoiceState,
 }) => {
+  useEffect(() => {
+    sessionStorage.getItem("invoiceNumber") &&
+      setValue("invoiceNumber", sessionStorage.getItem("invoiceNumber"), {
+        shouldTouch: true,
+      })
+    sessionStorage.getItem("date") &&
+      setValue("date", sessionStorage.getItem("date"), { shouldTouch: true })
+  }, [])
   return (
     <>
       <motion.div
@@ -23,6 +33,7 @@ const InvoiceDetails = ({
                 {...register("invoiceNumber", {
                   required: "Invoice Number is required",
                   onBlur: (e) => {
+                    sessionStorage.setItem("invoiceNumber", e.target.value)
                     setInvoiceState({
                       ...invoiceState,
                       invoiceNumber: e.target.value,
@@ -53,11 +64,13 @@ const InvoiceDetails = ({
                   required: "Please select a date",
                   onBlur: (e) => {
                     e.target.type = "text"
+                    sessionStorage.setItem("date", e.target.value)
                     // console.log({
                     //   day: new Date(e.target.value).getDate(),
                     //   month: new Date(e.target.value).getMonth(),
                     //   year: new Date(e.target.value).getFullYear(),
                     // })
+
                     setInvoiceState({
                       ...invoiceState,
                       invoiceDate: {

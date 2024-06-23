@@ -13,7 +13,15 @@ function InvoiceForm({
   setInvoiceState,
   printDocRef,
 }) {
-  const [step, setStep] = useState(1)
+  const [step, setStep] = useState(
+    sessionStorage.getItem("step") ? Number(sessionStorage.getItem("step")) : 1
+  )
+  useEffect(() => {
+    if (!sessionStorage.getItem("step")) {
+    sessionStorage.setItem("step", step)
+    }
+  },[])
+
   const handlePrint = useReactToPrint({
     content: () => printDocRef.current,
   })
@@ -45,6 +53,7 @@ function InvoiceForm({
                   if (step < 4) {
                   }
                   setStep(step + 1)
+                  sessionStorage.setItem("step", step+1)
                 }}
                 className="rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight"
               >

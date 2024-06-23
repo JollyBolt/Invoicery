@@ -30,11 +30,11 @@ function ShippingAddressDetails({
                 onClick={(e) => {
                   if (!e.target.checked) {
                     setChecked(false)
-                    setValue("shippingStreetAddress", "")
-                    setValue("shippingCity", "")
-                    setValue("shippingState", "")
-                    setValue("shippingStateCode", "")
-                    setValue("shippingZip", "")
+                    setValue("shippingStreetAddress", "", { shouldTouch: true })
+                    setValue("shippingCity", "", { shouldTouch: true })
+                    setValue("shippingState", "", { shouldTouch: true })
+                    setValue("shippingStateCode", "", { shouldTouch: true })
+                    setValue("shippingZip", "", { shouldTouch: true })
                     setInvoiceState({
                       ...invoiceState,
                       customer: {
@@ -53,27 +53,32 @@ function ShippingAddressDetails({
                     })
                   } else {
                     setChecked(true)
-                    setValue("shippingStreetAddress", "balle")
-                    setValue("shippingCity", "balle")
+                    setValue("shippingStreetAddress", "balle", {
+                      shouldTouch: true,
+                    })
+                    setValue("shippingCity", "balle", { shouldTouch: true })
                     // setValue(
                     //   "shippingStreetAddress",
-                    //   invoiceState.customer.address.billing.streetAddress,
+                    //   invoiceState.customer.address.billing.streetAddress,{ shouldTouch: true }
                     // )
                     // setValue(
                     //   "shippingCity",
-                    //   invoiceState.customer.address.billing.city,
+                    //   invoiceState.customer.address.billing.city,{ shouldTouch: true }
                     // )
                     setValue(
                       "shippingState",
                       invoiceState.customer.address.billing.state,
+                      { shouldTouch: true },
                     )
                     setValue(
                       "shippingStateCode",
                       invoiceState.customer.address.billing.stateCode,
+                      { shouldTouch: true },
                     )
                     setValue(
                       "shippingZip",
                       invoiceState.customer.address.billing.zip,
+                      { shouldTouch: true },
                     )
                     setInvoiceState({
                       ...invoiceState,

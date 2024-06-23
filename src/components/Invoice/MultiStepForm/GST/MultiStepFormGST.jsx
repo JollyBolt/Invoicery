@@ -51,10 +51,18 @@ function MultiStepFormGST({
       },
       date: "",
     },
-    mode: "onBlur",
+    mode: "all",
   })
 
-  const { register, handleSubmit, formState, control, setValue, watch } = form
+  const {
+    register,
+    handleSubmit,
+    formState,
+    control,
+    setValue,
+    watch,
+    getFieldState,
+  } = form
   const { errors } = formState
 
   const { fields, append, remove } = useFieldArray({
@@ -66,6 +74,7 @@ function MultiStepFormGST({
     name: "termsNConditions",
     control,
   })
+
 
   const formSwitch = () => {
     switch (step) {
@@ -146,12 +155,43 @@ function MultiStepFormGST({
           />
         )
       case 9:
-        return <Finish
-        //  printDocRef={printDocRef}
+        return (
+          <Finish
+          //  printDocRef={printDocRef}
           />
+        )
     }
   }
-
+  const setDisabled = () => {
+    switch (step) {
+      case 1:
+        return false
+      case 2:
+        if (
+          getFieldState("invoiceNumber", formState).error ||
+          !getFieldState("invoiceNumber", formState).isDirty
+        ) {
+          return true
+        } else if (
+          getFieldState("invoiceDate", formState).error ||
+          !getFieldState("invoiceDate", formState).isDirty
+        ) {
+          return true
+        } else {
+          return false
+        }
+      // console.log(getFieldState("invoiceNumber", formState))
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+      case 9:
+        return false
+    }
+  }
+  // console.log(getFieldState("invoiceNumber", formState))
   return (
     <div className="flex h-full w-full flex-col">
       <div className="mb-10 max-h-[60dvh] overflow-y-scroll p-3 flex-1">
@@ -161,6 +201,7 @@ function MultiStepFormGST({
         <button
           onClick={() => {
             setStep(step - 1)
+            sessionStorage.setItem("step", step - 1)
           }}
           className="rounded-rounded px-3 py-1 text-xl text-black transition-colors duration-150 hover:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-transparent"
         >
@@ -176,10 +217,12 @@ function MultiStepFormGST({
           onClick={() => {
             if (step < 9) {
               setStep(step + 1)
-            } else if ((step = 9)) {
+              sessionStorage.setItem("step", step + 1)
+            } else if (step === 9) {
               console.log(invoiceState)
             }
           }}
+          // disabled={setDisabled()}
           className="rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight"
         >
           {step === 9 ? "Save" : "Next"}

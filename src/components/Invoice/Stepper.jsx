@@ -3,33 +3,34 @@ import { useAnimate, motion } from "framer-motion"
 
 const Stepper = ({ step, template }) => {
   const [scope, animate] = useAnimate()
-  const initialAnimate = async () => {
-    if (template === "gst") {
-      await animate(scope.current, { scaleX: 0 }), { delay: 0 }
-      await animate(
-        scope.current,
-        { backgroundColor: "var(--primary)" },
-        { delay: 0 },
-      )
-      await animate(
-        scope.current,
-        { scaleX: 0.125 },
-        { duration: 0.3, delay: 0 },
-      )
-    } else if (template === "simple") {
-      await animate(scope.current, { scaleX: 0 }), { delay: 0 }
-      await animate(
-        scope.current,
-        { backgroundColor: "var(--primary)" },
-        { delay: 0 },
-      )
-      await animate(
-        scope.current,
-        { scaleX: 0.25 },
-        { duration: 0.3, delay: 0 },
-      )
-    }
-  }
+  // const initialAnimate = async () => {
+  //   if (template === "gst") {
+  //     await animate(scope.current, { scaleX: 0 }), { duration: 0.01, delay: 0 }
+  //     await animate(
+  //       scope.current,
+  //       { backgroundColor: "var(--primary)" },
+  //       { duration: 0.01, delay: 0 },
+  //     )
+  //     // await animate(
+  //     //   scope.current,
+  //     //   { scaleX: 0.11 },
+  //     //   { duration: 0.005, delay: 0 },
+  //     // )
+  //   } else if (template === "food") {
+  //     await animate(scope.current, { scaleX: 0 }), { delay: 0, duration: 0.01 }
+  //     await animate(
+  //       scope.current,
+  //       { backgroundColor: "var(--primary)" },
+  //       { duration: 0.01, delay: 0 },
+  //     )
+  //     // await animate(
+  //     //   scope.current,
+  //     //   { scaleX: 0.25 },
+  //     //   { duration: 0.005, delay: 0 },
+  //     // )
+  //   }
+  // }
+
   useEffect(() => {
     if (template === "gst") {
       if (step === 1) {
@@ -64,11 +65,7 @@ const Stepper = ({ step, template }) => {
         animate(scope.current, { scaleX: 1 }, { duration: 0.3 })
       }
     }
-  }, [step])
-
-  useEffect(() => {
-    initialAnimate()
-  }, [template])
+  }, [step, template])
 
   const gstFormSwitch = () => {
     switch (step) {
@@ -129,8 +126,9 @@ const Stepper = ({ step, template }) => {
         {/* Horizontal Progress Bar */}
         <div className="h-1 w-full bg-gray-200">
           <motion.div
+            initial={{ scaleX: 0 }}
             ref={scope}
-            className="h-full w-full origin-left bg-transparent"
+            className="h-full w-full origin-left bg-primary"
           ></motion.div>
         </div>
       </div>

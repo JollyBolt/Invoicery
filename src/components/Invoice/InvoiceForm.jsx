@@ -4,6 +4,7 @@ import Stepper from "../../components/Invoice/Stepper"
 import { useAnimate, motion } from "framer-motion"
 import InvoicePreview from "./InvoicePreview"
 import { useReactToPrint } from "react-to-print"
+import AccordionSolutions from "../Accordian"
 
 function InvoiceForm({
   template,
@@ -20,68 +21,11 @@ function InvoiceForm({
     <>
       <Stepper step={step} template={template} />
 
-      <div className="h-full max-h-[82dvh]  bg-white p-4">
+      <div className="h-full max-h-[82dvh] bg-white p-6">
         {step === 1 ? (
           <div className="flex h-full w-full flex-col gap-y-5">
-            <div className="flex h-full w-full flex-1 justify-center gap-10">
-              <motion.button
-                initial={{ scale: 1 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.12 }}
-                onClick={() => {
-                  setTemplate("gst")
-                  setInvoiceState({ ...invoiceState, template: "gst" })
-                }}
-                className={`h-fit w-2/5 rounded-rounded p-2 transition-colors duration-200 ${template === "gst" ? "bg-blue-500" : "bg-green-500"}`}
-              >
-                <h1 className="text-center text-2xl font-semibold">
-                  GST Invoice
-                </h1>
-                <ul className="list-inside list-disc">
-                  <li className="text-center text-sm">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Nulla, veritatis.
-                  </li>
-                  <li className="text-center text-sm">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Nulla, veritatis.
-                  </li>
-                  <li className="text-center text-sm">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Nulla, veritatis.
-                  </li>
-                </ul>
-              </motion.button>
-
-              <motion.button
-                initial={{ scale: 1 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.12 }}
-                type="button"
-                onClick={() => {
-                  setTemplate("food")
-                  setInvoiceState({ ...invoiceState, template: "food" })
-                }}
-                className={`h-fit w-2/5 rounded-rounded p-2 transition-colors duration-200 ${template === "food" ? "bg-blue-500" : "bg-green-500"}`}
-              >
-                <h1 className="text-center text-2xl font-semibold">
-                  Food Bill
-                </h1>
-                <ul className="list-inside list-disc">
-                  <li className="text-center text-sm">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Nulla, veritatis.
-                  </li>
-                  <li className="text-center text-sm">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Nulla, veritatis.
-                  </li>
-                  <li className="text-center text-sm">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Nulla, veritatis.
-                  </li>
-                </ul>
-              </motion.button>
+            <div className="w-full flex-1">
+            <AccordionSolutions setTemplate={ setTemplate } setInvoiceState={ setInvoiceState } invoiceState={ invoiceState } />
             </div>
             <div className="flex w-full justify-between">
               <button
@@ -112,7 +56,6 @@ function InvoiceForm({
           <MultiStepFormGST
             step={step}
             setStep={setStep}
-            // printDocRef={printDocRef}
             handlePrint={handlePrint}
             invoiceState={invoiceState}
             setInvoiceState={setInvoiceState}

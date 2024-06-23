@@ -45,7 +45,7 @@ const InvoicePreview = forwardRef((props, ref) => {
     <div ref={ref} className="min-h-full bg-white p-2">
       {/* Organisation Details */}
       <div className="flex justify-between border border-b-0 border-black p-1">
-        <div className="text-sm">
+        <div className="">
           <p className="text-2xl font-black uppercase">{user?.org?.name}</p>
           <p className="">{user?.org?.address?.streetAddress}</p>
           <p>
@@ -80,7 +80,7 @@ const InvoicePreview = forwardRef((props, ref) => {
       </div>
 
       {/* Customer Deatils */}
-      <div className="border border-b-0 border-black text-sm">
+      <div className="border border-b-0 border-black text-base">
         <div className="border-b border-black p-1">
           <p className="text-lg font-bold">Issued to</p>
           <div className="flex justify-between">
@@ -170,32 +170,34 @@ const InvoicePreview = forwardRef((props, ref) => {
         <div className="w-[15%] border-b border-r border-black p-2"> 2500</div>
       </div>
 
-      <div className="flex text-sm">
-        <div className="w-[64%]">
-          <div className="border border-t-0 border-black p-1">
+      <div className="flex border border-t-0 border-black">
+        <div className="w-[64%]  border-black">
+          
+          <div className="border-b border-black p-1 w-full">
             <p className="text-lg font-bold">Amount in Words</p>
             <p className="capitalize">{numWords(3876)}</p>
           </div>
-          <div className="border border-t-0 border-black p-1">
+
+          <div className="p-1 w-full">
             <p className="text-lg font-bold">Bank Details</p>
             <div className="flex w-full">
-              <div className="flex w-[40%]">
-                <p className="w-14 font-bold">Bank</p>
+              <div className="flex w-[35%]">
+                <p className="w-16 font-bold">Bank</p>
                 <p>{user?.banking?.bankName}</p>
               </div>
 
-              <div className="flex w-1/2">
-                <p className="w-32 font-bold">Account Number</p>
+              <div className="flex">
+                <p className="w-40 font-bold">Account Number</p>
                 <p>{user?.banking?.accountNumber}</p>
               </div>
             </div>
             <div className="flex">
-              <div className="flex w-[40%]">
-                <p className="w-14 font-bold">Branch</p>
+              <div className="flex w-[35%]">
+                <p className="w-16 font-bold">Branch</p>
                 <p>{user?.banking?.branch}</p>
               </div>
               <div className="flex">
-                <p className="w-32 font-bold">IFSC Code</p>
+                <p className="w-40 font-bold">IFSC Code</p>
                 <p>{user?.banking?.ifsc}</p>
               </div>
             </div>
@@ -203,42 +205,42 @@ const InvoicePreview = forwardRef((props, ref) => {
         </div>
 
         {/* Taxes */}
-        <div className="w-[36%] p-1 border-r border-b border-black">
+        <div className="w-[36%] border-l border-black overflow-hidden p-1">
           <div className="flex w-full justify-between">
-            <p className="px-2 text-right w-[35%]">IGST</p>
-            <p className="px-2 w-[25%]">10%</p>
+            <p className="w-[35%] px-2 text-right">IGST</p>
+            <p className="w-[25%] px-2">10%</p>
             <p className="w-[40%] px-2">230</p>
           </div>
           <div className="flex w-full justify-between">
-            <p className="px-2 text-right w-[35%]">CGST</p>
-            <p className="px-2 w-[25%]">10%</p>
+            <p className="w-[35%] px-2 text-right">CGST</p>
+            <p className="w-[25%] px-2">10%</p>
             <p className="w-[40%] px-2">230</p>
           </div>
           <div className="flex w-full justify-between">
-            <p className="px-2 text-right w-[35%]">SGST</p>
-            <p className="px-2 w-[25%]">10%</p>
+            <p className="w-[35%] px-2 text-right">SGST</p>
+            <p className="w-[25%] px-2">10%</p>
             <p className="w-[40%] px-2">230</p>
           </div>
           <div className="flex w-full justify-between">
-            <p className="px-2 text-right w-[35%]">Round off</p>
+            <p className="w-[60%] px-2 text-right">Round off</p>
             <p className="w-[40%] px-2">230</p>
           </div>
           <div className="flex w-full justify-between bg-primary text-white">
-            <p className="p-2 text-right w-[30%] text-lg">Total</p>
-            <p className=" p-2 text-xl font-bold">Rs. 23054.00</p>
+            <p className="w-[30%] p-2 text-right text-lg">Total</p>
+            <p className="p-2 text-xl font-bold">Rs. 23054.00</p>
           </div>
         </div>
       </div>
 
       {/* Terms and Conditions */}
-      <div className="flex">
-        <div className="p-1 border border-t-0 border-black w-[64%]">
-          <div className="flex justify-between items-center">
-          <p className="font-bold text-lg">Terms and Conditions</p>
-          <span className="text-sm">E & O.E</span>
+      <div className="flex w-full border border-t-0 border-black">
+        <div className="w-[64%] border-t-0 border-black p-1">
+          <div className="flex items-center justify-between">
+            <p className="text-lg font-bold">Terms and Conditions</p>
+            <span className="text-sm">E & O.E</span>
           </div>
         </div>
-        <div className="p-1 border-r border-b border-black w-[36%] flex flex-col items-end">
+        <div className="flex w-[36%] flex-col items-end  border-l border-black p-1">
           <p>For {user?.org?.name}</p>
           <div className="h-28"></div>
           <p>Authorized Signature</p>

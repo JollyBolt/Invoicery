@@ -16,7 +16,7 @@ const Stepper = ({ step, template }) => {
         { scaleX: 0.125 },
         { duration: 0.3, delay: 0 },
       )
-    } else if (template === "food") {
+    } else if (template === "simple") {
       await animate(scope.current, { scaleX: 0 }), { delay: 0 }
       await animate(
         scope.current,
@@ -51,7 +51,7 @@ const Stepper = ({ step, template }) => {
       } else if (step === 9) {
         animate(scope.current, { scaleX: 1 }, { duration: 0.3 })
       }
-    } else if (template === "food") {
+    } else if (template === "simple") {
       if (step === 1) {
         animate(scope.current, { scaleX: 0.2 }, { duration: 0.3 })
       } else if (step === 2) {
@@ -112,7 +112,7 @@ const Stepper = ({ step, template }) => {
     switch (template) {
       case "gst":
         return gstFormSwitch()
-      case "food":
+      case "simple":
         return foodFormSwitch()
     }
   }
@@ -122,7 +122,7 @@ const Stepper = ({ step, template }) => {
       <div className="relative flex w-full flex-col justify-between gap-y-4">
         <div className="pl-4 text-lg text-gray-400">
           <p className="pl-1">
-            Step {step} of {template === "gst" ? 9 : template === "food" && 5}
+            Step {step} of {template === "gst" ? 9 : template === "simple" && 5}
           </p>
           <h1 className="text-4xl font-bold text-black">{templateSwitch()}</h1>
         </div>

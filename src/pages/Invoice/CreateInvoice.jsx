@@ -32,18 +32,20 @@ function CreateInvoice() {
       gstin: "",
     },
     products: [
-      {
-        name: "",
-        quantity: "",
-        price: "",
-        hsnCode: "",
-        discount: {
-          value: null,
-          type: "",
-        },
-      },
+      // {
+      //   name: "",
+      //   quantity: "",
+      //   price: "",
+      //   hsnCode: "",
+      //   finalPrice: null,
+      //   amount: null,
+      //   discount: {
+      //     value: null,
+      //     type: "",
+      //   },
+      // },
     ],
-    amount: null,
+    totalAmount: null,
     taxes: {
       cgst: "",
       sgst: "",
@@ -54,7 +56,7 @@ function CreateInvoice() {
   return (
     <>
       <div className="flex w-full gap-2">
-        <div className="flex h-[80vh] w-[40%] shrink-0 flex-col rounded-r-3xl overflow-hidden bg-white">
+        <div className="flex h-[80vh] w-[40%] shrink-0 flex-col overflow-hidden rounded-r-3xl bg-white">
           <InvoiceForm
             template={template}
             setTemplate={setTemplate}
@@ -63,7 +65,7 @@ function CreateInvoice() {
             setInvoiceState={setInvoiceState}
           />
         </div>
-        <div className="h-[80vh] w-full overflow-hidden overflow-y-scroll ">
+        <div className="h-[80vh] w-full overflow-hidden overflow-y-scroll">
           <InvoicePreview
             template={template}
             ref={componentRef}

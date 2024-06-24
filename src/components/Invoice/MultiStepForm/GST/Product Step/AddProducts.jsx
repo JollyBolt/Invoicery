@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import DiscountInput from "./DiscountInput"
-import { useDebounce } from "../../../../hooks/useDebounce"
+import DiscountInput from "../DiscountInput"
+import { useDebounce } from "../../../../../hooks/useDebounce"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchAllProducts } from "../../../../redux/slices/productSlice"
+import { fetchAllProducts } from "../../../../../redux/slices/productSlice"
+import MultistepAddProductModal from "./MultistepAddProductModal"
+
 const AddProducts = ({
-  fields,
   errors,
-  append,
-  remove,
+  // fields,
+  // append,
+  // remove,
   register,
   watch,
   setValue,
@@ -17,8 +19,7 @@ const AddProducts = ({
 }) => {
   const [value, setValueState] = useState("")
   const debouncedValue = useDebounce(value)
-  const [selectedCustomer, setSelectedCustomer] = useState(null)
-  const { products } = useSelector((state) => state.products)
+  // const { products } = useSelector((state) => state.products)
 
   const dispatch = useDispatch()
 
@@ -31,6 +32,7 @@ const AddProducts = ({
     getRecomendations()
   }, [debouncedValue])
 
+  const [open, setOpen] = useState(false)
   return (
     <>
       <motion.div
@@ -40,12 +42,22 @@ const AddProducts = ({
         transition={{ duration: 1 }}
         className="w-full"
       >
-        <div className="mb-5 mt-2 flex flex-col gap-y-4">
+        <MultistepAddProductModal
+          setValue={setValue}
+          register={register}
+          watch={watch}
+          errors={errors}
+          open={open}
+          setOpen={setOpen}
+          invoiceState={invoiceState}
+          setInvoiceState={setInvoiceState}
+        />
+        {/* <div className="mb-5 mt-2 flex flex-col gap-y-4">
           {fields.map((field, ind) => {
             //RHF recommends using field.id as key instead of ind
             return (
               <div
-                className="flex flex-col w-full flex-nowrap justify-between gap-4"
+                className="flex w-full flex-col flex-nowrap justify-between gap-4"
                 key={field.id}
               >
                 <div>
@@ -159,27 +171,68 @@ const AddProducts = ({
                         X
                       </span>
                     </button>
-                  ) 
-                    }
+                  )}
                 </div>
               </div>
             )
           })}
-        </div>
-        <div className="text-right">
+        </div> */}
+
+        <div className="text-center">
           <button
-            onClick={() =>
-              append({
-                name: "",
-                quantity: "",
-                discount: { type: "percent", value: 0.0 },
-              })
-            }
+            onClick={() => setOpen(true)}
             type="button"
             className="text-md mb-4 rounded-rounded p-1 text-primary outline outline-1 outline-primary hover:bg-primary hover:text-white"
           >
             <span className="text-lg font-semibold">+</span> Add Products
           </button>
+        </div>
+
+        <div className="flex w-full flex-col gap-y-5">
+          {invoiceState.products &&
+            invoiceState.products.map((product, ind) => {
+              return (
+                <div className="relative w-full pb-5">
+                  <h1 className="text-xl font-semibold">{product.name}</h1>
+                  <div className="flex w-2/3 justify-between">
+                    <p className="text-lg">
+                      <span className="text-gray-400">HSN Code: </span>
+                      {product.hsnCode}
+                    </p>
+                    <p className="text-lg">
+                      <span className="text-gray-400">Quantity: </span>
+                      {product.quantity}
+                    </p>
+                  </div>
+                  <div className="flex w-2/3 justify-between">
+                    <p className="text-lg">
+                      <span className="text-gray-400">Price: </span>
+                      {product.finalPrice}
+                    </p>
+                    <p className="text-lg">
+                      <span className="text-gray-400">Amount: </span>
+                      {product.amount}
+                    </p>
+                  </div>
+                  <div>
+                    <button
+                      onClick={() =>
+                        setInvoiceState({
+                          ...invoiceState,
+                          products: invoiceState.products.filter((p) => {
+                            return p !== product && true
+                          })
+                        })
+                      }
+                      type="button"
+                      className="absolute bottom-0 right-0"
+                    >
+                      <span className="text-lg font-semibold">Delete</span>
+                    </button>
+                  </div>
+                </div>
+              )
+            })}
         </div>
       </motion.div>
     </>

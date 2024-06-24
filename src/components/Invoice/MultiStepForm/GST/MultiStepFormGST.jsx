@@ -7,7 +7,7 @@ import Taxes from "./Taxes"
 import TermsNConditions from "./TnC"
 import Finish from "./Finish"
 import BillingAddressDetails from "./BillingAddressDetails"
-import AddProducts from "./AddProducts"
+import AddProducts from "./Product Step/AddProducts"
 import ShippingAddressDetails from "./ShippingAddressDetails"
 import { useReactToPrint } from "react-to-print"
 
@@ -23,16 +23,18 @@ function MultiStepFormGST({
     defaultValues: {
       invoiceNumber: "",
       customer: "",
-      products: [
+      product: 
         {
           name: "",
-          quantity: "",
+          quantity: 1,
+          finalPrice:0,
+          amount:0,
           discount: {
-            value: "",
+            value: 0,
             type: "percent",
           },
         },
-      ],
+      totalAmount: 0,
       termsNConditions: [{ tnc: "" }],
       billingCity: "",
       shippingStreetAddress: "",
@@ -65,10 +67,10 @@ function MultiStepFormGST({
   } = form
   const { errors } = formState
 
-  const { fields, append, remove } = useFieldArray({
-    name: "products",
-    control,
-  })
+  // const { fields, append, remove } = useFieldArray({
+  //   name: "products",
+  //   control,
+  // })
 
   const tNc = useFieldArray({
     name: "termsNConditions",
@@ -126,9 +128,9 @@ function MultiStepFormGST({
           <AddProducts
             register={register}
             errors={errors}
-            fields={fields}
-            append={append}
-            remove={remove}
+            // fields={fields}
+            // append={append}
+            // remove={remove}
             setValue={setValue}
             watch={watch}
             invoiceState={invoiceState}

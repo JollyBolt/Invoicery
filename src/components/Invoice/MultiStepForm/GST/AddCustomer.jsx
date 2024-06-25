@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 import { useDebounce } from "../../../../hooks/useDebounce"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchAllCustomers } from "../../../../redux/slices/customerSlice"
-import { fetchSingleCustomer } from "../../../../redux/slices/customerSlice"
+
 const AddCustomer = ({
   register,
   errors,
@@ -29,25 +29,6 @@ const AddCustomer = ({
     }
     getRecomendations()
   }, [debouncedValue])
-
-  // useEffect(() => {
-  //   setValueState(watch("customer"))
-  // }, [])
-
-  // useEffect(() => {
-  // if(sessionStorage.getItem("customer")){
-  // dispatch(fetchSingleCustomer(sessionStorage.getItem("customer")))
-  // setSelectedCustomer(dispatch(fetchSingleCustomer(sessionStorage.getItem("customer"))))
-  // }
-
-  //   async function getSavedValue() {
-  //     if (sessionStorage.getItem("customer")) {
-  //       await dispatch(fetchSingleCustomer(sessionStorage.getItem("customer")))
-  //       setSelectedCustomer(customers)
-  //     }
-  //   }
-  //   getSavedValue()
-  // }, [])
 
   return (
     <>
@@ -97,7 +78,7 @@ const AddCustomer = ({
                               setValueState(customer.client)
                               setSelectedCustomer(customer)
                               // console.log(customer)
-                              sessionStorage.setItem("customer", JSON.stringify(customer))
+                              sessionStorage.setItem("customer", JSON.stringify(customer._id))
                             }}
                             key={ind}
                             className="w-full py-1 pl-2 text-left text-lg hover:cursor-pointer hover:bg-gray-200"

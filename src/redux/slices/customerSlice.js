@@ -8,8 +8,6 @@ const fetchAllCustomers = createAsyncThunk(
   "customers/fetchAllCustomers",
   async ({ search = "", page = 0, limit = 12 }) => {
     try {
-      console.log(search)
-      // console.log({ search: search, page:page, limit:limit })
       const res = await axios.get(
         "http://localhost:4598/api/v1/customer/getallcustomers",
         {
@@ -37,14 +35,16 @@ const fetchSingleCustomer = createAsyncThunk(
   async (id) => {
     try {
       const res = await axios.get(
-        `http://localhost:4598/api/v1/customer/getcustomer/${id}`,
+        `http://localhost:4598/api/v1/customer/getcustomer`,
         {
           headers: {
             Authorization: "Bearer " + getCookieValue("authToken"),
           },
+          params:{
+            id: id,
+          }
         },
       )
-      // console.log(res.data)
       return res.data
     } catch (e) {
       console.log(e)

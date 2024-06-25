@@ -56,7 +56,7 @@ const InvoicePreview = forwardRef((props, ref) => {
           <p>Email: {user?.org?.email}</p>
           <p>GSTIN: {user?.org?.gstin}</p>
         </div>
-        <div className="flex w-2/6 flex-col justify-evenly text-sm">
+        <div className="flex w-2/6 flex-col justify-evenly ">
           <div className="bg-primary p-3 text-xl font-bold text-white">
             Tax Invoice
           </div>
@@ -171,8 +171,7 @@ const InvoicePreview = forwardRef((props, ref) => {
       </div>
 
       <div className="flex border border-t-0 border-black">
-        <div className="w-[64%]  border-black">
-          
+        <div className="w-[64%] flex-col  border-black">
           <div className="border-b border-black p-1 w-full">
             <p className="text-lg font-bold">Amount in Words</p>
             <p className="capitalize">{numWords(3876)}</p>

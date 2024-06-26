@@ -53,18 +53,18 @@ function ShippingAddressDetails({
                     })
                   } else {
                     setChecked(true)
-                    setValue("shippingStreetAddress", "balle", {
-                      shouldTouch: true,
-                    })
-                    setValue("shippingCity", "balle", { shouldTouch: true })
-                    // setValue(
-                    //   "shippingStreetAddress",
-                    //   invoiceState.customer.address.billing.streetAddress,{ shouldTouch: true }
-                    // )
-                    // setValue(
-                    //   "shippingCity",
-                    //   invoiceState.customer.address.billing.city,{ shouldTouch: true }
-                    // )
+                    // setValue("shippingStreetAddress", "balle", {
+                    //   shouldTouch: true,
+                    // })
+                    // setValue("shippingCity", "balle", { shouldTouch: true })
+                    setValue(
+                      "shippingStreetAddress",
+                      invoiceState.customer.address.billing.streetAddress,{ shouldTouch: true }
+                    )
+                    setValue(
+                      "shippingCity",
+                      invoiceState.customer.address.billing.city,{ shouldTouch: true }
+                    )
                     setValue(
                       "shippingState",
                       invoiceState.customer.address.billing.state,

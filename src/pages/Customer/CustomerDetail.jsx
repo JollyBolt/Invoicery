@@ -6,8 +6,8 @@ import { fetchSingleCustomer } from "../../redux/slices/customerSlice"
 const CustomerDetail = () => {
   const id = useParams().id
   const dispatch = useDispatch()
-  const { loading } = useSelector((state) => state.customers)
-  const customerDetails = useSelector((state) => state.customers.customers)
+  const { customers,loading } = useSelector((state) => state.customers)
+  const customerDetails = customers[0]
   const { loggedIn } = useSelector((state) => state.auth)
 
   useEffect(() => {
@@ -18,6 +18,8 @@ const CustomerDetail = () => {
     }
     getCustomer()
   }, [loggedIn])
+
+  if(!customerDetails) return <div>Loading</div>
 
   return (
     <div>

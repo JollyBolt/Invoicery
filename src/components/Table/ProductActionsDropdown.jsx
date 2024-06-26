@@ -19,7 +19,7 @@ const ProductActionsDropdown = ({ row }) => {
       />
       <div
         className="cursor-pointer overflow-hidden rounded-rounded"
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={() => setOpen(prev => !prev)}
       >
         <BsThreeDotsVertical />
         <div
@@ -27,20 +27,21 @@ const ProductActionsDropdown = ({ row }) => {
         >
           <button
             className="border p-2 hover:bg-gray-50"
-            onClick={() => {
-              // console.log(row.original)
+            onClick={(e) => {
+              e.stopPropagation()
               setModalOpen(true)
-              setOpen((prev) => !prev)
+              setOpen(prev => !prev)
             }}
           >
             Edit
           </button>
           <button
             className="border p-2 hover:bg-gray-50"
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation()
               dispatch(deleteProduct(row.original._id))
               location.reload()
-              setOpen((prev) => !prev)
+              setOpen(prev => !prev)
             }}
           >
             Delete

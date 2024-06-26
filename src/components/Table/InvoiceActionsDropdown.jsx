@@ -15,16 +15,27 @@ const InvoiceActionsDropdown = () => {
         >
           <button
             className="border p-2 hover:bg-gray-50"
-            onClick={() => {
-              setOpen((prev) => !prev)
+            onClick={(e) => {
+              e.stopPropagation()
+              setOpen(prev => !prev)
+            }}
+          >
+            View
+          </button>
+          <button
+            className="border p-2 hover:bg-gray-50"
+            onClick={(e) => {
+              e.stopPropagation()
+              setOpen(prev => !prev)
             }}
           >
             Edit
           </button>
           <button
             className="border p-2 hover:bg-gray-50"
-            onClick={() => {
-              setOpen((prev) => !prev)
+            onClick={(e) => {
+              e.stopPropagation()
+              setOpen(prev => !prev)
             }}
           >
             Delete

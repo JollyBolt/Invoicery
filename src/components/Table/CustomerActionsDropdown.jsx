@@ -21,7 +21,7 @@ const CustomerActionsDropdown = ({ row }) => {
       />
       <div
         className="cursor-pointer overflow-hidden rounded-rounded"
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={() => setOpen(prev => !prev)}
       >
         <BsThreeDotsVertical />
         <div
@@ -29,8 +29,9 @@ const CustomerActionsDropdown = ({ row }) => {
         >
           <button
             className="border p-2 hover:bg-gray-50"
-            onClick={() => {
-              setOpen((prev) => !prev)
+            onClick={(e) => {
+              e.stopPropagation()
+              setOpen(prev => !prev)
               navigate(`./${row.original._id}`)
             }}
           >
@@ -38,16 +39,18 @@ const CustomerActionsDropdown = ({ row }) => {
           </button>
           <button
             className="border p-2 hover:bg-gray-50"
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation()
+              setOpen(prev => !prev)
               setModalOpen(true)
-              setOpen((prev) => !prev)
             }}
           >
             Edit
           </button>
           <button
             className="border p-2 hover:bg-gray-50"
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation()
               dispatch(deleteCustomer(row.original._id))
               location.reload()
               setOpen((prev) => !prev)

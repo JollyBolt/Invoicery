@@ -3,10 +3,13 @@ import { BsThreeDotsVertical } from "../../assets"
 import { useNavigate } from "react-router-dom"
 import EditProductModal from "../Products/EditProductModal"
 import { useDispatch, useSelector } from "react-redux"
+import { deleteProduct } from "../../redux/slices/productSlice"
 
 const ProductActionsDropdown = ({ row }) => {
   const [open, setOpen] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
+  const dispatch = useDispatch()
+
   return (
     <div>
       <EditProductModal
@@ -35,6 +38,8 @@ const ProductActionsDropdown = ({ row }) => {
           <button
             className="border p-2 hover:bg-gray-50"
             onClick={() => {
+              dispatch(deleteProduct(row.original._id))
+              location.reload()
               setOpen((prev) => !prev)
             }}
           >

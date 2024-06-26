@@ -1,10 +1,10 @@
-import { motion, AnimatePresence } from "framer-motion";
-import React from "react";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useDispatch, useSelector } from "react-redux";
-import { postCustomer } from "../../redux/slices/customerSlice";
+import { motion, AnimatePresence } from "framer-motion"
+import React from "react"
+import { useForm } from "react-hook-form"
+import * as yup from "yup"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { useDispatch, useSelector } from "react-redux"
+import { postCustomer } from "../../redux/slices/customerSlice"
 export default function CreateCustomer({ open, setOpen }) {
   const customerSchema = yup.object({
     client: yup.string().required("Client name is required"),
@@ -18,6 +18,7 @@ export default function CreateCustomer({ open, setOpen }) {
       .max(10, "Please enter valid contact number"),
     streetAddress: yup.string().required("Street Address is required"),
     city: yup.string().required("City is required"),
+    country: yup.string().required("Country is required"),
     state: yup.string().required("State is required"),
     stateCode: yup
       .string()
@@ -36,7 +37,7 @@ export default function CreateCustomer({ open, setOpen }) {
       .required("GSTIN is required")
       .min(15, "Please enter valid 15 digit GSTIN")
       .max(15, "Please enter valid 15 digit GSTIN"),
-  });
+  })
 
   const form = useForm({
     defaultValues: {
@@ -49,18 +50,22 @@ export default function CreateCustomer({ open, setOpen }) {
       state: "",
       stateCode: "",
       zip: "",
+      country: "",
       gstin: "",
     },
     mode: "all",
     resolver: yupResolver(customerSchema),
-  });
-  const { register, handleSubmit, reset, clearErrors, formState } = form;
-  const { errors, isSubmitting } = formState;
-  const dispatch = useDispatch();
+  })
+  const { register, handleSubmit, reset, clearErrors, formState } = form
+  const { errors, isSubmitting } = formState
+  const dispatch = useDispatch()
   const onSubmit = async (e) => {
-    e.preventDefault();
-    await handleSubmit(handlePost)(e);
-  };
+    e.preventDefault()
+    await handleSubmit(handlePost)(e)
+    setOpen(false)
+    reset()
+    location.reload()
+  }
   const handlePost = ({
     client,
     email,
@@ -68,6 +73,7 @@ export default function CreateCustomer({ open, setOpen }) {
     contactPerson,
     streetAddress,
     city,
+    country,
     state,
     stateCode,
     zip,
@@ -80,17 +86,19 @@ export default function CreateCustomer({ open, setOpen }) {
         email,
         phone,
         contactPerson,
-        address: { streetAddress, city, state, stateCode, zip },
+        billingAddress: [
+          { streetAddress, city, state, stateCode, zip, country },
+        ],
         gstin,
       }),
-    );
-  };
+    )
+  }
 
   return (
     <>
       <AnimatePresence>
         {open && (
-          <div className="absolute inset-0 flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="absolute inset-0 z-[100] flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm">
             <motion.div
               className="w-full"
               initial={{ scale: 0.4, opacity: 0 }}
@@ -112,9 +120,9 @@ export default function CreateCustomer({ open, setOpen }) {
                   <button
                     type="button"
                     onClick={() => {
-                      clearErrors();
-                      reset();
-                      setOpen(false);
+                      clearErrors()
+                      reset()
+                      setOpen(false)
                     }}
                     className="btn btn-circle btn-ghost btn-sm text-lg"
                   >
@@ -123,7 +131,7 @@ export default function CreateCustomer({ open, setOpen }) {
                   {/* </form> */}
                 </div>
                 <hr />
-                <div className="mt-4 space-y-4">
+                <div className="mt-2 space-y-1">
                   {/* Client Details */}
                   <div>
                     <h3 className="text-xl font-semibold">Client Details</h3>
@@ -179,10 +187,16 @@ export default function CreateCustomer({ open, setOpen }) {
                           <input
                             {...register("contactPerson")}
                             type="text"
+                            id="contactPerson"
                             className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
                             placeholder="Contact Person"
                           />
-                          <label className="float-label">Contact Person</label>
+                          <label
+                            htmlFor="contactPerson"
+                            className="float-label"
+                          >
+                            Contact Person
+                          </label>
                         </div>
                         <p className="text-xs text-red-500">
                           {errors.contactPerson ? (
@@ -298,23 +312,19 @@ export default function CreateCustomer({ open, setOpen }) {
                       <div>
                         <div className="relative flex w-full flex-col flex-nowrap">
                           <input
-                            {...register("stateCode")}
+                            {...register("zip")}
                             type="text"
-                            placeholder="State Code"
-                            id="customerStateCode"
+                            placeholder="ZIP Code"
+                            id="customerZip"
                             className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
                           />
-                          <label
-                            htmlFor="customerStateCode"
-                            className="float-label"
-                          >
-                            State Code
-                            <span className="text-red-500">&#42;</span>
+                          <label htmlFor="customerZip" className="float-label">
+                            ZIP Code<span className="text-red-500">&#42;</span>
                           </label>
                         </div>
                         <p className="text-xs text-red-500">
-                          {errors.stateCode ? (
-                            errors.stateCode.message
+                          {errors.zip ? (
+                            errors.zip.message
                           ) : (
                             <span className="select-none">&nbsp;</span>
                           )}
@@ -347,34 +357,64 @@ export default function CreateCustomer({ open, setOpen }) {
                       <div>
                         <div className="relative flex w-full flex-col flex-nowrap">
                           <input
-                            {...register("zip")}
+                            {...register("stateCode")}
                             type="text"
-                            placeholder="ZIP Code"
-                            id="customerZip"
+                            placeholder="State Code"
+                            id="customerStateCode"
                             className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
                           />
-                          <label htmlFor="customerZip" className="float-label">
-                            ZIP Code<span className="text-red-500">&#42;</span>
+                          <label
+                            htmlFor="customerStateCode"
+                            className="float-label"
+                          >
+                            State Code
+                            <span className="text-red-500">&#42;</span>
                           </label>
                         </div>
                         <p className="text-xs text-red-500">
-                          {errors.zip ? (
-                            errors.zip.message
+                          {errors.stateCode ? (
+                            errors.stateCode.message
                           ) : (
                             <span className="select-none">&nbsp;</span>
                           )}
                         </p>
                       </div>
                     </div>
+
+                    <div className="w-1/2 pr-1.5">
+                      <div className="relative flex w-full flex-col flex-nowrap">
+                        <input
+                          {...register("country")}
+                          type="text"
+                          placeholder="Country"
+                          id="customerCountry"
+                          className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+                        />
+                        <label
+                          htmlFor="customerCountry"
+                          className="float-label"
+                        >
+                          Country
+                          <span className="text-red-500">&#42;</span>
+                        </label>
+                      </div>
+                      <p className="text-xs text-red-500">
+                        {errors.country ? (
+                          errors.country.message
+                        ) : (
+                          <span className="select-none">&nbsp;</span>
+                        )}
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <div className="mb-3 mt-4 flex w-full justify-end gap-x-2">
+                <div className="mb-3 flex w-full justify-end gap-x-2">
                   <button
                     type="button"
                     onClick={() => {
-                      clearErrors();
-                      reset();
-                      setOpen(false);
+                      clearErrors()
+                      reset()
+                      setOpen(false)
                     }}
                     className="text-md btn h-fit w-fit rounded-rounded border-none bg-transparent text-black shadow-none hover:border-none hover:bg-slate-300"
                   >
@@ -402,5 +442,5 @@ export default function CreateCustomer({ open, setOpen }) {
         )}
       </AnimatePresence>
     </>
-  );
+  )
 }

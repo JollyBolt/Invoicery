@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import { postProduct } from "../../redux/slices/productSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { motion, AnimatePresence } from "framer-motion";
-import { DevTool } from "@hookform/devtools";
+import React, { useState } from "react"
+import * as yup from "yup"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { useForm } from "react-hook-form"
+import { postProduct } from "../../redux/slices/productSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { motion, AnimatePresence } from "framer-motion"
+import { DevTool } from "@hookform/devtools"
 
 const AddProductModal = ({ isOpen, setIsOpen }) => {
   const productSchema = yup.object({
     name: yup.string().required("Product Name is required"),
     hsn_code: yup.string(),
     price: yup.number("Please enter valid price").required("Price is required"),
-  });
+  })
 
   const form = useForm({
     defaultValues: {
@@ -22,22 +22,23 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
     },
     // mode: "all",
     resolver: yupResolver(productSchema),
-  });
+  })
 
   const { register, handleSubmit, formState, reset, clearErrors, control } =
-    form;
-  const { errors, isSubmitting } = formState;
+    form
+  const { errors, isSubmitting } = formState
   // const { loading } = useSelector((state) => state.products);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const onSubmit = async (e) => {
-    e.preventDefault();
-    await handleSubmit(handlePost)(e);
+    e.preventDefault()
+    await handleSubmit(handlePost)(e)
     setIsOpen(false)
-  };
+    location.reload()
+  }
   const handlePost = ({ name, hsn_code, price }) => {
     // console.log("object");
-    dispatch(postProduct({ name, hsn_code, price }));
-  };
+    dispatch(postProduct({ name, hsn_code, price }))
+  }
 
   return (
     <>
@@ -65,9 +66,9 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                   <button
                     type="button"
                     onClick={() => {
-                      clearErrors();
-                      reset();
-                      setIsOpen(false);
+                      clearErrors()
+                      reset()
+                      setIsOpen(false)
                     }}
                     className="btn btn-circle btn-ghost btn-sm text-lg"
                   >
@@ -152,9 +153,9 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                   {/* <form method="dialog"> */}
                   <button
                     onClick={() => {
-                      clearErrors();
-                      reset();
-                      setIsOpen(false);
+                      clearErrors()
+                      reset()
+                      setIsOpen(false)
                     }}
                     type="button"
                     className="text-md rounded-rounded border-none bg-transparent px-2 py-1 text-lg text-black shadow-none transition-colors duration-200 hover:border-none hover:bg-gray-200"
@@ -184,7 +185,7 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
         )}
       </AnimatePresence>
     </>
-  );
-};
+  )
+}
 
-export default AddProductModal;
+export default AddProductModal

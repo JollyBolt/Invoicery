@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { fetchAllCustomers } from "../../redux/slices/customerSlice"
 import Table from "../../components/Table/Table"
 import { customerColumns } from "../../components/Table/Columns"
-import EditCustomer from "../../components/Customer/EditCustomer"
 import { useDebounce } from "../../hooks/useDebounce"
 
 const CustomerTable = () => {
@@ -40,7 +39,6 @@ const CustomerTable = () => {
   return (
     <>
       <CreateCustomer open={open} setOpen={setOpen} />
-      <EditCustomer open={openEditModal} setOpen={setOpenEditModal} />
 
       <div
         className={`min-h-[82dvh] rounded-rounded bg-foreground p-5 ${

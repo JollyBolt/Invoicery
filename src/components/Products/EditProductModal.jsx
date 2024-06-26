@@ -29,7 +29,6 @@ function EditProductModal({ modalOpen, setModalOpen, product }) {
     await handleSubmit(handleEdit)(e)
     setModalOpen(false)
     reset()
-    // dispatch(fetchAllProducts())
     location.reload()
   }
   const handleEdit = ({ name, hsn_code, price }) => {

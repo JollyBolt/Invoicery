@@ -6,7 +6,7 @@ axios.defaults.withCredentials = true
 
 const fetchAllCustomers = createAsyncThunk(
   "customers/fetchAllCustomers",
-  async ({search="",page=0,limit=10}) => {
+  async ({ search = "", page = 0, limit = 12 }) => {
     try {
       console.log(search)
       // console.log({ search: search, page:page, limit:limit })
@@ -17,10 +17,10 @@ const fetchAllCustomers = createAsyncThunk(
             Authorization: "Bearer " + getCookieValue("authToken"),
           },
           params: {
-            search:search,
-            page:page,
-            limit:limit,
-          }
+            search: search,
+            page: page,
+            limit: limit,
+          },
         },
       )
 
@@ -72,11 +72,11 @@ const postCustomer = createAsyncThunk(
 
 const editCustomer = createAsyncThunk(
   "customers/editCustomer",
-  async (id, customer) => {
+  async (params) => {
     try {
       const res = await axios.put(
-        `http://localhost:4598/api/v1/customer/editcustomer/${id}`,
-        customer,
+        `http://localhost:4598/api/v1/customer/editcustomer/${params.id}`,
+        params.customer,
         {
           headers: {
             Authorization: "Bearer " + getCookieValue("authToken"),

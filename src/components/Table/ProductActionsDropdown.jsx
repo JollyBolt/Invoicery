@@ -1,11 +1,19 @@
 import React, { useState } from "react"
 import { BsThreeDotsVertical } from "../../assets"
 import { useNavigate } from "react-router-dom"
+import EditProductModal from "../Products/EditProductModal"
+import { useDispatch, useSelector } from "react-redux"
 
-const ProductActionsDropdown = ({row}) => {
+const ProductActionsDropdown = ({ row }) => {
   const [open, setOpen] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
   return (
     <div>
+      <EditProductModal
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+        product={row.original}
+      />
       <div
         className="cursor-pointer overflow-hidden rounded-rounded"
         onClick={() => setOpen((prev) => !prev)}
@@ -17,6 +25,8 @@ const ProductActionsDropdown = ({row}) => {
           <button
             className="border p-2 hover:bg-gray-50"
             onClick={() => {
+              // console.log(row.original)
+              setModalOpen(true)
               setOpen((prev) => !prev)
             }}
           >

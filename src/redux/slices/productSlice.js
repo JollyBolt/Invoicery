@@ -6,7 +6,7 @@ axios.defaults.withCredentials = true
 
 const fetchAllProducts = createAsyncThunk(
   "products/fetchAllProducts",
-  async ({search="",page=0,limit=10}) => {
+  async ({ search = "", page = 0, limit = 10 }) => {
     try {
       const res = await axios.get(
         "http://localhost:4598/api/v1/product/getallproducts",
@@ -21,7 +21,7 @@ const fetchAllProducts = createAsyncThunk(
           },
         },
       )
-      return res.data 
+      return res.data
     } catch (error) {
       console.log(error)
       return rejectWithValue(error)
@@ -33,7 +33,7 @@ const fetchSingleProduct = createAsyncThunk(
   "products/fetchSingleProduct",
   async (id) => {
     const res = await axios.get(
-      `https://jsonplaceholder.typicode.com/users/${id}`,
+      `http://localhost:4598/api/v1/product/getproduct/${id}`,
     )
     return res.data
   },
@@ -61,26 +61,34 @@ const postProduct = createAsyncThunk(
   },
 )
 
-const editProduct = createAsyncThunk(
-  "products/editProduct",
-  async (product) => {
-    try {
-      const res = await axios.put(
-        `https://jsonplaceholder.typicode.com/users/${product.id}`,
-        product,
-      )
-      return res.data
-    } catch (e) {
-      console.log(e)
-      return rejectWithValue(e)
-    }
-  },
-)
+const editProduct = createAsyncThunk("products/editProduct", async (params) => {
+  try {
+    const res = await axios.put(
+      `http://localhost:4598/api/v1/product/editproduct/${params.id}`,
+      params.product,
+      {
+        headers: {
+          Authorization: "Bearer " + getCookieValue("authToken"),
+        },
+      },
+    )
+    console.log(res.data)
+    return res.data
+  } catch (e) {
+    console.log(e)
+    return rejectWithValue(e)
+  }
+})
 
 const deleteProduct = createAsyncThunk("products/deleteProduct", async (id) => {
   try {
     const res = await axios.delete(
-      `https://jsonplaceholder.typicode.com/users/${id}`,
+      `http://localhost:4598/api/v1/product/deleteproduct/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + getCookieValue("authToken"),
+        },
+      },
     )
     return res.data
   } catch (e) {

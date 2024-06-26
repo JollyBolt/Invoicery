@@ -23,17 +23,16 @@ function MultiStepFormGST({
     defaultValues: {
       invoiceNumber: "",
       customer: "",
-      product: 
-        {
-          name: "",
-          quantity: 1,
-          finalPrice:0,
-          amount:0,
-          discount: {
-            value: 0,
-            type: "percent",
-          },
+      product: {
+        name: "",
+        quantity: 1,
+        finalPrice: 0,
+        amount: 0,
+        discount: {
+          value: 0,
+          type: "percent",
         },
+      },
       totalAmount: 0,
       termsNConditions: [{ tnc: "" }],
       billingCity: "",
@@ -76,7 +75,6 @@ function MultiStepFormGST({
     name: "termsNConditions",
     control,
   })
-
 
   const formSwitch = () => {
     switch (step) {
@@ -196,7 +194,7 @@ function MultiStepFormGST({
   // console.log(getFieldState("invoiceNumber", formState))
   return (
     <div className="flex h-full w-full flex-col">
-      <div className="mb-10 max-h-[60dvh] overflow-y-scroll p-3 flex-1">
+      <div className="mb-10 max-h-[60dvh] flex-1 overflow-y-scroll p-3">
         <form noValidate>{formSwitch()}</form>
       </div>
       <div className="flex w-full justify-between">
@@ -204,6 +202,13 @@ function MultiStepFormGST({
           onClick={() => {
             setStep(step - 1)
             sessionStorage.setItem("step", step - 1)
+            if (step === 8) {
+              console.log("hi")
+              sessionStorage.setItem(
+                "termsNConditions",
+                JSON.stringify(invoiceState.termsNConditions),
+              )
+            }
           }}
           className="rounded-rounded px-3 py-1 text-xl text-black transition-colors duration-150 hover:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-transparent"
         >
@@ -222,6 +227,12 @@ function MultiStepFormGST({
               sessionStorage.setItem("step", step + 1)
             } else if (step === 9) {
               console.log(invoiceState)
+            }
+            if (step === 8) {
+              sessionStorage.setItem(
+                "termsNConditions",
+                JSON.stringify(invoiceState.termsNConditions),
+              )
             }
           }}
           // disabled={setDisabled()}

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 
-const TermsNConditions = ({ register, tNc, invoiceState }) => {
+const TermsNConditions = ({ register, tNc, invoiceState, setInvoiceState }) => {
   const { fields, append, remove } = tNc
   return (
     <>
@@ -27,14 +27,14 @@ const TermsNConditions = ({ register, tNc, invoiceState }) => {
                       onBlur: (e) => {
                         setInvoiceState({
                           ...invoiceState,
-                          termsNConditions: termsNConditions.map(
-                            (FieldObject, i) => {
+                          termsNConditions: invoiceState.termsNConditions.map(
+                            (fieldObject, i) => {
                               if (i === ind) {
                                 return {
                                   tnc: e.target.value,
                                 }
                               } else {
-                                return FieldObject
+                                return fieldObject
                               }
                             },
                           ),
@@ -48,7 +48,17 @@ const TermsNConditions = ({ register, tNc, invoiceState }) => {
                   <button
                     className="flex w-fit flex-nowrap items-center justify-center rounded-full p-2 text-xl text-white transition-colors hover:bg-neutral-200"
                     type="button"
-                    onClick={() => remove(ind)}
+                    onClick={() => {
+                      remove(ind)
+                      setInvoiceState({
+                        ...invoiceState,
+                        termsNConditions: invoiceState.termsNConditions.filter(
+                          (tnc, i) => {
+                            return i !== ind && true
+                          },
+                        ),
+                      })
+                    }}
                   >
                     <span className="bg-transparent px-2 text-xl font-light text-red-500">
                       X
@@ -59,10 +69,14 @@ const TermsNConditions = ({ register, tNc, invoiceState }) => {
                     disabled={true}
                     className="flex w-fit select-none flex-nowrap items-center justify-center rounded-full p-2 text-xl text-white"
                     type="button"
-                    onClick={() => remove(ind)}
+                    // onClick={() => {
+                    //   remove(ind)
+
+                    //   // console.log(invoiceState.termsNConditions)
+                    // }}
                   >
                     <span className="bg-transparent px-2 text-xl font-light text-white">
-                      X
+                      x
                     </span>
                   </button>
                 )}
@@ -72,7 +86,15 @@ const TermsNConditions = ({ register, tNc, invoiceState }) => {
         </div>
 
         <button
-          onClick={() => append({ tnc: "" })}
+          onClick={() => {
+            append({ tnc: "" })
+            setInvoiceState({
+              ...invoiceState,
+              termsNConditions: invoiceState.termsNConditions.concat([
+                { tnc: "" },
+              ]),
+            })
+          }}
           type="button"
           className="text-md float-right mb-4 rounded-rounded p-1 text-primary outline outline-1 outline-primary hover:bg-primary hover:text-white"
         >

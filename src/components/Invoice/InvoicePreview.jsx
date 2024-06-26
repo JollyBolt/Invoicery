@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect } from "react"
+import React, { forwardRef, useEffect, useMemo } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { getProfile } from "../../redux/slices/userSlice"
 import numWords from "num-words"
@@ -16,33 +16,40 @@ const InvoicePreview = forwardRef((props, ref) => {
     }
     getUserData()
   }, [])
-  const { invoiceState } = props
-  const { invoiceNumber, invoiceDate } = invoiceState
-  const products = [
-    {
-      name: "Product 1 ",
-      hsn_code: "1234",
-      price: 1000,
-      quantity: 1,
-      discount: {
-        value: 10,
-        type: "percent",
-      },
-    },
-    {
-      name: "Product 2",
-      hsn_code: "1234",
-      price: 1500,
-      quantity: 1,
-      discount: {
-        value: 100,
-        type: "flat",
-      },
-    },
-  ]
-  // console.log(invoiceState)
+  const { invoiceState, setInvoiceState } = props
+  const {
+    invoiceNumber,
+    invoiceDate,
+    customer,
+    products,
+    totalAmount,
+    taxes,
+    termsNConditions,
+  } = invoiceState
+
+  const { name, contactPerson, gstin, phone, address } = customer
+  const { billing, shipping } = address
+  // console.log(shipping)
+  const { cgst, sgst, igst } = taxes
+
+  const subTotal = useMemo(() => {
+    return products.reduce(
+      (accumulator, product) => accumulator + product.amount,
+      0,
+    )
+  }, [products])
+
+  const total = useMemo(() => {
+    return subTotal + cgst * subTotal + sgst * subTotal + igst * subTotal
+  }, [cgst, sgst, igst, subTotal])
+
+  // setInvoiceState({
+  //   ...invoiceState,
+  //   totalAmount:total
+  // })
+
   return (
-    <div ref={ref} className="min-h-full bg-white p-2">
+    <div ref={ref} className="flex min-h-full flex-col bg-white p-2">
       {/* Organisation Details */}
       <div className="flex justify-between border border-b-0 border-black p-1">
         <div className="">
@@ -56,7 +63,7 @@ const InvoicePreview = forwardRef((props, ref) => {
           <p>Email: {user?.org?.email}</p>
           <p>GSTIN: {user?.org?.gstin}</p>
         </div>
-        <div className="flex w-2/6 flex-col justify-evenly ">
+        <div className="flex w-2/6 flex-col justify-evenly">
           <div className="bg-primary p-3 text-xl font-bold text-white">
             Tax Invoice
           </div>
@@ -83,101 +90,135 @@ const InvoicePreview = forwardRef((props, ref) => {
       <div className="border border-b-0 border-black text-base">
         <div className="border-b border-black p-1">
           <p className="text-lg font-bold">Issued to</p>
-          <div className="flex justify-between">
-            <p className="">Abhinav Infrabuild Pvt Ltd</p>
-            <p>GSTIN: 23AAHCA9425D1ZY</p>
+          <div className="flex flex-col">
+            <div className="flex justify-between">
+              <div className="flex w-[40%]">
+                <p className="w-[45%] font-semibold">Organization</p>
+                <p>{name}</p>
+              </div>
+              <div className="flex w-[40%]">
+                <p className="w-[20%] font-semibold">GSTIN</p>
+                <p>{gstin}</p>
+              </div>
+            </div>
+            <div className="flex justify-between">
+              <div className="flex w-[40%]">
+                <p className="w-[45%] font-semibold">Contact Person</p>
+                <p>{contactPerson}</p>
+              </div>
+              <div className="flex w-[40%]">
+                <p className="w-[20%] font-semibold">Phone</p>
+                <p>{phone}</p>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="flex gap-2">
-          <div className="w-1/2 border-r border-black p-1">
+
+        {/* Addresses */}
+        <div className="flex min-h-[100px] gap-2">
+          <div className="w-1/2 shrink-0 border-r border-black p-1">
             <p className="text-lg font-bold">Billing Address</p>
-            <p>207-208, Industry House, AB Road</p>
-            <p>Indore, ZIP: 452018</p>
-            <p>Madhya Pradesh, India</p>
+            {billing.city != "" && (
+              <>
+                <p>{billing.streetAddress}</p>
+                <p>
+                  {billing.city}, ZIP: {billing.zip}
+                </p>
+                <p>
+                  {billing.state}, {billing.country}
+                </p>
+                <p>State Code: {billing.stateCode}</p>
+              </>
+            )}
           </div>
           <div className="p-1">
             <p className="text-lg font-bold">Shipping Address</p>
-            <p>207-208, Industry House, AB Road</p>
-            <p>Indore, ZIP: 452018</p>
-            <p>Madhya Pradesh, India</p>
+            {shipping?.city != "" && (
+              <>
+                <p>{shipping?.streetAddress}</p>
+                <p>
+                  {shipping?.city}, ZIP: {shipping?.zip}
+                </p>
+                <p>
+                  {shipping?.state}, {shipping?.country}
+                </p>
+                <p>State Code: {shipping?.stateCode}</p>
+              </>
+            )}
           </div>
         </div>
       </div>
 
       {/* Table */}
-      <div className="flex w-full border border-b-0 border-r-0 border-black text-base font-bold">
-        <div className="w-[8%] border-r border-black bg-primary p-2 text-white">
-          S.No
-        </div>
-        <div className="col-span-3 w-[27%] border-b border-r border-black bg-primary p-2 text-white">
-          Item
-        </div>
-        <div className="w-[8%] border-r border-black bg-primary p-2 text-white">
-          HSN <br /> Code
-        </div>
-        <div className="w-[8%] border-r border-black bg-primary p-2 text-white">
-          Qty
-        </div>
-        <div className="w-[13%] border-r border-black bg-primary p-2 text-white">
-          Price <br /> (INR)
-        </div>
-        <div className="w-[8%] border-r border-black bg-primary p-2 text-white">
-          Disc.
-        </div>
-        <div className="w-[13%] border-r border-black bg-primary p-2 text-white">
-          Final Price <br /> (INR)
-        </div>
-        <div className="w-[15%] border-r border-black bg-primary p-2 text-white">
-          Amount <br /> (INR)
-        </div>
-      </div>
-      {/* <div className="bg-primary p-1 text-white">Amount <br /> (INR)</div> */}
-      {products.map((product, index) => {
-        return (
-          <div
-            key={index}
-            className="flex border border-b-0 border-r-0 border-black text-sm"
-          >
-            <div className="w-[8%] border-r border-black p-2">{index + 1}</div>
-            <div className="w-[27%] border-r border-black p-2">
-              {product.name}
-            </div>
-            <div className="w-[8%] border-r border-black p-2">
-              {product.hsn_code}
-            </div>
-            <div className="w-[8%] border-r border-black p-2">
-              {product.quantity}
-            </div>
-            <div className="w-[13%] border-r border-black p-2">
-              {product.price}
-            </div>
-            <div className="w-[8%] border-r border-black p-2">
-              {product.discount.value}
-            </div>
-            <div className="w-[13%] border-r border-black p-2">
-              {product.price - product.discount.value}
-            </div>
-            <div className="col-span-2 w-[15%] border-r border-black p-2">
-              {product.price * product.quantity}
-            </div>
+      <div className="flex w-full flex-col border-black">
+        <div className="flex w-full shrink-0 border-black font-bold">
+          <div className="w-[10%] border border-black bg-primary p-2 text-center text-white">
+            S.No
           </div>
-        )
-      })}
-      <div className="flex border border-b-0 border-r-0 border-black text-sm">
-        <div className="w-[85%] border-b border-r border-black p-2 text-right font-bold">
+          <div className="w-[30%] border border-l-0 border-black bg-primary p-2 text-center text-white">
+            Item
+          </div>
+          <div className="w-[14%] border border-l-0 border-black bg-primary p-2 text-center text-white">
+            HSN Code
+          </div>
+          <div className="w-[10%] border border-l-0 border-black bg-primary p-2 text-center text-white">
+            Qty
+          </div>
+          <div className="w-[18%] border border-l-0 border-black bg-primary p-2 text-center text-white">
+            Price(INR)
+          </div>
+          <div className="text-center w-[18%] border border-l-0 border-black bg-primary p-2 text-white">
+            Amount(INR)
+          </div>
+        </div>
+        {products.length > 0 ? (
+          products.map((product, index) => {
+            return (
+              <div key={index} className="flex w-full text-sm">
+                <div className="w-[10%] border-l border-r border-black p-2 text-center">
+                  {index + 1}
+                </div>
+                <div className="w-[30%] border-r border-black p-2">
+                  {product.name}
+                </div>
+                <div className="w-[14%] border-r border-black p-2 text-center">
+                  {product.hsn_code}
+                </div>
+                <div className="w-[10%] border-r border-black p-2 text-center">
+                  {product.quantity}
+                </div>
+                <div className="w-[18%] border-r border-black p-2 text-center">
+                  {product.finalPrice.toFixed(2)}
+                </div>
+                <div className="w-[18%] border-r border-black p-2 pr-6 text-right">
+                  {product.amount.toFixed(2)}
+                </div>
+              </div>
+            )
+          })
+        ) : (
+          <div className="w-full border-l border-r border-black p-2 text-white">
+            &npsp;
+          </div>
+        )}
+      </div>
+      <div className="flex w-full justify-between border-black">
+        <div className="w-[82%] shrink-0 border border-black p-2 text-right font-bold">
           Sub Total
         </div>
-        <div className="w-[15%] border-b border-r border-black p-2"> 2500</div>
+        <div className="w-[18%] border border-l-0 border-black p-2 pr-5 text-right">
+          {subTotal.toFixed(2)}
+        </div>
       </div>
 
       <div className="flex border border-t-0 border-black">
-        <div className="w-[64%] flex-col  border-black">
-          <div className="border-b border-black p-1 w-full">
+        <div className="w-[64%] flex-col border-black">
+          <div className="w-full border-b border-black p-1">
             <p className="text-lg font-bold">Amount in Words</p>
-            <p className="capitalize">{numWords(3876)}</p>
+            <p className="capitalize">{numWords(total)} Rupees Only</p>
           </div>
 
-          <div className="p-1 w-full">
+          <div className="w-full p-1">
             <p className="text-lg font-bold">Bank Details</p>
             <div className="flex w-full">
               <div className="flex w-[35%]">
@@ -204,29 +245,36 @@ const InvoicePreview = forwardRef((props, ref) => {
         </div>
 
         {/* Taxes */}
-        <div className="w-[36%] border-l border-black overflow-hidden p-1">
+        <div className="w-[36%] overflow-hidden border-l border-black p-2">
           <div className="flex w-full justify-between">
-            <p className="w-[35%] px-2 text-right">IGST</p>
-            <p className="w-[25%] px-2">10%</p>
-            <p className="w-[40%] px-2">230</p>
+            <p className="w-[40%] text-right">CGST</p>
+            <p className="w-[5%]">{cgst}%</p>
+            <p className="w-[50%] pr-3 text-right">
+              {(subTotal * cgst).toFixed(2)}
+            </p>
           </div>
           <div className="flex w-full justify-between">
-            <p className="w-[35%] px-2 text-right">CGST</p>
-            <p className="w-[25%] px-2">10%</p>
-            <p className="w-[40%] px-2">230</p>
+            <p className="w-[40%] text-right">SGST</p>
+            <p className="w-[5%]">{sgst}%</p>
+            <p className="w-[50%] pr-3 text-right">
+              {(subTotal * sgst).toFixed(2)}
+            </p>
           </div>
           <div className="flex w-full justify-between">
-            <p className="w-[35%] px-2 text-right">SGST</p>
-            <p className="w-[25%] px-2">10%</p>
-            <p className="w-[40%] px-2">230</p>
+            <p className="w-[40%] text-right">IGST</p>
+            <p className="w-[5%]">{igst}%</p>
+            <p className="w-[50%] pr-3 text-right">
+              {(subTotal * igst).toFixed(2)}
+            </p>
           </div>
           <div className="flex w-full justify-between">
-            <p className="w-[60%] px-2 text-right">Round off</p>
-            <p className="w-[40%] px-2">230</p>
+            <p className="w-[50%] text-right">Round off</p>
+            <p className="w-[45%] pr-3 text-right">0</p>
           </div>
           <div className="flex w-full justify-between bg-primary text-white">
             <p className="w-[30%] p-2 text-right text-lg">Total</p>
-            <p className="p-2 text-xl font-bold">Rs. 23054.00</p>
+            <p className="p-2 text-xl font-bold">Rs. {total.toFixed(2)}</p>
+            {/* <p className="p-2 text-xl font-bold">Rs. 550</p> */}
           </div>
         </div>
       </div>
@@ -238,10 +286,19 @@ const InvoicePreview = forwardRef((props, ref) => {
             <p className="text-lg font-bold">Terms and Conditions</p>
             <span className="text-sm">E & O.E</span>
           </div>
+          <div className="text-sm">
+            <ol>
+            {termsNConditions?.length > 0 && 
+                termsNConditions.map((tnc, i) => (
+                  <li>{ tnc.tnc }</li>
+              ))
+            }
+            </ol>
+          </div>
         </div>
-        <div className="flex w-[36%] flex-col items-end  border-l border-black p-1">
+        <div className="flex w-[36%] flex-col items-end border-l border-black p-1">
           <p>For {user?.org?.name}</p>
-          <div className="h-28"></div>
+          <div className="h-20"></div>
           <p>Authorized Signature</p>
         </div>
       </div>

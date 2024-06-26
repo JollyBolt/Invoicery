@@ -11,7 +11,8 @@ function CreateInvoice() {
     template: "gst",
     customer: {
       name: "",
-      email: "",
+      contactPerson: "",
+      gstin: "",
       phone: "",
       address: {
         billing: {
@@ -20,6 +21,7 @@ function CreateInvoice() {
           state: "",
           stateCode: "",
           zip: "",
+          country: "",
         },
         shipping: {
           streetAddress: "",
@@ -27,9 +29,9 @@ function CreateInvoice() {
           state: "",
           stateCode: "",
           zip: "",
+          country: "",
         },
       },
-      gstin: "",
     },
     products: [
       // {
@@ -45,11 +47,11 @@ function CreateInvoice() {
       //   },
       // },
     ],
-    totalAmount: null,
+    totalAmount: 0,
     taxes: {
-      cgst: "",
-      sgst: "",
-      igst: "",
+      cgst: 0,
+      sgst: 0,
+      igst: 0,
     },
     termsNConditions: [{ tnc: "" }],
   })
@@ -70,6 +72,7 @@ function CreateInvoice() {
             template={template}
             ref={componentRef}
             invoiceState={invoiceState}
+            setInvoiceState={setInvoiceState}
           />
         </div>
       </div>

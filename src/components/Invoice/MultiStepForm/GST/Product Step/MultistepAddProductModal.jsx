@@ -39,7 +39,7 @@ function MultistepAddProductModal({
           name: selectedProduct.name,
           quantity: watch("product.quantity"),
           price: selectedProduct.price,
-          hsnCode: selectedProduct.hsn_code,
+          hsn_code: selectedProduct.hsn_code,
           finalPrice: watch("product.finalPrice"),
           amount: watch("product.amount"),
           discount: {

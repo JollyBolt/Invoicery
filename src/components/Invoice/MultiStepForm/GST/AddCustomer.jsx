@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { useDebounce } from "../../../../hooks/useDebounce"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchAllCustomers } from "../../../../redux/slices/customerSlice"
+import {
+  fetchAllCustomers,
+  fetchSingleCustomer,
+} from "../../../../redux/slices/customerSlice"
 
 const AddCustomer = ({
   register,
@@ -14,13 +17,33 @@ const AddCustomer = ({
 }) => {
   const dispatch = useDispatch()
   const [value, setValueState] = useState("")
-  const { customers } = useSelector((state) => state.customers)
+  const { customers, loading } = useSelector((state) => state.customers)
   const debouncedValue = useDebounce(value)
-  const [selectedCustomer, setSelectedCustomer] = useState(
-    sessionStorage.getItem("customer")
-      ? JSON.parse(sessionStorage.getItem("customer"))
-      : null,
-  )
+  const [selectedCustomer, setSelectedCustomer] = useState()
+
+  useEffect(() => {
+    const customerId = sessionStorage.getItem("customerId")
+
+    const getCustomer = async () => {
+      await dispatch(fetchSingleCustomer(customerId))
+      setSelectedCustomer(true)
+      setInvoiceState({
+        ...invoiceState,
+        customer: {
+          ...invoiceState.customer,
+          name: customers[0].client,
+          gstin: customers[0].gstin,
+          contactPerson: customers[0].contactPerson,
+          phone: customers[0].phone,
+        },
+      })
+    }
+
+    if (customerId) {
+      getCustomer()
+    }
+  }, [])
+
   useEffect(() => {
     async function getRecomendations() {
       if (debouncedValue.length > 2) {
@@ -39,7 +62,7 @@ const AddCustomer = ({
         transition={{ duration: 1 }}
         className="w-full"
       >
-        {selectedCustomer === null ? (
+        {!selectedCustomer ? (
           <>
             <p className="text-xl">Choose the customer you want to bill.</p>
             <div className="relative mt-2 flex w-full flex-nowrap justify-between gap-x-2 overflow-visible">
@@ -76,9 +99,19 @@ const AddCustomer = ({
                                 shouldTouch: true,
                               })
                               setValueState(customer.client)
-                              setSelectedCustomer(customer)
-                              // console.log(customer)
-                              sessionStorage.setItem("customer", JSON.stringify(customer._id))
+                              setSelectedCustomer(true)
+                              setInvoiceState({
+                                ...invoiceState,
+                                customer: {
+                                  ...invoiceState.customer,
+                                  name: customer.client,
+                                  gstin: customer.gstin,
+                                  contactPerson: customer.contactPerson,
+                                  phone: customer.phone,
+
+                                }
+                              })
+                              sessionStorage.setItem("customerId", customer._id)
                             }}
                             key={ind}
                             className="w-full py-1 pl-2 text-left text-lg hover:cursor-pointer hover:bg-gray-200"
@@ -93,46 +126,42 @@ const AddCustomer = ({
                   </motion.div>
                 )}
               </div>
-              {/* <motion.button
-            onClick={(e) => {
-              setInvoiceState({
-                ...invoiceState,
-                customer: { ...customers, name: watch("customer.name") },
-              })
-            }}
-            initial={{ scale: 1 }}
-            whileTap={{ scale: selectedCustomer === null ? 1 : 0.85 }}
-            disabled={selectedCustomer === null}
-            type="button"
-            className="rounded-rounded bg-primary px-2 py-1 text-lg font-semibold text-white transition-colors duration-150 hover:bg-primaryLight disabled:opacity-25 disabled:hover:bg-primary"
-            >
-            Save Customer
-          </motion.button> */}
             </div>
           </>
         ) : (
           <>
-            {/* Display of Customer Data after fetch */}
-            {/* {selectedCustomer !== null && ( */}
-            <div className="relative mt-10 w-full text-xl">
-              <div className="flex">
-                <p className="w-36">Customer</p>
-                <p>{selectedCustomer && selectedCustomer.client}</p>
+            <div className="w-full rounded-md bg-primary p-1">
+              <div className="flex flex-col gap-5 rounded-md bg-gray-50 p-5 font-semibold">
+                <div className="flex gap-10">
+                  <p className="w-[30%]">Customer</p>
+                  <p className="">{customers[0]?.client}</p>
+                </div>
+                <div className="flex gap-10">
+                  <p className="w-[30%]">GSTIN</p>
+                  <p>{customers[0]?.gstin}</p>
+                </div>
+                <div className="flex gap-10">
+                  <p className="w-[30%]">Contact Person</p>
+                  <p>{customers[0]?.contactPerson}</p>
+                </div>
+                <div className="flex gap-10">
+                  <p className="w-[30%]">Phone</p>
+                  <p>{customers[0]?.phone}</p>
+                </div>
               </div>
-              <div className="mt-5 flex">
-                <p className="w-36">GSTIN</p>
-                <p>{selectedCustomer && selectedCustomer.gstin}</p>
-              </div>
+            </div>
+            <div className="text-right">
               <button
+                type="button"
                 onClick={() => {
-                  setSelectedCustomer(null)
+                  setSelectedCustomer(false)
                   setValue("customer", "")
                   setValueState("")
-                  sessionStorage.removeItem("customer")
+                  sessionStorage.removeItem("customerId")
                 }}
-                className="absolute -top-12 right-7 rounded-full px-3 py-1 text-2xl text-red-500 transition-colors duration-150 hover:bg-gray-200"
+                className="mt-4 rounded-rounded border-2 border-primary p-3 font-semibold text-primary"
               >
-                X
+                Change Customer
               </button>
             </div>
           </>

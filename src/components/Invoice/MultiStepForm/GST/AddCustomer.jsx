@@ -53,6 +53,15 @@ const AddCustomer = ({
     getRecomendations()
   }, [debouncedValue])
 
+  const [key, setKey] = useState(0)
+  // addEventListener("keydown", (event) => {
+  //   if (debouncedValue.length > 2) {
+  //     if (key < customers.length - 1) {
+  //       setKey(key + 1)
+  //     }
+  //   }
+  // })
+
   return (
     <>
       <motion.div
@@ -68,6 +77,41 @@ const AddCustomer = ({
             <div className="relative mt-2 flex w-full flex-nowrap justify-between gap-x-2 overflow-visible">
               <div className="flex w-full flex-col">
                 <input
+                  onKeyDown={(e) => {
+                    if (e.key === "ArrowDown") {
+                      if (debouncedValue.length > 2) {
+                        if (key < customers.length - 1) {
+                          setKey(key + 1)
+                        }
+                      }
+                    } else if (e.key === "ArrowUp") {
+                      if (debouncedValue.length > 2) {
+                        if (key > 0) {
+                          setKey(key - 1)
+                        }
+                      }
+                    } else if (e.key === "Enter") {
+                      e.preventDefault()
+
+                      setValue("customer", customers[key].client, {
+                        shouldTouch: true,
+                      })
+                      setValueState(customers[key].client)
+                      setSelectedCustomer(true)
+                      setInvoiceState({
+                        ...invoiceState,
+                        customer: {
+                          ...invoiceState.customer,
+                          name: customers[key].client,
+                          gstin: customers[key].gstin,
+                          contactPerson: customers[key].contactPerson,
+                          phone: customers[key].phone,
+                        },
+                      })
+                      sessionStorage.setItem("customerId", customers[key]._id)
+                      setKey(0)
+                    }
+                  }}
                   type="text"
                   autoComplete="off"
                   {...register("customer", {
@@ -108,13 +152,12 @@ const AddCustomer = ({
                                   gstin: customer.gstin,
                                   contactPerson: customer.contactPerson,
                                   phone: customer.phone,
-
-                                }
+                                },
                               })
                               sessionStorage.setItem("customerId", customer._id)
                             }}
                             key={ind}
-                            className="w-full py-1 pl-2 text-left text-lg hover:cursor-pointer hover:bg-gray-200"
+                            className={`w-full py-1 pl-2 text-left text-lg hover:cursor-pointer hover:bg-gray-200 ${key === ind && "bg-gray-400"}`}
                           >
                             {customer.client}
                           </h2>

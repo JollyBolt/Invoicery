@@ -55,6 +55,9 @@ function MultistepAddProductModal({
     setSelectedProduct(null)
     setOpen(false)
   }
+
+  const [key, setKey] = useState(0)
+
   return (
     <>
       <AnimatePresence>
@@ -98,6 +101,38 @@ function MultistepAddProductModal({
                             <input
                               className="peer w-full rounded-md border px-3 py-2 text-lg transition-colors duration-150 focus:border-black focus:outline-none"
                               type="text"
+                              onKeyDown={(e) => {
+                                if (e.key === "ArrowDown") {
+                                  if (debouncedValue.length > 2) {
+                                    if (key < products.length - 1) {
+                                      setKey(key + 1)
+                                    }
+                                  }
+                                } else if (e.key === "ArrowUp") {
+                                  if (debouncedValue.length > 2) {
+                                    if (key > 0) {
+                                      setKey(key - 1)
+                                    }
+                                  }
+                                } else if (e.key === "Enter") {
+                                  e.preventDefault()
+
+                                  setValue(`product.name`, products[key].name, {
+                                    shouldTouch: true,
+                                  })
+                                  setValueState(products[key].name)
+                                  setSelectedProduct(products[key])
+                                  setValue(
+                                    "product.finalPrice",
+                                    products[key].price,
+                                  )
+                                  setValue(
+                                    "product.amount",
+                                    products[key].price,
+                                  )
+                                  setKey(0)
+                                }
+                              }}
                               placeholder="Enter at least 3 characters"
                               {...register(`product.name`, {
                                 required: {
@@ -152,7 +187,7 @@ function MultistepAddProductModal({
                                           )
                                         }}
                                         key={i}
-                                        className="py-1 pl-2 text-lg hover:cursor-pointer hover:bg-gray-200"
+                                        className={`py-1 pl-2 text-lg hover:cursor-pointer hover:bg-gray-200 ${key === i && "bg-gray-400"}`}
                                       >
                                         {product.name}
                                       </h2>

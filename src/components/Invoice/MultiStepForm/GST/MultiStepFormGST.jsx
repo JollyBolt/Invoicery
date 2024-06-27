@@ -36,6 +36,7 @@ function MultiStepFormGST({
       totalAmount: 0,
       termsNConditions: [{ tnc: "" }],
       billingCity: "",
+      // shippingStreetAddress: sessionStorage.getItem("shippingChecked") ?:"",
       shippingStreetAddress: "",
       shippingCity: "",
       shippingState: "",

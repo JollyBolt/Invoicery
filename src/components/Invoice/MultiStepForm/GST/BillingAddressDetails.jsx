@@ -30,7 +30,7 @@ function BillingAddressDetails({
   }, [])
 
   const address = customers[0]?.billingAddresses[billingAddressIndex]
-
+  const [key, setKey] = useState(0)
   const billingAddresses = customers[0]?.billingAddresses
   // console.log(billingAddresses[0])
   return (
@@ -49,6 +49,47 @@ function BillingAddressDetails({
               <div className="w-full">
                 <div className="relative flex w-full flex-col flex-nowrap">
                   <input
+                    onKeyDown={(e) => {
+                      if (e.key === "ArrowDown") {
+                        if (key < billingAddresses.length - 1) {
+                          setKey(key + 1)
+                        }
+                      } else if (e.key === "ArrowUp") {
+                        if (key > 0) {
+                          setKey(key - 1)
+                        }
+                      } else if (e.key === "Enter") {
+                        e.preventDefault()
+                        sessionStorage.setItem("billingAddressIndex", key)
+                        setSelectedAddress(true)
+                        setBillingAddressIndex(key)
+                        setInvoiceState({
+                          ...invoiceState,
+                          customer: {
+                            ...invoiceState.customer,
+                            address: {
+                              billing: {
+                                ...invoiceState.customer.address.billing,
+                                streetAddress:
+                                  billingAddresses[billingAddressIndex]
+                                    .streetAddress,
+                                city: billingAddresses[billingAddressIndex]
+                                  .city,
+                                state:
+                                  billingAddresses[billingAddressIndex].state,
+                                stateCode:
+                                  billingAddresses[billingAddressIndex]
+                                    .stateCode,
+                                zip: billingAddresses[billingAddressIndex].zip,
+                                country:
+                                  billingAddresses[billingAddressIndex].country,
+                              },
+                            },
+                          },
+                        })
+                        setKey(0)
+                      }
+                    }}
                     id="billingCity"
                     type="text"
                     placeholder="Enter City"
@@ -81,12 +122,13 @@ function BillingAddressDetails({
                                 setSelectedAddress(true)
                                 setBillingAddressIndex(ind)
                                 setInvoiceState({
-                                 ...invoiceState,
+                                  ...invoiceState,
                                   customer: {
                                     ...invoiceState.customer,
                                     address: {
                                       billing: {
-                                       ...invoiceState.customer.address.billing,
+                                        ...invoiceState.customer.address
+                                          .billing,
                                         streetAddress: ba.streetAddress,
                                         city: ba.city,
                                         state: ba.state,
@@ -94,12 +136,13 @@ function BillingAddressDetails({
                                         zip: ba.zip,
                                         country: ba.country,
                                       },
-                                    }
-                                  }
+                                    },
+                                  },
                                 })
+                                setKey(0)
                               }}
                               key={ind}
-                              className="flex w-full justify-between p-3 text-lg hover:cursor-pointer hover:bg-gray-200"
+                              className={`flex w-full justify-between p-3 text-lg hover:cursor-pointer hover:bg-gray-200 ${key === ind && "bg-gray-400"}`}
                             >
                               <p>{ba.city}</p>
                               <p>{ba.state}</p>
@@ -122,7 +165,7 @@ function BillingAddressDetails({
             </div>
           </div>
         ) : (
-            <>
+          <>
             <div className="w-full rounded-md bg-primary p-1">
               <div className="flex flex-col gap-3 rounded-md bg-gray-50 p-5 font-semibold">
                 <div className="flex gap-10">
@@ -158,7 +201,7 @@ function BillingAddressDetails({
                   setSelectedAddress(false)
                   setBillingAddressIndex(null)
                 }}
-                className="p-3 rounded-rounded border-2 border-primary font-semibold text-primary mt-4"
+                className="mt-4 rounded-rounded border-2 border-primary p-3 font-semibold text-primary"
               >
                 Change Address
               </button>
@@ -171,4 +214,3 @@ function BillingAddressDetails({
 }
 
 export default BillingAddressDetails
-

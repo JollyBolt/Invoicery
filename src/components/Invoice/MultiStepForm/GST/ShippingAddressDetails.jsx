@@ -9,7 +9,11 @@ function ShippingAddressDetails({
   invoiceState,
   setInvoiceState,
 }) {
-  const [checked, setChecked] = useState(false)
+  const [checked, setChecked] = useState(
+    sessionStorage.getItem("shippingChecked")
+      ? !!sessionStorage.getItem("shippingChecked")
+      : false,
+  )
   return (
     <>
       <motion.div
@@ -27,9 +31,11 @@ function ShippingAddressDetails({
                 type="checkbox"
                 name="checkSameAsBilling"
                 id="checkSameAsBilling"
+                checked={(!!sessionStorage.getItem("shippingChecked"))}
                 onClick={(e) => {
                   if (!e.target.checked) {
                     setChecked(false)
+                    sessionStorage.removeItem("shippingChecked")
                     setValue("shippingStreetAddress", "", { shouldTouch: true })
                     setValue("shippingCity", "", { shouldTouch: true })
                     setValue("shippingState", "", { shouldTouch: true })
@@ -53,17 +59,16 @@ function ShippingAddressDetails({
                     })
                   } else {
                     setChecked(true)
-                    // setValue("shippingStreetAddress", "balle", {
-                    //   shouldTouch: true,
-                    // })
-                    // setValue("shippingCity", "balle", { shouldTouch: true })
+                    sessionStorage.setItem("shippingChecked", "true")
                     setValue(
                       "shippingStreetAddress",
-                      invoiceState.customer.address.billing.streetAddress,{ shouldTouch: true }
+                      invoiceState.customer.address.billing.streetAddress,
+                      { shouldTouch: true },
                     )
                     setValue(
                       "shippingCity",
-                      invoiceState.customer.address.billing.city,{ shouldTouch: true }
+                      invoiceState.customer.address.billing.city,
+                      { shouldTouch: true },
                     )
                     setValue(
                       "shippingState",

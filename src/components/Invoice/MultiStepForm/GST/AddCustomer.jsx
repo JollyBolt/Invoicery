@@ -22,10 +22,10 @@ const AddCustomer = ({
   const [selectedCustomer, setSelectedCustomer] = useState()
 
   useEffect(() => {
-    const customerId = sessionStorage.getItem("customerId")
+    const customer = sessionStorage.getItem("customer")
 
     const getCustomer = async () => {
-      await dispatch(fetchSingleCustomer(customerId))
+      await dispatch(fetchSingleCustomer(customer))
       setSelectedCustomer(true)
       setInvoiceState({
         ...invoiceState,
@@ -39,7 +39,7 @@ const AddCustomer = ({
       })
     }
 
-    if (customerId) {
+    if (customer) {
       getCustomer()
     }
   }, [])
@@ -108,7 +108,16 @@ const AddCustomer = ({
                           phone: customers[key].phone,
                         },
                       })
-                      sessionStorage.setItem("customerId", customers[key]._id)
+                      sessionStorage.setItem(
+                        "customer",
+                        JSON.stringify({
+                          id: customers[key]._id,
+                          client: customers[key].client,
+                          gstin: customers[key].gstin,
+                          contactPerson: customers[key].contactPerson,
+                          phone: customers[key].phone,
+                        }),
+                      )
                       setKey(0)
                     }
                   }}
@@ -154,7 +163,16 @@ const AddCustomer = ({
                                   phone: customer.phone,
                                 },
                               })
-                              sessionStorage.setItem("customerId", customer._id)
+                              sessionStorage.setItem(
+                                "customer",
+                                JSON.stringify({
+                                  id: customers[key]._id,
+                                  client: customers[key].client,
+                                  gstin: customers[key].gstin,
+                                  contactPerson: customers[key].contactPerson,
+                                  phone: customers[key].phone,
+                                }),
+                              )
                             }}
                             key={ind}
                             className={`w-full py-1 pl-2 text-left text-lg hover:cursor-pointer hover:bg-gray-200 ${key === ind && "bg-gray-400"}`}
@@ -200,7 +218,7 @@ const AddCustomer = ({
                   setSelectedCustomer(false)
                   setValue("customer", "")
                   setValueState("")
-                  sessionStorage.removeItem("customerId")
+                  sessionStorage.removeItem("customer")
                 }}
                 className="mt-4 rounded-rounded border-2 border-primary p-3 font-semibold text-primary"
               >

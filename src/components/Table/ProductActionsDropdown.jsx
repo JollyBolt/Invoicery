@@ -18,19 +18,19 @@ const ProductActionsDropdown = ({ row }) => {
         product={row.original}
       />
       <div
-        className="cursor-pointer overflow-hidden rounded-rounded"
-        onClick={() => setOpen(prev => !prev)}
+        className="cursor-pointer  rounded-rounded relative"
+        onClick={() => setOpen((prev) => !prev)}
       >
         <BsThreeDotsVertical />
         <div
-          className={`absolute ${!open && "scale-0"} flex w-[80px] origin-top-left flex-col bg-white transition-all`}
+          className={`absolute left-4 bottom-0 border ${!open && "scale-0"} flex w-[80px] origin-bottom-left flex-col bg-white transition-all`}
         >
           <button
             className="border p-2 hover:bg-gray-50"
             onClick={(e) => {
               e.stopPropagation()
               setModalOpen(true)
-              setOpen(prev => !prev)
+              setOpen((prev) => !prev)
             }}
           >
             Edit
@@ -41,7 +41,7 @@ const ProductActionsDropdown = ({ row }) => {
               e.stopPropagation()
               dispatch(deleteProduct(row.original._id))
               location.reload()
-              setOpen(prev => !prev)
+              setOpen((prev) => !prev)
             }}
           >
             Delete

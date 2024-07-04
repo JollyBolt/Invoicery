@@ -20,18 +20,18 @@ const CustomerActionsDropdown = ({ row }) => {
         customer={row.original}
       />
       <div
-        className="cursor-pointer overflow-hidden rounded-rounded"
-        onClick={() => setOpen(prev => !prev)}
+        className="cursor-pointer rounded-rounded relative"
+        onClick={() => setOpen((prev) => !prev)}
       >
         <BsThreeDotsVertical />
         <div
-          className={`absolute ${!open && "scale-0"} flex w-[80px] origin-top-left flex-col bg-white transition-all`}
+          className={`absolute bottom-0 left-4 ${!open && "scale-0"} flex w-[80px] origin-bottom-left flex-col bg-white transition-all`}
         >
           <button
             className="border p-2 hover:bg-gray-50"
             onClick={(e) => {
               e.stopPropagation()
-              setOpen(prev => !prev)
+              setOpen((prev) => !prev)
               navigate(`./${row.original._id}`)
             }}
           >
@@ -41,7 +41,7 @@ const CustomerActionsDropdown = ({ row }) => {
             className="border p-2 hover:bg-gray-50"
             onClick={(e) => {
               e.stopPropagation()
-              setOpen(prev => !prev)
+              setOpen((prev) => !prev)
               setModalOpen(true)
             }}
           >

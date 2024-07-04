@@ -1,5 +1,4 @@
 import PageWrapper from "../hoc/PageWrapper"
-import Heading from "../components/Heading"
 import {
   HiMagnifyingGlass,
   RxCross1,
@@ -45,20 +44,19 @@ const Products = () => {
 
   const [isOpen, setIsOpen] = useState(false)
   return (
-    <div className="flex min-h-[calc(100dvh-40px)] w-full flex-col">
-      <AddProductModal isOpen={isOpen} setIsOpen={setIsOpen} />
-      <Heading name="Products" />
-      {loggedIn === false ? (
+    <>
+      {loggedIn == false ? (
         <>
           <Auth />
         </>
       ) : (
         <div
-          className={`mt-5 min-h-[82dvh] rounded-rounded bg-foreground p-5 ${products && "flex flex-col flex-nowrap items-center"}`}
+          className={`mt-4 min-h-[calc(100dvh-80px)] rounded-rounded bg-foreground p-5 ${products && "flex flex-col flex-nowrap items-center"}`}
         >
+          <AddProductModal isOpen={isOpen} setIsOpen={setIsOpen} />
           {products ? (
             <>
-              <div className="flex w-full flex-row flex-nowrap justify-between rounded-t-sm">
+              <div className="flex h-full w-full flex-row flex-nowrap justify-between rounded-t-sm">
                 <div className="w-1/3 border-b border-neutral-800 pl-2">
                   <div className="justfy-betweem flex h-fit w-full flex-nowrap items-center">
                     <HiMagnifyingGlass className="inline pr-2 text-4xl" />
@@ -131,7 +129,7 @@ const Products = () => {
           )}
         </div>
       )}
-    </div>
+    </>
   )
 }
 

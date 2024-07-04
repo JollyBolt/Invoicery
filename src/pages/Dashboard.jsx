@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import PageWrapper from "../hoc/PageWrapper";
-import Heading from "../components/Heading";
 import BarChart from "../components/Charts/BarChart";
 import LineChart from "../components/Charts/LineChart";
 import {
@@ -47,14 +46,12 @@ const Dashboard = () => {
 
   return (
     <div>
-      <Heading name="Dashboard" />
-
       {loggedIn === false ? (
         <>
-        <Auth />
+          <Auth />
         </>
       ) : (
-        <div className="grid grid-cols-8 gap-4 py-5">
+        <div className="grid grid-cols-8 gap-4">
           <Stats
             title="Total Invoices"
             number={25}
@@ -137,7 +134,7 @@ const Dashboard = () => {
         </div>
       )}
     </div>
-  );
+  )
 };
 
 export default PageWrapper(Dashboard, "dashboard");

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
 import {
   useReactTable,
   getCoreRowModel,
@@ -38,8 +38,8 @@ const Table = ({
 
   return (
     <>
-      <div className="flex-1 flex flex-col h-full w-full mt-5">
-        <table className="h-full w-full  rounded-rounded">
+      <div className="mt-5 flex h-full w-full flex-1 flex-col">
+        <table className="h-full w-full rounded-rounded">
           <thead className="h-14 rounded-rounded bg-primary text-left text-xl text-white">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr className="p-5" key={headerGroup.id}>
@@ -61,7 +61,7 @@ const Table = ({
                 key={row.id}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <td className="px-5 py-[9px]" key={cell.id}>
+                  <td className="px-5 py-[11px]" key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}

@@ -49,7 +49,7 @@ const CustomerTable = () => {
       <CreateCustomer open={open} setOpen={setOpen} />
 
       <div
-        className={`min-h-[82dvh] rounded-rounded bg-foreground p-5 ${"flex flex-col flex-nowrap"}`}
+        className={`flex h-full flex-1 flex-col flex-nowrap rounded-rounded bg-foreground p-5`}
       >
         {customers ? (
           <>

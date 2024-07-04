@@ -1,4 +1,3 @@
-import Heading from "../components/Heading"
 import PageWrapper from "../hoc/PageWrapper"
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
@@ -28,15 +27,14 @@ const Profile = () => {
   }, [loggedIn])
 
   return (
-    <div className="flex h-[calc(100dvh-40px)] w-full flex-col overflow-scroll">
-      <Heading name="Profile" />
+    <div className="mt-4 flex h-[calc(100dvh-88px)] w-full flex-col">
       {!loading && <EditProfile open={open} setOpen={setOpen} />}
       {!loggedIn ? (
         <Auth />
       ) : loading ? (
         <Loader />
       ) : (
-        <div className="mt-4 flex h-[82dvh] w-full flex-col flex-nowrap overflow-hidden rounded-rounded bg-foreground">
+        <div className="flex h-full w-full flex-col flex-nowrap overflow-hidden rounded-rounded bg-foreground">
           <div className="w-full bg-primary p-5 text-white shadow-md shadow-slate-400">
             <p className="p-3 text-6xl font-black">{user.name}</p>
             <div className="flex items-center gap-20">
@@ -58,7 +56,7 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="flex h-full w-full p-3">
+          <div className="flex h-full w-full flex-1 p-3">
             <div className="h-full w-1/4 border-r p-3">
               <p
                 className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "organization" ? "bg-primary text-white" : "hover:bg-gray-50"} transition-all`}

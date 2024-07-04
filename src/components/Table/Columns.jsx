@@ -23,7 +23,14 @@ export const productColumns = [
   {
     id: "col4",
     header: "Price(INR)",
-    accessorKey: "price",
+    // accessorKey: "price",
+    cell: (row) => {
+      console.log(row)
+      return row.row.original.price.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
+    },
   },
   {
     id: "col5",

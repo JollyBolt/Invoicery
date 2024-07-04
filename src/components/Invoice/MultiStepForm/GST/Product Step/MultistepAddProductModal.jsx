@@ -18,8 +18,7 @@ function MultistepAddProductModal({
   const [value, setValueState] = useState("")
   const debouncedValue = useDebounce(value)
   const [selectedProduct, setSelectedProduct] = useState(null)
-  const { products } = useSelector((state) => state.products)
-
+  const { products } = useSelector((state) => state.products.products)
 
   useEffect(() => {
     async function getRecomendations() {
@@ -166,8 +165,8 @@ function MultistepAddProductModal({
                               <motion.div
                                 className={`absolute top-12 -z-10 max-h-[100px] w-full overflow-scroll bg-white opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-50 peer-focus:opacity-100`}
                               >
-                                {products.products.length > 0 ? (
-                                  products.products.map((product, i) => {
+                                {products?.length > 0 ? (
+                                  products.map((product, i) => {
                                     return (
                                       <h2
                                         onClick={() => {

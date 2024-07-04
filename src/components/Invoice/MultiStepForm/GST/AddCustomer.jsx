@@ -18,6 +18,7 @@ const AddCustomer = ({
   const dispatch = useDispatch()
   const [value, setValueState] = useState("")
   const { customers, loading } = useSelector((state) => state.customers)
+  const customer = customers.customers[0]
   const debouncedValue = useDebounce(value)
   const [selectedCustomer, setSelectedCustomer] = useState()
 
@@ -143,8 +144,8 @@ const AddCustomer = ({
                   <motion.div
                     className={`absolute top-12 -z-10 max-h-[70px] w-2/3 overflow-scroll bg-white opacity-100 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
                   >
-                    {customers.length ? (
-                      customers.map((customer, ind) => {
+                    {customers.customers.length ? (
+                      customers.customers.map((customer, ind) => {
                         return (
                           <h2
                             onClick={() => {
@@ -195,19 +196,19 @@ const AddCustomer = ({
               <div className="flex flex-col gap-5 rounded-md bg-gray-50 p-5 font-semibold">
                 <div className="flex gap-10">
                   <p className="w-[30%]">Customer</p>
-                  <p className="">{customers[0]?.client}</p>
+                  <p className="">{customer?.client}</p>
                 </div>
                 <div className="flex gap-10">
                   <p className="w-[30%]">GSTIN</p>
-                  <p>{customers[0]?.gstin}</p>
+                  <p>{customer?.gstin}</p>
                 </div>
                 <div className="flex gap-10">
                   <p className="w-[30%]">Contact Person</p>
-                  <p>{customers[0]?.contactPerson}</p>
+                  <p>{customer?.contactPerson}</p>
                 </div>
                 <div className="flex gap-10">
                   <p className="w-[30%]">Phone</p>
-                  <p>{customers[0]?.phone}</p>
+                  <p>{customer?.phone}</p>
                 </div>
               </div>
             </div>

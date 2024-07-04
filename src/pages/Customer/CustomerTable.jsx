@@ -18,9 +18,11 @@ const CustomerTable = () => {
   const { customers } = useSelector((state) => state.customers)
   const [search, setSearch] = useState("")
   const debouncedSearch = useDebounce(search)
-
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  })
   const [open, setOpen] = useState(false)
-  const [openEditModal, setOpenEditModal] = useState(false)
 
   //Checking if authtoken exists, i.e., logged in on refresh
 
@@ -30,21 +32,24 @@ const CustomerTable = () => {
   useEffect(() => {
     async function getCustomers() {
       if (loggedIn) {
-        await dispatch(fetchAllCustomers({ search: debouncedSearch }))
+        await dispatch(
+          fetchAllCustomers({
+            search: debouncedSearch,
+            page: pagination.pageIndex,
+            limit: pagination.pageSize,
+          }),
+        )
       }
     }
     getCustomers()
-  }, [loggedIn, debouncedSearch])
+  }, [loggedIn, debouncedSearch, pagination])
 
   return (
     <>
       <CreateCustomer open={open} setOpen={setOpen} />
 
       <div
-        className={`min-h-[82dvh] rounded-rounded bg-foreground p-5 ${
-          // customers &&
-          "flex flex-col flex-nowrap"
-        }`}
+        className={`min-h-[82dvh] rounded-rounded bg-foreground p-5 ${"flex flex-col flex-nowrap"}`}
       >
         {customers ? (
           <>
@@ -55,7 +60,6 @@ const CustomerTable = () => {
                   <input
                     onChange={(e) => {
                       setSearch(e.target.value)
-                      searchPagination()
                     }}
                     type="text"
                     autoComplete="off"
@@ -84,14 +88,22 @@ const CustomerTable = () => {
                 <button
                   onClick={() => setOpen(true)}
                   type="button"
-                  className="w-fit rounded-full bg-primaryLight p-2 transition-colors hover:bg-primary"
+                  className="flex w-fit items-center gap-2 rounded-rounded bg-primary p-2 px-4 text-lg font-semibold text-white transition-colors hover:bg-primaryLight"
                 >
-                  <FaPlus className="inline text-2xl text-white" />
+                  <FaPlus className="inline text-white" />
+                  <p className="font-semibold">Add Customer</p>
                 </button>
               </div>
             </div>
-
-            <Table tableColumns={customerColumns} tableData={customers} />
+            {customers.customers && (
+              <Table
+                tableColumns={customerColumns}
+                tableData={customers.customers}
+                pageCount={customers.pageCount}
+                pagination={pagination}
+                setPagination={setPagination}
+              />
+            )}
           </>
         ) : (
           <div className="flex h-full flex-1 flex-col items-center justify-evenly">
@@ -106,7 +118,6 @@ const CustomerTable = () => {
               to add new customer.
             </h2>
             <div className="float-end">
-              {/* <SlSocialDropbox className="text-gray-500 text-[13em]" /> */}
               <img src={AddCustomer} alt="" />
             </div>
           </div>

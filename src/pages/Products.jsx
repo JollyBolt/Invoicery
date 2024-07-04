@@ -17,9 +17,12 @@ import { useDebounce } from "../hooks/useDebounce"
 
 const Products = () => {
   const { products } = useSelector((state) => state.products)
-
   const [search, setSearch] = useState("")
   const debouncedSearch = useDebounce(search)
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  })
 
   //Checking if authtoken exists, i.e., logged in on refresh
   const dispatch = useDispatch()
@@ -28,11 +31,17 @@ const Products = () => {
   useEffect(() => {
     async function getProducts() {
       if (loggedIn) {
-        await dispatch(fetchAllProducts({ search: debouncedSearch }))
+        await dispatch(
+          fetchAllProducts({
+            search: debouncedSearch,
+            page: pagination.pageIndex,
+            limit: pagination.pageSize,
+          }),
+        )
       }
     }
     getProducts()
-  }, [loggedIn, debouncedSearch])
+  }, [loggedIn, debouncedSearch, pagination])
 
   const [isOpen, setIsOpen] = useState(false)
   return (
@@ -84,14 +93,22 @@ const Products = () => {
                   <button
                     onClick={() => setIsOpen(true)}
                     type="button"
-                    className="flex w-fit items-center gap-2 rounded-rounded bg-primary p-2 px-4 text-lg text-white transition-colors hover:bg-primaryLight"
+                    className="flex w-fit items-center gap-2 rounded-rounded bg-primary p-2 px-4 text-lg font-semibold text-white transition-colors hover:bg-primaryLight"
                   >
                     <FaPlus />
                     <span>Add Product</span>
                   </button>
                 </div>
               </div>
-              <Table tableColumns={productColumns} tableData={products} />
+              {products.products && (
+                <Table
+                  tableColumns={productColumns}
+                  tableData={products.products}
+                  pageCount={products.pageCount}
+                  pagination={pagination}
+                  setPagination={setPagination}
+                />
+              )}
             </>
           ) : (
             <div className="flex h-full flex-1 flex-col items-center justify-evenly">

@@ -1,6 +1,6 @@
 import CustomerActionsDropdown from "./CustomerActionsDropdown"
 import ProductActionsDropdown from "./ProductActionsDropdown"
-import InvoiceActionsDropdown from './InvoiceActionsDropdown';
+import InvoiceActionsDropdown from "./InvoiceActionsDropdown"
 
 export const productColumns = [
   {
@@ -27,30 +27,34 @@ export const productColumns = [
   },
   {
     id: "col5",
-    cell: (row) => <ProductActionsDropdown row={row.row}  />,
+    cell: (row) => <ProductActionsDropdown row={row.row} />,
   },
 ]
 
 export const customerColumns = [
-    {
-        id:'col1',
-        header: 'Index',
-        cell: (row) => {return row.row.index + 1 }
+  {
+    id: "col1",
+    header: "Index",
+    cell: (row) => {
+      const pageIndex = row.table.getState().pagination.pageIndex
+      const pageSize = row.table.getState().pagination.pageSize
+      return pageIndex*pageSize + row.row.index + 1
     },
-    {
-        id: 'col2',
-        header: 'Client',
-        accessorKey: 'client'
-    },
-    {
-        id: 'col3',
-        header: 'Phone',
-        accessorKey: 'phone'
-    },
-    {
-        id: 'col4',
-        cell: (row) => <CustomerActionsDropdown row={ row.row }  /> 
-    }
+  },
+  {
+    id: "col2",
+    header: "Client",
+    accessorKey: "client",
+  },
+  {
+    id: "col3",
+    header: "Phone",
+    accessorKey: "phone",
+  },
+  {
+    id: "col4",
+    cell: (row) => <CustomerActionsDropdown row={row.row} />,
+  },
 ]
 
 export const invoiceColumns = [
@@ -81,9 +85,9 @@ export const invoiceColumns = [
     header: "Date",
     cell: (row) => {
       return (
-        row.row.date.day + '/' + row.row.date.month + '/' + row.row.date.year
+        row.row.date.day + "/" + row.row.date.month + "/" + row.row.date.year
       )
-    }
+    },
   },
   {
     id: "col5",
@@ -106,5 +110,5 @@ export const recentInvoices = [
     id: "col4",
     header: "Amount",
     accessorKey: "amount",
-  }
+  },
 ]

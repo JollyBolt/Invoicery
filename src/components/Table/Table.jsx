@@ -5,43 +5,109 @@ import {
   flexRender,
 } from "@tanstack/react-table"
 
-const Table = ({ tableColumns, tableData }) => {
+const Table = ({
+  tableColumns,
+  tableData,
+  pageCount,
+  pagination,
+  setPagination,
+}) => {
   const columns = useMemo(() => tableColumns, [])
   const data = useMemo(() => tableData, [tableData])
 
   const table = useReactTable({
     data,
     columns,
+    state: {
+      pagination
+    },
+    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
+    manualPagination: true,
+    pageCount: pageCount,
   })
+
+  const {
+    getCanNextPage,
+    getCanPreviousPage,
+    previousPage,
+    nextPage,
+    firstPage,
+    lastPage,
+  } = table
+
   return (
-    <table className="mt-5 w-full rounded-rounded overflow-hidden">
-      <thead className="h-14 rounded-rounded bg-primary text-left text-white text-xl">
-        {table.getHeaderGroups().map((headerGroup) => (
-          <tr className="p-5" key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <th className="px-5" key={header.id}>
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext(),
-                )}
-              </th>
+    <>
+      <div className="flex-1 flex flex-col h-full w-full mt-5">
+        <table className="h-full w-full  rounded-rounded">
+          <thead className="h-14 rounded-rounded bg-primary text-left text-xl text-white">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr className="p-5" key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th className="px-5" key={header.id}>
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext(),
+                    )}
+                  </th>
+                ))}
+              </tr>
             ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody>
-        {table.getRowModel().rows.map((row, index) => (
-          <tr className="h-10 even:bg-gray-100 odd:bg-gray-200" key={row.id}>
-            {row.getVisibleCells().map((cell) => (
-              <td className="px-5 py-[10px]" key={cell.id}>
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row, index) => (
+              <tr
+                className="h-10 odd:bg-gray-200 even:bg-gray-100"
+                key={row.id}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <td className="px-5 py-[9px]" key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
             ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+          </tbody>
+        </table>
+      </div>
+      <div className="mt-2 flex w-full items-center justify-center gap-3">
+        <button
+          disabled={!getCanPreviousPage()}
+          onClick={() => {
+            firstPage()
+          }}
+          className="rounded-rounded bg-primary p-2 px-4 font-bold uppercase text-white disabled:opacity-40"
+        >
+          First
+        </button>
+        <button
+          disabled={!getCanPreviousPage()}
+          onClick={() => previousPage()}
+          className="rounded-rounded bg-primary p-2 px-4 font-bold uppercase text-white disabled:opacity-40"
+        >
+          Prev
+        </button>
+
+        <p className="text-lg">
+          Page {pagination.pageIndex + 1} of {table.getPageCount()}
+        </p>
+
+        <button
+          disabled={!getCanNextPage()}
+          onClick={() => nextPage()}
+          className="rounded-rounded bg-primary p-2 px-4 font-bold uppercase text-white disabled:opacity-40"
+        >
+          Next
+        </button>
+        <button
+          disabled={!getCanNextPage()}
+          onClick={() => lastPage()}
+          className="rounded-rounded bg-primary p-2 px-4 font-bold uppercase text-white disabled:opacity-40"
+        >
+          Last
+        </button>
+      </div>
+    </>
   )
 }
 

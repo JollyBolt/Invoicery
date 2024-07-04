@@ -61,8 +61,7 @@ function Sidebar({ navBg, navHeading }) {
             </div> */}
             <div className="relative mt-4 flex flex-col justify-between gap-4">
               <div className="flex gap-3.5 overflow-hidden text-nowrap px-2">
-                <div className="flex w-6 shrink-0 justify-center border border-black text-2xl font-extrabold uppercase text-primary">
-                  {" "}
+                <div className="flex w-6 shrink-0 -skew-x-12 justify-center border border-black text-2xl font-extrabold uppercase text-primary">
                   I{" "}
                 </div>
                 <h2
@@ -108,7 +107,7 @@ function Sidebar({ navBg, navHeading }) {
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 overflow-hidden border-t border-gray-500 px-2 pt-2">
+          <div className="flex flex-col gap-4 overflow-hidden border-t border-gray-500 pt-2">
             <div
               onClick={() => {
                 // localStorage.removeItem("loggedIn");
@@ -119,7 +118,7 @@ function Sidebar({ navBg, navHeading }) {
               }}
               className={`text-red-500 transition-[border-radius] hover:bg-red-500 hover:text-white ${
                 open ? "rounded-rounded delay-0" : "rounded-[50%] delay-300"
-              } duration-400 flex items-center gap-3.5 py-1 ease-linear`}
+              } duration-400 flex items-center gap-3.5 px-2 py-1 ease-linear`}
             >
               <IoPowerOutline size={24} className="shrink-0" />
               <h2
@@ -132,7 +131,7 @@ function Sidebar({ navBg, navHeading }) {
             </div>
 
             <div
-              className={`group flex items-center gap-3.5 rounded-md py-2 text-sm font-medium text-black`}
+              className={`group flex items-center gap-3.5 rounded-md p-2 text-sm font-medium text-black`}
             >
               <div className="flex flex-row flex-nowrap">
                 {user.name &&

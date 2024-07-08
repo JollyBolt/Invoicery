@@ -194,8 +194,8 @@ function MultiStepFormGST({
   }
   // console.log(getFieldState("invoiceNumber", formState))
   return (
-    <div className="flex h-full w-full flex-col">
-      <div className="mb-10 max-h-[60dvh] flex-1 overflow-y-scroll p-3">
+    <div className="flex h-full w-full flex-col justify-between">
+      <div className="max-h-[58dvh] flex-1 overflow-y-scroll p-3">
         <form noValidate>{formSwitch()}</form>
       </div>
       <div className="flex w-full justify-between">

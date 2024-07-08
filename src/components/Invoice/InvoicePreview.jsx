@@ -19,18 +19,84 @@ const InvoicePreview = forwardRef((props, ref) => {
   }, [])
 
   useEffect(() => {
+    //For invoice details
+    const invoiceNumber = sessionStorage.getItem("invoiceNumber")
+    if (invoiceNumber) {
+      const invoiceDate = sessionStorage.getItem("date")
+      setInvoiceState((prevState) => {
+        return {
+          ...prevState,
+          invoiceNumber,
+          invoiceDate: new Date(invoiceDate),
+        }
+      })
+    }
+
+    //For customer
     const customer = JSON.parse(sessionStorage.getItem("customer"))
     if (customer) {
       dispatch(fetchSingleCustomer(customer.id))
-      setInvoiceState({
-        ...invoiceState,
-        customer: {
-          ...invoiceState.customer,
-          name: customer.client,
-          gstin: customer.gstin,
-          contactPerson: customer.contactPerson,
-          phone: customer.phone,
-        },
+      setInvoiceState((prevState) => {
+        return {
+          ...prevState,
+          customer: {
+            ...prevState.customer,
+            name: customer.client,
+            gstin: customer.gstin,
+            contactPerson: customer.contactPerson,
+            phone: customer.phone,
+          },
+        }
+      })
+    }
+
+    //For Billing Address
+    const billingAddress = JSON.parse(sessionStorage.getItem("billingAddress"))
+    if (billingAddress) {
+      setInvoiceState((prevState) => {
+        return {
+          ...prevState,
+          customer: {
+            ...prevState.customer,
+            address: {
+              ...prevState.customer.address,
+              billing: {
+                streetAddress: billingAddress.streetAddress,
+                city: billingAddress.city,
+                state: billingAddress.state,
+                stateCode: billingAddress.stateCode,
+                zip: billingAddress.zip,
+                country: billingAddress.country,
+              },
+            },
+          },
+        }
+      })
+    }
+
+    //For Shipping Address
+    const shippingAddress = JSON.parse(
+      sessionStorage.getItem("shippingAddress"),
+    )
+    if (shippingAddress) {
+      setInvoiceState((prevState) => {
+        return {
+          ...prevState,
+          customer: {
+            ...prevState.customer,
+            address: {
+              ...prevState.customer.address,
+              shipping: {
+                streetAddress: shippingAddress.streetAddress,
+                city: shippingAddress.city,
+                state: shippingAddress.state,
+                stateCode: shippingAddress.stateCode,
+                zip: shippingAddress.zip,
+                country: shippingAddress.country,
+              },
+            },
+          },
+        }
       })
     }
   }, [])
@@ -152,7 +218,7 @@ const InvoicePreview = forwardRef((props, ref) => {
           </div>
           <div className="p-1">
             <p className="text-lg font-bold">Shipping Address</p>
-            {shipping?.city != "" && (
+            {shipping?.streetAddress != "" && (
               <>
                 <p>{shipping?.streetAddress}</p>
                 <p>

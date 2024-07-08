@@ -6,8 +6,10 @@ import { fetchSingleCustomer } from "../../redux/slices/customerSlice"
 const CustomerDetail = () => {
   const id = useParams().id
   const dispatch = useDispatch()
-  const { customers,loading } = useSelector((state) => state.customers)
-  const customerDetails = customers[0]
+  const { customers, loading } = useSelector(
+    (state) => state.customers.customers,
+  )
+  const customerDetails = customers && customers[0]
   const { loggedIn } = useSelector((state) => state.auth)
 
   useEffect(() => {
@@ -19,11 +21,21 @@ const CustomerDetail = () => {
     getCustomer()
   }, [loggedIn])
 
-  if(!customerDetails) return <div>Loading</div>
+  if (!customerDetails) return <div>Loading</div>
 
   return (
     <div>
       {/* CustomerDetail */}
+      <div className="flex flex-col gap-4">
+        <div className="flex gap-4">
+          <div className="rounded-rounded bg-white p-4">Details</div>
+          <div className="rounded-rounded bg-white p-4">Yearly Revenue</div>
+        </div>
+        <div className="flex gap-4">
+          <div className="rounded-rounded bg-white p-4">Billing Addresses</div>
+          <div className="rounded-rounded bg-white p-4">Invoices</div>
+        </div>
+      </div>
       <div className="w-full rounded-rounded bg-foreground px-4 py-4">
         <h1 className="text-5xl font-bold">{customerDetails.client}</h1>
         <div className="flex justify-between">

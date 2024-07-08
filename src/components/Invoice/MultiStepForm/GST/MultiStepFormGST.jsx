@@ -36,12 +36,21 @@ function MultiStepFormGST({
       totalAmount: 0,
       termsNConditions: [{ tnc: "" }],
       billingCity: "",
-      // shippingStreetAddress: sessionStorage.getItem("shippingChecked") ?:"",
-      shippingStreetAddress: "",
-      shippingCity: "",
-      shippingState: "",
-      shippingStateCode: "",
-      shippingZip: "",
+      shippingStreetAddress: sessionStorage.getItem("shippingAddress")
+        ? JSON.parse(sessionStorage.getItem("shippingAddress")).streetAddress
+        : "",
+      shippingCity: sessionStorage.getItem("shippingAddress")
+        ? JSON.parse(sessionStorage.getItem("shippingAddress")).city
+        : "",
+      shippingState: sessionStorage.getItem("shippingAddress")
+        ? JSON.parse(sessionStorage.getItem("shippingAddress")).state
+        : "",
+      shippingStateCode: sessionStorage.getItem("shippingAddress")
+        ? JSON.parse(sessionStorage.getItem("shippingAddress")).stateCode
+        : "",
+      shippingZip: sessionStorage.getItem("shippingAddress")
+        ? JSON.parse(sessionStorage.getItem("shippingAddress")).zip
+        : "",
       // discount: {
       //   value: 0.0,
       //   type: "percent",
@@ -56,17 +65,19 @@ function MultiStepFormGST({
     mode: "all",
   })
 
+  // console.log(invoiceState.customer.address.shipping.streetAddress)
+
   const {
     register,
     handleSubmit,
     formState,
     control,
     setValue,
-    watch,
+    watch,resetField,
     getFieldState,
   } = form
   const { errors } = formState
-
+  // console.log(JSON.parse(sessionStorage.getItem("shippingAddress")).streetAddress)
   // const { fields, append, remove } = useFieldArray({
   //   name: "products",
   //   control,
@@ -96,6 +107,7 @@ function MultiStepFormGST({
             register={register}
             errors={errors}
             setValue={setValue}
+            resetField={resetField}
             watch={watch}
             invoiceState={invoiceState}
             setInvoiceState={setInvoiceState}
@@ -118,6 +130,7 @@ function MultiStepFormGST({
             errors={errors}
             setValue={setValue}
             watch={watch}
+            resetField={resetField}
             invoiceState={invoiceState}
             setInvoiceState={setInvoiceState}
           />
@@ -127,9 +140,6 @@ function MultiStepFormGST({
           <AddProducts
             register={register}
             errors={errors}
-            // fields={fields}
-            // append={append}
-            // remove={remove}
             setValue={setValue}
             watch={watch}
             invoiceState={invoiceState}

@@ -39,8 +39,8 @@ function BillingAddressDetails({
       customer: {
         ...invoiceState.customer,
         address: {
+          ...invoiceState.customer.address,
           billing: {
-            ...invoiceState.customer.address.billing,
             streetAddress: billingAddress.streetAddress,
             city: billingAddress.city,
             state: billingAddress.state,

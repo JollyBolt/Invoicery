@@ -12,6 +12,7 @@ const AddCustomer = ({
   errors,
   watch,
   setValue,
+  resetField,
   setInvoiceState,
   invoiceState,
 }) => {
@@ -192,6 +193,41 @@ const AddCustomer = ({
                   setValue("customer", "")
                   setValueState("")
                   sessionStorage.removeItem("customer")
+                  sessionStorage.removeItem("billingAddress")
+                  sessionStorage.removeItem("shippingAddress")
+                  sessionStorage.removeItem("shippingChecked")
+                  resetField("shippingStreetAddress", { defaultValue: "" })
+                  resetField("shippingCity", { defaultValue: "" })
+                  resetField("shippingState", { defaultValue: "" })
+                  resetField("shippingStateCode", { defaultValue: "" })
+                  resetField("shippingZip", { defaultValue: "" })
+                  setInvoiceState({
+                    ...invoiceState,
+                    customer: {
+                      name: "",
+                      contactPerson: "",
+                      gstin: "",
+                      phone: "",
+                      address: {
+                        billing: {
+                          streetAddress: "",
+                          city: "",
+                          state: "",
+                          stateCode: "",
+                          zip: "",
+                          country: "",
+                        },
+                        shipping: {
+                          streetAddress: "",
+                          city: "",
+                          state: "",
+                          stateCode: "",
+                          zip: "",
+                          country: "",
+                        },
+                      },
+                    },
+                  })
                 }}
                 className="mt-4 rounded-rounded border-2 border-primary p-3 font-semibold text-primary"
               >

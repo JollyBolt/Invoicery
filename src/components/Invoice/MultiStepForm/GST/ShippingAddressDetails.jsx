@@ -1,10 +1,11 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 
 function ShippingAddressDetails({
   register,
   errors,
   watch,
+  resetField,
   setValue,
   invoiceState,
   setInvoiceState,
@@ -14,6 +15,7 @@ function ShippingAddressDetails({
       ? !!sessionStorage.getItem("shippingChecked")
       : false,
   )
+
   return (
     <>
       <motion.div
@@ -31,11 +33,12 @@ function ShippingAddressDetails({
                 type="checkbox"
                 name="checkSameAsBilling"
                 id="checkSameAsBilling"
-                checked={(!!sessionStorage.getItem("shippingChecked"))}
+                checked={!!sessionStorage.getItem("shippingChecked")}
                 onClick={(e) => {
                   if (!e.target.checked) {
                     setChecked(false)
                     sessionStorage.removeItem("shippingChecked")
+                    sessionStorage.removeItem("shippingAddress")
                     setValue("shippingStreetAddress", "", { shouldTouch: true })
                     setValue("shippingCity", "", { shouldTouch: true })
                     setValue("shippingState", "", { shouldTouch: true })
@@ -60,31 +63,53 @@ function ShippingAddressDetails({
                   } else {
                     setChecked(true)
                     sessionStorage.setItem("shippingChecked", "true")
-                    setValue(
-                      "shippingStreetAddress",
-                      invoiceState.customer.address.billing.streetAddress,
-                      { shouldTouch: true },
+                    sessionStorage.setItem(
+                      "shippingAddress",
+                      JSON.stringify(invoiceState.customer.address.billing),
                     )
-                    setValue(
-                      "shippingCity",
-                      invoiceState.customer.address.billing.city,
-                      { shouldTouch: true },
-                    )
-                    setValue(
-                      "shippingState",
-                      invoiceState.customer.address.billing.state,
-                      { shouldTouch: true },
-                    )
-                    setValue(
-                      "shippingStateCode",
-                      invoiceState.customer.address.billing.stateCode,
-                      { shouldTouch: true },
-                    )
-                    setValue(
-                      "shippingZip",
-                      invoiceState.customer.address.billing.zip,
-                      { shouldTouch: true },
-                    )
+                    // setValue(
+                    //   "shippingStreetAddress",
+                    //   invoiceState.customer.address.billing.streetAddress,
+                    //   { shouldTouch: true },
+                    // )
+                    // setValue(
+                    //   "shippingCity",
+                    //   invoiceState.customer.address.billing.city,
+                    //   { shouldTouch: true },
+                    // )
+                    // setValue(
+                    //   "shippingState",
+                    //   invoiceState.customer.address.billing.state,
+                    //   { shouldTouch: true },
+                    // )
+                    // setValue(
+                    //   "shippingStateCode",
+                    //   invoiceState.customer.address.billing.stateCode,
+                    //   { shouldTouch: true },
+                    // )
+                    // setValue(
+                    //   "shippingZip",
+                    //   invoiceState.customer.address.billing.zip,
+                    //   { shouldTouch: true },
+                    // )
+                    
+                    resetField("shippingStreetAddress", {
+                      defaultValue:
+                        invoiceState.customer.address.billing.streetAddress,
+                    })
+                    resetField("shippingCity", {
+                      defaultValue: invoiceState.customer.address.billing.city,
+                    })
+                    resetField("shippingState", {
+                      defaultValue: invoiceState.customer.address.billing.state,
+                    })
+                    resetField("shippingStateCode", {
+                      defaultValue:
+                        invoiceState.customer.address.billing.stateCode,
+                    })
+                    resetField("shippingZip", {
+                      defaultValue: invoiceState.customer.address.billing.zip,
+                    })
                     setInvoiceState({
                       ...invoiceState,
                       customer: {
@@ -105,6 +130,7 @@ function ShippingAddressDetails({
                       },
                     })
                   }
+                  // console.log(invoiceState)
                 }}
               />
               <label htmlFor="checkSameAsBilling">

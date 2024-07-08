@@ -9,30 +9,68 @@ function BillingAddressDetails({
   invoiceState,
   setInvoiceState,
 }) {
-  const { customers } = useSelector((state) => state.customers)
+  let billingAddresses = []
+  useEffect(() => {
+    const getBillingAddress = async () => {
+      const { customers, loading } = await useSelector(
+        (state) => state.customers.customers,
+      )
+      billingAddresses = customers[0].billingAddresses
+    }
+    getBillingAddress()
+  }, [])
+  console.log(billingAddresses)
+  // let billingAddresses = customers
+  // billingAddresses = billingAddresses[0].billingAddresses
+  // if (!loading) {
+  //   billingAddresses = customers[0].billingAddresses
+  // }
+  // billingAddresses
+  // console.log(customers[0].billingAddresses)
+  // const billingAddresses = customers[0]?.billingAddresses
   const [selectedAddress, setSelectedAddress] = useState(false)
-  const [billingAddressIndex, setBillingAddressIndex] = useState(null)
+  // const [billingAddressIndex, setBillingAddressIndex] = useState(null)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const customerId = sessionStorage.getItem("customerId")
-    const getCustomer = async () => {
-      dispatch(fetchSingleCustomer(customerId))
-      const billingAddressIndex = sessionStorage.getItem("billingAddressIndex")
-      if (billingAddressIndex) {
-        setSelectedAddress(true)
-        setBillingAddressIndex(billingAddressIndex)
-      }
-    }
-    if (customerId) {
-      getCustomer()
-    }
+    const billingAddress = JSON.parse(sessionStorage.getItem("billingAddress"))
   }, [])
 
-  const address = customers[0]?.billingAddresses[billingAddressIndex]
+  const handleSubmit = (billingAddress) => {
+    sessionStorage.setItem(
+      "billingAddress",
+      JSON.stringify({
+        streetAddress: billingAddress.streetAddress,
+        city: billingAddress.city,
+        state: billingAddress.state,
+        stateCode: billingAddress.stateCode,
+        zip: billingAddress.zip,
+        country: billingAddress.country,
+      }),
+    )
+    setInvoiceState({
+      ...invoiceState,
+      customer: {
+        ...invoiceState.customer,
+        address: {
+          billing: {
+            ...invoiceState.customer.address.billing,
+            streetAddress: billingAddress.streetAddress,
+            city: billingAddress.city,
+            state: billingAddress.state,
+            stateCode: billingAddress.stateCode,
+            zip: billingAddress.zip,
+            country: billingAddress.country,
+          },
+        },
+      },
+    })
+    setSelectedAddress(true)
+    setKey(0)
+  }
+
   const [key, setKey] = useState(0)
-  const billingAddresses = customers[0]?.billingAddresses
-  // console.log(billingAddresses[0])
+
   return (
     <>
       <motion.div
@@ -60,39 +98,13 @@ function BillingAddressDetails({
                         }
                       } else if (e.key === "Enter") {
                         e.preventDefault()
-                        sessionStorage.setItem("billingAddressIndex", key)
-                        setSelectedAddress(true)
-                        setBillingAddressIndex(key)
-                        setInvoiceState({
-                          ...invoiceState,
-                          customer: {
-                            ...invoiceState.customer,
-                            address: {
-                              billing: {
-                                ...invoiceState.customer.address.billing,
-                                streetAddress:
-                                  billingAddresses[billingAddressIndex]
-                                    .streetAddress,
-                                city: billingAddresses[billingAddressIndex]
-                                  .city,
-                                state:
-                                  billingAddresses[billingAddressIndex].state,
-                                stateCode:
-                                  billingAddresses[billingAddressIndex]
-                                    .stateCode,
-                                zip: billingAddresses[billingAddressIndex].zip,
-                                country:
-                                  billingAddresses[billingAddressIndex].country,
-                              },
-                            },
-                          },
-                        })
-                        setKey(0)
+                        handleSubmit(billingAddresses[key])
                       }
                     }}
                     id="billingCity"
                     type="text"
                     placeholder="Enter City"
+                    autoComplete="off"
                     className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
                     {...register("billingCity", {
                       required: "Please enter city of Billing Address",
@@ -101,9 +113,9 @@ function BillingAddressDetails({
                   <label htmlFor="billingCity" className="float-label">
                     Enter City<span className="text-red-500">&#42;</span>
                   </label>
-                  {watch("billingCity").length > 0 && (
+                  {true && (
                     <motion.div
-                      className={`top-12 -z-10 max-h-[70px] overflow-scroll bg-white opacity-100 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
+                      className={`absolute top-14 -z-10 max-h-[70px] w-full overflow-scroll bg-white opacity-100 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
                     >
                       {billingAddresses.length > 0 ? (
                         billingAddresses
@@ -115,31 +127,7 @@ function BillingAddressDetails({
                           .map((ba, ind) => (
                             <div
                               onClick={() => {
-                                sessionStorage.setItem(
-                                  "billingAddressIndex",
-                                  ind,
-                                )
-                                setSelectedAddress(true)
-                                setBillingAddressIndex(ind)
-                                setInvoiceState({
-                                  ...invoiceState,
-                                  customer: {
-                                    ...invoiceState.customer,
-                                    address: {
-                                      billing: {
-                                        ...invoiceState.customer.address
-                                          .billing,
-                                        streetAddress: ba.streetAddress,
-                                        city: ba.city,
-                                        state: ba.state,
-                                        stateCode: ba.stateCode,
-                                        zip: ba.zip,
-                                        country: ba.country,
-                                      },
-                                    },
-                                  },
-                                })
-                                setKey(0)
+                                handleSubmit(ba)
                               }}
                               key={ind}
                               className={`flex w-full justify-between p-3 text-lg hover:cursor-pointer hover:bg-gray-200 ${key === ind && "bg-gray-400"}`}

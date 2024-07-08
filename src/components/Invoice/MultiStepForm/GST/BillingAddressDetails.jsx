@@ -10,15 +10,12 @@ function BillingAddressDetails({
   setInvoiceState,
 }) {
   let billingAddresses = []
-  useEffect(() => {
-    const getBillingAddress = async () => {
-      const { customers, loading } = await useSelector(
-        (state) => state.customers.customers,
-      )
-      billingAddresses = customers[0].billingAddresses
-    }
-    getBillingAddress()
-  }, [])
+  // const getBillingAddress = async () => {
+    // }
+    const { customers, loading } = useSelector(
+      (state) => state.customers.customers,
+    )
+    billingAddresses = customers && customers[0].billingAddresses
   console.log(billingAddresses)
   // let billingAddresses = customers
   // billingAddresses = billingAddresses[0].billingAddresses
@@ -32,9 +29,9 @@ function BillingAddressDetails({
   // const [billingAddressIndex, setBillingAddressIndex] = useState(null)
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    const billingAddress = JSON.parse(sessionStorage.getItem("billingAddress"))
-  }, [])
+  // useEffect(() => {
+  //   const billingAddress = JSON.parse(sessionStorage.getItem("billingAddress"))
+  // }, [])
 
   const handleSubmit = (billingAddress) => {
     sessionStorage.setItem(
@@ -113,11 +110,11 @@ function BillingAddressDetails({
                   <label htmlFor="billingCity" className="float-label">
                     Enter City<span className="text-red-500">&#42;</span>
                   </label>
-                  {true && (
+                  {/* {true && ( */}
                     <motion.div
-                      className={`absolute top-14 -z-10 max-h-[70px] w-full overflow-scroll bg-white opacity-100 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
+                      className={`absolute top-14 -z-10 max-h-[70px] w-full overflow-scroll bg-white opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
                     >
-                      {billingAddresses.length > 0 ? (
+                      {customers && billingAddresses.length > 0 ? (
                         billingAddresses
                           .filter((b) =>
                             b.city
@@ -140,7 +137,7 @@ function BillingAddressDetails({
                         <h2 className="py-1 pl-2 text-lg">No Matches Found.</h2>
                       )}
                     </motion.div>
-                  )}
+                  {/* )} */}
                 </div>
                 <p className="absolute mt-1 text-sm text-red-500">
                   {errors.billingCity ? (

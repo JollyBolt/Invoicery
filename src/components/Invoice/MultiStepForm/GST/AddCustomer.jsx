@@ -17,28 +17,20 @@ const AddCustomer = ({
 }) => {
   const dispatch = useDispatch()
   const [value, setValueState] = useState("")
-  const { customers, loading } = useSelector((state) => state.customers)
-  const customer = customers.customers[0]
+  const { customers, loading } = useSelector(
+    (state) => state.customers.customers,
+  )
+
   const debouncedValue = useDebounce(value)
   const [selectedCustomer, setSelectedCustomer] = useState()
 
   useEffect(() => {
-    const customer = sessionStorage.getItem("customer")
-
     const getCustomer = async () => {
-      await dispatch(fetchSingleCustomer(customer))
+      await dispatch(fetchSingleCustomer(customer.id))
       setSelectedCustomer(true)
-      setInvoiceState({
-        ...invoiceState,
-        customer: {
-          ...invoiceState.customer,
-          name: customers[0].client,
-          gstin: customers[0].gstin,
-          contactPerson: customers[0].contactPerson,
-          phone: customers[0].phone,
-        },
-      })
     }
+
+    const customer = JSON.parse(sessionStorage.getItem("customer")) //Check if customer already selected in session storage
 
     if (customer) {
       getCustomer()
@@ -54,14 +46,32 @@ const AddCustomer = ({
     getRecomendations()
   }, [debouncedValue])
 
-  const [key, setKey] = useState(0)
-  // addEventListener("keydown", (event) => {
-  //   if (debouncedValue.length > 2) {
-  //     if (key < customers.length - 1) {
-  //       setKey(key + 1)
-  //     }
-  //   }
-  // })
+  const handleSubmit = (customer) => {
+    setInvoiceState({
+      ...invoiceState,
+      customer: {
+        ...invoiceState.customer,
+        name: customer.client,
+        gstin: customer.gstin,
+        contactPerson: customer.contactPerson,
+        phone: customer.phone,
+      },
+    })
+    sessionStorage.setItem(
+      "customer",
+      JSON.stringify({
+        id: customer._id,
+        client: customer.client,
+        gstin: customer.gstin,
+        contactPerson: customer.contactPerson,
+        phone: customer.phone,
+      }),
+    )
+    setSelectedCustomer(true)
+    setKey(0)
+  }
+
+  const [key, setKey] = useState(0) //State created for key inputs
 
   return (
     <>
@@ -93,33 +103,11 @@ const AddCustomer = ({
                       }
                     } else if (e.key === "Enter") {
                       e.preventDefault()
-
                       setValue("customer", customers[key].client, {
                         shouldTouch: true,
                       })
                       setValueState(customers[key].client)
-                      setSelectedCustomer(true)
-                      setInvoiceState({
-                        ...invoiceState,
-                        customer: {
-                          ...invoiceState.customer,
-                          name: customers[key].client,
-                          gstin: customers[key].gstin,
-                          contactPerson: customers[key].contactPerson,
-                          phone: customers[key].phone,
-                        },
-                      })
-                      sessionStorage.setItem(
-                        "customer",
-                        JSON.stringify({
-                          id: customers[key]._id,
-                          client: customers[key].client,
-                          gstin: customers[key].gstin,
-                          contactPerson: customers[key].contactPerson,
-                          phone: customers[key].phone,
-                        }),
-                      )
-                      setKey(0)
+                      handleSubmit(customers[key])
                     }
                   }}
                   type="text"
@@ -142,10 +130,10 @@ const AddCustomer = ({
                 </p>
                 {debouncedValue.length > 2 && (
                   <motion.div
-                    className={`absolute top-12 -z-10 max-h-[70px] w-2/3 overflow-scroll bg-white opacity-100 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
+                    className={`absolute top-12 -z-10 max-h-[70px] w-full overflow-scroll bg-white opacity-100 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
                   >
-                    {customers.customers.length ? (
-                      customers.customers.map((customer, ind) => {
+                    {customers?.length > 0 ? (
+                      customers.map((customer, ind) => {
                         return (
                           <h2
                             onClick={() => {
@@ -153,27 +141,7 @@ const AddCustomer = ({
                                 shouldTouch: true,
                               })
                               setValueState(customer.client)
-                              setSelectedCustomer(true)
-                              setInvoiceState({
-                                ...invoiceState,
-                                customer: {
-                                  ...invoiceState.customer,
-                                  name: customer.client,
-                                  gstin: customer.gstin,
-                                  contactPerson: customer.contactPerson,
-                                  phone: customer.phone,
-                                },
-                              })
-                              sessionStorage.setItem(
-                                "customer",
-                                JSON.stringify({
-                                  id: customers[key]._id,
-                                  client: customers[key].client,
-                                  gstin: customers[key].gstin,
-                                  contactPerson: customers[key].contactPerson,
-                                  phone: customers[key].phone,
-                                }),
-                              )
+                              handleSubmit(customer)
                             }}
                             key={ind}
                             className={`w-full py-1 pl-2 text-left text-lg hover:cursor-pointer hover:bg-gray-200 ${key === ind && "bg-gray-400"}`}
@@ -196,19 +164,23 @@ const AddCustomer = ({
               <div className="flex flex-col gap-5 rounded-md bg-gray-50 p-5 font-semibold">
                 <div className="flex gap-10">
                   <p className="w-[30%]">Customer</p>
-                  <p className="">{customer?.client}</p>
+                  <p className="">{invoiceState.customer?.name}</p>
                 </div>
                 <div className="flex gap-10">
                   <p className="w-[30%]">GSTIN</p>
-                  <p>{customer?.gstin}</p>
+                  <p>{invoiceState.customer?.gstin}</p>
                 </div>
                 <div className="flex gap-10">
                   <p className="w-[30%]">Contact Person</p>
-                  <p>{customer?.contactPerson}</p>
+                  <p>
+                    {invoiceState.customer?.contactPerson
+                      ? invoiceState.customer?.contactPerson
+                      : "-"}
+                  </p>
                 </div>
                 <div className="flex gap-10">
                   <p className="w-[30%]">Phone</p>
-                  <p>{customer?.phone}</p>
+                  <p>{invoiceState.customer?.phone}</p>
                 </div>
               </div>
             </div>

@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import MultiStepFormGST from "./MultiStepForm/GST/MultiStepFormGST"
 import Stepper from "../../components/Invoice/Stepper"
-import { useAnimate, motion } from "framer-motion"
-import InvoicePreview from "./InvoicePreview"
+import { motion } from "framer-motion"
 import { useReactToPrint } from "react-to-print"
 import AccordionSolutions from "../Accordian"
 
@@ -29,11 +28,15 @@ function InvoiceForm({
     <>
       <Stepper step={step} template={template} />
 
-      <div className="h-full max-h-[82dvh] bg-white p-6">
+      <div className="h-full bg-white p-6">
         {step === 1 ? (
           <div className="flex h-full w-full flex-col gap-y-5">
             <div className="w-full flex-1">
-            <AccordionSolutions setTemplate={ setTemplate } setInvoiceState={ setInvoiceState } invoiceState={ invoiceState } />
+              <AccordionSolutions
+                setTemplate={setTemplate}
+                setInvoiceState={setInvoiceState}
+                invoiceState={invoiceState}
+              />
             </div>
             <div className="flex w-full justify-between">
               <button
@@ -53,7 +56,7 @@ function InvoiceForm({
                   if (step < 4) {
                   }
                   setStep(step + 1)
-                  sessionStorage.setItem("step", step+1)
+                  sessionStorage.setItem("step", step + 1)
                 }}
                 className="rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight"
               >

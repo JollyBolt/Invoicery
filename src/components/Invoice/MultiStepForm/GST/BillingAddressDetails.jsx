@@ -10,28 +10,17 @@ function BillingAddressDetails({
   setInvoiceState,
 }) {
   let billingAddresses = []
-  // const getBillingAddress = async () => {
-    // }
-    const { customers, loading } = useSelector(
-      (state) => state.customers.customers,
-    )
-    billingAddresses = customers && customers[0].billingAddresses
-  console.log(billingAddresses)
-  // let billingAddresses = customers
-  // billingAddresses = billingAddresses[0].billingAddresses
-  // if (!loading) {
-  //   billingAddresses = customers[0].billingAddresses
-  // }
-  // billingAddresses
-  // console.log(customers[0].billingAddresses)
-  // const billingAddresses = customers[0]?.billingAddresses
-  const [selectedAddress, setSelectedAddress] = useState(false)
-  // const [billingAddressIndex, setBillingAddressIndex] = useState(null)
-  const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //   const billingAddress = JSON.parse(sessionStorage.getItem("billingAddress"))
-  // }, [])
+  const { customers, loading } = useSelector(
+    (state) => state.customers.customers,
+  )
+  billingAddresses = customers && customers[0].billingAddresses
+
+  const [selectedAddress, setSelectedAddress] = useState(false)
+
+  useEffect(() => {
+    if (sessionStorage.getItem("billingAddress")) setSelectedAddress(true)
+  }, [])
 
   const handleSubmit = (billingAddress) => {
     sessionStorage.setItem(
@@ -110,34 +99,32 @@ function BillingAddressDetails({
                   <label htmlFor="billingCity" className="float-label">
                     Enter City<span className="text-red-500">&#42;</span>
                   </label>
-                  {/* {true && ( */}
-                    <motion.div
-                      className={`absolute top-14 -z-10 max-h-[70px] w-full overflow-scroll bg-white opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
-                    >
-                      {customers && billingAddresses.length > 0 ? (
-                        billingAddresses
-                          .filter((b) =>
-                            b.city
-                              .toLowerCase()
-                              .includes(watch("billingCity").toLowerCase()),
-                          )
-                          .map((ba, ind) => (
-                            <div
-                              onClick={() => {
-                                handleSubmit(ba)
-                              }}
-                              key={ind}
-                              className={`flex w-full justify-between p-3 text-lg hover:cursor-pointer hover:bg-gray-200 ${key === ind && "bg-gray-400"}`}
-                            >
-                              <p>{ba.city}</p>
-                              <p>{ba.state}</p>
-                            </div>
-                          ))
-                      ) : (
-                        <h2 className="py-1 pl-2 text-lg">No Matches Found.</h2>
-                      )}
-                    </motion.div>
-                  {/* )} */}
+                  <motion.div
+                    className={`absolute top-14 -z-10 max-h-[70px] w-full overflow-scroll bg-white opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
+                  >
+                    {customers && billingAddresses.length > 0 ? (
+                      billingAddresses
+                        .filter((b) =>
+                          b.city
+                            .toLowerCase()
+                            .includes(watch("billingCity").toLowerCase()),
+                        )
+                        .map((ba, ind) => (
+                          <div
+                            onClick={() => {
+                              handleSubmit(ba)
+                            }}
+                            key={ind}
+                            className={`flex w-full justify-between p-3 text-lg hover:cursor-pointer hover:bg-gray-200 ${key === ind && "bg-gray-400"}`}
+                          >
+                            <p>{ba.city}</p>
+                            <p>{ba.state}</p>
+                          </div>
+                        ))
+                    ) : (
+                      <h2 className="py-1 pl-2 text-lg">No Matches Found.</h2>
+                    )}
+                  </motion.div>
                 </div>
                 <p className="absolute mt-1 text-sm text-red-500">
                   {errors.billingCity ? (
@@ -155,27 +142,29 @@ function BillingAddressDetails({
               <div className="flex flex-col gap-3 rounded-md bg-gray-50 p-5 font-semibold">
                 <div className="flex gap-10">
                   <p className="w-[20%]">Street Address</p>
-                  <p className="w-[70%]">{address?.streetAddress}</p>
+                  <p className="w-[70%]">
+                    {invoiceState.customer.address.billing?.streetAddress}
+                  </p>
                 </div>
                 <div className="flex gap-10">
                   <p className="w-[20%]">City</p>
-                  <p>{address?.city}</p>
+                  <p>{invoiceState.customer.address.billing?.city}</p>
                 </div>
                 <div className="flex gap-10">
                   <p className="w-[20%]">State</p>
-                  <p>{address?.state}</p>
+                  <p>{invoiceState.customer.address.billing?.state}</p>
                 </div>
                 <div className="flex gap-10">
                   <p className="w-[20%]">Zip</p>
-                  <p>{address?.zip}</p>
+                  <p>{invoiceState.customer.address.billing?.zip}</p>
                 </div>
                 <div className="flex gap-10">
                   <p className="w-[20%]">State Code</p>
-                  <p>{address?.stateCode}</p>
+                  <p>{invoiceState.customer.address.billing?.stateCode}</p>
                 </div>
                 <div className="flex gap-10">
                   <p className="w-[20%]">Country</p>
-                  <p>{address?.country}</p>
+                  <p>{invoiceState.customer.address.billing?.country}</p>
                 </div>
               </div>
             </div>

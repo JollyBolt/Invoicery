@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useDebounce } from "../../../../../hooks/useDebounce"
 import { fetchAllProducts } from "../../../../../redux/slices/productSlice"
 import { motion, AnimatePresence } from "framer-motion"
-import DiscountInput from "../DiscountInput"
+import DiscountInput from "./DiscountInput"
 import { useDispatch, useSelector } from "react-redux"
 
 function MultistepAddProductModal({
@@ -29,25 +29,27 @@ function MultistepAddProductModal({
     getRecomendations()
   }, [debouncedValue])
 
-  const onSubmit = (e) => {
+  const onSubmit =async (e) => {
     e.preventDefault()
-    setInvoiceState({
-      ...invoiceState,
-      products: [
-        ...invoiceState.products,
-        {
-          name: selectedProduct.name,
-          quantity: watch("product.quantity"),
-          price: selectedProduct.price,
-          hsn_code: selectedProduct.hsn_code,
-          finalPrice: watch("product.finalPrice"),
-          amount: watch("product.amount"),
-          discount: {
-            value: watch("product.discount.value"),
-            type: watch("product.discount.type"),
+    setInvoiceState((prevState) => {
+      return {
+        ...prevState,
+        products: [
+          ...prevState.products,
+          {
+            name: selectedProduct.name,
+            quantity: watch("product.quantity"),
+            price: selectedProduct.price,
+            hsn_code: selectedProduct.hsn_code,
+            finalPrice: watch("product.finalPrice"),
+            amount: watch("product.amount"),
+            discount: {
+              value: watch("product.discount.value"),
+              type: watch("product.discount.type"),
+            },
           },
-        },
-      ],
+        ],
+      }
     })
     setValue(`product.name`, "")
     setValue(`product.quantity`, 1)

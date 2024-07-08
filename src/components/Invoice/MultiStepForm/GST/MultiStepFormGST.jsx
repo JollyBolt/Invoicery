@@ -65,23 +65,17 @@ function MultiStepFormGST({
     mode: "all",
   })
 
-  // console.log(invoiceState.customer.address.shipping.streetAddress)
-
   const {
     register,
     handleSubmit,
     formState,
     control,
     setValue,
-    watch,resetField,
+    watch,
+    resetField,
     getFieldState,
   } = form
   const { errors } = formState
-  // console.log(JSON.parse(sessionStorage.getItem("shippingAddress")).streetAddress)
-  // const { fields, append, remove } = useFieldArray({
-  //   name: "products",
-  //   control,
-  // })
 
   const tNc = useFieldArray({
     name: "termsNConditions",
@@ -211,8 +205,10 @@ function MultiStepFormGST({
       <div className="flex w-full justify-between">
         <button
           onClick={() => {
+            // Step reduction logic
             setStep(step - 1)
             sessionStorage.setItem("step", step - 1)
+
             if (step === 8) {
               console.log("hi")
               sessionStorage.setItem(
@@ -233,12 +229,14 @@ function MultiStepFormGST({
           whileTap={{ scale: 0.85 }}
           transition={{ duration: 0.2 }}
           onClick={() => {
+            // Step addition logic
             if (step < 9) {
               setStep(step + 1)
               sessionStorage.setItem("step", step + 1)
             } else if (step === 9) {
               console.log(invoiceState)
             }
+
             if (step === 8) {
               sessionStorage.setItem(
                 "termsNConditions",

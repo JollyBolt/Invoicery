@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import DiscountInput from "../DiscountInput"
+import DiscountInput from "./DiscountInput"
 import { useDebounce } from "../../../../../hooks/useDebounce"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchAllProducts } from "../../../../../redux/slices/productSlice"
 import MultistepAddProductModal from "./MultistepAddProductModal"
+import { FaTrash } from "../../../../../assets/index"
 
 const AddProducts = ({
   errors,
-  // fields,
-  // append,
-  // remove,
   register,
   watch,
   setValue,
@@ -31,6 +29,10 @@ const AddProducts = ({
     }
     getRecomendations()
   }, [debouncedValue])
+
+  useEffect(() => {
+    sessionStorage.setItem("productList", JSON.stringify(invoiceState.products))
+  }, [invoiceState.products])
 
   const [open, setOpen] = useState(false)
   return (
@@ -69,7 +71,7 @@ const AddProducts = ({
               return (
                 <div className="relative w-full pb-5">
                   <h1 className="text-xl font-semibold">{product.name}</h1>
-                  <div className="flex w-2/3 justify-between">
+                  <div className="flex w-full justify-between">
                     <p className="text-lg">
                       <span className="text-gray-400">HSN Code: </span>
                       {product.hsn_code}
@@ -77,6 +79,11 @@ const AddProducts = ({
                     <p className="text-lg">
                       <span className="text-gray-400">Quantity: </span>
                       {product.quantity}
+                    </p>
+                    <p className="text-lg">
+                      <span className="text-gray-400">Discount: </span>
+                      {product.discount.value}{" "}
+                      {product.discount.type === "percent" ? "%" : "₹"}
                     </p>
                   </div>
                   <div className="flex w-2/3 justify-between">
@@ -91,18 +98,20 @@ const AddProducts = ({
                   </div>
                   <div>
                     <button
-                      onClick={() =>
+                      onClick={() => {
                         setInvoiceState({
                           ...invoiceState,
                           products: invoiceState.products.filter((p) => {
                             return p !== product && true
                           }),
                         })
-                      }
+                      }}
                       type="button"
-                      className="absolute bottom-0 right-0"
+                      className="absolute bottom-7 right-0"
                     >
-                      <span className="text-lg font-semibold">Delete</span>
+                      <span className="text-lg font-semibold text-slate-400 transition-colors hover:text-black">
+                        <FaTrash />
+                      </span>
                     </button>
                   </div>
                 </div>

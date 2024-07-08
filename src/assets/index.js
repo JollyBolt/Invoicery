@@ -55,6 +55,9 @@ import { FcGoogle } from "react-icons/fc";
 //Left Arrow
 import { HiArrowLongLeft } from "react-icons/hi2"
 
+//Trash Can
+import { FaTrash } from "react-icons/fa";
+
 export {
   MdDashboard,
   BsBoxSeamFill,
@@ -65,6 +68,7 @@ export {
   MdOutlineKeyboardArrowRight,
   HiMagnifyingGlass,
   FaPlus,
+  FaTrash,
   FaFilter,
   RxCross1,
   HiMenuAlt2,

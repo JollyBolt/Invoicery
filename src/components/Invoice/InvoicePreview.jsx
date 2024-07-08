@@ -2,6 +2,7 @@ import React, { forwardRef, useEffect, useMemo } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { getProfile } from "../../redux/slices/userSlice"
 import numWords from "num-words"
+import { fetchSingleCustomer } from "../../redux/slices/customerSlice"
 
 const InvoicePreview = forwardRef((props, ref) => {
   const dispatch = useDispatch()
@@ -16,6 +17,24 @@ const InvoicePreview = forwardRef((props, ref) => {
     }
     getUserData()
   }, [])
+
+  useEffect(() => {
+    const customer = JSON.parse(sessionStorage.getItem("customer"))
+    if (customer) {
+      dispatch(fetchSingleCustomer(customer.id))
+      setInvoiceState({
+        ...invoiceState,
+        customer: {
+          ...invoiceState.customer,
+          name: customer.client,
+          gstin: customer.gstin,
+          contactPerson: customer.contactPerson,
+          phone: customer.phone,
+        },
+      })
+    }
+  }, [])
+
   const { invoiceState, setInvoiceState } = props
   const {
     invoiceNumber,
@@ -92,8 +111,8 @@ const InvoicePreview = forwardRef((props, ref) => {
           <p className="text-lg font-bold">Issued to</p>
           <div className="flex flex-col">
             <div className="flex justify-between">
-              <div className="flex w-[40%]">
-                <p className="w-[45%] font-semibold">Organization</p>
+              <div className="flex w-[60%]">
+                <p className="w-[30%] font-semibold">Organization</p>
                 <p>{name}</p>
               </div>
               <div className="flex w-[40%]">
@@ -104,7 +123,7 @@ const InvoicePreview = forwardRef((props, ref) => {
             <div className="flex justify-between">
               <div className="flex w-[40%]">
                 <p className="w-[45%] font-semibold">Contact Person</p>
-                <p>{contactPerson}</p>
+                <p>{contactPerson === "" ? "-" : contactPerson}</p>
               </div>
               <div className="flex w-[40%]">
                 <p className="w-[20%] font-semibold">Phone</p>
@@ -167,7 +186,7 @@ const InvoicePreview = forwardRef((props, ref) => {
           <div className="w-[18%] border border-l-0 border-black bg-primary p-2 text-center text-white">
             Price(INR)
           </div>
-          <div className="text-center w-[18%] border border-l-0 border-black bg-primary p-2 text-white">
+          <div className="w-[18%] border border-l-0 border-black bg-primary p-2 text-center text-white">
             Amount(INR)
           </div>
         </div>
@@ -288,11 +307,8 @@ const InvoicePreview = forwardRef((props, ref) => {
           </div>
           <div className="text-sm">
             <ol>
-            {termsNConditions?.length > 0 && 
-                termsNConditions.map((tnc, i) => (
-                  <li>{ tnc.tnc }</li>
-              ))
-            }
+              {termsNConditions?.length > 0 &&
+                termsNConditions.map((tnc, i) => <li>{tnc.tnc}</li>)}
             </ol>
           </div>
         </div>

@@ -57,13 +57,13 @@ const AddProducts = ({
           <button
             onClick={() => setOpen(true)}
             type="button"
-            className="text-md mb-4 rounded-rounded p-1 text-primary outline outline-1 outline-primary hover:bg-primary hover:text-white"
+            className="text-md mb-4 rounded-rounded p-1 text-primary outline-1 outline-primary hover:bg-primary hover:text-white"
           >
             <span className="text-lg font-semibold">+</span> Add Products
           </button>
         </div>
 
-        <div className="flex w-full flex-col gap-y-5">
+        <div className="gap5 flex w-full flex-col">
           {invoiceState.products &&
             invoiceState.products.map((product, ind) => {
               return (
@@ -72,7 +72,7 @@ const AddProducts = ({
                   <div className="flex w-2/3 justify-between">
                     <p className="text-lg">
                       <span className="text-gray-400">HSN Code: </span>
-                      {product.hsnCode}
+                      {product.hsn_code}
                     </p>
                     <p className="text-lg">
                       <span className="text-gray-400">Quantity: </span>

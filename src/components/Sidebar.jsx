@@ -42,7 +42,7 @@ function Sidebar({ navBg, navHeading }) {
 
   return (
     <div>
-      <nav id="nav" className="fixed top-0 z-10">
+      <nav id="nav" className="fixed top-0 z-50">
         <div
           style={{ backgroundColor: `var(--${navBg})` }}
           className={`flex h-screen flex-col justify-between p-2 text-black shadow-lg shadow-slate-300 transition-all delay-[25ms] duration-500 ${

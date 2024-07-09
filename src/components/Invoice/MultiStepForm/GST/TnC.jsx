@@ -16,10 +16,30 @@ const TermsNConditions = ({
         "termsNConditions",
         JSON.stringify(invoiceState.termsNConditions),
       )
-    } else {
-      sessionStorage.removeItem("termsNConditions")
     }
   }, [invoiceState.termsNConditions])
+
+  /**
+   * Handles the deletion of a specific term and condition from the list.
+   * If the list contains only one term and condition, it removes the item from session storage.
+   * Updates the invoice state by removing the selected term and condition.
+   *
+   * @param {number} ind - The index of the term and condition to be deleted.
+   * @returns {void}
+   */
+  const handleDelete = (ind) => {
+    if (invoiceState.termsNConditions.length === 1) {
+      sessionStorage.removeItem("termsNConditions")
+    }
+    setInvoiceState((prevState) => {
+      return {
+        ...prevState,
+        termsNConditions: prevState.termsNConditions.filter(
+          (tnc, i) => i !== ind,
+        ),
+      }
+    })
+  }
 
   return (
     <>
@@ -68,36 +88,13 @@ const TermsNConditions = ({
                   type="button"
                   onClick={() => {
                     remove(ind)
-                    setInvoiceState({
-                      ...invoiceState,
-                      termsNConditions: invoiceState.termsNConditions.filter(
-                        (tnc, i) => {
-                          return i !== ind && true
-                        },
-                      ),
-                    })
+                    handleDelete(ind)
                   }}
                 >
                   <span className="rounded-full bg-transparent px-4 py-2 text-xl font-light text-red-500 transition-colors hover:bg-neutral-200">
                     X
                   </span>
                 </button>
-                {/* // ) : (
-                //   <button 
-                //     disabled={true}
-                //     className="flex w-fit select-none flex-nowrap items-center justify-center rounded-full p-2 text-xl text-white"
-                //     type="button"
-                //     // onClick={() => {
-                //     //   remove(ind)
-
-                //     //   // console.log(invoiceState.termsNConditions)
-                //     // }}
-                //   >
-                //     <span className="bg-transparent px-2 text-xl font-light text-white">
-                //       x
-                //     </span>
-                //   </button>
-                // )} */}
               </div>
             )
           })}

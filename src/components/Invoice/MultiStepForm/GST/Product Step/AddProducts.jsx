@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import DiscountInput from "./DiscountInput"
 import { useDebounce } from "../../../../../hooks/useDebounce"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { fetchAllProducts } from "../../../../../redux/slices/productSlice"
 import MultistepAddProductModal from "./MultistepAddProductModal"
 import { FaTrash } from "../../../../../assets/index"
@@ -23,7 +22,7 @@ const AddProducts = ({
 
   useEffect(() => {
     async function getRecomendations() {
-      if (debouncedValue.length > 2) {
+      if (debouncedValue.length > 0) {
         await dispatch(fetchAllProducts({ search: debouncedValue }))
       }
     }
@@ -36,10 +35,27 @@ const AddProducts = ({
         "productList",
         JSON.stringify(invoiceState.products),
       )
-    } else {
-      sessionStorage.removeItem("productList")
     }
   }, [invoiceState.products])
+
+  /**
+   * Handles the deletion of a product from the invoice state.
+   * If the product to be deleted is the only one in the list, it removes the session storage item "productList".
+   *
+   * @param {number} ind - The index of the product to be deleted in the invoice state's products array.
+   * @returns {void}
+   */
+  const handleDelete = (ind) => {
+    if (invoiceState.products.length === 1) {
+      sessionStorage.removeItem("productList")
+    }
+    setInvoiceState((prevState) => {
+      return {
+        ...prevState,
+        products: prevState.products.filter((p, i) => i !== ind),
+      }
+    })
+  }
 
   const [open, setOpen] = useState(false)
   return (
@@ -106,12 +122,7 @@ const AddProducts = ({
                   <div>
                     <button
                       onClick={() => {
-                        setInvoiceState({
-                          ...invoiceState,
-                          products: invoiceState.products.filter((p) => {
-                            return p !== product && true
-                          }),
-                        })
+                        handleDelete(ind)
                       }}
                       type="button"
                       className="absolute bottom-7 right-0"

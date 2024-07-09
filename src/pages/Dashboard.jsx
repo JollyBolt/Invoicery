@@ -10,13 +10,32 @@ import {
   BsPeopleFill,
   BsBoxSeamFill,
 } from "../assets/index";
-import Stats from "../components/Dashboard/Stats";
-
-import { useSelector, useDispatch } from "react-redux";
-import Auth from "../components/Auth";
+import Stats from "../components/Dashboard/Stats"
+import { useSelector, useDispatch } from "react-redux"
+import Auth from "../components/Auth"
+import axios from "axios"
+import getCookieValue from "../utils/getCookieValue"
 
 const Dashboard = () => {
-  const [currentYear, setCurrentYear] = useState(2024);
+  const [currentYear, setCurrentYear] = useState(2024)
+
+  const [stats, setStats] = useState(null)
+
+  const getStats = async () => {
+    const { data } = await axios.get(
+      "http://localhost:4598/api/v1/stats/getstats",
+      {
+        headers: {
+          Authorization: "Bearer " + getCookieValue("authToken"),
+        },
+      },
+    )
+    setStats(data.stats)
+  }
+
+  useEffect(() => {
+    getStats()
+  }, [])
 
   const monthNames = [
     "January",
@@ -31,18 +50,18 @@ const Dashboard = () => {
     "October",
     "November",
     "December",
-  ];
+  ]
 
-  const [currentmonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [currentmonth, setCurrentMonth] = useState(new Date().getMonth())
 
-  const [chart, setChart] = useState("line");
+  const [chart, setChart] = useState("line")
   const handleChange = (e) => {
-    setChart(e.target.value);
-  };
+    setChart(e.target.value)
+  }
 
   //Checking if authtoken exists, i.e., logged in on refresh
-  const dispatch = useDispatch();
-  const { loggedIn  } = useSelector((state) => state.auth);
+  const dispatch = useDispatch()
+  const { loggedIn } = useSelector((state) => state.auth)
 
   return (
     <div>
@@ -54,12 +73,12 @@ const Dashboard = () => {
         <div className="grid grid-cols-8 gap-4">
           <Stats
             title="Total Invoices"
-            number={25}
+            number={stats?.totalInvoices}
             icon={<FaFileInvoiceDollar />}
           />
           <Stats
             title="Total Revenue"
-            number={1394032}
+            number={stats?.totalRevenue}
             icon={<FaRupeeSign />}
           />
 
@@ -96,8 +115,16 @@ const Dashboard = () => {
             )}
           </div>
 
-          <Stats title="Total Customers" number={10} icon={<BsPeopleFill />} />
-          <Stats title="Total Products" number={56} icon={<BsBoxSeamFill />} />
+          <Stats
+            title="Total Customers"
+            number={stats?.totalCustomers}
+            icon={<BsPeopleFill />}
+          />
+          <Stats
+            title="Total Products"
+            number={stats?.totalProducts}
+            icon={<BsBoxSeamFill />}
+          />
 
           {
             //Recent Invoices Table
@@ -135,6 +162,6 @@ const Dashboard = () => {
       )}
     </div>
   )
-};
+}
 
 export default PageWrapper(Dashboard, "dashboard");

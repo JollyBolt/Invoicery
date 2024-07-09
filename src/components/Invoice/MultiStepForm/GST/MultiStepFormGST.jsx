@@ -34,7 +34,7 @@ function MultiStepFormGST({
         },
       },
       totalAmount: 0,
-      termsNConditions:[{ tnc: "" }],
+      termsNConditions: [{ tnc: "" }],
       billingCity: "",
       shippingStreetAddress: sessionStorage.getItem("shippingAddress")
         ? JSON.parse(sessionStorage.getItem("shippingAddress")).streetAddress
@@ -56,9 +56,15 @@ function MultiStepFormGST({
       //   type: "percent",
       // },
       taxes: {
-        igst: 0.0,
-        cgst: 0.0,
-        sgst: 0.0,
+        igst: sessionStorage.getItem("taxes")
+          ? JSON.parse(sessionStorage.getItem("taxes")).igst
+          : 0.0,
+        cgst: sessionStorage.getItem("taxes")
+          ? JSON.parse(sessionStorage.getItem("taxes")).cgst
+          : 0.0,
+        sgst: sessionStorage.getItem("taxes")
+          ? JSON.parse(sessionStorage.getItem("taxes")).sgst
+          : 0.0,
       },
       date: "",
     },

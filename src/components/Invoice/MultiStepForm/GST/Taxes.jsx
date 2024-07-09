@@ -5,6 +5,7 @@ const Taxes = ({
   register,
   setValue,
   errors,
+  // watch,
   invoiceState,
   setInvoiceState,
 }) => {
@@ -13,9 +14,6 @@ const Taxes = ({
   const TOGGLE_CLASSES =
     "font-medium flex items-center gap-2 cursor-pointer px-3 md:pl-3 md:pr-3.5 text-lg py-3 md:py-1.5 transition-colors relative z-10"
 
-  useEffect(() => {
-    sessionStorage.setItem("taxes", JSON.stringify(invoiceState.taxes))
-  }, [invoiceState.taxes])
   return (
     <>
       <motion.div
@@ -39,6 +37,13 @@ const Taxes = ({
                       ...invoiceState,
                       taxes: { ...invoiceState.taxes, igst: e.target.value },
                     })
+                    sessionStorage.setItem(
+                      "taxes",
+                      JSON.stringify({
+                        ...invoiceState.taxes,
+                        igst: e.target.value,
+                      }),
+                    )
                   },
                 })}
                 min={0.0}
@@ -62,6 +67,13 @@ const Taxes = ({
                       ...invoiceState,
                       taxes: { ...invoiceState.taxes, cgst: e.target.value },
                     })
+                    sessionStorage.setItem(
+                      "taxes",
+                      JSON.stringify({
+                        ...invoiceState.taxes,
+                        cgst: e.target.value,
+                      }),
+                    )
                   },
                 })}
                 min={0.0}
@@ -85,6 +97,13 @@ const Taxes = ({
                       ...invoiceState,
                       taxes: { ...invoiceState.taxes, sgst: e.target.value },
                     })
+                    sessionStorage.setItem(
+                      "taxes",
+                      JSON.stringify({
+                        ...invoiceState.taxes,
+                        sgst: e.target.value,
+                      }),
+                    )
                   },
                 })}
                 min={0.0}

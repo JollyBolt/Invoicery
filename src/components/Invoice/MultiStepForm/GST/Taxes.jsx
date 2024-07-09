@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 
 const Taxes = ({
@@ -13,6 +13,9 @@ const Taxes = ({
   const TOGGLE_CLASSES =
     "font-medium flex items-center gap-2 cursor-pointer px-3 md:pl-3 md:pr-3.5 text-lg py-3 md:py-1.5 transition-colors relative z-10"
 
+  useEffect(() => {
+    sessionStorage.setItem("taxes", JSON.stringify(invoiceState.taxes))
+  }, [invoiceState.taxes])
   return (
     <>
       <motion.div
@@ -34,7 +37,7 @@ const Taxes = ({
                   onBlur: (e) => {
                     setInvoiceState({
                       ...invoiceState,
-                      taxes: { ...taxes, igst: e.target.value },
+                      taxes: { ...invoiceState.taxes, igst: e.target.value },
                     })
                   },
                 })}
@@ -57,7 +60,7 @@ const Taxes = ({
                   onBlur: (e) => {
                     setInvoiceState({
                       ...invoiceState,
-                      taxes: { ...taxes, cgst: e.target.value },
+                      taxes: { ...invoiceState.taxes, cgst: e.target.value },
                     })
                   },
                 })}
@@ -80,7 +83,7 @@ const Taxes = ({
                   onBlur: (e) => {
                     setInvoiceState({
                       ...invoiceState,
-                      taxes: { ...taxes, sgst: e.target.value },
+                      taxes: { ...invoiceState.taxes, sgst: e.target.value },
                     })
                   },
                 })}

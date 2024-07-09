@@ -44,6 +44,7 @@ function ShippingAddressDetails({
                     setValue("shippingState", "", { shouldTouch: true })
                     setValue("shippingStateCode", "", { shouldTouch: true })
                     setValue("shippingZip", "", { shouldTouch: true })
+                    setValue("shippingCountry", "", { shouldTouch: true })
                     setInvoiceState({
                       ...invoiceState,
                       customer: {
@@ -56,6 +57,7 @@ function ShippingAddressDetails({
                             state: "",
                             stateCode: "",
                             zip: "",
+                            country: "",
                           },
                         },
                       },
@@ -92,7 +94,7 @@ function ShippingAddressDetails({
                     //   invoiceState.customer.address.billing.zip,
                     //   { shouldTouch: true },
                     // )
-                    
+
                     resetField("shippingStreetAddress", {
                       defaultValue:
                         invoiceState.customer.address.billing.streetAddress,
@@ -110,6 +112,10 @@ function ShippingAddressDetails({
                     resetField("shippingZip", {
                       defaultValue: invoiceState.customer.address.billing.zip,
                     })
+                    resetField("shippingCountry", {
+                      defaultValue:
+                        invoiceState.customer.address.billing.country,
+                    })
                     setInvoiceState({
                       ...invoiceState,
                       customer: {
@@ -125,12 +131,13 @@ function ShippingAddressDetails({
                             stateCode:
                               invoiceState.customer.address.billing.stateCode,
                             zip: invoiceState.customer.address.billing.zip,
+                            country:
+                              invoiceState.customer.address.billing.country,
                           },
                         },
                       },
                     })
                   }
-                  // console.log(invoiceState)
                 }}
               />
               <label htmlFor="checkSameAsBilling">
@@ -219,101 +226,6 @@ function ShippingAddressDetails({
                   )}
                 </p>
               </div>
-
-              <div className="relative flex w-2/5 flex-col">
-                <div className="relative flex w-full flex-col flex-nowrap">
-                  <input
-                    id="shippingState"
-                    type="text"
-                    placeholder="State"
-                    className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none disabled:bg-white"
-                    {...register("shippingState", {
-                      required: "State is required",
-                      disabled: checked,
-                      onChange: (e) => {
-                        setInvoiceState({
-                          ...invoiceState,
-                          customer: {
-                            ...invoiceState.customer,
-                            address: {
-                              ...invoiceState.customer.address,
-                              shipping: {
-                                ...invoiceState.customer.address.shipping,
-                                state: e.target.value,
-                              },
-                            },
-                          },
-                        })
-                      },
-                    })}
-                  />
-                  <label htmlFor="shippingState" className="float-label">
-                    State<span className="text-red-500">&#42;</span>
-                  </label>
-                </div>
-                <p className="mt-1 text-sm text-red-500">
-                  {errors.shippingState ? (
-                    errors.shippingState?.message
-                  ) : (
-                    <span className="select-none">&nbsp;</span>
-                  )}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex w-full flex-nowrap justify-between">
-              <div className="relative flex w-2/5 flex-col">
-                <div className="relative flex w-full flex-col flex-nowrap">
-                  <input
-                    id="shippingStateCode"
-                    type="text"
-                    placeholder="State Code"
-                    className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none disabled:bg-white"
-                    {...register("shippingStateCode", {
-                      required: "State Code is required",
-                      disabled: checked,
-                      min: {
-                        value: 2,
-                        message: "State Code must be 2 digits",
-                      },
-                      max: {
-                        value: 2,
-                        message: "State Code must be 2 digits",
-                      },
-                      pattern: {
-                        value: /^[0-9]+$/,
-                        message: "State Code must be only digits",
-                      },
-                      onChange: (e) => {
-                        setInvoiceState({
-                          ...invoiceState,
-                          customer: {
-                            ...invoiceState.customer,
-                            address: {
-                              ...invoiceState.customer.address,
-                              shipping: {
-                                ...invoiceState.customer.address.shipping,
-                                stateCode: e.target.value,
-                              },
-                            },
-                          },
-                        })
-                      },
-                    })}
-                  />
-                  <label htmlFor="shippingStateCode" className="float-label">
-                    State Code<span className="text-red-500">&#42;</span>
-                  </label>
-                </div>
-                <p className="mt-1 text-sm text-red-500">
-                  {errors.shippingStateCode ? (
-                    errors.shippingStateCode?.message
-                  ) : (
-                    <span className="select-none">&nbsp;</span>
-                  )}
-                </p>
-              </div>
-
               <div className="relative flex w-2/5 flex-col">
                 <div className="relative flex w-full flex-col flex-nowrap">
                   <input
@@ -366,6 +278,141 @@ function ShippingAddressDetails({
                 </p>
               </div>
             </div>
+
+            <div className="flex w-full flex-nowrap justify-between">
+              <div className="relative flex w-2/5 flex-col">
+                <div className="relative flex w-full flex-col flex-nowrap">
+                  <input
+                    id="shippingState"
+                    type="text"
+                    placeholder="State"
+                    className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none disabled:bg-white"
+                    {...register("shippingState", {
+                      required: "State is required",
+                      disabled: checked,
+                      onChange: (e) => {
+                        setInvoiceState({
+                          ...invoiceState,
+                          customer: {
+                            ...invoiceState.customer,
+                            address: {
+                              ...invoiceState.customer.address,
+                              shipping: {
+                                ...invoiceState.customer.address.shipping,
+                                state: e.target.value,
+                              },
+                            },
+                          },
+                        })
+                      },
+                    })}
+                  />
+                  <label htmlFor="shippingState" className="float-label">
+                    State<span className="text-red-500">&#42;</span>
+                  </label>
+                </div>
+                <p className="mt-1 text-sm text-red-500">
+                  {errors.shippingState ? (
+                    errors.shippingState?.message
+                  ) : (
+                    <span className="select-none">&nbsp;</span>
+                  )}
+                </p>
+              </div>
+
+              <div className="relative flex w-2/5 flex-col">
+                <div className="relative flex w-full flex-col flex-nowrap">
+                  <input
+                    id="shippingStateCode"
+                    type="text"
+                    placeholder="State Code"
+                    className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none disabled:bg-white"
+                    {...register("shippingStateCode", {
+                      required: "State Code is required",
+                      disabled: checked,
+                      min: {
+                        value: 2,
+                        message: "State Code must be 2 digits",
+                      },
+                      max: {
+                        value: 2,
+                        message: "State Code must be 2 digits",
+                      },
+                      pattern: {
+                        value: /^[0-9]+$/,
+                        message: "State Code must be only digits",
+                      },
+                      onChange: (e) => {
+                        setInvoiceState({
+                          ...invoiceState,
+                          customer: {
+                            ...invoiceState.customer,
+                            address: {
+                              ...invoiceState.customer.address,
+                              shipping: {
+                                ...invoiceState.customer.address.shipping,
+                                stateCode: e.target.value,
+                              },
+                            },
+                          },
+                        })
+                      },
+                    })}
+                  />
+                  <label htmlFor="shippingStateCode" className="float-label">
+                    State Code<span className="text-red-500">&#42;</span>
+                  </label>
+                </div>
+                <p className="mt-1 text-sm text-red-500">
+                  {errors.shippingStateCode ? (
+                    errors.shippingStateCode?.message
+                  ) : (
+                    <span className="select-none">&nbsp;</span>
+                  )}
+                </p>
+              </div>
+            </div>
+
+            <div className="relative flex w-2/5 flex-col">
+              <div className="relative flex w-full flex-col flex-nowrap">
+                <input
+                  id="shippingCountry"
+                  type="text"
+                  placeholder="Country"
+                  className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none disabled:bg-white"
+                  {...register("shippingCountry", {
+                    required: "Shipping Country is required",
+                    disabled: checked,
+                    onChange: (e) => {
+                      setInvoiceState({
+                        ...invoiceState,
+                        customer: {
+                          ...invoiceState.customer,
+                          address: {
+                            ...invoiceState.customer.address,
+                            shipping: {
+                              ...invoiceState.customer.address.shipping,
+                              country: e.target.value,
+                            },
+                          },
+                        },
+                      })
+                    },
+                  })}
+                />
+                <label htmlFor="shippingCountry" className="float-label">
+                  Country<span className="text-red-500">&#42;</span>
+                </label>
+              </div>
+              <p className="mt-1 text-sm text-red-500">
+                {errors.shippingCountry ? (
+                  errors.shippingCountry?.message
+                ) : (
+                  <span className="select-none">&nbsp;</span>
+                )}
+              </p>
+            </div>
+            {/* Form ends here */}
           </div>
         </div>
       </motion.div>

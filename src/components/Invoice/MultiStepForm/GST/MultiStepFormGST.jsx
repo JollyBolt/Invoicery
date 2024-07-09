@@ -1,6 +1,7 @@
 import { motion } from "framer-motion"
 import { useForm, useFieldArray } from "react-hook-form"
-import { DevTool } from "@hookform/devtools"
+import { useDispatch } from "react-redux"
+import { createInvoice } from "../../../../redux/slices/invoiceSlice"
 import InvoiceDetails from "./InvoiceDetails"
 import AddCustomer from "./AddCustomer"
 import Taxes from "./Taxes"
@@ -19,9 +20,14 @@ function MultiStepFormGST({
   setInvoiceState,
   handlePrint,
 }) {
+
+  const dispatch = useDispatch()
+
   const form = useForm({
     defaultValues: {
-      invoiceNumber: "",
+      invoiceNumber: sessionStorage.getItem("invoiceNumber")
+        ? sessionStorage.getItem("invoiceNumber")
+        : "",
       customer: "",
       product: {
         name: "",
@@ -55,10 +61,9 @@ function MultiStepFormGST({
       shippingZip: sessionStorage.getItem("shippingAddress")
         ? JSON.parse(sessionStorage.getItem("shippingAddress")).zip
         : "",
-      // discount: {
-      //   value: 0.0,
-      //   type: "percent",
-      // },
+      shippingCountry: sessionStorage.getItem("shippingAddress")
+        ? JSON.parse(sessionStorage.getItem("shippingAddress")).country
+        : "",
       taxes: {
         igst: sessionStorage.getItem("taxes")
           ? JSON.parse(sessionStorage.getItem("taxes")).igst
@@ -70,7 +75,9 @@ function MultiStepFormGST({
           ? JSON.parse(sessionStorage.getItem("taxes")).sgst
           : 0.0,
       },
-      date: "",
+      date: sessionStorage.getItem("date")
+        ? sessionStorage.getItem("date")
+        : "",
     },
     mode: "all",
   })
@@ -219,14 +226,6 @@ function MultiStepFormGST({
             // Step reduction logic
             setStep(step - 1)
             sessionStorage.setItem("step", step - 1)
-
-            // if (step === 8) {
-            //   console.log("hi")
-            //   sessionStorage.setItem(
-            //     "termsNConditions",
-            //     JSON.stringify(invoiceState.termsNConditions),
-            //   )
-            // }
           }}
           className="rounded-rounded px-3 py-1 text-xl text-black transition-colors duration-150 hover:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-transparent"
         >
@@ -246,14 +245,8 @@ function MultiStepFormGST({
               sessionStorage.setItem("step", step + 1)
             } else if (step === 9) {
               console.log(invoiceState)
+dispatch(createInvoice(invoiceState))
             }
-
-            // if (step === 8) {
-            //   sessionStorage.setItem(
-            //     "termsNConditions",
-            //     JSON.stringify(invoiceState.termsNConditions),
-            //   )
-            // }
           }}
           // disabled={setDisabled()}
           className="rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight"

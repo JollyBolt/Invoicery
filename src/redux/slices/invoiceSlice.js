@@ -43,8 +43,13 @@ const createInvoice = createAsyncThunk(
   async (body) => {
     try {
       const res = await axios.post(
-        `http://localhost:4598/api/v1/invoice/getallinvoices`,
+        `http://localhost:4598/api/v1/invoice/createinvoice`,
         body,
+        {
+          headers: {
+            Authorization: "Bearer " + getCookieValue("authToken"),
+          },
+        },
       )
       return res.data
     } catch (err) {

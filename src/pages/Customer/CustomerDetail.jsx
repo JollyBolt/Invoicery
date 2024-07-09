@@ -2,6 +2,7 @@ import React, { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchSingleCustomer } from "../../redux/slices/customerSlice"
+import { displayPhone } from "../../utils/displayPhone"
 
 const CustomerDetail = () => {
   const id = useParams().id
@@ -26,16 +27,37 @@ const CustomerDetail = () => {
   return (
     <div>
       {/* CustomerDetail */}
-      <div className="flex flex-col gap-4">
-        <div className="flex gap-4">
-          <div className="rounded-rounded bg-white p-4">Details</div>
+      <div className="flex w-full flex-col gap-4">
+        <div className="flex w-full gap-4">
+          <div className="flex w-1/2 flex-col gap-3 rounded-rounded bg-primary p-4 text-lg text-white">
+            <p className="text-5xl font-extrabold">{customerDetails.client}</p>
+            <div className="flex">
+              <p className="w-[30%] font-bold">GSTIN</p>
+              <p>{customerDetails.gstin}</p>
+            </div>
+            <div className="flex">
+              <p className="w-[30%] font-bold">EMAIL</p>
+              <p>{customerDetails.email || "-"}</p>
+            </div>
+            <div className="flex">
+              <p className="w-[30%] font-bold">PHONE</p>
+              <p>{displayPhone(customerDetails.phone)}</p>
+            </div>
+            <div className="flex">
+              <p className="w-[30%] font-bold uppercase">Contact Person</p>
+              <p>{customerDetails.contactPerson || "-"}</p>
+            </div>
+          </div>
           <div className="rounded-rounded bg-white p-4">Yearly Revenue</div>
         </div>
         <div className="flex gap-4">
-          <div className="rounded-rounded bg-white p-4">Billing Addresses</div>
+          <div className="rounded-rounded bg-white p-4">
+            <div className="flex"></div>
+          </div>
           <div className="rounded-rounded bg-white p-4">Invoices</div>
         </div>
       </div>
+
       <div className="w-full rounded-rounded bg-foreground px-4 py-4">
         <h1 className="text-5xl font-bold">{customerDetails.client}</h1>
         <div className="flex justify-between">

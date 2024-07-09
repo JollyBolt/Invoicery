@@ -164,8 +164,16 @@ const InvoicePreview = forwardRef((props, ref) => {
   }, [products])
 
   const total = useMemo(() => {
-    return subTotal + cgst * subTotal + sgst * subTotal + igst * subTotal
+    return (
+      subTotal +
+      cgst * subTotal * 0.01 +
+      sgst * subTotal * 0.01 +
+      igst * subTotal * 0.01
+    )
   }, [cgst, sgst, igst, subTotal])
+
+  const roundedTotal = Math.round(total)
+  const roundOff = Math.abs(roundedTotal - total)
 
   return (
     <div ref={ref} className="flex min-h-full flex-col bg-white p-2">
@@ -334,7 +342,7 @@ const InvoicePreview = forwardRef((props, ref) => {
         <div className="w-[64%] flex-col border-black">
           <div className="w-full border-b border-black p-1">
             <p className="text-lg font-bold">Amount in Words</p>
-            <p className="capitalize">{total && numWords(total)} Rupees Only</p>
+            <p className="capitalize">{numWords(roundedTotal)} Rupees Only</p>
           </div>
 
           <div className="w-full p-1">
@@ -369,30 +377,30 @@ const InvoicePreview = forwardRef((props, ref) => {
             <p className="w-[40%] text-right">CGST</p>
             <p className="w-[5%]">{cgst}%</p>
             <p className="w-[50%] pr-3 text-right">
-              {(subTotal * cgst).toFixed(2)}
+              {(subTotal * cgst * 0.01).toFixed(2)}
             </p>
           </div>
           <div className="flex w-full justify-between">
             <p className="w-[40%] text-right">SGST</p>
             <p className="w-[5%]">{sgst}%</p>
             <p className="w-[50%] pr-3 text-right">
-              {(subTotal * sgst).toFixed(2)}
+              {(subTotal * sgst * 0.01).toFixed(2)}
             </p>
           </div>
           <div className="flex w-full justify-between">
             <p className="w-[40%] text-right">IGST</p>
             <p className="w-[5%]">{igst}%</p>
             <p className="w-[50%] pr-3 text-right">
-              {(subTotal * igst).toFixed(2)}
+              {(subTotal * igst * 0.01).toFixed(2)}
             </p>
           </div>
           <div className="flex w-full justify-between">
             <p className="w-[50%] text-right">Round off</p>
-            <p className="w-[45%] pr-3 text-right">0</p>
+            <p className="w-[45%] pr-3 text-right">{roundOff.toFixed(2)}</p>
           </div>
           <div className="flex w-full justify-between bg-primary text-white">
             <p className="w-[30%] p-2 text-right text-lg">Total</p>
-            <p className="p-2 text-xl font-bold">Rs. {total.toFixed(2)}</p>
+            <p className="p-2 text-xl font-bold">Rs. {roundedTotal}</p>
             {/* <p className="p-2 text-xl font-bold">Rs. 550</p> */}
           </div>
         </div>
@@ -408,7 +416,7 @@ const InvoicePreview = forwardRef((props, ref) => {
           <div className="text-xs">
             <ol className="list-decimal px-5">
               {termsNConditions?.length > 0 &&
-                termsNConditions.map((tnc, i) => <li>{tnc.tnc}</li>)}
+                termsNConditions.map((tnc, i) => <li key={i}>{tnc.tnc}</li>)}
             </ol>
           </div>
         </div>

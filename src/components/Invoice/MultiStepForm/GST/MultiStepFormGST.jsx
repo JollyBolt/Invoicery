@@ -209,13 +209,13 @@ function MultiStepFormGST({
             setStep(step - 1)
             sessionStorage.setItem("step", step - 1)
 
-            if (step === 8) {
-              console.log("hi")
-              sessionStorage.setItem(
-                "termsNConditions",
-                JSON.stringify(invoiceState.termsNConditions),
-              )
-            }
+            // if (step === 8) {
+            //   console.log("hi")
+            //   sessionStorage.setItem(
+            //     "termsNConditions",
+            //     JSON.stringify(invoiceState.termsNConditions),
+            //   )
+            // }
           }}
           className="rounded-rounded px-3 py-1 text-xl text-black transition-colors duration-150 hover:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-transparent"
         >
@@ -237,12 +237,12 @@ function MultiStepFormGST({
               console.log(invoiceState)
             }
 
-            if (step === 8) {
-              sessionStorage.setItem(
-                "termsNConditions",
-                JSON.stringify(invoiceState.termsNConditions),
-              )
-            }
+            // if (step === 8) {
+            //   sessionStorage.setItem(
+            //     "termsNConditions",
+            //     JSON.stringify(invoiceState.termsNConditions),
+            //   )
+            // }
           }}
           // disabled={setDisabled()}
           className="rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight"

@@ -1,7 +1,14 @@
 import { motion } from "framer-motion"
+import { useEffect } from "react"
 
 const TermsNConditions = ({ register, tNc, invoiceState, setInvoiceState }) => {
   const { fields, append, remove } = tNc
+  useEffect(() => {
+    sessionStorage.setItem(
+      "termsNConditions",
+      JSON.stringify(invoiceState.termsNConditions),
+    )
+  }, [invoiceState.termsNConditions])
   return (
     <>
       <motion.div
@@ -28,13 +35,11 @@ const TermsNConditions = ({ register, tNc, invoiceState, setInvoiceState }) => {
                         setInvoiceState({
                           ...invoiceState,
                           termsNConditions: invoiceState.termsNConditions.map(
-                            (fieldObject, i) => {
+                            (tnc, i) => {
                               if (i === ind) {
-                                return {
-                                  tnc: e.target.value,
-                                }
+                                return e.target.value
                               } else {
-                                return fieldObject
+                                return tnc
                               }
                             },
                           ),
@@ -91,7 +96,8 @@ const TermsNConditions = ({ register, tNc, invoiceState, setInvoiceState }) => {
             setInvoiceState({
               ...invoiceState,
               termsNConditions: invoiceState.termsNConditions.concat([
-                { tnc: "" },
+                // { tnc: "" },
+                "",
               ]),
             })
           }}

@@ -34,7 +34,7 @@ function MultiStepFormGST({
         },
       },
       totalAmount: 0,
-      termsNConditions: [{ tnc: "" }],
+      termsNConditions:[{ tnc: "" }],
       billingCity: "",
       shippingStreetAddress: sessionStorage.getItem("shippingAddress")
         ? JSON.parse(sessionStorage.getItem("shippingAddress")).streetAddress
@@ -155,6 +155,7 @@ function MultiStepFormGST({
           <TermsNConditions
             register={register}
             tNc={tNc}
+            watch={watch}
             invoiceState={invoiceState}
             setInvoiceState={setInvoiceState}
           />

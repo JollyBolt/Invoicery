@@ -31,7 +31,12 @@ const AddProducts = ({
   }, [debouncedValue])
 
   useEffect(() => {
-    sessionStorage.setItem("productList", JSON.stringify(invoiceState.products))
+    if (invoiceState.products.length > 0) {
+      sessionStorage.setItem(
+        "productList",
+        JSON.stringify(invoiceState.products),
+      )
+    }
   }, [invoiceState.products])
 
   const [open, setOpen] = useState(false)

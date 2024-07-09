@@ -1,14 +1,23 @@
 import { motion } from "framer-motion"
 import { useEffect } from "react"
 
-const TermsNConditions = ({ register, tNc, invoiceState, setInvoiceState }) => {
+const TermsNConditions = ({
+  register,
+  tNc,
+  invoiceState,
+  setInvoiceState,
+  watch,
+}) => {
   const { fields, append, remove } = tNc
   useEffect(() => {
-    sessionStorage.setItem(
-      "termsNConditions",
-      JSON.stringify(invoiceState.termsNConditions),
-    )
+    if (invoiceState.termsNConditions > 0) {
+      sessionStorage.setItem(
+        "termsNConditions",
+        JSON.stringify(invoiceState.termsNConditions),
+      )
+    }
   }, [invoiceState.termsNConditions])
+
   return (
     <>
       <motion.div
@@ -32,18 +41,20 @@ const TermsNConditions = ({ register, tNc, invoiceState, setInvoiceState }) => {
                     placeholder="Terms and Conditions"
                     {...register(`termsNConditions[${ind}].tnc`, {
                       onBlur: (e) => {
-                        setInvoiceState({
-                          ...invoiceState,
-                          termsNConditions: invoiceState.termsNConditions.map(
-                            (tnc, i) => {
-                              if (i === ind) {
-                                return e.target.value
-                              } else {
-                                return tnc
-                              }
-                            },
-                          ),
-                        })
+                        setInvoiceState(
+                          {
+                            ...invoiceState,
+                            termsNConditions: invoiceState.termsNConditions.map(
+                              (tnc, i) => {
+                                if (i === ind) {
+                                  return e.target.value
+                                } else {
+                                  return tnc
+                                }
+                              },
+                            ),
+                          },
+                        )
                       },
                     })}
                   />

@@ -4,7 +4,6 @@ import { motion } from "framer-motion"
 function ShippingAddressDetails({
   register,
   errors,
-  watch,
   resetField,
   setValue,
   invoiceState,

@@ -106,7 +106,6 @@ function MultiStepFormGST({
             register={register}
             errors={errors}
             setValue={setValue}
-            watch={watch}
             invoiceState={invoiceState}
             setInvoiceState={setInvoiceState}
           />
@@ -139,7 +138,6 @@ function MultiStepFormGST({
             register={register}
             errors={errors}
             setValue={setValue}
-            watch={watch}
             resetField={resetField}
             invoiceState={invoiceState}
             setInvoiceState={setInvoiceState}
@@ -171,7 +169,6 @@ function MultiStepFormGST({
           <TermsNConditions
             register={register}
             tNc={tNc}
-            watch={watch}
             invoiceState={invoiceState}
             setInvoiceState={setInvoiceState}
           />

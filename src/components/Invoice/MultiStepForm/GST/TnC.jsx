@@ -6,7 +6,6 @@ const TermsNConditions = ({
   tNc,
   invoiceState,
   setInvoiceState,
-  watch,
 }) => {
   const { fields, append, remove } = tNc
 

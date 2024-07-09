@@ -4,7 +4,6 @@ import { useEffect } from "react"
 const InvoiceDetails = ({
   register,
   errors,
-  watch,
   setValue,
   invoiceState,
   setInvoiceState,

@@ -40,9 +40,6 @@ const InvoicePreview = forwardRef((props, ref) => {
     )
   }, [cgst, sgst, igst, subTotal])
 
-  let roundedTotal = 0
-  let roundOff = 0
-
   useEffect(() => {
     async function getUserData() {
       if (loggedIn) {
@@ -175,15 +172,12 @@ const InvoicePreview = forwardRef((props, ref) => {
   }, [])
 
   useEffect(() => {
-    roundedTotal = Math.round(total)
-    roundOff = Math.abs(roundedTotal - total)
-
     setInvoiceState((prevState) => {
-      return { ...prevState, totalAmount: roundedTotal }
+      return { ...prevState, totalAmount: Math.round(total) }
     })
   }, [products, cgst, sgst, igst])
 
-  console.log(invoiceState)
+  // console.log(invoiceState)
   return (
     <div ref={ref} className="flex min-h-full flex-col bg-white p-2">
       {/* Organisation Details */}
@@ -405,7 +399,8 @@ const InvoicePreview = forwardRef((props, ref) => {
           </div>
           <div className="flex w-full justify-between">
             <p className="w-[50%] text-right">Round off</p>
-            <p className="w-[45%] pr-3 text-right">{roundOff.toFixed(2)}</p>
+            {/* <p className="w-[45%] pr-3 text-right">{roundOff.toFixed(2)}</p> */}
+            <p className="w-[45%] pr-3 text-right">{(Math.round(total) - total).toFixed(2)}</p>
           </div>
           <div className="flex w-full justify-between bg-primary text-white">
             <p className="w-[30%] p-2 text-right text-lg">Total</p>

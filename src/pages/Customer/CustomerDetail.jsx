@@ -1,10 +1,26 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchSingleCustomer } from "../../redux/slices/customerSlice"
 import { displayPhone } from "../../utils/displayPhone"
+import LineChart from "../../components/Charts/LineChart"
+import BarChart from "../../components/Charts/BarChart"
+import {
+  FaAngleLeft,
+  FaAngleRight,
+  FaRupeeSign,
+  FaFileInvoiceDollar,
+  BsPeopleFill,
+  BsBoxSeamFill,
+} from "../../assets"
 
 const CustomerDetail = () => {
+  const [currentYear, setCurrentYear] = useState(2024)
+  const [chart, setChart] = useState("line")
+  const handleChange = (e) => {
+    setChart(e.target.value)
+  }
+
   const id = useParams().id
   const dispatch = useDispatch()
   const { customers, loading } = useSelector(
@@ -48,7 +64,36 @@ const CustomerDetail = () => {
               <p>{customerDetails.contactPerson || "-"}</p>
             </div>
           </div>
-          <div className="rounded-rounded bg-white p-4">Yearly Revenue</div>
+
+          <div className="w-1/2 rounded-rounded bg-white p-4">
+            <div className="mb-3 flex items-center justify-between">
+              <div className="flex items-center gap-3 text-xl">
+                <button onClick={() => setCurrentYear((prev) => prev - 1)}>
+                  <FaAngleLeft color="#2807a0" />
+                </button>
+                <span className="font-numbers font-bold uppercase text-black">
+                  <span className="font-numbers">{currentYear}</span> Revenue
+                </span>
+                <button onClick={() => setCurrentYear((prev) => prev + 1)}>
+                  <FaAngleRight color="#2807a0" />
+                </button>
+              </div>
+              <select
+                id="chartType"
+                value={chart}
+                onChange={handleChange}
+                className="mt-1 block w-[13%] rounded-md border border-gray-300 px-2 py-2 text-base focus:outline-none sm:text-sm"
+              >
+                <option value="bar">Bar</option>
+                <option value="line">Line</option>
+              </select>
+            </div>
+            {chart == "line" ? (
+              <LineChart currentYear={currentYear} />
+            ) : (
+              <BarChart currentYear={currentYear} />
+            )}
+          </div>
         </div>
         <div className="flex gap-4">
           <div className="rounded-rounded bg-white p-4">

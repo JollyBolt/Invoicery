@@ -22,12 +22,16 @@ const InvoicePreview = forwardRef((props, ref) => {
     //For invoice details
     const invoiceNumber = sessionStorage.getItem("invoiceNumber")
     if (invoiceNumber) {
-      const invoiceDate = sessionStorage.getItem("date")
+      const date = sessionStorage.getItem("date")
       setInvoiceState((prevState) => {
         return {
           ...prevState,
           invoiceNumber,
-          invoiceDate: new Date(invoiceDate),
+          invoiceDate: {
+            day: new Date(date).getDate(),
+            month: new Date(date).getMonth() + 1,
+            year: new Date(date).getFullYear(),
+          },
         }
       })
     }
@@ -371,8 +375,8 @@ const InvoicePreview = forwardRef((props, ref) => {
             <p className="text-lg font-bold">Terms and Conditions</p>
             <span className="text-sm">E & O.E</span>
           </div>
-          <div className="text-sm">
-            <ol>
+          <div className="text-xs">
+            <ol className="list-decimal px-5">
               {termsNConditions?.length > 0 &&
                 termsNConditions.map((tnc, i) => <li>{tnc.tnc}</li>)}
             </ol>

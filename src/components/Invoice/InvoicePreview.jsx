@@ -167,11 +167,6 @@ const InvoicePreview = forwardRef((props, ref) => {
     return subTotal + cgst * subTotal + sgst * subTotal + igst * subTotal
   }, [cgst, sgst, igst, subTotal])
 
-  // setInvoiceState({
-  //   ...invoiceState,
-  //   totalAmount:total
-  // })
-
   return (
     <div ref={ref} className="flex min-h-full flex-col bg-white p-2">
       {/* Organisation Details */}
@@ -339,7 +334,7 @@ const InvoicePreview = forwardRef((props, ref) => {
         <div className="w-[64%] flex-col border-black">
           <div className="w-full border-b border-black p-1">
             <p className="text-lg font-bold">Amount in Words</p>
-            <p className="capitalize">{numWords(total)} Rupees Only</p>
+            <p className="capitalize">{total && numWords(total)} Rupees Only</p>
           </div>
 
           <div className="w-full p-1">

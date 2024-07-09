@@ -54,7 +54,7 @@ function CreateInvoice() {
       igst: 0,
     },
     termsNConditions: [
-      
+      ''
     ],
   })
   return (

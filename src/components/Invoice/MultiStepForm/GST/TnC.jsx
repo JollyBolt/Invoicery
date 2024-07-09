@@ -10,11 +10,31 @@ const TermsNConditions = ({
 }) => {
   const { fields, append, remove } = tNc
   useEffect(() => {
-    if (invoiceState.termsNConditions > 0) {
+    if (
+      //to prevent setting sessionStorage on reload
+      invoiceState.termsNConditions.length >= 1 &&
+      invoiceState.termsNConditions[0] !== ""
+    ) {
       sessionStorage.setItem(
         "termsNConditions",
         JSON.stringify(invoiceState.termsNConditions),
       )
+    } else if (
+      //if first input is empty and there are more than one inputs
+      invoiceState.termsNConditions.length > 1 &&
+      invoiceState.termsNConditions[0] === ""
+    ) {
+      sessionStorage.setItem(
+        "termsNConditions",
+        JSON.stringify(invoiceState.termsNConditions),
+      )
+    }
+    if (
+      //remove from sessionStorage if after all user changes there is only 1 input field which is empty,i.e., the initial state
+      invoiceState.termsNConditions.length === 1 &&
+      invoiceState.termsNConditions[0] === ""
+    ) {
+      sessionStorage.removeItem("termsNConditions")
     }
   }, [invoiceState.termsNConditions])
 
@@ -34,27 +54,25 @@ const TermsNConditions = ({
                 className="flex w-full flex-nowrap justify-between gap-x-2"
                 key={field.id}
               >
-                <div className="relative flex w-4/5 flex-col overflow-visible">
-                  <input
+                <div className="relative flex w-10/12 flex-col overflow-visible">
+                  <textarea rows={1}
                     className="peer w-full rounded-md border px-3 py-2 text-lg transition-colors duration-150 focus:border-black focus:outline-none"
                     type="text"
                     placeholder="Terms and Conditions"
                     {...register(`termsNConditions[${ind}].tnc`, {
                       onBlur: (e) => {
-                        setInvoiceState(
-                          {
-                            ...invoiceState,
-                            termsNConditions: invoiceState.termsNConditions.map(
-                              (tnc, i) => {
-                                if (i === ind) {
-                                  return e.target.value
-                                } else {
-                                  return tnc
-                                }
-                              },
-                            ),
-                          },
-                        )
+                        setInvoiceState({
+                          ...invoiceState,
+                          termsNConditions: invoiceState.termsNConditions.map(
+                            (tnc, i) => {
+                              if (i === ind) {
+                                return e.target.value
+                              } else {
+                                return tnc
+                              }
+                            },
+                          ),
+                        })
                       },
                     })}
                   />
@@ -62,7 +80,7 @@ const TermsNConditions = ({
 
                 {ind > 0 ? ( //can't remove all fields, atleast one field has to be added
                   <button
-                    className="flex w-fit flex-nowrap items-center justify-center rounded-full p-2 text-xl text-white transition-colors hover:bg-neutral-200"
+                    className="flex w-fit flex-nowrap  justify-center text-white "
                     type="button"
                     onClick={() => {
                       remove(ind)
@@ -76,7 +94,7 @@ const TermsNConditions = ({
                       })
                     }}
                   >
-                    <span className="bg-transparent px-2 text-xl font-light text-red-500">
+                    <span className="bg-transparent px-4 text-xl font-light py-2  rounded-full transition-colors  hover:bg-neutral-200 text-red-500">
                       X
                     </span>
                   </button>

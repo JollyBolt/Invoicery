@@ -34,7 +34,11 @@ function MultiStepFormGST({
         },
       },
       totalAmount: 0,
-      termsNConditions: [{ tnc: "" }],
+      termsNConditions: sessionStorage.getItem("termsNConditions")
+        ? JSON.parse(sessionStorage.getItem("termsNConditions")).map((tnc) => {
+            return { tnc }
+          })
+        : [{ tnc: "" }],
       billingCity: "",
       shippingStreetAddress: sessionStorage.getItem("shippingAddress")
         ? JSON.parse(sessionStorage.getItem("shippingAddress")).streetAddress

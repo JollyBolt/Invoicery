@@ -7,7 +7,7 @@ function CreateInvoice() {
   const componentRef = useRef()
   const [invoiceState, setInvoiceState] = useState({
     invoiceNumber: "",
-    invoiceDate: { day: "", month: "", year: "" },
+    invoiceDate: { day: "", month: 0, year: "" },
     template: "gst",
     customer: {
       name: "",

@@ -103,6 +103,41 @@ const InvoicePreview = forwardRef((props, ref) => {
         }
       })
     }
+
+    //For Products
+    const products = JSON.parse(sessionStorage.getItem("productList"))
+    if (products) {
+      setInvoiceState((prevState) => {
+        return {
+          ...prevState,
+          products,
+        }
+      })
+    }
+
+    //For taxes
+    const taxes = JSON.parse(sessionStorage.getItem("taxes"))
+    if (taxes) {
+      setInvoiceState((prevState) => {
+        return {
+          ...prevState,
+          taxes,
+        }
+      })
+    }
+
+    //For terms and conditions
+    const termsNConditions = JSON.parse(
+      sessionStorage.getItem("termsNConditions"),
+    )
+    if (termsNConditions) {
+      setInvoiceState((prevState) => {
+        return {
+          ...prevState,
+          termsNConditions,
+        }
+      })
+    }
   }, [])
 
   const { invoiceState, setInvoiceState } = props

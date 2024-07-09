@@ -36,6 +36,8 @@ const AddProducts = ({
         "productList",
         JSON.stringify(invoiceState.products),
       )
+    } else {
+      sessionStorage.removeItem("productList")
     }
   }, [invoiceState.products])
 

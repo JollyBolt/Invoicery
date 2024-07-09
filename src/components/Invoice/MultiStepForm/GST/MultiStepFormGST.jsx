@@ -20,7 +20,6 @@ function MultiStepFormGST({
   setInvoiceState,
   handlePrint,
 }) {
-
   const dispatch = useDispatch()
 
   const form = useForm({
@@ -44,7 +43,7 @@ function MultiStepFormGST({
         ? JSON.parse(sessionStorage.getItem("termsNConditions")).map((tnc) => {
             return { tnc }
           })
-        : [{ tnc: "" }],
+        : [],
       billingCity: "",
       shippingStreetAddress: sessionStorage.getItem("shippingAddress")
         ? JSON.parse(sessionStorage.getItem("shippingAddress")).streetAddress
@@ -245,7 +244,7 @@ function MultiStepFormGST({
               sessionStorage.setItem("step", step + 1)
             } else if (step === 9) {
               console.log(invoiceState)
-dispatch(createInvoice(invoiceState))
+              dispatch(createInvoice(invoiceState))
             }
           }}
           // disabled={setDisabled()}

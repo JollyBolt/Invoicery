@@ -9,6 +9,40 @@ const InvoicePreview = forwardRef((props, ref) => {
   const { loggedIn } = useSelector((state) => state.auth)
   const { user, loading } = useSelector((state) => state.user)
 
+  const { invoiceState, setInvoiceState } = props
+  const {
+    invoiceNumber,
+    invoiceDate,
+    customer,
+    products,
+    taxes,
+    termsNConditions,
+    totalAmount,
+  } = invoiceState
+
+  const { name, contactPerson, gstin, phone, address } = customer
+  const { billing, shipping } = address
+  const { cgst, sgst, igst } = taxes
+
+  let subTotal = useMemo(() => {
+    return products.reduce(
+      (accumulator, product) => accumulator + product.amount,
+      0,
+    )
+  }, [products])
+
+  let total = useMemo(() => {
+    return (
+      subTotal +
+      cgst * subTotal * 0.01 +
+      sgst * subTotal * 0.01 +
+      igst * subTotal * 0.01
+    )
+  }, [cgst, sgst, igst, subTotal])
+
+  let roundedTotal = 0
+  let roundOff = 0
+
   useEffect(() => {
     async function getUserData() {
       if (loggedIn) {
@@ -140,41 +174,16 @@ const InvoicePreview = forwardRef((props, ref) => {
     }
   }, [])
 
-  const { invoiceState, setInvoiceState } = props
-  const {
-    invoiceNumber,
-    invoiceDate,
-    customer,
-    products,
-    totalAmount,
-    taxes,
-    termsNConditions,
-  } = invoiceState
+  useEffect(() => {
+    roundedTotal = Math.round(total)
+    roundOff = Math.abs(roundedTotal - total)
 
-  const { name, contactPerson, gstin, phone, address } = customer
-  const { billing, shipping } = address
-  // console.log(shipping)
-  const { cgst, sgst, igst } = taxes
+    setInvoiceState((prevState) => {
+      return { ...prevState, totalAmount: roundedTotal }
+    })
+  }, [products, cgst, sgst, igst])
 
-  const subTotal = useMemo(() => {
-    return products.reduce(
-      (accumulator, product) => accumulator + product.amount,
-      0,
-    )
-  }, [products])
-
-  const total = useMemo(() => {
-    return (
-      subTotal +
-      cgst * subTotal * 0.01 +
-      sgst * subTotal * 0.01 +
-      igst * subTotal * 0.01
-    )
-  }, [cgst, sgst, igst, subTotal])
-
-  const roundedTotal = Math.round(total)
-  const roundOff = Math.abs(roundedTotal - total)
-
+  console.log(invoiceState)
   return (
     <div ref={ref} className="flex min-h-full flex-col bg-white p-2">
       {/* Organisation Details */}
@@ -342,7 +351,7 @@ const InvoicePreview = forwardRef((props, ref) => {
         <div className="w-[64%] flex-col border-black">
           <div className="w-full border-b border-black p-1">
             <p className="text-lg font-bold">Amount in Words</p>
-            <p className="capitalize">{numWords(roundedTotal)} Rupees Only</p>
+            <p className="capitalize">{numWords(totalAmount)} Rupees Only</p>
           </div>
 
           <div className="w-full p-1">
@@ -400,7 +409,7 @@ const InvoicePreview = forwardRef((props, ref) => {
           </div>
           <div className="flex w-full justify-between bg-primary text-white">
             <p className="w-[30%] p-2 text-right text-lg">Total</p>
-            <p className="p-2 text-xl font-bold">Rs. {roundedTotal}</p>
+            <p className="p-2 text-xl font-bold">Rs. {totalAmount}</p>
             {/* <p className="p-2 text-xl font-bold">Rs. 550</p> */}
           </div>
         </div>
@@ -416,7 +425,7 @@ const InvoicePreview = forwardRef((props, ref) => {
           <div className="text-xs">
             <ol className="list-decimal px-5">
               {termsNConditions?.length > 0 &&
-                termsNConditions.map((tnc, i) => <li key={i}>{tnc.tnc}</li>)}
+                termsNConditions.map((tnc, i) => <li key={i}>{tnc}</li>)}
             </ol>
           </div>
         </div>

@@ -63,17 +63,20 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                     Add a Product
                   </h3>
                   {/* if there is a button in form, it will close the modal */}
-                  <button
+                  <motion.button
+                    initial={{ rotate: "0deg" }}
+                    whileHover={{ rotate: "180deg" }}
+                    transition={{ type: "spring", duration: 0.7 }}
                     type="button"
                     onClick={() => {
                       clearErrors()
                       reset()
                       setIsOpen(false)
                     }}
-                    className="btn btn-circle btn-ghost btn-sm text-lg"
+                    className="rounded-full px-3 py-1 text-xl font-extralight text-red-500"
                   >
                     ✕
-                  </button>
+                  </motion.button>
                 </div>
                 <hr />
                 <div className="my-6 space-y-4">

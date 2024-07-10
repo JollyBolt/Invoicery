@@ -115,19 +115,21 @@ export default function CreateCustomer({ open, setOpen }) {
                   <h3 className="font-sans text-3xl font-extrabold">
                     Add a Customer
                   </h3>
-                  {/* <form method="dialog"> */}
-                  {/* if there is a button in form, it will close the modal */}
-                  <button
+
+                  <motion.button
+                    initial={{ rotate: "0deg" }}
+                    whileHover={{ rotate: "180deg" }}
+                    transition={{ type: "spring", duration: 0.7 }}
                     type="button"
                     onClick={() => {
                       clearErrors()
                       reset()
                       setOpen(false)
                     }}
-                    className="btn btn-circle btn-ghost btn-sm text-lg"
+                    className="rounded-full px-3 py-1 text-xl font-extralight text-red-500"
                   >
                     ✕
-                  </button>
+                  </motion.button>
                   {/* </form> */}
                 </div>
                 <hr />
@@ -408,7 +410,7 @@ export default function CreateCustomer({ open, setOpen }) {
                     </div>
                   </div>
                 </div>
-                <div className="mb-3 flex w-full justify-end gap-x-2">
+                <div className="mb-3 flex w-full justify-end gap-x-3">
                   <button
                     type="button"
                     onClick={() => {
@@ -416,7 +418,7 @@ export default function CreateCustomer({ open, setOpen }) {
                       reset()
                       setOpen(false)
                     }}
-                    className="text-md btn h-fit w-fit rounded-rounded border-none bg-transparent text-black shadow-none hover:border-none hover:bg-slate-300"
+                    className="text-md h-fit w-fit rounded-rounded border-none bg-transparent p-2 shadow-none transition-colors duration-150 hover:border-none hover:bg-gray-300"
                   >
                     Cancel
                   </button>

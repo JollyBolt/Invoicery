@@ -400,7 +400,9 @@ const InvoicePreview = forwardRef((props, ref) => {
           <div className="flex w-full justify-between">
             <p className="w-[50%] text-right">Round off</p>
             {/* <p className="w-[45%] pr-3 text-right">{roundOff.toFixed(2)}</p> */}
-            <p className="w-[45%] pr-3 text-right">{(Math.round(total) - total).toFixed(2)}</p>
+            <p className="w-[45%] pr-3 text-right">
+              {(Math.round(total) - total).toFixed(2)}
+            </p>
           </div>
           <div className="flex w-full justify-between bg-primary text-white">
             <p className="w-[30%] p-2 text-right text-lg">Total</p>

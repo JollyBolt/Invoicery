@@ -41,6 +41,7 @@ const Solution = ({
         setOpen(index)
         setTemplate(index)
         setInvoiceState({ ...invoiceState, template: index })
+        sessionStorage.setItem('template',index)
       }}
       className="relative cursor-pointer overflow-hidden rounded-lg p-1"
     >

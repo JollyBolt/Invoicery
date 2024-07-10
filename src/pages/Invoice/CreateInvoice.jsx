@@ -1,9 +1,21 @@
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import InvoicePreview from "../../components/Invoice/InvoicePreview"
 import InvoiceForm from "../../components/Invoice/InvoiceForm"
 
 function CreateInvoice() {
-  const [template, setTemplate] = useState("gst")
+  const [template, setTemplate] = useState(
+    sessionStorage.getItem("template")
+      ? sessionStorage.getItem("template")
+      : "gst",
+  )
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("template")) {
+      sessionStorage.setItem("template", template)
+    }
+    console.log(template)
+  }, [])
+
   const componentRef = useRef()
   const [invoiceState, setInvoiceState] = useState({
     invoiceNumber: "",

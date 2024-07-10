@@ -11,6 +11,7 @@ const AddProducts = ({
   register,
   watch,
   setValue,
+  resetField,
   invoiceState,
   setInvoiceState,
 }) => {
@@ -73,6 +74,7 @@ const AddProducts = ({
           watch={watch}
           errors={errors}
           open={open}
+          resetField={resetField}
           setOpen={setOpen}
           invoiceState={invoiceState}
           setInvoiceState={setInvoiceState}
@@ -88,7 +90,7 @@ const AddProducts = ({
           </button>
         </div>
 
-        <div className="gap5 flex w-full flex-col">
+        <div className="gap-5 flex w-full flex-col">
           {invoiceState.products &&
             invoiceState.products.map((product, ind) => {
               return (

@@ -8,13 +8,15 @@ function DiscountInput({
   register,
   setValue,
   watch,
+  resetField,
   product,
 }) {
   const [selected, setSelected] = useState("percent")
   const TOGGLE_CLASSES =
     "font-medium flex items-center cursor-pointer px-3 md:pl-3 md:pr-3.5 text-lg py-2 md:py-1.5 transition-colors relative z-10"
   useEffect(() => {
-    setValue("product.discount.value", 0)
+    // setValue("product.discount.value", 0)
+    resetField("product.discount.value")
     setValue("product.finalPrice", product.price)
     setValue("product.amount", product.price * watch("product.quantity"))
   }, [selected])
@@ -23,27 +25,39 @@ function DiscountInput({
       <div className="relative flex w-full flex-col flex-nowrap">
         <input
           type="number"
+          min={0}
           id="discount"
           placeholder="Discount"
           {...register(`product.discount.value`, {
             valueAsNumber: true,
             onBlur: (e) => {
-              if (selected === "rupee") {
+              if (
+                watch("product.discount.value") !== "" &&
+                !isNaN(watch("product.discount.value"))
+              ) {
+                if (selected === "rupee") {
+                  setValue(
+                    "product.finalPrice",
+                    product.price - watch("product.discount.value"),
+                  )
+                } else {
+                  setValue(
+                    "product.finalPrice",
+                    product.price -
+                      (product.price * watch("product.discount.value")) / 100,
+                  )
+                }
                 setValue(
-                  "product.finalPrice",
-                  product.price - watch("product.discount.value"),
+                  "product.amount",
+                  watch("product.finalPrice") * watch("product.quantity"),
                 )
               } else {
+                setValue("product.finalPrice", product.price)
                 setValue(
-                  "product.finalPrice",
-                  product.price -
-                    (product.price * watch("product.discount.value")) / 100,
+                  "product.amount",
+                  product.price * watch("product.quantity"),
                 )
               }
-              setValue(
-                "product.amount",
-                watch("product.finalPrice") * watch("product.quantity"),
-              )
               // setInvoiceState({
               //   ...invoiceState,
               //   products: invoiceState.products.map((FieldObject, i) => {
@@ -62,7 +76,7 @@ function DiscountInput({
               // })
             },
           })}
-          min={0.0}
+          // min={0.0}
           // className="border-1 w-full rounded-l-rounded border-y border-l border-gray-200 pl-2 text-lg focus:outline-none"
           className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
         />

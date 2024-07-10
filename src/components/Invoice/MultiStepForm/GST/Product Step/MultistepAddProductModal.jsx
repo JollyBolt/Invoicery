@@ -9,6 +9,7 @@ function MultistepAddProductModal({
   open,
   setOpen,
   setInvoiceState,
+  resetField,
   register,
   watch,
   setValue,
@@ -29,7 +30,7 @@ function MultistepAddProductModal({
     getRecomendations()
   }, [debouncedValue])
 
-  const onSubmit =async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
     setInvoiceState((prevState) => {
       return {
@@ -44,7 +45,9 @@ function MultistepAddProductModal({
             finalPrice: watch("product.finalPrice"),
             amount: watch("product.amount"),
             discount: {
-              value: watch("product.discount.value"),
+              value: isNaN(watch("product.discount.value"))
+                ? 0
+                : watch("product.discount.value"),
               type: watch("product.discount.type"),
             },
           },
@@ -79,7 +82,7 @@ function MultistepAddProductModal({
                     whileHover={{ rotate: "180deg" }}
                     transition={{ type: "spring", duration: 0.7 }}
                     type="button"
-                    className="rounded-full px-3 py-1 text-xl font-extralight text-red-500"
+                    className="flex items-center justify-center rounded-full px-3 pb-2 pt-1 text-2xl text-red-500"
                     onClick={() => {
                       setValue(`product.name`, "")
                       setValue(`product.quantity`, 1)
@@ -88,7 +91,7 @@ function MultistepAddProductModal({
                       setOpen(false)
                     }}
                   >
-                    X
+                    x
                   </motion.button>
                 </div>
                 <form noValidate className="">
@@ -277,6 +280,7 @@ function MultistepAddProductModal({
                           watch={watch}
                           product={selectedProduct}
                           invoiceState={invoiceState}
+                          resetField={resetField}
                           setInvoiceState={setInvoiceState}
                         />
                       </div>
@@ -306,7 +310,7 @@ function MultistepAddProductModal({
                         type="button"
                         className="rounded-rounded bg-gray-200 px-2 py-1 transition-colors duration-200 hover:bg-gray-300"
                       >
-                        Change Customer
+                        Change Product
                       </button>
                       <motion.button
                         type="button"

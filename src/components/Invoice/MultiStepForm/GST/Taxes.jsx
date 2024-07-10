@@ -47,8 +47,9 @@ const Taxes = ({
                   },
                 })}
                 min={0.0}
+                placeholder="0"
                 type="number"
-                className="h-fit w-14 text-center text-lg outline-none focus:outline-none"
+                className="h-fit w-14 text-center text-lg outline-none focus:outline-none focus:placeholder:opacity-0"
               />
               <span className="pointer-events-none pr-2 text-lg text-gray-400">
                 %
@@ -77,8 +78,9 @@ const Taxes = ({
                   },
                 })}
                 min={0.0}
+                placeholder="0"
                 type="number"
-                className="h-fit w-14 text-center text-lg outline-none focus:outline-none"
+                className="h-fit w-14 text-center text-lg outline-none focus:outline-none focus:placeholder:opacity-0"
               />
               <span className="pointer-events-none pr-2 text-lg text-gray-400">
                 %
@@ -108,7 +110,8 @@ const Taxes = ({
                 })}
                 min={0.0}
                 type="number"
-                className="h-fit w-14 text-center text-lg outline-none focus:outline-none"
+                placeholder="0"
+                className="h-fit w-14 text-center text-lg outline-none focus:outline-none focus:placeholder:opacity-0"
               />
               <span className="pointer-events-none pr-2 text-lg text-gray-400">
                 %

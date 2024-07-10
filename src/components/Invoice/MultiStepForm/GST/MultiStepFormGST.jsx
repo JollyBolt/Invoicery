@@ -39,7 +39,7 @@ function MultiStepFormGST({
         finalPrice: 0,
         amount: 0,
         discount: {
-          value: 0,
+          value: "",
           type: "percent",
         },
       },
@@ -69,15 +69,24 @@ function MultiStepFormGST({
         ? JSON.parse(sessionStorage.getItem("shippingAddress")).country
         : "",
       taxes: {
-        igst: sessionStorage.getItem("taxes")
-          ? JSON.parse(sessionStorage.getItem("taxes")).igst
-          : 0.0,
-        cgst: sessionStorage.getItem("taxes")
-          ? JSON.parse(sessionStorage.getItem("taxes")).cgst
-          : 0.0,
-        sgst: sessionStorage.getItem("taxes")
-          ? JSON.parse(sessionStorage.getItem("taxes")).sgst
-          : 0.0,
+        // igst: sessionStorage.getItem("taxes")
+        //   ? JSON.parse(sessionStorage.getItem("taxes")).igst
+        //   : 0.0,
+        // cgst: sessionStorage.getItem("taxes")
+        //   ? JSON.parse(sessionStorage.getItem("taxes")).cgst
+        //   : 0.0,
+        // sgst: sessionStorage.getItem("taxes")
+        //   ? JSON.parse(sessionStorage.getItem("taxes")).sgst
+        //   : 0.0,
+        igst:
+          sessionStorage.getItem("taxes") &&
+          JSON.parse(sessionStorage.getItem("taxes")).igst,
+        cgst:
+          sessionStorage.getItem("taxes") &&
+          JSON.parse(sessionStorage.getItem("taxes")).cgst,
+        sgst:
+          sessionStorage.getItem("taxes") &&
+          JSON.parse(sessionStorage.getItem("taxes")).sgst,
       },
       date: sessionStorage.getItem("date")
         ? sessionStorage.getItem("date")
@@ -154,6 +163,7 @@ function MultiStepFormGST({
             register={register}
             errors={errors}
             setValue={setValue}
+            resetField={resetField}
             watch={watch}
             invoiceState={invoiceState}
             setInvoiceState={setInvoiceState}

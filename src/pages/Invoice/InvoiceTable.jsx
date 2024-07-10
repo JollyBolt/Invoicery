@@ -54,7 +54,7 @@ const InvoiceTable = () => {
                   autoComplete="off"
                   value={search}
                   name="search"
-                  placeholder="Search Products"
+                  placeholder="Search by invoice number or customer"
                   id="searchProduct"
                   className="inline w-full bg-transparent py-0 text-black outline-none active:outline-none"
                 />

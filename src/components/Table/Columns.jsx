@@ -25,7 +25,6 @@ export const productColumns = [
   {
     id: "col4",
     header: "Price(INR)",
-    // accessorKey: "price",
     cell: (row) => {
       return row.row.original.price.toLocaleString(undefined, {
         minimumFractionDigits: 2,
@@ -46,7 +45,7 @@ export const customerColumns = [
     cell: (row) => {
       const pageIndex = row.table.getState().pagination.pageIndex
       const pageSize = row.table.getState().pagination.pageSize
-      return pageIndex*pageSize + row.row.index + 1
+      return pageIndex * pageSize + row.row.index + 1
     },
   },
   {
@@ -88,19 +87,30 @@ export const invoiceColumns = [
   {
     id: "col4",
     header: "Amount",
-    accessorKey: "amount",
+    // accessorKey: "totalAmount",
+    cell: (row) => {
+      return row.row.original.totalAmount.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
+    },
   },
   {
     id: "col5",
     header: "Date",
     cell: (row) => {
+      console.log(row.row.original)
       return (
-        row.row.date.day + "/" + row.row.date.month + "/" + row.row.date.year
+        row.row.original.invoiceDate.day +
+        "/" +
+        row.row.original.invoiceDate.month +
+        "/" +
+        row.row.original.invoiceDate.year
       )
     },
   },
   {
-    id: "col5",
+    id: "col6",
     cell: (row) => <InvoiceActionsDropdown row={row.row} />,
   },
 ]

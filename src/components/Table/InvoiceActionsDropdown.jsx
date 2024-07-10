@@ -1,9 +1,13 @@
 import React, { useEffect, useRef, useState } from "react"
 import { BsThreeDotsVertical } from "../../assets"
+import { useDispatch } from "react-redux"
+import { deleteInvoice } from "../../redux/slices/invoiceSlice"
 
 const InvoiceActionsDropdown = ({ row }) => {
   const [open, setOpen] = useState(false)
   const ref = useRef()
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     // Function to handle the click event
@@ -53,6 +57,8 @@ const InvoiceActionsDropdown = ({ row }) => {
           className="border p-2 hover:bg-gray-50"
           onClick={(e) => {
             e.stopPropagation()
+            dispatch(deleteInvoice(row.original._id))
+            location.reload()
             setOpen((prev) => !prev)
           }}
         >

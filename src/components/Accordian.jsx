@@ -8,8 +8,6 @@ const AccordionSolutions = ({ setTemplate, setInvoiceState, invoiceState }) => {
           <Solution
             {...q}
             key={q.id}
-            open={open}
-            setOpen={setOpen}
             index={q.id}
             setTemplate={setTemplate}
             setInvoiceState={setInvoiceState}

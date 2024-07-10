@@ -6,9 +6,10 @@ import { deleteCustomer } from "../../redux/slices/customerSlice"
 import EditCustomer from "../Customer/EditCustomer"
 
 const CustomerActionsDropdown = ({ row }) => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false) //State to manage the dropdown
   const navigate = useNavigate()
-  const [modalOpen, setModalOpen] = useState(false)
+
+  const [modalOpen, setModalOpen] = useState(false) // This is to manage the edit modal
   const dispatch = useDispatch()
   const ref = useRef()
 

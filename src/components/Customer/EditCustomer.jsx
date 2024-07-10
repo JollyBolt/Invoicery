@@ -37,7 +37,7 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
     mode: "all",
     resolver: yupResolver(customerSchema),
   })
-  const { register, handleSubmit, reset, clearErrors, formState } = form
+  const { register, handleSubmit, reset, clearErrors, formState,watch } = form
   const { errors, isSubmitting, isDirty } = formState
   const dispatch = useDispatch()
   const onSubmit = async (e) => {

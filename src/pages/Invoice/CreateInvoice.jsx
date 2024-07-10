@@ -13,13 +13,13 @@ function CreateInvoice() {
     if (!sessionStorage.getItem("template")) {
       sessionStorage.setItem("template", template)
     }
-    console.log(template)
   }, [])
 
   const componentRef = useRef()
   const [invoiceState, setInvoiceState] = useState({
     invoiceNumber: "",
     invoiceDate: { day: "", month: 0, year: "" },
+    purchaseOrder: "",
     template: "gst",
     customer: {
       name: "",

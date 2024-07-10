@@ -56,6 +56,7 @@ const InvoiceDetails = ({
               )}
             </p>
           </div>
+
           <div>
             <div className="relative flex w-full flex-col flex-nowrap">
               <input
@@ -100,6 +101,37 @@ const InvoiceDetails = ({
               )}
             </p>
           </div>
+
+          <div>
+            <div className="relative flex w-full flex-col flex-nowrap">
+              <input
+                {...register("purchaseOrder", {
+                  onBlur: (e) => {
+                    sessionStorage.setItem("purchaseOrder", e.target.value)
+                    setInvoiceState({
+                      ...invoiceState,
+                      purchaseOrder: e.target.value,
+                    })
+                  },
+                })}
+                type="text"
+                id="purchaseOrder"
+                placeholder="Purchase Order"
+                className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+              />
+              <label htmlFor="purchaseOrder" className="float-label">
+                Purchase Order
+              </label>
+            </div>
+            <p className="mt-1 text-sm text-red-500">
+              {errors.purchaseOrder ? (
+                errors.purchaseOrder?.message
+              ) : (
+                <span className="select-none">&nbsp;</span>
+              )}
+            </p>
+          </div>
+          {/* Form ends here */}
         </div>
       </motion.div>
     </>

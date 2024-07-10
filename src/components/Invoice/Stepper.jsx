@@ -3,33 +3,6 @@ import { useAnimate, motion } from "framer-motion"
 
 const Stepper = ({ step, template }) => {
   const [scope, animate] = useAnimate()
-  // const initialAnimate = async () => {
-  //   if (template === "gst") {
-  //     await animate(scope.current, { scaleX: 0 }), { duration: 0.01, delay: 0 }
-  //     await animate(
-  //       scope.current,
-  //       { backgroundColor: "var(--primary)" },
-  //       { duration: 0.01, delay: 0 },
-  //     )
-  //     // await animate(
-  //     //   scope.current,
-  //     //   { scaleX: 0.11 },
-  //     //   { duration: 0.005, delay: 0 },
-  //     // )
-  //   } else if (template === "food") {
-  //     await animate(scope.current, { scaleX: 0 }), { delay: 0, duration: 0.01 }
-  //     await animate(
-  //       scope.current,
-  //       { backgroundColor: "var(--primary)" },
-  //       { duration: 0.01, delay: 0 },
-  //     )
-  //     // await animate(
-  //     //   scope.current,
-  //     //   { scaleX: 0.25 },
-  //     //   { duration: 0.005, delay: 0 },
-  //     // )
-  //   }
-  // }
 
   useEffect(() => {
     if (template === "gst") {
@@ -90,7 +63,7 @@ const Stepper = ({ step, template }) => {
     }
   }
 
-  const foodFormSwitch = () => {
+  const simpleFormSwitch = () => {
     switch (step) {
       case 1:
         return "Choose Template"
@@ -110,7 +83,7 @@ const Stepper = ({ step, template }) => {
       case "gst":
         return gstFormSwitch()
       case "simple":
-        return foodFormSwitch()
+        return simpleFormSwitch()
     }
   }
 

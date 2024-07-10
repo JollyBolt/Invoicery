@@ -13,17 +13,34 @@ function InvoiceForm({
   printDocRef,
 }) {
   const [step, setStep] = useState(
-    sessionStorage.getItem("step") ? Number(sessionStorage.getItem("step")) : 1
+    sessionStorage.getItem("step") ? Number(sessionStorage.getItem("step")) : 1,
   )
   useEffect(() => {
     if (!sessionStorage.getItem("step")) {
-    sessionStorage.setItem("step", step)
+      sessionStorage.setItem("step", step)
     }
-  },[])
+  }, [])
 
   const handlePrint = useReactToPrint({
     content: () => printDocRef.current,
   })
+
+  const formSwitch = () => {
+    switch (template) {
+      case "gst":
+        return (
+          <MultiStepFormGST
+            step={step}
+            setStep={setStep}
+            invoiceState={invoiceState}
+            setInvoiceState={setInvoiceState}
+            handlePrint={handlePrint}
+          />
+        )
+      // case "simple":
+      //   return <SimpleFormGST step={step} setStep={setStep} invoiceState={invoiceState} setInvoiceState={setInvoiceState} handlePrint={handlePrint} />
+    }
+  }
   return (
     <>
       <Stepper step={step} template={template} />
@@ -65,13 +82,7 @@ function InvoiceForm({
             </div>
           </div>
         ) : (
-          <MultiStepFormGST
-            step={step}
-            setStep={setStep}
-            handlePrint={handlePrint}
-            invoiceState={invoiceState}
-            setInvoiceState={setInvoiceState}
-          />
+          formSwitch()
         )}
       </div>
     </>

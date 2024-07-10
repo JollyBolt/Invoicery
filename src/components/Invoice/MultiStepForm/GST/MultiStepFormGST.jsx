@@ -11,6 +11,7 @@ import BillingAddressDetails from "./BillingAddressDetails"
 import AddProducts from "./Product Step/AddProducts"
 import ShippingAddressDetails from "./ShippingAddressDetails"
 import { useReactToPrint } from "react-to-print"
+import { useNavigate } from "react-router-dom"
 
 function MultiStepFormGST({
   step,
@@ -21,11 +22,15 @@ function MultiStepFormGST({
   handlePrint,
 }) {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const form = useForm({
     defaultValues: {
       invoiceNumber: sessionStorage.getItem("invoiceNumber")
         ? sessionStorage.getItem("invoiceNumber")
+        : "",
+      purchaseOrder: sessionStorage.getItem("purchaseOrder")
+        ? sessionStorage.getItem("purchaseOrder")
         : "",
       customer: "",
       product: {
@@ -242,6 +247,8 @@ function MultiStepFormGST({
             } else if (step === 9) {
               console.log(invoiceState)
               dispatch(createInvoice(invoiceState))
+              sessionStorage.clear()
+              navigate("/invoice")
             }
           }}
           // disabled={setDisabled()}

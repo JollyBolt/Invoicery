@@ -2,7 +2,7 @@ import React from "react"
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
-function Mr_Ms_Mrs({ selected, setSelected }) {
+function Mr_Ms_Mrs({ selected, setSelected, watch, setValue }) {
   const TOGGLE_CLASSES =
     "font-medium flex items-center justify-center cursor-pointer w-[50px] px-3 text-lg transition-colors relative z-10"
   return (
@@ -14,6 +14,11 @@ function Mr_Ms_Mrs({ selected, setSelected }) {
           }`}
           onClick={() => {
             setSelected("Mr")
+            if (watch("contactPerson") !== "") {
+              setValue("title", watch("Mr"), {
+                shouldDirty: true,
+              })
+            }
           }}
         >
           <span className="relative z-10">Mr</span>
@@ -24,6 +29,11 @@ function Mr_Ms_Mrs({ selected, setSelected }) {
           }`}
           onClick={() => {
             setSelected("Ms")
+            if (watch("contactPerson") !== "") {
+              setValue("title", watch("Ms"), {
+                shouldDirty: true,
+              })
+            }
           }}
         >
           <span>Ms</span>
@@ -34,6 +44,11 @@ function Mr_Ms_Mrs({ selected, setSelected }) {
           }`}
           onClick={() => {
             setSelected("Mrs")
+            if (watch("contactPerson") !== "") {
+              setValue("title", watch("Mrs"), {
+                shouldDirty: true,
+              })
+            }
           }}
         >
           <span className="relative z-10">Mrs</span>

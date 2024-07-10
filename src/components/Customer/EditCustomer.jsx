@@ -13,6 +13,7 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
     client: yup.string().required("Client name is required"),
     email: yup.string().email("Please enter valid email"),
     contactPerson: yup.string(),
+    title: yup.string(),
     phone: yup
       .string()
       .required("Contact is required")
@@ -26,18 +27,33 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
       .max(15, "Please enter valid 15 digit GSTIN"),
   })
 
+  const [selectedTitle, setSelectedTitle] = useState(
+    customer.contactPerson ? customer.contactPerson.split(" ")[0] : "Mr",
+  )
+
   const form = useForm({
     defaultValues: {
       client: customer.client,
       email: customer.email || "",
       phone: customer.phone,
-      contactPerson: customer.contactPerson || "",
+      contactPerson: customer.contactPerson.split(" ").slice(1).join(" ") || "",
       gstin: customer.gstin,
+      title: customer.contactPerson
+        ? customer.contactPerson.split(" ")[0]
+        : "Mr",
     },
     mode: "all",
     resolver: yupResolver(customerSchema),
   })
-  const { register, handleSubmit, reset, clearErrors, formState,watch } = form
+  const {
+    register,
+    handleSubmit,
+    reset,
+    clearErrors,
+    formState,
+    watch,
+    setValue,
+  } = form
   const { errors, isSubmitting, isDirty } = formState
   const dispatch = useDispatch()
   const onSubmit = async (e) => {
@@ -47,8 +63,6 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
     reset()
     location.reload()
   }
-
-  const [selectedTitle, setSelectedTitle] = useState("Mr")
 
   const handleEdit = ({ client, email, phone, contactPerson, gstin }) => {
     if (watch("contactPerson").trim() !== "") {
@@ -68,7 +82,6 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
       }),
     )
   }
-
   return (
     <>
       <AnimatePresence>
@@ -158,6 +171,8 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
 
                       <div className="flex flex-nowrap gap-x-3">
                         <Mr_Ms_Mrs
+                          setValue={setValue}
+                          watch={watch}
                           selected={selectedTitle}
                           setSelected={setSelectedTitle}
                         />
@@ -261,10 +276,10 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                     <div className="flex w-20 justify-center rounded-rounded bg-primary text-center">
                       <img src="/src/assets/Loading2.gif" className="w-9" />
                     </div>
-                  // ) : !isDirty ? (
-                  //   <div className="text-md flex items-center justify-center rounded-rounded bg-primaryLight px-2 py-1 text-center font-semibold text-gray-300">
-                  //     Submit
-                  //   </div>
+                  ) : !isDirty ? (
+                    <div className="text-md flex items-center justify-center rounded-rounded bg-primaryLight px-2 py-1 text-center font-semibold text-gray-300">
+                      Submit
+                    </div>
                   ) : (
                     <motion.input
                       initial={{ scale: 1 }}

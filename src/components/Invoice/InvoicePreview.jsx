@@ -50,6 +50,17 @@ const InvoicePreview = forwardRef((props, ref) => {
   }, [])
 
   useEffect(() => {
+    //For template
+    const template = sessionStorage.getItem("template")
+    if (template) {
+      setInvoiceState((prevState) => {
+        return {
+          ...prevState,
+          template: template,
+        }
+      })
+    }
+
     //For invoice details
     const invoiceNumber = sessionStorage.getItem("invoiceNumber")
     if (invoiceNumber) {

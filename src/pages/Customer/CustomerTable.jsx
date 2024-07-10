@@ -22,10 +22,11 @@ const CustomerTable = () => {
     pageIndex: 0,
     pageSize: 10,
   })
+
+  //State to open create customer modal
   const [open, setOpen] = useState(false)
 
   //Checking if authtoken exists, i.e., logged in on refresh
-
   const dispatch = useDispatch()
   const { loggedIn } = useSelector((state) => state.auth)
 

@@ -1,6 +1,7 @@
 import CustomerActionsDropdown from "./CustomerActionsDropdown"
 import ProductActionsDropdown from "./ProductActionsDropdown"
 import InvoiceActionsDropdown from "./InvoiceActionsDropdown"
+import { displayPhone } from "../../utils/displayPhone"
 
 export const productColumns = [
   {
@@ -57,6 +58,9 @@ export const customerColumns = [
     id: "col3",
     header: "Phone",
     accessorKey: "phone",
+    cell: (row) => {
+      return displayPhone(row.row.original.phone)
+    },
   },
   {
     id: "col4",

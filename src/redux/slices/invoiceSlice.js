@@ -4,39 +4,50 @@ import getCookieValue from "../../utils/getCookieValue"
 import axios from "axios"
 axios.defaults.withCredentials = true
 
-const fetchAllInvoices = createAsyncThunk(async () => {
-  try {
-    const res = await axios.get(
-      `http://localhost:4598/api/v1/invoice/getallinvoices`,
-      {
-        headers: {
-          Authorization: "Bearer " + getCookieValue("authToken"),
+const fetchAllInvoices = createAsyncThunk(
+  "invoice/fetchAllInvoices",
+  async ({ search = "", page = 0, limit = 10 }) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:4598/api/v1/invoice/getallinvoices`,
+        {
+          headers: {
+            Authorization: "Bearer " + getCookieValue("authToken"),
+          },
+          params: {
+            search: search,
+            page: page,
+            limit: limit,
+          },
         },
-      },
-    )
-    return res.data
-  } catch (err) {
-    console.log(err)
-    return rejectWithValue(err)
-  }
-})
+      )
+      return res.data
+    } catch (err) {
+      console.log(err)
+      return rejectWithValue(err)
+    }
+  },
+)
 
-const fetchSingleInvoice = createAsyncThunk(async (id) => {
-  try {
-    const res = await axios.get(
-      `http://localhost:4598/api/v1/invoice/getinvoice/${id}`,
-      {
-        headers: {
-          Authorization: "Bearer " + getCookieValue("authToken"),
+const fetchSingleInvoice = createAsyncThunk(
+  "invoice/fetchSingleInvoice",
+  async (id) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:4598/api/v1/invoice/getinvoice/${id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + getCookieValue("authToken"),
+          },
         },
-      },
-    )
-    return res.data
-  } catch (err) {
-    console.log(err)
-    return rejectWithValue(err)
-  }
-})
+      )
+      return res.data
+    } catch (err) {
+      console.log(err)
+      return rejectWithValue(err)
+    }
+  },
+)
 
 const createInvoice = createAsyncThunk(
   "invoice/createInvoice",

@@ -11,7 +11,6 @@ import Table from "../../components/Table/Table"
 const InvoiceTable = () => {
   const navigate = useNavigate()
   const { invoices } = useSelector((state) => state.invoices)
-  console.log(invoices)
   const [search, setSearch] = useState("")
   const debouncedSearch = useDebounce(search)
   const [pagination, setPagination] = useState({

@@ -1,25 +1,23 @@
-import { useState } from "react"
 import { motion } from "framer-motion"
 
 const AccordionSolutions = ({ setTemplate, setInvoiceState, invoiceState }) => {
-  const [open, setOpen] = useState(solutions[0].id)
   return (
-      <div className="flex flex-col gap-4">
-        {solutions.map((q) => {
-          return (
-            <Solution
-              {...q}
-              key={q.id}
-              open={open}
-              setOpen={setOpen}
-              index={q.id}
-              setTemplate={setTemplate}
-              setInvoiceState={setInvoiceState}
-              invoiceState={invoiceState}
-            />
-          )
-        })}
-      </div>
+    <div className="flex flex-col gap-4">
+      {solutions.map((q) => {
+        return (
+          <Solution
+            {...q}
+            key={q.id}
+            open={open}
+            setOpen={setOpen}
+            index={q.id}
+            setTemplate={setTemplate}
+            setInvoiceState={setInvoiceState}
+            invoiceState={invoiceState}
+          />
+        )
+      })}
+    </div>
   )
 }
 
@@ -27,21 +25,18 @@ const Solution = ({
   title,
   description,
   index,
-  open,
-  setOpen,
   setTemplate,
   setInvoiceState,
   invoiceState,
 }) => {
-  const isOpen = index === open
+  const isOpen = index == invoiceState.template
 
   return (
     <div
       onClick={() => {
-        setOpen(index)
         setTemplate(index)
         setInvoiceState({ ...invoiceState, template: index })
-        sessionStorage.setItem('template',index)
+        sessionStorage.setItem("template", index)
       }}
       className="relative cursor-pointer overflow-hidden rounded-lg p-1"
     >

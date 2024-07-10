@@ -7,7 +7,9 @@ export const productColumns = [
     id: "col1",
     header: "Index",
     cell: (row) => {
-      return row.row.index + 1
+      const pageIndex = row.table.getState().pagination.pageIndex
+      const pageSize = row.table.getState().pagination.pageSize
+      return pageIndex * pageSize + row.row.index + 1
     },
   },
   {
@@ -25,7 +27,6 @@ export const productColumns = [
     header: "Price(INR)",
     // accessorKey: "price",
     cell: (row) => {
-      console.log(row)
       return row.row.original.price.toLocaleString(undefined, {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
@@ -69,7 +70,9 @@ export const invoiceColumns = [
     id: "col1",
     header: "Index",
     cell: (row) => {
-      return row.row.index + 1
+      const pageIndex = row.table.getState().pagination.pageIndex
+      const pageSize = row.table.getState().pagination.pageSize
+      return pageIndex * pageSize + row.row.index + 1
     },
   },
   {

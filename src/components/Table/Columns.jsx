@@ -102,7 +102,6 @@ export const invoiceColumns = [
     id: "col5",
     header: "Date",
     cell: (row) => {
-      console.log(row.row.original)
       return (
         row.row.original.invoiceDate.day +
         "/" +

@@ -7,7 +7,6 @@ import Profile from "./pages/Profile"
 import InvoiceLayout from "./layout/InvoiceLayout"
 import Signup from "./pages/Auth/Signup"
 import EditInvoice from "./pages/Invoice/EditInvoice"
-import ViewInvoice from "./pages/Invoice/ViewInvoice"
 import CustomerLayout from "./layout/CustomerLayout"
 import CustomerDetail from "./pages/Customer/CustomerDetail"
 import CustomerTable from "./pages/Customer/CustomerTable"
@@ -28,7 +27,6 @@ function App() {
             <Route index element={<InvoiceTable />} />
             <Route path="createInvoice" element={<CreateInvoice />} />
             <Route path="editInvoice/:id" element={<EditInvoice />} />
-            <Route path="viewInvoice/:id" element={<ViewInvoice />} />
           </Route>
           <Route path="profile" element={<Profile />} />
         </Route>

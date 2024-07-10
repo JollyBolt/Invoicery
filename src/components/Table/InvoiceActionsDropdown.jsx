@@ -11,7 +11,6 @@ const InvoiceActionsDropdown = ({ row }) => {
 
   const navigate = useNavigate()
   const ref = useRef()
-
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -61,6 +60,7 @@ const InvoiceActionsDropdown = ({ row }) => {
             onClick={(e) => {
               e.stopPropagation()
               setOpen((prev) => !prev)
+              navigate(`./${row.original._id}`)
             }}
           >
             Edit

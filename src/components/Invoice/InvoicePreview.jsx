@@ -11,6 +11,7 @@ const InvoicePreview = forwardRef((props, ref) => {
 
   const { cgst, sgst, igst } = taxes
 
+
   let subTotal = useMemo(() => {
     return products.reduce(
       (accumulator, product) => accumulator + product.amount,

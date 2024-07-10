@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { BsThreeDotsVertical } from "../../assets"
 import { useNavigate } from "react-router-dom"
 import EditProductModal from "../Products/EditProductModal"
@@ -9,6 +9,24 @@ const ProductActionsDropdown = ({ row }) => {
   const [open, setOpen] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
   const dispatch = useDispatch()
+  const ref = useRef()
+
+  useEffect(() => {
+    // Function to handle the click event
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setOpen(false)
+      }
+    }
+
+    // Add the event listener to the document
+    document.addEventListener("mousedown", handleClickOutside)
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
 
   return (
     <div>
@@ -18,12 +36,13 @@ const ProductActionsDropdown = ({ row }) => {
         product={row.original}
       />
       <div
-        className="cursor-pointer  rounded-rounded relative"
+        className="relative cursor-pointer rounded-rounded"
         onClick={() => setOpen((prev) => !prev)}
+        ref={ref}
       >
         <BsThreeDotsVertical />
         <div
-          className={`absolute left-4 bottom-0 border ${!open && "scale-0"} flex w-[80px] origin-bottom-left flex-col bg-white transition-all`}
+          className={`absolute bottom-0 left-4 border ${!open && "scale-0"} flex w-[80px] origin-bottom-left flex-col bg-white transition-all`}
         >
           <button
             className="border p-2 hover:bg-gray-50"

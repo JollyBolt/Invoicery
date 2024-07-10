@@ -1,7 +1,6 @@
-import React, { useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { BsThreeDotsVertical } from "../../assets"
 import { useNavigate } from "react-router-dom"
-// import EditCustomerModal from "../Customers/EditCustomerModal"
 import { useDispatch } from "react-redux"
 import { deleteCustomer } from "../../redux/slices/customerSlice"
 import EditCustomer from "../Customer/EditCustomer"
@@ -11,6 +10,24 @@ const CustomerActionsDropdown = ({ row }) => {
   const navigate = useNavigate()
   const [modalOpen, setModalOpen] = useState(false)
   const dispatch = useDispatch()
+  const ref = useRef()
+
+  useEffect(() => {
+    // Function to handle the click event
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setOpen(false)
+      }
+    }
+
+    // Add the event listener to the document
+    document.addEventListener("mousedown", handleClickOutside)
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
 
   return (
     <div>
@@ -20,8 +37,9 @@ const CustomerActionsDropdown = ({ row }) => {
         customer={row.original}
       />
       <div
-        className="cursor-pointer rounded-rounded relative"
+        className="relative cursor-pointer rounded-rounded"
         onClick={() => setOpen((prev) => !prev)}
+        ref={ref}
       >
         <BsThreeDotsVertical />
         <div

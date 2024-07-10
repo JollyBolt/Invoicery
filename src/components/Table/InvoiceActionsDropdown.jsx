@@ -1,12 +1,31 @@
-import React, { useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { BsThreeDotsVertical } from "../../assets"
 
 const InvoiceActionsDropdown = () => {
   const [open, setOpen] = useState(false)
+  const ref = useRef()
+
+  useEffect(() => {
+    // Function to handle the click event
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setOpen(false)
+      }
+    }
+
+    // Add the event listener to the document
+    document.addEventListener("mousedown", handleClickOutside)
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
   return (
     <div
       className="relative cursor-pointer overflow-hidden rounded-rounded border-4 border-black"
       onClick={() => setOpen((prev) => !prev)}
+      ref={ref}
     >
       <BsThreeDotsVertical />
       <div

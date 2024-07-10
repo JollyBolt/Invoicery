@@ -1,10 +1,12 @@
 import { motion, AnimatePresence } from "framer-motion"
 import React from "react"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useDispatch, useSelector } from "react-redux"
 import { editCustomer } from "../../redux/slices/customerSlice"
+import Mr_Ms_Mrs from "./Mr_Ms_Mrs"
 
 const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
   const customerSchema = yup.object({
@@ -45,8 +47,13 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
     reset()
     location.reload()
   }
+
+  const [selectedTitle, setSelectedTitle] = useState("Mr")
+
   const handleEdit = ({ client, email, phone, contactPerson, gstin }) => {
-    // console.log("object");
+    if (watch("contactPerson").trim() !== "") {
+      contactPerson = selectedTitle + " " + contactPerson
+    }
     dispatch(
       editCustomer({
         customer: {
@@ -61,8 +68,6 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
       }),
     )
   }
-
-  // console.log(customer)
 
   return (
     <>
@@ -79,23 +84,26 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
               <form
                 onSubmit={onSubmit}
                 noValidate
-                className="mx-auto h-fit w-2/5 max-w-none rounded-rounded bg-white px-5 pb-1 pt-4"
+                className="mx-auto h-fit w-2/3 max-w-none rounded-rounded bg-white px-5 pb-1 pt-4"
               >
                 <div className="mx-auto mb-2 flex w-full flex-nowrap justify-between">
                   <h3 className="font-sans text-3xl font-extrabold">
                     Edit Customer
                   </h3>
-                  <button
+                  <motion.button
+                    initial={{ rotate: "0deg" }}
+                    whileHover={{ rotate: "180deg" }}
+                    transition={{ type: "spring", duration: 0.7 }}
                     type="button"
                     onClick={() => {
                       clearErrors()
                       reset()
                       setModalOpen(false)
                     }}
-                    className="btn btn-circle btn-ghost btn-sm text-lg text-red-500"
+                    className="rounded-full px-3 py-1 text-xl font-extralight text-red-500"
                   >
                     ✕
-                  </button>
+                  </motion.button>
                 </div>
                 <hr />
                 <div className="mt-5">
@@ -147,29 +155,36 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                           )}
                         </p>
                       </div>
-                      <div>
-                        <div className="relative flex w-full flex-col flex-nowrap">
-                          <input
-                            {...register("contactPerson")}
-                            type="text"
-                            id="editCustomerContactPerson"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                            placeholder="Contact Person"
-                          />
-                          <label
-                            htmlFor="editCustomerContactPerson"
-                            className="float-label"
-                          >
-                            Contact Person
-                          </label>
+
+                      <div className="flex flex-nowrap gap-x-3">
+                        <Mr_Ms_Mrs
+                          selected={selectedTitle}
+                          setSelected={setSelectedTitle}
+                        />
+                        <div className="w-full">
+                          <div className="relative flex w-full flex-col flex-nowrap">
+                            <input
+                              {...register("contactPerson")}
+                              type="text"
+                              id="editCustomerContactPerson"
+                              className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+                              placeholder="Contact Person"
+                            />
+                            <label
+                              htmlFor="editCustomerContactPerson"
+                              className="float-label"
+                            >
+                              Contact Person
+                            </label>
+                          </div>
+                          <p className="text-xs text-red-500">
+                            {errors.contactPerson ? (
+                              errors.contactPerson.message
+                            ) : (
+                              <span className="select-none">&nbsp;</span>
+                            )}
+                          </p>
                         </div>
-                        <p className="text-xs text-red-500">
-                          {errors.contactPerson ? (
-                            errors.contactPerson.message
-                          ) : (
-                            <span className="select-none">&nbsp;</span>
-                          )}
-                        </p>
                       </div>
                       <div>
                         <div className="relative flex w-full flex-col flex-nowrap">
@@ -230,7 +245,7 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                   page.
                 </p>
 
-                <div className="mb-3 mt-4 flex w-full justify-end gap-x-2">
+                <div className="mb-3 mt-4 flex w-full justify-end gap-x-3">
                   <button
                     type="button"
                     onClick={() => {
@@ -238,7 +253,7 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                       reset()
                       setModalOpen(false)
                     }}
-                    className="text-md btn h-fit w-fit rounded-rounded border-none bg-transparent text-black shadow-none hover:border-none hover:bg-slate-300"
+                    className="text-md h-fit w-fit rounded-rounded border-none bg-transparent p-2 shadow-none transition-colors duration-150 hover:border-none hover:bg-gray-300"
                   >
                     Cancel
                   </button>
@@ -246,10 +261,10 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                     <div className="flex w-20 justify-center rounded-rounded bg-primary text-center">
                       <img src="/src/assets/Loading2.gif" className="w-9" />
                     </div>
-                  ) : !isDirty ? (
-                    <div className="text-md flex items-center justify-center rounded-rounded bg-primaryLight px-2 py-1 text-center font-semibold text-gray-300">
-                      Submit
-                    </div>
+                  // ) : !isDirty ? (
+                  //   <div className="text-md flex items-center justify-center rounded-rounded bg-primaryLight px-2 py-1 text-center font-semibold text-gray-300">
+                  //     Submit
+                  //   </div>
                   ) : (
                     <motion.input
                       initial={{ scale: 1 }}

@@ -25,7 +25,7 @@ const InvoiceDetails = ({
         transition={{ duration: 1 }}
         className="w-full"
       >
-        <div className="flex w-full flex-col gap-y-10">
+        <div className="flex w-full flex-col gap-y-4">
           <div>
             <div className="relative flex w-full flex-col flex-nowrap">
               <input

@@ -1,10 +1,13 @@
 import { motion, AnimatePresence } from "framer-motion"
 import React from "react"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useDispatch, useSelector } from "react-redux"
 import { postCustomer } from "../../redux/slices/customerSlice"
+import Mr_Ms_Mrs from "./Mr_Ms_Mrs"
+
 export default function CreateCustomer({ open, setOpen }) {
   const customerSchema = yup.object({
     client: yup.string().required("Client name is required"),
@@ -56,7 +59,7 @@ export default function CreateCustomer({ open, setOpen }) {
     mode: "all",
     resolver: yupResolver(customerSchema),
   })
-  const { register, handleSubmit, reset, clearErrors, formState } = form
+  const { register, handleSubmit, reset, clearErrors, formState, watch } = form
   const { errors, isSubmitting } = formState
   const dispatch = useDispatch()
   const onSubmit = async (e) => {
@@ -66,6 +69,9 @@ export default function CreateCustomer({ open, setOpen }) {
     reset()
     location.reload()
   }
+
+  const [selectedTitle, setSelectedTitle] = useState("Mr")
+
   const handlePost = ({
     client,
     email,
@@ -79,7 +85,9 @@ export default function CreateCustomer({ open, setOpen }) {
     zip,
     gstin,
   }) => {
-    // console.log("object");
+    if (watch("contactPerson").trim() !== "") {
+      contactPerson = selectedTitle + " " + contactPerson
+    }
     dispatch(
       postCustomer({
         client,
@@ -130,7 +138,6 @@ export default function CreateCustomer({ open, setOpen }) {
                   >
                     ✕
                   </motion.button>
-                  {/* </form> */}
                 </div>
                 <hr />
                 <div className="mt-2 space-y-1">
@@ -184,29 +191,35 @@ export default function CreateCustomer({ open, setOpen }) {
                           )}
                         </p>
                       </div>
-                      <div>
-                        <div className="relative flex w-full flex-col flex-nowrap">
-                          <input
-                            {...register("contactPerson")}
-                            type="text"
-                            id="contactPerson"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                            placeholder="Contact Person"
-                          />
-                          <label
-                            htmlFor="contactPerson"
-                            className="float-label"
-                          >
-                            Contact Person
-                          </label>
+                      <div className="flex flex-nowrap gap-x-3">
+                        <Mr_Ms_Mrs
+                          selected={selectedTitle}
+                          setSelected={setSelectedTitle}
+                        />
+                        <div className="w-full">
+                          <div className="relative flex w-full flex-col flex-nowrap">
+                            <input
+                              {...register("contactPerson")}
+                              type="text"
+                              id="contactPerson"
+                              className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+                              placeholder="Contact Person"
+                            />
+                            <label
+                              htmlFor="contactPerson"
+                              className="float-label"
+                            >
+                              Contact Person
+                            </label>
+                          </div>
+                          <p className="text-xs text-red-500">
+                            {errors.contactPerson ? (
+                              errors.contactPerson.message
+                            ) : (
+                              <span className="select-none">&nbsp;</span>
+                            )}
+                          </p>
                         </div>
-                        <p className="text-xs text-red-500">
-                          {errors.contactPerson ? (
-                            errors.contactPerson.message
-                          ) : (
-                            <span className="select-none">&nbsp;</span>
-                          )}
-                        </p>
                       </div>
                       <div>
                         <div className="relative flex w-full flex-col flex-nowrap">
@@ -233,6 +246,7 @@ export default function CreateCustomer({ open, setOpen }) {
                           )}
                         </p>
                       </div>
+
                       <div>
                         <div className="relative flex w-full flex-col flex-nowrap">
                           <input

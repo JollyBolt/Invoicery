@@ -63,7 +63,6 @@ const CustomerActionsDropdown = ({ row }) => {
             onClick={(e) => {
               e.stopPropagation()
               setOpen((prev) => !prev)
-              console.log(row.original)
               setModalOpen(true)
             }}
           >

@@ -55,16 +55,22 @@ const InvoiceActionsDropdown = ({ row }) => {
           >
             View
           </button>
+
           <button
             className="border p-2 hover:bg-gray-50"
             onClick={(e) => {
               e.stopPropagation()
               setOpen((prev) => !prev)
+              sessionStorage.setItem(
+                "invoiceState",
+                JSON.stringify(row.original),
+              )
               navigate(`./${row.original._id}`)
             }}
           >
             Edit
           </button>
+
           <button
             className="border p-2 hover:bg-gray-50"
             onClick={(e) => {

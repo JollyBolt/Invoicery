@@ -30,11 +30,13 @@ const ProductActionsDropdown = ({ row }) => {
 
   return (
     <div>
-      <EditProductModal
-        modalOpen={modalOpen}
-        setModalOpen={setModalOpen}
-        product={row.original}
-      />
+      {modalOpen && (
+        <EditProductModal
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+          product={row.original}
+        />
+      )}
       <div
         className="relative cursor-pointer rounded-rounded"
         onClick={() => setOpen((prev) => !prev)}

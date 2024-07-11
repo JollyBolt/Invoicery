@@ -32,11 +32,13 @@ const CustomerActionsDropdown = ({ row }) => {
 
   return (
     <div>
-      <EditCustomer
-        modalOpen={modalOpen}
-        setModalOpen={setModalOpen}
-        customer={row.original}
-      />
+      {modalOpen && (
+        <EditCustomer
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+          customer={row.original}
+        />
+      )}
       <div
         className="relative cursor-pointer rounded-rounded"
         onClick={() => setOpen((prev) => !prev)}
@@ -61,6 +63,7 @@ const CustomerActionsDropdown = ({ row }) => {
             onClick={(e) => {
               e.stopPropagation()
               setOpen((prev) => !prev)
+              console.log(row.original)
               setModalOpen(true)
             }}
           >

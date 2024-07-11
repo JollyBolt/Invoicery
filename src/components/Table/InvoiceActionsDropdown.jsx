@@ -31,11 +31,13 @@ const InvoiceActionsDropdown = ({ row }) => {
   }, [])
   return (
     <>
-      <ViewInvoice
-        modalOpen={modalOpen}
-        setModalOpen={setModalOpen}
-        invoiceState={row.original}
-      />
+      {modalOpen && (
+        <ViewInvoice
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+          invoiceState={row.original}
+        />
+      )}
       <div
         className="relative cursor-pointer rounded-rounded"
         onClick={() => setOpen((prev) => !prev)}

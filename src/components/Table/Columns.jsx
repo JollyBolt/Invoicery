@@ -117,7 +117,7 @@ export const invoiceColumns = [
   },
 ]
 
-export const recentInvoices = [
+export const recentInvoicesColumns = [
   {
     id: "col1",
     header: "Invoice Number",
@@ -132,5 +132,49 @@ export const recentInvoices = [
     id: "col3",
     header: "Amount",
     accessorKey: "amount",
+  },
+]
+
+export const customerInvoicesColumns = [
+  {
+    id: "col1",
+    header: "Index",
+    cell: (row) => {
+      const pageIndex = row.table.getState().pagination.pageIndex
+      const pageSize = row.table.getState().pagination.pageSize
+      return pageIndex * pageSize + row.row.index + 1
+    },
+  },
+  {
+    id: "col2",
+    header: "Invoice Number",
+    accessorKey: "invoiceNumber",
+  },
+  {
+    id: "col3",
+    header: "Amount",
+    cell: (row) => {
+      return row.row.original.totalAmount.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
+    },
+  },
+  {
+    id: "col4",
+    header: "Date",
+    cell: (row) => {
+      return (
+        row.row.original.invoiceDate.day +
+        "/" +
+        row.row.original.invoiceDate.month +
+        "/" +
+        row.row.original.invoiceDate.year
+      )
+    },
+  },
+  {
+    id: "col5",
+    cell: (row) => <InvoiceActionsDropdown row={row.row} />,
   },
 ]

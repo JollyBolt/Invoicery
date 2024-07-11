@@ -72,7 +72,7 @@ const GSTTemplate = forwardRef((props, ref) => {
                 <p>{name}</p>
               </div>
               <div className="flex w-[40%]">
-                <p className="w-[20%] font-semibold">GSTIN</p>
+                <p className="w-[25%] font-semibold">GSTIN</p>
                 <p>{gstin}</p>
               </div>
             </div>
@@ -84,19 +84,19 @@ const GSTTemplate = forwardRef((props, ref) => {
                 </p>
               </div>
               <div className="flex w-[40%]">
-                <p className="w-[20%] font-semibold">Phone</p>
+                <p className="w-[25%] font-semibold">Phone</p>
                 <p>{displayPhone(phone)}</p>
               </div>
             </div>
             {purchaseOrder !== "" && (
               <div className="flex">
-                <div className="flex w-[60%]">
-                  <p className="w-[30%] font-semibold">PO No.</p>
+                <div className="flex w-[60%] shrink-0">
+                  <p className="w-[30%] font-semibold">PO Number</p>
                   <p>{purchaseOrder}</p>
                 </div>
                 {purchaseOrderDate && (
-                  <div className="flex">
-                    <p className="w-[30%] font-semibold">PO Date</p>
+                  <div className="flex w-full">
+                    <p className="w-[25%] font-semibold">PO Date</p>
                     <p>
                       {displayDate({
                         day: new Date(purchaseOrderDate).getDate(),

@@ -170,6 +170,13 @@ function ShippingAddressDetails({
                           },
                         },
                       })
+                      sessionStorage.setItem(
+                        "shippingAddress",
+                        JSON.stringify({
+                          ...invoiceState.customer.address.shipping,
+                          streetAddress: e.target.value,
+                        }),
+                      )
                     },
                   })}
                 />
@@ -210,6 +217,13 @@ function ShippingAddressDetails({
                             },
                           },
                         })
+                        sessionStorage.setItem(
+                          "shippingAddress",
+                          JSON.stringify({
+                            ...invoiceState.customer.address.shipping,
+                            city: e.target.value,
+                          }),
+                        )
                       },
                     })}
                   />
@@ -235,17 +249,9 @@ function ShippingAddressDetails({
                     {...register("shippingZip", {
                       required: "ZIP Code is required",
                       disabled: checked,
-                      min: {
-                        value: 6,
-                        message: "ZIP Code must be 6 digits",
-                      },
-                      max: {
-                        value: 6,
-                        message: "ZIP Code must be 6 digits",
-                      },
                       pattern: {
-                        value: /^[0-9]+$/,
-                        message: "ZIP Code must be only digits",
+                        value: /^[0-9]{6}$/,
+                        message: "ZIP Code must be only 6 digits",
                       },
                       onChange: (e) => {
                         setInvoiceState({
@@ -261,6 +267,13 @@ function ShippingAddressDetails({
                             },
                           },
                         })
+                        sessionStorage.setItem(
+                          "shippingAddress",
+                          JSON.stringify({
+                            ...invoiceState.customer.address.shipping,
+                            zip: e.target.value,
+                          }),
+                        )
                       },
                     })}
                   />
@@ -303,6 +316,13 @@ function ShippingAddressDetails({
                             },
                           },
                         })
+                        sessionStorage.setItem(
+                          "shippingAddress",
+                          JSON.stringify({
+                            ...invoiceState.customer.address.shipping,
+                            state: e.target.value,
+                          }),
+                        )
                       },
                     })}
                   />
@@ -329,17 +349,9 @@ function ShippingAddressDetails({
                     {...register("shippingStateCode", {
                       required: "State Code is required",
                       disabled: checked,
-                      min: {
-                        value: 2,
-                        message: "State Code must be 2 digits",
-                      },
-                      max: {
-                        value: 2,
-                        message: "State Code must be 2 digits",
-                      },
                       pattern: {
-                        value: /^[0-9]+$/,
-                        message: "State Code must be only digits",
+                        value: /^[0-9]{2}$/,
+                        message: "State Code must be only 2 digits",
                       },
                       onChange: (e) => {
                         setInvoiceState({
@@ -355,6 +367,13 @@ function ShippingAddressDetails({
                             },
                           },
                         })
+                        sessionStorage.setItem(
+                          "shippingAddress",
+                          JSON.stringify({
+                            ...invoiceState.customer.address.shipping,
+                            stateCode: e.target.value,
+                          }),
+                        )
                       },
                     })}
                   />
@@ -396,6 +415,13 @@ function ShippingAddressDetails({
                           },
                         },
                       })
+                      sessionStorage.setItem(
+                        "shippingAddress",
+                        JSON.stringify({
+                          ...invoiceState.customer.address.shipping,
+                          country: e.target.value,
+                        }),
+                      )
                     },
                   })}
                 />

@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -75,7 +74,10 @@ const InvoiceTable = () => {
             <div className="flex flex-nowrap items-center justify-between">
               {/* <div id="filterBox" className="bg-green-500"></div> */}
               <button
-                onClick={() => navigate("createInvoice")}
+                onClick={() => {
+                  navigate("createInvoice")
+                  sessionStorage.clear()
+                }}
                 type="button"
                 className="flex w-fit items-center gap-2 rounded-rounded bg-primary p-2 px-4 text-lg text-white transition-colors hover:bg-primaryLight"
               >

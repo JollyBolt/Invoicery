@@ -32,6 +32,9 @@ function MultiStepFormGST({
       purchaseOrder: sessionStorage.getItem("purchaseOrder")
         ? sessionStorage.getItem("purchaseOrder")
         : "",
+      purchaseOrderDate: sessionStorage.getItem("purchaseOrderDate")
+        ? sessionStorage.getItem("purchaseOrderDate")
+        : "",
       customer: "",
       product: {
         name: "",
@@ -68,6 +71,9 @@ function MultiStepFormGST({
       shippingCountry: sessionStorage.getItem("shippingAddress")
         ? JSON.parse(sessionStorage.getItem("shippingAddress")).country
         : "",
+      miscellaneous:
+        sessionStorage.getItem("miscellaneous") &&
+        sessionStorage.getItem("miscellaneous"),
       taxes: {
         // igst: sessionStorage.getItem("taxes")
         //   ? JSON.parse(sessionStorage.getItem("taxes")).igst

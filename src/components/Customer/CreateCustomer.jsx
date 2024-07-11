@@ -94,7 +94,7 @@ export default function CreateCustomer({ open, setOpen }) {
         email,
         phone,
         contactPerson,
-        billingAddress: [
+        billingAddresses: [
           { streetAddress, city, state, stateCode, zip, country },
         ],
         gstin,

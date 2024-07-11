@@ -61,7 +61,7 @@ const InvoiceDetails = ({
             <div className="relative flex w-full flex-col flex-nowrap">
               <input
                 {...register("date", {
-                  required: "Please select a date",
+                  required: "Please select invoice issue date",
                   onBlur: (e) => {
                     e.target.type = "text"
                     sessionStorage.setItem("date", e.target.value)
@@ -86,7 +86,7 @@ const InvoiceDetails = ({
                   e.target.type = "date"
                 }}
                 id="invoiceDate"
-                placeholder="Date"
+                placeholder="Invoice Date"
                 className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
               />
               <label htmlFor="invoiceDate" className="float-label">
@@ -126,6 +126,40 @@ const InvoiceDetails = ({
             <p className="mt-1 text-sm text-red-500">
               {errors.purchaseOrder ? (
                 errors.purchaseOrder?.message
+              ) : (
+                <span className="select-none">&nbsp;</span>
+              )}
+            </p>
+          </div>
+
+          <div>
+            <div className="relative flex w-full flex-col flex-nowrap">
+              <input
+                {...register("purchaseOrderDate", {
+                  onBlur: (e) => {
+                    e.target.type = "text"
+                    sessionStorage.setItem("purchaseOrderDate", e.target.value)
+                    setInvoiceState({
+                      ...invoiceState,
+                      purchaseOrderDate: e.target.value,
+                    })
+                  },
+                })}
+                type="text"
+                onFocus={(e) => {
+                  e.target.type = "date"
+                }}
+                id="purchaseOrderDate"
+                placeholder="Purchase Order Date"
+                className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+              />
+              <label htmlFor="purchaseOrderDate" className="float-label">
+                Purchase Order Date
+              </label>
+            </div>
+            <p className="mt-1 text-sm text-red-500">
+              {errors.purchaseOrderDate ? (
+                errors.purchaseOrderDate?.message
               ) : (
                 <span className="select-none">&nbsp;</span>
               )}

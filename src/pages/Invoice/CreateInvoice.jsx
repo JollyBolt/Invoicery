@@ -20,6 +20,7 @@ function CreateInvoice() {
     invoiceNumber: "",
     invoiceDate: { day: "", month: 0, year: "" },
     purchaseOrder: "",
+    purchaseOrderDate: "",
     template: "gst",
     customer: {
       name: "",
@@ -60,6 +61,7 @@ function CreateInvoice() {
       // },
     ],
     totalAmount: 0,
+    miscellaneous: 0,
     taxes: {
       cgst: 0,
       sgst: 0,

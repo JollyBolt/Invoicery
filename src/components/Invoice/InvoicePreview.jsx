@@ -7,7 +7,7 @@ const InvoicePreview = forwardRef((props, ref) => {
   const dispatch = useDispatch()
 
   const { invoiceState, setInvoiceState } = props
-  const { products, taxes } = invoiceState
+  const { products, taxes, miscellaneous=0 } = invoiceState
 
   const { cgst, sgst, igst } = taxes
 
@@ -16,8 +16,8 @@ const InvoicePreview = forwardRef((props, ref) => {
     return products.reduce(
       (accumulator, product) => accumulator + product.amount,
       0,
-    )
-  }, [products])
+    ) + parseInt(miscellaneous)
+  }, [products,miscellaneous])
 
   let total = useMemo(() => {
     return (
@@ -26,7 +26,7 @@ const InvoicePreview = forwardRef((props, ref) => {
       sgst * subTotal * 0.01 +
       igst * subTotal * 0.01
     )
-  }, [cgst, sgst, igst, subTotal])
+  }, [cgst, sgst, igst, subTotal,miscellaneous])
 
   useEffect(() => {
     //For template
@@ -145,7 +145,17 @@ const InvoicePreview = forwardRef((props, ref) => {
       })
     }
 
-    //For taxes
+    //For taxes and charges
+    const miscellaneous = JSON.parse(sessionStorage.getItem("miscellaneous"))
+    if (miscellaneous) {
+      setInvoiceState((prevState) => {
+        return {
+         ...prevState,
+          miscellaneous,
+        }
+      })
+    }
+    
     const taxes = JSON.parse(sessionStorage.getItem("taxes"))
     if (taxes) {
       setInvoiceState((prevState) => {

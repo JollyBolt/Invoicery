@@ -146,15 +146,16 @@ const InvoicePreview = forwardRef((props, ref) => {
     }
 
     //For taxes and charges
-    const miscellaneous = JSON.parse(sessionStorage.getItem("miscellaneous"))
-    if (miscellaneous) {
+    if (sessionStorage.getItem("miscellaneous")) {
+      const miscellaneous = parseInt(sessionStorage.getItem("miscellaneous"))
       setInvoiceState((prevState) => {
         return {
-         ...prevState,
+          ...prevState,
           miscellaneous,
         }
       })
     }
+    
     
     const taxes = JSON.parse(sessionStorage.getItem("taxes"))
     if (taxes) {

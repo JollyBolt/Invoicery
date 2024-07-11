@@ -17,14 +17,16 @@ const GSTTemplate = forwardRef((props, ref) => {
     purchaseOrder,
     customer,
     products,
+    miscellaneous,
     taxes,
     termsNConditions,
     totalAmount,
   } = invoiceState
+
   const { name, contactPerson, gstin, phone, address } = customer
   const { billing, shipping } = address
-  console.log(address)
   const { cgst, sgst, igst } = taxes
+
   return (
     <div ref={ref} className="flex min-h-full flex-col bg-white p-2">
       {/* Organisation Details */}
@@ -186,6 +188,14 @@ const GSTTemplate = forwardRef((props, ref) => {
             &npsp;
           </div>
         )}
+      </div>
+      <div className="flex w-full justify-between text-sm">
+        <div className="w-[82%] shrink-0 border border-b-0 border-black p-2 text-right font-bold">
+          Micsellaneous Charges
+        </div>
+        <div className="w-[18%] border border-b-0 border-l-0 border-black p-2 pr-5 text-right">
+          {parseInt(miscellaneous).toFixed(2)}
+        </div>
       </div>
       <div className="flex w-full justify-between border-black">
         <div className="w-[82%] shrink-0 border border-black p-2 text-right font-bold">

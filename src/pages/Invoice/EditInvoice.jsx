@@ -56,6 +56,7 @@ function EditInvoice() {
       //   },
       // },
     ],
+    miscellaneous: 0,
     totalAmount: 0,
     taxes: {
       cgst: 0,

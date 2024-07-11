@@ -2,6 +2,7 @@ import CustomerActionsDropdown from "./CustomerActionsDropdown"
 import ProductActionsDropdown from "./ProductActionsDropdown"
 import InvoiceActionsDropdown from "./InvoiceActionsDropdown"
 import { displayPhone } from "../../utils/displayPhone"
+import { displayDate } from "../../utils/displayDate"
 
 export const productColumns = [
   {
@@ -102,13 +103,14 @@ export const invoiceColumns = [
     id: "col5",
     header: "Date",
     cell: (row) => {
-      return (
-        row.row.original.invoiceDate.day +
-        "/" +
-        row.row.original.invoiceDate.month +
-        "/" +
-        row.row.original.invoiceDate.year
-      )
+      return displayDate(row.row.original.invoiceDate)
+      // (
+      //   row.row.original.invoiceDate.day +
+      //   "/" +
+      //   row.row.original.invoiceDate.month +
+      //   "/" +
+      //   row.row.original.invoiceDate.year
+      // )
     },
   },
   {

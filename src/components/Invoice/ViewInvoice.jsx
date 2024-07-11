@@ -18,6 +18,7 @@ const ViewInvoice = ({ modalOpen, setModalOpen, invoiceState }) => {
 
   const handlePrint = useReactToPrint({
     content: () => ref.current,
+    documentTitle: invoiceState.invoiceNumber,
   })
 
   let subTotal = useMemo(() => {

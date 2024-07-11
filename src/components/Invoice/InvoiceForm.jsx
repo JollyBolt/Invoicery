@@ -23,6 +23,7 @@ function InvoiceForm({
 
   const handlePrint = useReactToPrint({
     content: () => printDocRef.current,
+    documentTitle: invoiceState.invoiceNumber
   })
 
   const formSwitch = () => {

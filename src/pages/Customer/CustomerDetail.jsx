@@ -5,6 +5,9 @@ import { fetchSingleCustomer } from "../../redux/slices/customerSlice"
 import { displayPhone } from "../../utils/displayPhone"
 import LineChart from "../../components/Charts/LineChart"
 import BarChart from "../../components/Charts/BarChart"
+import { motion } from "framer-motion"
+import { fetchAllInvoices } from "../../redux/slices/invoiceSlice"
+
 import {
   FaAngleLeft,
   FaAngleRight,
@@ -27,16 +30,17 @@ const CustomerDetail = () => {
     (state) => state.customers.customers,
   )
   const customerDetails = customers && customers[0]
-  const { loggedIn } = useSelector((state) => state.auth)
+  // const { loggedIn } = useSelector((state) => state.auth)
 
   useEffect(() => {
     async function getCustomer() {
-      if (loggedIn) {
-        await dispatch(fetchSingleCustomer(id))
-      }
+      dispatch(fetchSingleCustomer(id))
+      dispatch(fetchAllInvoices({ search: customerDetails.client }))
     }
     getCustomer()
-  }, [loggedIn])
+  }, [])
+
+  const { invoices } = useSelector((state) => state.invoices)
 
   if (!customerDetails) return <div>Loading</div>
 
@@ -46,7 +50,9 @@ const CustomerDetail = () => {
       <div className="flex w-full flex-col gap-4">
         <div className="flex w-full gap-4">
           <div className="flex w-1/2 flex-col gap-3 rounded-rounded bg-primary p-4 text-lg text-white">
-            <p className="text-5xl font-extrabold">{customerDetails.client}</p>
+            <p className="mb-5 text-5xl font-extrabold">
+              {customerDetails.client}
+            </p>
             <div className="flex">
               <p className="w-[30%] font-bold">GSTIN</p>
               <p>{customerDetails.gstin}</p>
@@ -63,6 +69,15 @@ const CustomerDetail = () => {
               <p className="w-[30%] font-bold uppercase">Contact Person</p>
               <p>{customerDetails.contactPerson || "-"}</p>
             </div>
+            <motion.button
+              initial={{ scale: 1 }}
+              whileTap={{ scale: 0.93 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setOpen(true)}
+              className="w-[30%] rounded-rounded border-2 border-white bg-primary p-3 text-lg font-semibold text-white transition-colors duration-200 hover:bg-primaryLight"
+            >
+              Edit Customer
+            </motion.button>
           </div>
 
           <div className="w-1/2 rounded-rounded bg-white p-4">

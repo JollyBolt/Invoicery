@@ -56,7 +56,7 @@ const ViewInvoice = ({ modalOpen, setModalOpen, invoiceState }) => {
                   ref={ref}
                 />
               </div>
-              <div className="absolute right-5 top-5 flex flex-col gap-5">
+              <div className="fixed right-5 top-5 flex flex-col gap-5">
                 <button
                   className="group relative flex h-11 w-[44px] origin-right items-center justify-end self-end overflow-hidden rounded-rounded bg-white px-3 py-1 text-xl font-semibold transition-all hover:w-[120px]"
                   onClick={() => setModalOpen(false)}

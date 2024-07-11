@@ -68,7 +68,6 @@ function EditInvoice() {
 
   useEffect(() => {
     const invoice = JSON.parse(sessionStorage.getItem("invoiceState"))
-    console.log(invoice.customer.address.billing)
     sessionStorage.setItem("invoiceNumber", invoice.invoiceNumber)
     sessionStorage.setItem(
       "invoiceDate",
@@ -79,6 +78,7 @@ function EditInvoice() {
         invoice.invoiceDate.day,
     )
     sessionStorage.setItem("purchaseOrder", invoice.purchaseOrder)
+    sessionStorage.setItem("purchaseOrderDate", invoice.purchaseOrderDate)
     sessionStorage.setItem(
       "billingAddress",
       JSON.stringify(invoice?.customer?.address?.billing),
@@ -96,8 +96,8 @@ function EditInvoice() {
       "termsNConditions",
       JSON.stringify(invoice.termsNConditions),
     )
-
     setInvoiceState(invoice)
+    // sessionStorage.removeItem("invoiceState")
   }, [loggedIn])
 
   return (

@@ -2,7 +2,8 @@ import React, { forwardRef, useEffect } from "react"
 import numWords from "num-words"
 import { useSelector, useDispatch } from "react-redux"
 import { getProfile } from "../../../../redux/slices/userSlice"
-
+import { displayPhone } from "../../../../utils/displayPhone"
+import { displayDate } from "../../../../utils/displayDate"
 
 const GSTTemplate = forwardRef((props, ref) => {
   const dispatch = useDispatch()
@@ -15,6 +16,7 @@ const GSTTemplate = forwardRef((props, ref) => {
     invoiceNumber,
     invoiceDate,
     purchaseOrder,
+    purchaseOrderDate,
     customer,
     products,
     miscellaneous,
@@ -38,7 +40,7 @@ const GSTTemplate = forwardRef((props, ref) => {
             {user?.org?.address?.city} - {user?.org?.address?.zip},{" "}
             {user?.org?.address?.state}, {user?.org?.address?.country}
           </p>
-          <p>Phone: {user?.phone}</p>
+          <p>Phone: {displayPhone(user?.phone)}</p>
           <p>Email: {user?.org?.email}</p>
           <p>GSTIN: {user?.org?.gstin}</p>
         </div>
@@ -53,13 +55,7 @@ const GSTTemplate = forwardRef((props, ref) => {
           <div className="flex">
             <p className="w-32">Invoice Date</p>
             {invoiceDate.day && (
-              <span className="font-bold">
-                {invoiceDate.day +
-                  "/" +
-                  invoiceDate.month +
-                  "/" +
-                  invoiceDate.year}
-              </span>
+              <span className="font-bold">{displayDate(invoiceDate)}</span>
             )}
           </div>
         </div>
@@ -89,13 +85,21 @@ const GSTTemplate = forwardRef((props, ref) => {
               </div>
               <div className="flex w-[40%]">
                 <p className="w-[20%] font-semibold">Phone</p>
-                <p>{phone}</p>
+                <p>{displayPhone(phone)}</p>
               </div>
             </div>
             {purchaseOrder !== "" && (
-              <div className="flex w-[60%]">
-                <p className="w-[30%] font-semibold">PO No.</p>
-                <p>{purchaseOrder}</p>
+              <div className="flex">
+                <div className="flex w-[60%]">
+                  <p className="w-[30%] font-semibold">PO No.</p>
+                  <p>{purchaseOrder}</p>
+                </div>
+                {purchaseOrderDate && (
+                  <div className="flex">
+                    <p className="w-[30%] font-semibold">PO Date</p>
+                    <p>{displayDate(purchaseOrderDate)}</p>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -194,7 +198,12 @@ const GSTTemplate = forwardRef((props, ref) => {
           Micsellaneous Charges
         </div>
         <div className="w-[18%] border border-b-0 border-l-0 border-black p-2 pr-5 text-right">
-          {miscellaneous === "" ? 0 : parseInt(miscellaneous).toFixed(2)}
+          {miscellaneous === ""
+            ? 0
+            : parseInt(miscellaneous).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
         </div>
       </div>
       <div className="flex w-full justify-between border-black">

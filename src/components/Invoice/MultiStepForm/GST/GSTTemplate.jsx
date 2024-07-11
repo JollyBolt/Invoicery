@@ -194,7 +194,7 @@ const GSTTemplate = forwardRef((props, ref) => {
           Micsellaneous Charges
         </div>
         <div className="w-[18%] border border-b-0 border-l-0 border-black p-2 pr-5 text-right">
-          {parseInt(miscellaneous).toFixed(2)}
+          {miscellaneous === "" ? 0 : parseInt(miscellaneous).toFixed(2)}
         </div>
       </div>
       <div className="flex w-full justify-between border-black">

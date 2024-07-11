@@ -27,7 +27,6 @@ function App() {
             <Route index element={<InvoiceTable />} />
             <Route path="createInvoice" element={<CreateInvoice />} />
             <Route path=":id" element={<EditInvoice />} />
-            <Route path="viewInvoice/:id" element={<ViewInvoice />} />
           </Route>
           <Route path="profile" element={<Profile />} />
         </Route>

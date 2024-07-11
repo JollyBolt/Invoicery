@@ -38,7 +38,7 @@ const ViewInvoice = ({ modalOpen, setModalOpen, invoiceState }) => {
   return (
     <AnimatePresence>
       {modalOpen && (
-        <div className="absolute left-0 top-0 z-[100] flex w-full items-center justify-center bg-black/50 backdrop-blur-sm">
+        <div className="absolute left-0 top-0 z-[100] flex w-full items-center justify-center bg-black/50 backdrop-blur-md">
           <motion.div
             className="relative h-screen w-full overflow-y-scroll"
             initial={{ scale: 0.4, opacity: 0 }}
@@ -57,15 +57,39 @@ const ViewInvoice = ({ modalOpen, setModalOpen, invoiceState }) => {
               </div>
               <div className="absolute right-5 top-5 flex flex-col gap-5">
                 <button
-                  className="group flex w-[90px] items-center justify-between rounded-rounded bg-white px-2 py-1 text-lg hover:w-[20px]"
+                  className="group relative flex h-11 w-[44px] origin-right items-center justify-end self-end overflow-hidden rounded-rounded bg-white px-3 py-1 text-xl font-semibold transition-all hover:w-[120px]"
                   onClick={() => setModalOpen(false)}
                 >
-                  <span className="origin-right group-hover:scale-0">
-                    Close
-                  </span>
-                  <IoClose className="shrink-0" />
+                  <div className="flex w-[90px] shrink-0 flex-nowrap items-center justify-between">
+                    <span className="shrink-0">Close</span>
+                    <div>
+                      <IoClose className="shrink-0" />
+                    </div>
+                  </div>
                 </button>
                 <button
+                  className="group relative flex h-11 w-[44px] origin-right items-center justify-end self-end overflow-hidden rounded-rounded bg-white px-3 py-1 text-xl font-semibold transition-all hover:w-[120px]"
+                  onClick={() => navigate(`./${invoiceState._id}`)}
+                >
+                  <div className="flex w-[90px] shrink-0 flex-nowrap items-center justify-between">
+                    <span className="shrink-0">Edit</span>
+                    <div>
+                      <MdEdit className="shrink-0" />
+                    </div>
+                  </div>
+                </button>
+                <button
+                  className="group relative flex h-11 w-[44px] origin-right items-center justify-end self-end overflow-hidden rounded-rounded bg-white px-3 py-1 text-xl font-semibold transition-all hover:w-[120px]"
+                  onClick={handlePrint}
+                >
+                  <div className="flex w-[90px] shrink-0 flex-nowrap items-center justify-between">
+                    <span className="shrink-0">Print</span>
+                    <div>
+                      <IoIosPrint className="shrink-0" />
+                    </div>
+                  </div>
+                </button>
+                {/* <button
                   className="flex w-[90px] items-center justify-between rounded-rounded bg-white px-2 py-1 text-lg"
                   onClick={() => navigate(`./${invoiceState._id}`)}
                 >
@@ -78,7 +102,7 @@ const ViewInvoice = ({ modalOpen, setModalOpen, invoiceState }) => {
                 >
                   <span>Print</span>
                   <IoIosPrint />
-                </button>
+                </button> */}
               </div>
             </div>
           </motion.div>

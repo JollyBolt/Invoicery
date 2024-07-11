@@ -104,13 +104,6 @@ export const invoiceColumns = [
     header: "Date",
     cell: (row) => {
       return displayDate(row.row.original.invoiceDate)
-      // (
-      //   row.row.original.invoiceDate.day +
-      //   "/" +
-      //   row.row.original.invoiceDate.month +
-      //   "/" +
-      //   row.row.original.invoiceDate.year
-      // )
     },
   },
   {
@@ -166,13 +159,7 @@ export const customerInvoicesColumns = [
     id: "col4",
     header: "Date",
     cell: (row) => {
-      return (
-        row.row.original.invoiceDate.day +
-        "/" +
-        row.row.original.invoiceDate.month +
-        "/" +
-        row.row.original.invoiceDate.year
-      )
+      return displayDate(row.row.original.invoiceDate)
     },
   },
   {

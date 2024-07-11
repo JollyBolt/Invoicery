@@ -1,14 +1,9 @@
 import React, { useState, useRef, useEffect } from "react"
 import InvoicePreview from "../../components/Invoice/InvoicePreview"
 import InvoiceForm from "../../components/Invoice/InvoiceForm"
-import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchSingleInvoice } from "../../redux/slices/invoiceSlice"
 
 function EditInvoice() {
-  const id = useParams().id
-  const dispatch = useDispatch()
-  const invoice = useSelector((state) => state.invoices.invoices)
   const { loggedIn } = useSelector((state) => state.auth)
 
   const [template, setTemplate] = useState(
@@ -71,23 +66,38 @@ function EditInvoice() {
   })
 
   useEffect(() => {
-    async function getInvoice() {
-      if (loggedIn) {
-        await dispatch(fetchSingleInvoice(id))
-        if (invoice) {
-          console.log(invoice)
-          setInvoiceState({...invoice})
-          // console.log(invoiceState)
-        }
-      }
-    }
-    getInvoice()
-    // if (!sessionStorage.getItem("template")) {
-    //   sessionStorage.setItem("template", template)
-    // }
-  }, [loggedIn])
+    const invoice = JSON.parse(sessionStorage.getItem("invoiceState"))
+    console.log(invoice.customer.address.billing)
+    sessionStorage.setItem("invoiceNumber", invoice.invoiceNumber)
+    sessionStorage.setItem(
+      "invoiceDate",
+      invoice.invoiceDate.year +
+        "-" +
+        invoice.invoiceDate.month +
+        "-" +
+        invoice.invoiceDate.day,
+    )
+    sessionStorage.setItem("purchaseOrder", invoice.purchaseOrder)
+    sessionStorage.setItem(
+      "billingAddress",
+      JSON.stringify(invoice?.customer?.address?.billing),
+    )
+    sessionStorage.setItem(
+      "shippingAddress",
+      JSON.stringify(invoice.customer.address.shipping),
+    )
+    sessionStorage.setItem("customer", JSON.stringify(invoice.customer))
+    sessionStorage.setItem("products", JSON.stringify(invoice.products))
+    sessionStorage.setItem("totalAmount", invoice.totalAmount.toString())
+    sessionStorage.setItem("miscellaneous", invoice.miscellaneous.toString())
+    sessionStorage.setItem("taxes", JSON.stringify(invoice.taxes))
+    sessionStorage.setItem(
+      "termsNConditions",
+      JSON.stringify(invoice.termsNConditions),
+    )
 
-  if (invoiceState.invoiceNumber === "") return <div>Loading</div>
+    setInvoiceState(invoice)
+  }, [loggedIn])
 
   return (
     <>
@@ -102,14 +112,12 @@ function EditInvoice() {
           />
         </div>
         <div className="h-[calc(100dvh-88px)] w-full overflow-hidden overflow-y-scroll">
-          {invoiceState?.customer?.name !== "" && (
-              <InvoicePreview
-                template={template}
-                ref={componentRef}
-                invoiceState={invoiceState}
-                setInvoiceState={setInvoiceState}
-              />
-          )}
+          <InvoicePreview
+            template={template}
+            ref={componentRef}
+            invoiceState={invoiceState}
+            setInvoiceState={setInvoiceState}
+          />
         </div>
       </div>
     </>

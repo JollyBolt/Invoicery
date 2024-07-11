@@ -14,15 +14,17 @@ function BillingAddressDetails({
   const { customers, loading } = useSelector(
     (state) => state.customers.customers,
   )
-  const [selectedAddress, setSelectedAddress] = useState(false)
+
+  const [selectedAddress, setSelectedAddress] = useState(
+    sessionStorage.getItem("billingAddress") ? true : false,
+  )
+
   useEffect(() => {
     if (sessionStorage.getItem("billingAddress")) setSelectedAddress(true)
   }, [])
 
   if (!selectedAddress)
     billingAddresses = customers && customers[0].billingAddresses
-
-
 
   const handleSubmit = (billingAddress) => {
     sessionStorage.setItem(

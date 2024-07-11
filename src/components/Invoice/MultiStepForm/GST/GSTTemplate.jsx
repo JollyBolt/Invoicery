@@ -97,7 +97,13 @@ const GSTTemplate = forwardRef((props, ref) => {
                 {purchaseOrderDate && (
                   <div className="flex">
                     <p className="w-[30%] font-semibold">PO Date</p>
-                    <p>{displayDate(purchaseOrderDate)}</p>
+                    <p>
+                      {displayDate({
+                        day: new Date(purchaseOrderDate).getDate(),
+                        month: new Date(purchaseOrderDate).getMonth(),
+                        year: new Date(purchaseOrderDate).getFullYear(),
+                      })}
+                    </p>
                   </div>
                 )}
               </div>

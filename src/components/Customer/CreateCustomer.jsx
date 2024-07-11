@@ -60,7 +60,7 @@ export default function CreateCustomer({ open, setOpen }) {
     resolver: yupResolver(customerSchema),
   })
   const { register, handleSubmit, reset, clearErrors, formState, watch } = form
-  const { errors, isSubmitting } = formState
+  const { errors, isSubmitting,isDirty } = formState
   const dispatch = useDispatch()
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -443,12 +443,12 @@ export default function CreateCustomer({ open, setOpen }) {
                   ) : (
                     <motion.input
                       initial={{ scale: 1 }}
-                      whileTap={{ scale: 0.85 }}
+                      whileTap={isDirty && { scale: 0.85 }}
                       transition={{ delay: 0 }}
                       type="submit"
                       value="Submit"
-                      // disabled={isSubmitting}
-                      className="text-md rounded-rounded bg-primary px-2 py-1 font-semibold text-white transition-colors duration-200 hover:cursor-pointer hover:bg-primaryLight"
+                      disabled={isSubmitting || !isDirty}
+                      className="text-md rounded-rounded bg-primary px-2 py-1 font-semibold text-white transition-colors duration-200 hover:cursor-pointer hover:bg-primaryLight disabled:bg-primaryLight disabled:text-gray-300 disabled:cursor-default"
                     />
                   )}
                 </div>

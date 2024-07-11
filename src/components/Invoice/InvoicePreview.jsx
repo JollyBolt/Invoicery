@@ -68,11 +68,6 @@ const InvoicePreview = forwardRef((props, ref) => {
 
     if (sessionStorage.getItem("purchaseOrderDate")) {
       let purchaseOrderDate = sessionStorage.getItem("purchaseOrderDate")
-      purchaseOrderDate = {
-        day: new Date(purchaseOrderDate).getDate(),
-        month: new Date(purchaseOrderDate).getMonth(),
-        year: new Date(purchaseOrderDate).getFullYear(),
-      }
       console.log(purchaseOrderDate)
       setInvoiceState((prevState) => {
         return {

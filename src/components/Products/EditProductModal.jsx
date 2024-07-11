@@ -62,17 +62,20 @@ function EditProductModal({ modalOpen, setModalOpen, product }) {
                   <h3 className="font-sans text-3xl font-extrabold">
                     Edit Product
                   </h3>
-                  <button
+                  <motion.button
+                   initial={{ rotate: "0deg" }}
+                   whileHover={{ rotate: "180deg" }}
+                   transition={{ type: "spring", duration: 0.7 }}
                     type="button"
                     onClick={() => {
                       clearErrors()
                       reset()
                       setModalOpen(false)
                     }}
-                    className="btn btn-circle btn-ghost btn-sm text-lg text-red-500"
+                    className="rounded-full px-3 py-1 text-xl font-extralight text-red-500"
                   >
                     ✕
-                  </button>
+                  </motion.button>
                 </div>
                 <hr />
 

@@ -75,7 +75,7 @@ const InvoiceDetails = ({
                       ...invoiceState,
                       invoiceDate: {
                         day: new Date(e.target.value).getDate(),
-                        month: new Date(e.target.value).getMonth() + 1,
+                        month: new Date(e.target.value).getMonth(),
                         year: new Date(e.target.value).getFullYear(),
                       },
                     })

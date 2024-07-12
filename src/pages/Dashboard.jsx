@@ -89,13 +89,13 @@ const Dashboard = () => {
             <div className="mb-3 flex items-center justify-between">
               <div className="flex items-center gap-3 text-xl">
                 <button onClick={() => setCurrentYear((prev) => prev - 1)}>
-                  <FaAngleLeft color="#2807a0" />
+                  <FaAngleLeft className="text-primary"/>
                 </button>
                 <span className="font-numbers font-bold uppercase text-foreground">
                   <span className="font-numbers">{currentYear}</span> Revenue
                 </span>
                 <button onClick={() => setCurrentYear((prev) => prev + 1)}>
-                  <FaAngleRight color="#2807a0" />
+                  <FaAngleRight className="text-primary" />
                 </button>
               </div>
               <select
@@ -143,7 +143,7 @@ const Dashboard = () => {
                     setCurrentMonth((prev) => (prev > 0 ? prev - 1 : 11))
                   }
                 >
-                  <FaAngleLeft color="#2807a0" />
+                  <FaAngleLeft  className="text-primary"/>
                 </button>
                 <span className="font-bold uppercase text-foreground">
                   {monthNames[currentmonth]}
@@ -153,7 +153,7 @@ const Dashboard = () => {
                     setCurrentMonth((prev) => (prev < 11 ? prev + 1 : 0))
                   }
                 >
-                  <FaAngleRight color="#2807a0" />
+                  <FaAngleRight className="text-primary" />
                 </button>
               </div>
             </div>

@@ -74,7 +74,7 @@ function Sidebar() {
     <div>
       <nav id="nav" className="fixed top-0 z-50">
         <div
-          className={`flex h-screen flex-col justify-between p-2 bg-background  shadow-lg shadow-slate-300 transition-all delay-[25ms] duration-500 ${
+          className={`bg-background flex h-screen flex-col justify-between p-2 shadow-lg ${dark === "light" && "shadow- slate-300"} transition-all delay-[25ms] duration-500 ${
             open ? "w-[230px]" : "w-[56px]"
           }`}
           onMouseEnter={() => setOpen(true)}
@@ -99,7 +99,7 @@ function Sidebar() {
                     color: `hsl(var(--primary))`,
                   }}
                   className={`inline whitespace-pre text-2xl font-black uppercase text-transparent duration-500 ${
-                    !open && "translate-x-28 overflow-hidden opacity-0 "
+                    !open && "translate-x-28 overflow-hidden opacity-0"
                   }`}
                 >
                   Invoicery
@@ -144,7 +144,10 @@ function Sidebar() {
               } duration-400 flex items-center gap-3.5 px-2 py-1 ease-linear`}
             >
               {dark === "dark" ? (
-                <IoSunnyOutline size={24} className="shrink-0 text-foreground" />
+                <IoSunnyOutline
+                  size={24}
+                  className="shrink-0 text-foreground"
+                />
               ) : (
                 <IoMoonOutline size={24} className="shrink-0 text-foreground" />
               )}

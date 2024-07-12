@@ -88,7 +88,7 @@ const Table = ({
           Prev
         </button>
 
-        <p className="text-lg">
+        <p className="text-lg text-foreground">
           Page {pagination.pageIndex + 1} of {table.getPageCount()}
         </p>
 

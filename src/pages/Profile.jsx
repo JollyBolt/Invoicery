@@ -34,7 +34,7 @@ const Profile = () => {
       ) : loading ? (
         <Loader />
       ) : (
-        <div className="flex h-full w-full flex-col flex-nowrap overflow-hidden rounded-rounded bg-foreground">
+        <div className="flex h-full w-full flex-col flex-nowrap overflow-hidden rounded-rounded bg-background">
           <div className="w-full bg-primary p-5 text-white shadow-md shadow-slate-400">
             <p className="p-3 text-6xl font-black">{user.name}</p>
             <div className="flex items-center gap-20">
@@ -59,13 +59,13 @@ const Profile = () => {
           <div className="flex h-full w-full flex-1 p-3">
             <div className="h-full w-1/4 border-r p-3">
               <p
-                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "organization" ? "bg-primary text-white" : "hover:bg-gray-50"} transition-all`}
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "organization" ? "bg-primary text-white" : "hover:bg-gray-50 text-foreground"} transition-all`}
                 onClick={() => setDetails("organization")}
               >
                 Organization Details
               </p>
               <p
-                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "banking" ? "bg-primary text-white" : "hover:bg-gray-50"} transition-all`}
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "banking" ? "bg-primary text-white" : "hover:bg-gray-50 text-foreground"} transition-all`}
                 onClick={() => setDetails("banking")}
               >
                 Banking Details
@@ -73,7 +73,7 @@ const Profile = () => {
             </div>
             <div className="p-3">
               <div
-                className={`${details == "banking" && "hidden"} flex w-full flex-col gap-5 p-5 text-xl`}
+                className={`${details == "banking" && "hidden"} flex w-full flex-col gap-5 p-5 text-xl text-foreground`}
               >
                 <div className="flex">
                   <p className="w-52">Name</p>
@@ -116,7 +116,7 @@ const Profile = () => {
               </div>
 
               <div
-                className={`${details == "organization" && "hidden"} flex w-full flex-col gap-5 p-5 text-xl`}
+                className={`${details == "organization" && "hidden"} flex w-full flex-col gap-5 p-5 text-xl text-foreground`}
               >
                 <div className="flex">
                   <p className="w-52">Bank</p>

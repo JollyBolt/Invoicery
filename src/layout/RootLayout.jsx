@@ -13,10 +13,10 @@ const RootLayout = () => {
   }, [])
   return (
     <>
-      <Sidebar navBg="foreground" navHeading="secondary" />
+      <Sidebar/>
       <div
         id="parent"
-        className={`ml-[56px] bg-slate-100 transition-all duration-500`}
+        className={`ml-[56px] bg-muted transition-all duration-500`}
       >
         <Outlet />
       </div>

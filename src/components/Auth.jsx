@@ -75,7 +75,7 @@ const Modal = ({ open, setOpen }) => {
     resolver: yupResolver(loginSchema),
   });
 
-  const { control, register, handleSubmit, formState } = form;
+  const {  register, handleSubmit, formState } = form;
   const { errors } = formState;
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.auth);
@@ -170,8 +170,6 @@ const Modal = ({ open, setOpen }) => {
                   />
                 )}
               </form>
-
-              {/* <DevTool control={control} /> */}
 
               <div className="relative my-5 flex w-full items-center justify-center">
                 <hr className="my-5 w-full border bg-gray-300" />

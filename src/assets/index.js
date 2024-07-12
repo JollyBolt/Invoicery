@@ -58,6 +58,14 @@ import { HiArrowLongLeft } from "react-icons/hi2"
 //Trash Can
 import { FaTrash } from "react-icons/fa";
 
+
+//Light & Dark Icons
+import { IoSunnyOutline } from "react-icons/io5";
+import { IoMoonOutline } from "react-icons/io5";
+
+//Power Icon
+import { IoPowerOutline } from "react-icons/io5";
+
 export {
   MdDashboard,
   BsBoxSeamFill,
@@ -83,5 +91,8 @@ export {
   RiExpandUpDownLine,
   SlSocialDropbox,
   FcGoogle,
-  HiArrowLongLeft
+  HiArrowLongLeft,
+  IoSunnyOutline,
+  IoMoonOutline,
+  IoPowerOutline
 };

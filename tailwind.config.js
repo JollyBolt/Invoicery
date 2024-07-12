@@ -4,11 +4,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "var(--primary)",
-        secondary: "var(--secondary)",
-        foreground: "var(--foreground)",
-        accent: "var(--accent)",
+        primary: "hsl(var(--primary))",
+        // secondary: "var(--secondary)",
+        foreground: "hsl(var(--foreground))",
+        // accent: "var(--accent)",
         primaryLight: "var(--primaryLight)",
+        muted: "hsl(var(--muted))",
+        background:"hsl(var(--background))"
       },
       // colors: {
       //   border: "hsl(var(--border))",
@@ -53,8 +55,5 @@ export default {
       },
     },
   },
-  plugins: [require("daisyui")],
-  daisyui: {
-    themes: ["light", "dark", "cupcake"],
-  },
+  plugins: [],
 }

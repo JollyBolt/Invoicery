@@ -52,7 +52,7 @@ const Products = () => {
         </>
       ) : (
         <div
-          className={`mt-4 min-h-[calc(100dvh-80px)] rounded-rounded bg-foreground p-5 ${products && "flex flex-col flex-nowrap items-center"}`}
+          className={`mt-4 min-h-[calc(100dvh-80px)] rounded-rounded bg-background p-5 ${products && "flex flex-col flex-nowrap items-center"}`}
         >
           <AddProductModal isOpen={isOpen} setIsOpen={setIsOpen} />
           <div
@@ -60,7 +60,7 @@ const Products = () => {
           >
             <div className="w-1/3 border-b border-neutral-800 pl-2">
               <div className="justfy-betweem flex h-fit w-full flex-nowrap items-center">
-                <HiMagnifyingGlass className="inline pr-2 text-4xl" />
+                <HiMagnifyingGlass className="inline pr-2 text-4xl text-foreground" />
                 <input
                   onChange={(e) => {
                     setSearch(e.target.value)
@@ -72,7 +72,7 @@ const Products = () => {
                   // disabled
                   placeholder="Search Products"
                   id="searchProduct"
-                  className="inline w-full bg-transparent py-0 text-black outline-none active:outline-none"
+                  className="inline w-full bg-transparent py-0 text-foreground outline-none active:outline-none"
                 />
                 {search && (
                   <button

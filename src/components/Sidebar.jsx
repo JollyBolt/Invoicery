@@ -3,11 +3,12 @@ import React, { useEffect, useState } from "react"
 import { HiMenuAlt2 } from "../assets/index"
 import { navLinks } from "../constants"
 import { useNavigate } from "react-router-dom"
-import { IoPowerOutline } from "react-icons/io5"
+import { IoSunnyOutline, IoMoonOutline, IoPowerOutline } from "../assets/index"
+
 import { useDispatch, useSelector } from "react-redux"
 import { getProfile } from "../redux/slices/userSlice"
 
-function Sidebar({ navBg, navHeading }) {
+function Sidebar() {
   const [open, setOpen] = useState(false)
 
   const { pathname } = useLocation()
@@ -40,12 +41,40 @@ function Sidebar({ navBg, navHeading }) {
     return false
   }
 
+  //dark mode code
+  const system = window.matchMedia("(prefers-color-scheme:dark)")
+  const [dark, setDark] = useState(
+    localStorage.getItem("theme")
+      ? localStorage.getItem("theme")
+      : system.matches
+        ? "dark"
+        : "light",
+  )
+  const toggleDark = () => {
+    if (dark !== "dark") {
+      setDark("dark")
+    } else {
+      setDark("light")
+    }
+  }
+
+  useEffect(() => {
+    switch (dark) {
+      case "dark":
+        document.body.classList.add("dark")
+        localStorage.setItem("theme", "dark")
+        break
+      case "light":
+        document.body.classList.remove("dark")
+        localStorage.setItem("theme", "light")
+    }
+  }, [dark])
+
   return (
     <div>
       <nav id="nav" className="fixed top-0 z-50">
         <div
-          style={{ backgroundColor: `var(--${navBg})` }}
-          className={`flex h-screen flex-col justify-between p-2 text-black shadow-lg shadow-slate-300 transition-all delay-[25ms] duration-500 ${
+          className={`flex h-screen flex-col justify-between p-2 bg-background  shadow-lg shadow-slate-300 transition-all delay-[25ms] duration-500 ${
             open ? "w-[230px]" : "w-[56px]"
           }`}
           onMouseEnter={() => setOpen(true)}
@@ -61,16 +90,16 @@ function Sidebar({ navBg, navHeading }) {
             </div> */}
             <div className="relative mt-4 flex flex-col justify-between gap-4">
               <div className="flex gap-3.5 overflow-hidden text-nowrap px-2">
-                <div className="flex w-6 shrink-0 -skew-x-12 justify-center border border-black text-2xl font-extrabold uppercase text-primary">
+                <div className="flex w-6 shrink-0 -skew-x-12 justify-center border border-primary text-2xl font-extrabold uppercase text-primary">
                   I{" "}
                 </div>
                 <h2
                   style={{
                     transitionDelay: `${2}00ms`,
-                    color: `var(--${navHeading})`,
+                    color: `hsl(var(--primary))`,
                   }}
                   className={`inline whitespace-pre text-2xl font-black uppercase text-transparent duration-500 ${
-                    !open && "translate-x-28 overflow-hidden opacity-0"
+                    !open && "translate-x-28 overflow-hidden opacity-0 "
                   }`}
                 >
                   Invoicery
@@ -108,10 +137,29 @@ function Sidebar({ navBg, navHeading }) {
           </div>
 
           <div className="flex flex-col gap-4 overflow-hidden border-t border-gray-500 pt-2">
+            <div
+              onClick={toggleDark}
+              className={`transition-[border-radius] hover:cursor-pointer hover:bg-slate-300 ${
+                open ? "rounded-rounded delay-0" : "rounded-[50%] delay-300"
+              } duration-400 flex items-center gap-3.5 px-2 py-1 ease-linear`}
+            >
+              {dark === "dark" ? (
+                <IoSunnyOutline size={24} className="shrink-0 text-foreground" />
+              ) : (
+                <IoMoonOutline size={24} className="shrink-0 text-foreground" />
+              )}
+              <h2
+                className={`text-md select-none overflow-hidden whitespace-pre text-foreground [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s] ${
+                  open ? "translate-x-0 opacity-100" : "translate-x-24"
+                }`}
+              >
+                Toggle Theme
+              </h2>
+            </div>
+
             {loggedIn && (
               <div
                 onClick={() => {
-                  // localStorage.removeItem("loggedIn");
                   document.cookie =
                     "authToken= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
                   // navigate("/");
@@ -122,6 +170,7 @@ function Sidebar({ navBg, navHeading }) {
                 } duration-400 flex items-center gap-3.5 px-2 py-1 ease-linear`}
               >
                 <IoPowerOutline size={24} className="shrink-0" />
+
                 <h2
                   className={`text-md overflow-hidden whitespace-pre [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s] ${
                     open ? "translate-x-0 opacity-100" : "translate-x-24"
@@ -133,7 +182,7 @@ function Sidebar({ navBg, navHeading }) {
             )}
 
             <div
-              className={`group flex items-center gap-3.5 rounded-md p-2 text-sm font-medium text-black`}
+              className={`group flex items-center gap-3.5 rounded-md p-2 text-sm font-medium text-foreground`}
             >
               <div className="flex flex-row flex-nowrap">
                 {user.name &&

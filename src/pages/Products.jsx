@@ -56,39 +56,38 @@ const Products = () => {
         >
           <AddProductModal isOpen={isOpen} setIsOpen={setIsOpen} />
           <div
-            className={`flex h-full w-full flex-nowrap ${!loading && products.products.length > 0 ? "justify-between" : "justify-end"} rounded-t-sm`}
+            className={`0 flex h-full w-full flex-nowrap justify-between rounded-t-sm`}
           >
-            {!loading && products.products.length > 0 && (
-              <div className="w-1/3 border-b border-neutral-800 pl-2">
-                <div className="justfy-betweem flex h-fit w-full flex-nowrap items-center">
-                  <HiMagnifyingGlass className="inline pr-2 text-4xl" />
-                  <input
-                    onChange={(e) => {
-                      setSearch(e.target.value)
+            <div className="w-1/3 border-b border-neutral-800 pl-2">
+              <div className="justfy-betweem flex h-fit w-full flex-nowrap items-center">
+                <HiMagnifyingGlass className="inline pr-2 text-4xl" />
+                <input
+                  onChange={(e) => {
+                    setSearch(e.target.value)
+                  }}
+                  type="text"
+                  autoComplete="off"
+                  value={search}
+                  name="search"
+                  // disabled
+                  placeholder="Search Products"
+                  id="searchProduct"
+                  className="inline w-full bg-transparent py-0 text-black outline-none active:outline-none"
+                />
+                {search && (
+                  <button
+                    type="btn"
+                    className="h-fit w-fit"
+                    onClick={() => {
+                      document.getElementById("searchProduct").value = ""
+                      setSearch("")
                     }}
-                    type="text"
-                    autoComplete="off"
-                    value={search}
-                    name="search"
-                    placeholder="Search Products"
-                    id="searchProduct"
-                    className="inline w-full bg-transparent py-0 text-black outline-none active:outline-none"
-                  />
-                  {search && (
-                    <button
-                      type="btn"
-                      className="h-fit w-fit"
-                      onClick={() => {
-                        document.getElementById("searchProduct").value = ""
-                        setSearch("")
-                      }}
-                    >
-                      <RxCross1 className="text-lg text-red-400" />
-                    </button>
-                  )}
-                </div>
+                  >
+                    <RxCross1 className="text-lg text-red-400" />
+                  </button>
+                )}
               </div>
-            )}
+            </div>
 
             <div className="flex flex-nowrap items-center justify-between">
               <button

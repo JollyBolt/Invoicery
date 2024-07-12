@@ -108,27 +108,29 @@ function Sidebar({ navBg, navHeading }) {
           </div>
 
           <div className="flex flex-col gap-4 overflow-hidden border-t border-gray-500 pt-2">
-            <div
-              onClick={() => {
-                // localStorage.removeItem("loggedIn");
-                document.cookie =
-                  "authToken= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
-                // navigate("/");
-                window.location.reload()
-              }}
-              className={`text-red-500 transition-[border-radius] hover:bg-red-500 hover:text-white ${
-                open ? "rounded-rounded delay-0" : "rounded-[50%] delay-300"
-              } duration-400 flex items-center gap-3.5 px-2 py-1 ease-linear`}
-            >
-              <IoPowerOutline size={24} className="shrink-0" />
-              <h2
-                className={`text-md overflow-hidden whitespace-pre [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s] ${
-                  open ? "translate-x-0 opacity-100" : "translate-x-24"
-                }`}
+            {loggedIn && (
+              <div
+                onClick={() => {
+                  // localStorage.removeItem("loggedIn");
+                  document.cookie =
+                    "authToken= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+                  // navigate("/");
+                  window.location.reload()
+                }}
+                className={`text-red-500 transition-[border-radius] hover:bg-red-500 hover:text-white ${
+                  open ? "rounded-rounded delay-0" : "rounded-[50%] delay-300"
+                } duration-400 flex items-center gap-3.5 px-2 py-1 ease-linear`}
               >
-                Logout
-              </h2>
-            </div>
+                <IoPowerOutline size={24} className="shrink-0" />
+                <h2
+                  className={`text-md overflow-hidden whitespace-pre [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s] ${
+                    open ? "translate-x-0 opacity-100" : "translate-x-24"
+                  }`}
+                >
+                  Logout
+                </h2>
+              </div>
+            )}
 
             <div
               className={`group flex items-center gap-3.5 rounded-md p-2 text-sm font-medium text-black`}

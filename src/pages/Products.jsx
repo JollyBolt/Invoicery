@@ -13,9 +13,10 @@ import Table from "../components/Table/Table"
 import { productColumns } from "../components/Table/Columns"
 import { fetchAllProducts } from "../redux/slices/productSlice"
 import { useDebounce } from "../hooks/useDebounce"
+import Skeleton from "./Skeleton"
 
 const Products = () => {
-  const { products } = useSelector((state) => state.products)
+  const { products, loading } = useSelector((state) => state.products)
   const [search, setSearch] = useState("")
   const debouncedSearch = useDebounce(search)
   const [pagination, setPagination] = useState({
@@ -54,73 +55,76 @@ const Products = () => {
           className={`mt-4 min-h-[calc(100dvh-80px)] rounded-rounded bg-foreground p-5 ${products && "flex flex-col flex-nowrap items-center"}`}
         >
           <AddProductModal isOpen={isOpen} setIsOpen={setIsOpen} />
-          {products ? (
-            <>
-              <div className="flex h-full w-full flex-row flex-nowrap justify-between rounded-t-sm">
-                <div className="w-1/3 border-b border-neutral-800 pl-2">
-                  <div className="justfy-betweem flex h-fit w-full flex-nowrap items-center">
-                    <HiMagnifyingGlass className="inline pr-2 text-4xl" />
-                    <input
-                      onChange={(e) => {
-                        setSearch(e.target.value)
+          <div
+            className={`flex h-full w-full flex-nowrap ${!loading && products.products.length > 0 ? "justify-between" : "justify-end"} rounded-t-sm`}
+          >
+            {!loading && products.products.length > 0 && (
+              <div className="w-1/3 border-b border-neutral-800 pl-2">
+                <div className="justfy-betweem flex h-fit w-full flex-nowrap items-center">
+                  <HiMagnifyingGlass className="inline pr-2 text-4xl" />
+                  <input
+                    onChange={(e) => {
+                      setSearch(e.target.value)
+                    }}
+                    type="text"
+                    autoComplete="off"
+                    value={search}
+                    name="search"
+                    placeholder="Search Products"
+                    id="searchProduct"
+                    className="inline w-full bg-transparent py-0 text-black outline-none active:outline-none"
+                  />
+                  {search && (
+                    <button
+                      type="btn"
+                      className="h-fit w-fit"
+                      onClick={() => {
+                        document.getElementById("searchProduct").value = ""
+                        setSearch("")
                       }}
-                      type="text"
-                      autoComplete="off"
-                      value={search}
-                      name="search"
-                      placeholder="Search Products"
-                      id="searchProduct"
-                      className="inline w-full bg-transparent py-0 text-black outline-none active:outline-none"
-                    />
-                    {search && (
-                      <button
-                        type="btn"
-                        className="h-fit w-fit"
-                        onClick={() => {
-                          document.getElementById("searchProduct").value = ""
-                          setSearch("")
-                        }}
-                      >
-                        <RxCross1 className="text-lg text-red-400" />
-                      </button>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex flex-nowrap items-center justify-between">
-                  <button
-                    onClick={() => setIsOpen(true)}
-                    type="button"
-                    className="flex w-fit items-center gap-2 rounded-rounded bg-primary p-2 px-4 text-lg font-semibold text-white transition-colors hover:bg-primaryLight"
-                  >
-                    <FaPlus />
-                    <span>Add Product</span>
-                  </button>
+                    >
+                      <RxCross1 className="text-lg text-red-400" />
+                    </button>
+                  )}
                 </div>
               </div>
-              {products.products && (
-                <Table
-                  tableColumns={productColumns}
-                  tableData={products.products}
-                  pageCount={products.pageCount}
-                  pagination={pagination}
-                  setPagination={setPagination}
-                />
-              )}
-            </>
+            )}
+
+            <div className="flex flex-nowrap items-center justify-between">
+              <button
+                onClick={() => setIsOpen(true)}
+                type="button"
+                className="flex w-fit items-center gap-2 rounded-rounded bg-primary p-2 px-4 text-lg font-semibold text-white transition-colors hover:bg-primaryLight"
+              >
+                <FaPlus />
+                <span>Add Product</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Table Code Starts*/}
+          {loading ? (
+            <Skeleton />
+          ) : products.products ? (
+            <Table
+              tableColumns={productColumns}
+              tableData={products.products}
+              pageCount={products.pageCount}
+              pagination={pagination}
+              setPagination={setPagination}
+            />
           ) : (
+            //If no products
             <div className="flex h-full flex-1 flex-col items-center justify-evenly">
               <h2 className="text-center text-xl">
                 You don't have any products. Click{" "}
                 <span
-                  onClick={() =>
-                    document.getElementById("my_modal_3").showModal()
-                  }
+                  onClick={() => setIsOpen(true)}
                   className="text-primaryLight transition-all hover:cursor-pointer hover:underline hover:underline-offset-2"
                 >
-                  here{" "}
+                  here
                 </span>
-                to add new product.
+                &nbsp;to add new product.
               </h2>
               <div className="float-end">
                 <img src={AddCustomer} alt="" />

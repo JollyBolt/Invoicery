@@ -1,5 +1,5 @@
-import React from "react";
-import dummyData from "../../dummyOverAllStats.json";
+import React, { useEffect, useState } from "react"
+import dummyData from "../../dummyOverAllStats.json"
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,10 +9,10 @@ import {
   Title,
   Tooltip,
   Legend,
-} from "chart.js";
-import { Line } from "react-chartjs-2";
+} from "chart.js"
+import { Line } from "react-chartjs-2"
 
-const LineChart = ({ currentYear }) => {
+const LineChart = ({ currentYear, revenue }) => {
   // const currentYear = 2024
 
   ChartJS.register(
@@ -23,52 +23,46 @@ const LineChart = ({ currentYear }) => {
     Title,
     Tooltip,
     Legend,
-  );
+  )
 
-  var yearData = {};
+  const [yearData, setYearData] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+  let tempRevenue = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-  const getYearData = dummyData.years.map((curr) => {
-    if (curr.year == currentYear) yearData = Object.assign(curr.months);
-  });
-  // console.log(yearData)
-
-  var monthlyRevenue = [];
-
-  Object.values(yearData).forEach((value) => {
-    monthlyRevenue.push(value.totalMonthRevenue);
-    // console.log(value.totalMonthRevenue)
-  });
+  useEffect(() => {
+    revenue?.map((rev, ind) => (tempRevenue[rev._id] = rev.revenue))
+    setYearData(tempRevenue)
+  }, [revenue])
 
   const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
     "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ]
 
   const data = {
     labels,
     datasets: [
       {
         label: "Monthly Revenue",
-        data: monthlyRevenue,
+        data: yearData,
         backgroundColor: "#3700FF90",
         borderColor: "#2807a0",
         // hoverBackgroundColor: '#3D0CF0',
         pointStyle: "circle",
-        pointRadius: 8,
-        pointHoverRadius: 13,
+        pointRadius: 5,
+        pointHoverRadius: 7,
       },
     ],
-  };
+  }
 
   const options = {
     responsive: true,
@@ -88,8 +82,8 @@ const LineChart = ({ currentYear }) => {
         grace: 1,
       },
     },
-  };
+  }
 
-  return <Line options={options} data={data} />;
-};
-export default LineChart;
+  return <Line options={options} data={data} />
+}
+export default LineChart

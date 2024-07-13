@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react"
 import { BsThreeDotsVertical } from "../../assets"
-import { useNavigate } from "react-router-dom"
 import EditProductModal from "../Products/EditProductModal"
 import { useDispatch, useSelector } from "react-redux"
 import { deleteProduct } from "../../redux/slices/productSlice"
+import { MdEdit, MdDelete } from "react-icons/md"
 
 const ProductActionsDropdown = ({ row }) => {
   const [open, setOpen] = useState(false)
@@ -44,20 +44,21 @@ const ProductActionsDropdown = ({ row }) => {
       >
         <BsThreeDotsVertical />
         <div
-          className={`absolute bottom-0 left-4 border ${!open && "scale-0"} flex w-[80px] origin-bottom-left flex-col bg-white transition-all`}
+          className={`absolute bottom-0 left-4 ${!open && "scale-0"} text-md flex w-[100px] origin-bottom-left flex-col overflow-hidden rounded-md border bg-white p-1 transition-all`}
         >
           <button
-            className="border p-2 hover:bg-gray-50"
+            className="flex items-center gap-1.5 rounded-rounded px-2 py-1 hover:bg-slate-300"
             onClick={(e) => {
               e.stopPropagation()
               setModalOpen(true)
               setOpen((prev) => !prev)
             }}
           >
+            <MdEdit />
             Edit
           </button>
           <button
-            className="border p-2 hover:bg-gray-50"
+            className="flex items-center gap-1.5 rounded-rounded px-2 py-1 hover:bg-slate-300"
             onClick={(e) => {
               e.stopPropagation()
               dispatch(deleteProduct(row.original._id))
@@ -65,6 +66,7 @@ const ProductActionsDropdown = ({ row }) => {
               setOpen((prev) => !prev)
             }}
           >
+            <MdDelete />
             Delete
           </button>
         </div>

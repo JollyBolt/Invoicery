@@ -3,6 +3,9 @@ import { BsThreeDotsVertical } from "../../assets"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { deleteCustomer } from "../../redux/slices/customerSlice"
+import { FaEye } from "react-icons/fa"
+import { MdEdit, MdDelete } from "react-icons/md"
+
 import EditCustomer from "../Customer/EditCustomer"
 
 const CustomerActionsDropdown = ({ row }) => {
@@ -40,36 +43,39 @@ const CustomerActionsDropdown = ({ row }) => {
         />
       )}
       <div
-        className="relative cursor-pointer rounded-rounded"
+        className="relative cursor-pointer"
         onClick={() => setOpen((prev) => !prev)}
         ref={ref}
       >
         <BsThreeDotsVertical />
         <div
-          className={`absolute bottom-0 left-4 ${!open && "scale-0"} flex w-[80px] origin-bottom-left flex-col bg-white transition-all`}
+          className={`absolute bottom-0 left-4 ${!open && "scale-0"} text-md flex w-[100px] origin-bottom-left flex-col overflow-hidden rounded-md border bg-white p-1 transition-all`}
         >
           <button
-            className="border p-2 hover:bg-gray-50"
+            className="flex items-center gap-1.5 rounded-rounded px-2 py-1 hover:bg-slate-300"
             onClick={(e) => {
               e.stopPropagation()
               setOpen((prev) => !prev)
+              sessionStorage.setItem("customerName", row.original.client)
               navigate(`./${row.original._id}`)
             }}
           >
+            <FaEye />
             View
           </button>
           <button
-            className="border p-2 hover:bg-gray-50"
+            className="flex items-center gap-1.5 rounded-rounded px-2 py-1 hover:bg-slate-300"
             onClick={(e) => {
               e.stopPropagation()
               setOpen((prev) => !prev)
               setModalOpen(true)
             }}
           >
+            <MdEdit />
             Edit
           </button>
           <button
-            className="border p-2 hover:bg-gray-50"
+            className="flex items-center gap-1.5 rounded-rounded px-2 py-1 hover:bg-slate-300"
             onClick={(e) => {
               e.stopPropagation()
               dispatch(deleteCustomer(row.original._id))
@@ -77,6 +83,7 @@ const CustomerActionsDropdown = ({ row }) => {
               setOpen((prev) => !prev)
             }}
           >
+            <MdDelete />
             Delete
           </button>
         </div>

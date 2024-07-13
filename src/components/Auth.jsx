@@ -121,7 +121,7 @@ const Modal = ({ open, setOpen }) => {
                     {...register("email")}
                     className="peer w-full rounded-rounded border border-gray-300 p-3 transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
                   />
-                  <label htmlFor="email" className="float-label">
+                  <label htmlFor="email" className="float-label bg-white">
                     Email
                   </label>
                 </div>
@@ -143,7 +143,7 @@ const Modal = ({ open, setOpen }) => {
                     placeholder="password"
                     className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
                   />
-                  <label htmlFor="password" className="float-label">
+                  <label htmlFor="password" className="float-label bg-white">
                     Password
                   </label>
                 </div>

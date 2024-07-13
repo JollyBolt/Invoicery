@@ -9,10 +9,10 @@ function TnCModal({ isOpen, setIsOpen }) {
   const { user, loading } = useSelector((state) => state.user)
   const form = useForm({
     defaultValues: {
-      termsNConditions: [],
+      termsNConditions: user.termsNConditions ? user.termsNConditions : [],
     },
   })
-  const { control, handleSubmit } = form
+  const { control, handleSubmit, watch } = form
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -60,7 +60,11 @@ function TnCModal({ isOpen, setIsOpen }) {
                           className="peer w-full rounded-md border px-3 py-2 text-lg transition-colors duration-150 focus:border-black focus:outline-none"
                           type="text"
                           placeholder="Terms and Conditions"
-                          {...register(`termsNConditions[${ind}]`, {})}
+                          {...register(`termsNConditions[${ind}]`, {
+                            onBlur: () => {
+                              console.log(watch(`termsNConditions`))
+                            },
+                          })}
                         />
                       </div>
 

@@ -1,6 +1,4 @@
 import React, { useMemo, useRef } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { fetchSingleInvoice } from "../../redux/slices/invoiceSlice"
 import { motion, AnimatePresence } from "framer-motion"
 import { useReactToPrint } from "react-to-print"
 import GSTTemplate from "./MultiStepForm/GST/GSTTemplate"
@@ -90,20 +88,6 @@ const ViewInvoice = ({ modalOpen, setModalOpen, invoiceState }) => {
                     </div>
                   </div>
                 </button>
-                {/* <button
-                  className="flex w-[90px] items-center justify-between rounded-rounded bg-white px-2 py-1 text-lg"
-                  onClick={() => navigate(`./${invoiceState._id}`)}
-                >
-                  <span>Edit</span>
-                  <MdEdit />
-                </button>
-                <button
-                  className="flex w-[90px] items-center justify-between rounded-rounded bg-white px-2 py-1 text-lg"
-                  onClick={handlePrint}
-                >
-                  <span>Print</span>
-                  <IoIosPrint />
-                </button> */}
               </div>
             </div>
           </motion.div>

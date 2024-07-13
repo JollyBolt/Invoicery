@@ -23,11 +23,11 @@ const getProfile = createAsyncThunk("user/getProfile", async () => {
   }
 })
 
-const editProfile = createAsyncThunk("user/editProfile", async (body) => {
+const editProfile = createAsyncThunk("user/editProfile", async (params) => {
   try {
     const res = await axios.put(
-      "http://localhost:4598/api/v1/user/updateUser",
-      body,
+      `http://localhost:4598/api/v1/user/updateUser/${params.id}`,
+      params.body,
       {
         headers: {
           Authorization: "Bearer " + getCookieValue("authToken"),
@@ -50,6 +50,7 @@ const userSlice = createSlice({
     error: "",
   },
   extraReducers: (builder) => {
+    //Get Profile
     builder.addCase(getProfile.pending, (state) => {
       state.loading = true
     })
@@ -61,6 +62,21 @@ const userSlice = createSlice({
     builder.addCase(getProfile.rejected, (state, action) => {
       state.loading = false
       state.user = {}
+      state.error = action.error.message
+    })
+
+    //Edit Profile
+    builder.addCase(editProfile.pending, (state) => {
+      state.loading = true
+    })
+    builder.addCase(editProfile.fulfilled, (state, action) => {
+      state.loading = false
+      // state.user = action.payload
+      state.error = ""
+    })
+    builder.addCase(editProfile.rejected, (state, action) => {
+      state.loading = false
+      // state.user = {}
       state.error = action.error.message
     })
   },

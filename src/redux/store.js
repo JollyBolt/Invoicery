@@ -21,6 +21,7 @@ const store = configureStore({
           "auth/login",
           "auth/signup",
           "user/getProfile",
+          "user/editProfile",
           "products/editProduct",
           "products/fetchSingleProduct",
           "products/postProduct",

@@ -150,6 +150,7 @@ const productSlice = createSlice({
       // state.products = [];
       state.error = action.error.message
     })
+    
     //Edit product
     builder.addCase(editProduct.pending, (state) => {
       state.loading = true

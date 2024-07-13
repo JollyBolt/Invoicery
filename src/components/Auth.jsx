@@ -1,29 +1,29 @@
-import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
-import { useGoogleLogin } from "@react-oauth/google";
-import axios from "axios";
-import { FcGoogle } from "../assets";
-import { useForm } from "react-hook-form";
-import { DevTool } from "@hookform/devtools";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../redux/slices/authSlice.js";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react"
+import { AnimatePresence, motion } from "framer-motion"
+import { GoogleLogin } from "@react-oauth/google"
+import { jwtDecode } from "jwt-decode"
+import { useGoogleLogin } from "@react-oauth/google"
+import axios from "axios"
+import { FcGoogle } from "../assets"
+import { useForm } from "react-hook-form"
+import { DevTool } from "@hookform/devtools"
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+import { useDispatch, useSelector } from "react-redux"
+import { login } from "../redux/slices/authSlice.js"
+import { useNavigate } from "react-router-dom"
 
 function Auth() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
       <Modal open={open} setOpen={setOpen} />
-      <h1 className="text-center text-4xl font-semibold text-black">
+      <h1 className="text-center text-4xl font-semibold text-foreground">
         Sign in now to access all features!
       </h1>
       <motion.button
         onClick={() => {
-          setOpen(true);
+          setOpen(true)
         }}
         initial={{ scale: 1 }}
         whileTap={{ scale: 0.85 }}
@@ -33,7 +33,7 @@ function Auth() {
         Sign In
       </motion.button>
     </div>
-  );
+  )
 }
 
 const Modal = ({ open, setOpen }) => {
@@ -58,7 +58,7 @@ const Modal = ({ open, setOpen }) => {
   //   },
   // });
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const loginSchema = yup.object({
     email: yup
@@ -66,26 +66,26 @@ const Modal = ({ open, setOpen }) => {
       .email("Please enter valid email address")
       .required("Please enter email address"),
     password: yup.string().required("Please enter password"),
-  });
+  })
   const form = useForm({
     defaultValues: {
       email: "",
       password: "",
     },
     resolver: yupResolver(loginSchema),
-  });
+  })
 
-  const {  register, handleSubmit, formState } = form;
-  const { errors } = formState;
-  const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.auth);
+  const { register, handleSubmit, formState } = form
+  const { errors } = formState
+  const dispatch = useDispatch()
+  const { loading } = useSelector((state) => state.auth)
   const onSubmit = async (e) => {
-    e.preventDefault();
-    await handleSubmit(handleLogin)(e);
-  };
+    e.preventDefault()
+    await handleSubmit(handleLogin)(e)
+  }
   const handleLogin = ({ email, password }) => {
-    dispatch(login({ email, password ,mode:"password" }));
-  };
+    dispatch(login({ email, password, mode: "password" }))
+  }
   // const handleGoogleLogin = ()
   return (
     <>
@@ -196,11 +196,11 @@ const Modal = ({ open, setOpen }) => {
                   size="large"
                   width={320}
                   onSuccess={(credentialResponse) => {
-                    const decoded = jwtDecode(credentialResponse?.credential);
+                    const decoded = jwtDecode(credentialResponse?.credential)
                     // console.log(decoded);
                   }}
                   onError={() => {
-                    console.log("Login Failed");
+                    console.log("Login Failed")
                   }}
                 />
               </div>
@@ -211,7 +211,7 @@ const Modal = ({ open, setOpen }) => {
                   <span
                     className="text-primaryLight hover:cursor-pointer hover:underline hover:underline-offset-2"
                     onClick={() => {
-                      navigate("/signup");
+                      navigate("/signup")
                     }}
                   >
                     Sign Up
@@ -235,7 +235,7 @@ const Modal = ({ open, setOpen }) => {
         )}
       </AnimatePresence>
     </>
-  );
-};
+  )
+}
 
-export default Auth;
+export default Auth

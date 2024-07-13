@@ -52,66 +52,65 @@ const Products = () => {
         </>
       ) : (
         <div
-          className={`mt-4 min-h-[calc(100dvh-80px)] rounded-rounded bg-background p-5 ${products && "flex flex-col flex-nowrap items-center"}`}
+          className={`mt-4 h-[calc(100dvh-80px)] rounded-rounded ${products && "flex flex-col flex-nowrap items-center gap-4"}`}
         >
           <AddProductModal isOpen={isOpen} setIsOpen={setIsOpen} />
-          <div
-            className={`0 flex h-full w-full flex-nowrap justify-between rounded-t-sm`}
-          >
-            <div className="w-1/3 border-b border-neutral-800 pl-2">
-              <div className="justfy-betweem flex h-fit w-full flex-nowrap items-center">
-                <HiMagnifyingGlass className="inline pr-2 text-4xl text-foreground" />
-                <input
-                  onChange={(e) => {
-                    setSearch(e.target.value)
-                  }}
-                  type="text"
-                  autoComplete="off"
-                  value={search}
-                  name="search"
-                  // disabled
-                  placeholder="Search Products"
-                  id="searchProduct"
-                  className="inline w-full bg-transparent py-0 text-foreground outline-none active:outline-none"
-                />
-                {search && (
+          {products ? (
+            <>
+              <div className="flex w-full flex-row flex-nowrap justify-between rounded-t-sm">
+                <div className="w-1/3 rounded-md border border-slate-300 bg-white p-2">
+                  <div className="justfy-betweem flex h-fit w-full flex-nowrap items-center">
+                    <HiMagnifyingGlass className="inline pr-2 text-4xl" />
+                    <input
+                      onChange={(e) => {
+                        setSearch(e.target.value)
+                      }}
+                      type="text"
+                      autoComplete="off"
+                      value={search}
+                      name="search"
+                      placeholder="Search Products"
+                      id="searchProduct"
+                      className="inline w-full bg-transparent py-0 text-black outline-none active:outline-none"
+                    />
+                    {search && (
+                      <button
+                        type="btn"
+                        className="h-fit w-fit"
+                        onClick={() => {
+                          document.getElementById("searchProduct").value = ""
+                          setSearch("")
+                        }}
+                      >
+                        <RxCross1 className="text-lg text-red-400" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex flex-nowrap items-center justify-between">
                   <button
-                    type="btn"
-                    className="h-fit w-fit"
-                    onClick={() => {
-                      document.getElementById("searchProduct").value = ""
-                      setSearch("")
-                    }}
+                    onClick={() => setIsOpen(true)}
+                    type="button"
+                    className="flex w-fit items-center gap-2 rounded-rounded bg-primary p-2 px-4 text-lg font-semibold text-white transition-colors hover:bg-primaryLight"
                   >
-                    <RxCross1 className="text-lg text-red-400" />
+                    <FaPlus />
+                    <span>Add Product</span>
                   </button>
+                </div>
+              </div>
+              <div className="w-full flex-1">
+                {products.products && (
+                  <Table
+                    tableColumns={productColumns}
+                    tableData={products.products}
+                    pageCount={products.pageCount}
+                    pagination={pagination}
+                    setPagination={setPagination}
+                  />
                 )}
               </div>
-            </div>
-
-            <div className="flex flex-nowrap items-center justify-between">
-              <button
-                onClick={() => setIsOpen(true)}
-                type="button"
-                className="flex w-fit items-center gap-2 rounded-rounded bg-primary p-2 px-4 text-lg font-semibold text-white transition-colors hover:bg-primaryLight"
-              >
-                <FaPlus />
-                <span>Add Product</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Table Code Starts*/}
-          {loading ? (
-            <Skeleton />
-          ) : products.products ? (
-            <Table
-              tableColumns={productColumns}
-              tableData={products.products}
-              pageCount={products.pageCount}
-              pagination={pagination}
-              setPagination={setPagination}
-            />
+            </>
           ) : (
             //If no products
             <div className="flex h-full flex-1 flex-col items-center justify-evenly">

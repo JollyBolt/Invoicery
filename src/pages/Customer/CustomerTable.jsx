@@ -50,12 +50,12 @@ const CustomerTable = () => {
       <CreateCustomer open={open} setOpen={setOpen} />
 
       <div
-        className={`flex h-full flex-1 flex-col flex-nowrap rounded-rounded bg-background p-5`}
+        className={`flex h-[calc(100dvh-80px)] flex-col flex-nowrap gap-4 rounded-rounded`}
       >
         {customers ? (
           <>
             <div className="flex w-full flex-row flex-nowrap justify-between rounded-t-sm">
-              <div className="w-1/3 border-b border-neutral-800 pl-2">
+              <div className="w-1/3 rounded-md border border-slate-300 bg-white p-2">
                 <div className="justfy-betweem flex h-fit w-full flex-nowrap items-center">
                   <HiMagnifyingGlass className="inline pr-2 text-4xl text-foreground" />
                   <input

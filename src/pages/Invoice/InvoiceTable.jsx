@@ -37,11 +37,11 @@ const InvoiceTable = () => {
   }, [debouncedSearch, pagination])
 
   return (
-    <div className="flex min-h-[calc(100dvh-80px)] flex-1 flex-col rounded-rounded bg-foreground p-5">
+    <div className="flex h-[calc(100dvh-80px)] flex-col gap-5 rounded-rounded">
       {invoices ? (
         <>
-          <div className="flex w-full flex-row flex-nowrap justify-between rounded-t-sm bg-white">
-            <div className="w-1/3 border-b border-neutral-800 pl-2">
+          <div className="flex w-full flex-row flex-nowrap justify-between rounded-t-sm">
+            <div className="w-1/3 rounded-md border border-slate-300 bg-white p-2">
               <div className="justfy-betweem flex h-fit w-full flex-nowrap items-center">
                 <HiMagnifyingGlass className="inline pr-2 text-4xl" />
                 <input
@@ -86,17 +86,17 @@ const InvoiceTable = () => {
               </button>
             </div>
           </div>
-          {/* <div className="w-full flex-1"> */}
-          {invoices.invoices && (
-            <Table
-              tableColumns={invoiceColumns}
-              tableData={invoices.invoices}
-              pageCount={invoices.pageCount}
-              pagination={pagination}
-              setPagination={setPagination}
-            />
-          )}
-          {/* </div> */}
+          <div className="h-full w-full flex-1">
+            {invoices.invoices && (
+              <Table
+                tableColumns={invoiceColumns}
+                tableData={invoices.invoices}
+                pageCount={invoices.pageCount}
+                pagination={pagination}
+                setPagination={setPagination}
+              />
+            )}
+          </div>
         </>
       ) : (
         <div className="flex h-full flex-1 flex-col items-center justify-evenly">

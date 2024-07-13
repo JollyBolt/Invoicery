@@ -4,10 +4,9 @@ import { useFieldArray, useForm } from "react-hook-form"
 import { useDispatch, useSelector } from "react-redux"
 import { editProfile } from "../../redux/slices/userSlice"
 
-function TnCModal({ editOpen, setEditOpen }) {
+function TnCModal({ editOpen, setEditOpen, user }) {
   const dispatch = useDispatch()
-  const { user, loading } = useSelector((state) => state.user)
-  //   console.log(user.termsNConditions.map(tnc)=>tn)
+  const { loading } = useSelector((state) => state.user)
   const form = useForm({
     defaultValues: {
       TnC: user.termsNConditions

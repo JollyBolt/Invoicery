@@ -31,13 +31,17 @@ const Profile = () => {
   return (
     <div className="mt-4 flex h-[calc(100dvh-88px)] w-full flex-col">
       {!loading && <EditProfile open={open} setOpen={setOpen} />}
-      <TnCModal editOpen={editOpen} setEditOpen={setEditOpen} />
+
+      {editOpen && (
+        <TnCModal editOpen={editOpen} setEditOpen={setEditOpen} user={user} />
+      )}
+
       {!loggedIn ? (
         <Auth />
       ) : loading ? (
         <>{/* // <Loader /> */}</>
       ) : (
-        <div className="flex h-full w-full flex-col flex-nowrap overflow-hidden rounded-rounded bg-background">
+        <div className="bg-background flex h-full w-full flex-col flex-nowrap overflow-hidden rounded-rounded">
           <div className="w-full bg-primary p-5 text-white shadow-md shadow-slate-400 dark:shadow-none">
             <p className="p-3 text-6xl font-black">{user.name}</p>
             <div className="flex items-center gap-20">
@@ -62,19 +66,19 @@ const Profile = () => {
           <div className="flex h-full w-full flex-1 p-3">
             <div className="h-full w-1/4 border-r p-3">
               <p
-                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "organization" ? "bg-primary text-background" : "text-foreground hover:bg-gray-50"} transition-all`}
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "organization" ? "text-background bg-primary" : "text-foreground hover:bg-gray-50"} transition-all`}
                 onClick={() => setDetails("organization")}
               >
                 Organization Details
               </p>
               <p
-                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "banking" ? "bg-primary text-background" : "text-foreground hover:bg-gray-50"} transition-all`}
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "banking" ? "text-background bg-primary" : "text-foreground hover:bg-gray-50"} transition-all`}
                 onClick={() => setDetails("banking")}
               >
                 Banking Details
               </p>
               <p
-                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "tnc" ? "bg-primary text-background" : "text-foreground hover:bg-gray-50"} transition-all`}
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "tnc" ? "text-background bg-primary" : "text-foreground hover:bg-gray-50"} transition-all`}
                 onClick={() => setDetails("tnc")}
               >
                 Terms and Conditions
@@ -160,14 +164,18 @@ const Profile = () => {
                         <li key={ind}>{tnc}</li>
                       ))}
                     </ol>
-                    <button className="rounded-rounded bg-primary p-2 px-4 text-background">
+                    <button
+                      type="button"
+                      onClick={() => setEditOpen(true)}
+                      className="text-background rounded-rounded bg-primary p-2 px-4"
+                    >
                       Edit Terms and Conditions
                     </button>
                   </>
                 ) : (
                   <button
                     type="button"
-                    className="rounded-rounded bg-primary p-2 text-background"
+                    className="text-background rounded-rounded bg-primary p-2"
                     onClick={() => setEditOpen(true)}
                   >
                     Add Terms and Conditions

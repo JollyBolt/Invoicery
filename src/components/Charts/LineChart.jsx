@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import dummyData from "../../dummyOverAllStats.json"
 import {
   Chart as ChartJS,
   CategoryScale,

@@ -6,9 +6,11 @@ import { getProfile } from "../redux/slices/userSlice"
 import Auth from "../components/Auth"
 import EditProfile from "../components/Profile/EditProfile"
 import Loader from "../components/Loader"
+import TnCModal from "../components/Profile/TnCModal"
 
 const Profile = () => {
   const [open, setOpen] = useState(false)
+  const [editOpen, setEditOpen] = useState(false)
 
   const [details, setDetails] = useState("organization")
 
@@ -29,12 +31,13 @@ const Profile = () => {
   return (
     <div className="mt-4 flex h-[calc(100dvh-88px)] w-full flex-col">
       {!loading && <EditProfile open={open} setOpen={setOpen} />}
+      <TnCModal editOpen={editOpen} setEditOpen={setEditOpen} />
       {!loggedIn ? (
         <Auth />
       ) : loading ? (
-        <Loader />
+        <>{/* // <Loader /> */}</>
       ) : (
-        <div className="flex h-full w-full flex-col flex-nowrap overflow-hidden rounded-rounded bg-background">
+        <div className="bg-background flex h-full w-full flex-col flex-nowrap overflow-hidden rounded-rounded">
           <div className="w-full bg-primary p-5 text-white shadow-md shadow-slate-400 dark:shadow-none">
             <p className="p-3 text-6xl font-black">{user.name}</p>
             <div className="flex items-center gap-20">
@@ -59,19 +62,19 @@ const Profile = () => {
           <div className="flex h-full w-full flex-1 p-3">
             <div className="h-full w-1/4 border-r p-3">
               <p
-                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "organization" ? "bg-primary text-background" : "text-foreground hover:bg-gray-50"} transition-all`}
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "organization" ? "text-background bg-primary" : "text-foreground hover:bg-gray-50"} transition-all`}
                 onClick={() => setDetails("organization")}
               >
                 Organization Details
               </p>
               <p
-                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "banking" ? "bg-primary text-background" : "text-foreground hover:bg-gray-50"} transition-all`}
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "banking" ? "text-background bg-primary" : "text-foreground hover:bg-gray-50"} transition-all`}
                 onClick={() => setDetails("banking")}
               >
                 Banking Details
               </p>
               <p
-                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "tnc" ? "bg-primary text-background" : "text-foreground hover:bg-gray-50"} transition-all`}
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "tnc" ? "text-background bg-primary" : "text-foreground hover:bg-gray-50"} transition-all`}
                 onClick={() => setDetails("tnc")}
               >
                 Terms and Conditions
@@ -157,7 +160,9 @@ const Profile = () => {
                     ))}
                   </ol>
                 ) : (
-                  <button>Add Terms and Conditions</button>
+                  <button type="button" onClick={() => setEditOpen(true)}>
+                    Add Terms and Conditions
+                  </button>
                 )}
               </div>
             </div>

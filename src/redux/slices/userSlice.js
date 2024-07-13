@@ -23,11 +23,11 @@ const getProfile = createAsyncThunk("user/getProfile", async () => {
   }
 })
 
-const editProfile = createAsyncThunk("user/editProfile", async (params) => {
+const editProfile = createAsyncThunk("user/editProfile", async (body) => {
   try {
     const res = await axios.put(
-      `http://localhost:4598/api/v1/user/updateUser/${params.id}`,
-      params.body,
+      `http://localhost:4598/api/v1/user/updateUser/${body._id}`,
+      body,
       {
         headers: {
           Authorization: "Bearer " + getCookieValue("authToken"),

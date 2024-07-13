@@ -35,7 +35,7 @@ const Profile = () => {
         <Loader />
       ) : (
         <div className="flex h-full w-full flex-col flex-nowrap overflow-hidden rounded-rounded bg-background">
-          <div className="w-full bg-primary p-5 text-white shadow-md shadow-slate-400">
+          <div className="w-full bg-primary p-5 text-white shadow-md shadow-slate-400 dark:shadow-none">
             <p className="p-3 text-6xl font-black">{user.name}</p>
             <div className="flex items-center gap-20">
               <p className="p-3 text-lg font-light">
@@ -59,21 +59,29 @@ const Profile = () => {
           <div className="flex h-full w-full flex-1 p-3">
             <div className="h-full w-1/4 border-r p-3">
               <p
-                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "organization" ? "bg-primary text-white" : "hover:bg-gray-50 text-foreground"} transition-all`}
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "organization" ? "bg-primary text-background" : "text-foreground hover:bg-gray-50"} transition-all`}
                 onClick={() => setDetails("organization")}
               >
                 Organization Details
               </p>
               <p
-                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "banking" ? "bg-primary text-white" : "hover:bg-gray-50 text-foreground"} transition-all`}
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "banking" ? "bg-primary text-background" : "text-foreground hover:bg-gray-50"} transition-all`}
                 onClick={() => setDetails("banking")}
               >
                 Banking Details
               </p>
+              <p
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "tnc" ? "bg-primary text-background" : "text-foreground hover:bg-gray-50"} transition-all`}
+                onClick={() => setDetails("tnc")}
+              >
+                Terms and Conditions
+              </p>
             </div>
             <div className="p-3">
               <div
-                className={`${details == "banking" && "hidden"} flex w-full flex-col gap-5 p-5 text-xl text-foreground`}
+                className={`${
+                  details !== "organization" && "hidden"
+                } flex w-full flex-col gap-5 p-5 text-xl text-foreground`}
               >
                 <div className="flex">
                   <p className="w-52">Name</p>
@@ -116,7 +124,9 @@ const Profile = () => {
               </div>
 
               <div
-                className={`${details == "organization" && "hidden"} flex w-full flex-col gap-5 p-5 text-xl text-foreground`}
+                className={`${
+                  details !== "banking" && "hidden"
+                } flex w-full flex-col gap-5 p-5 text-xl text-foreground`}
               >
                 <div className="flex">
                   <p className="w-52">Bank</p>
@@ -136,6 +146,19 @@ const Profile = () => {
                   <p className="w-52">IFSC</p>
                   <span className="font-semibold">{user.banking.ifsc}</span>
                 </div>
+              </div>
+              <div
+                className={`${details !== "tnc" && "hidden"} flex w-full flex-col gap-5 p-5 text-xl text-foreground`}
+              >
+                {user?.termsNConditions.length > 0 ? (
+                  <ol className="list-decimal">
+                    {user?.termsNConditions.map((tnc, ind) => (
+                      <li key={ind}>{tnc}</li>
+                    ))}
+                  </ol>
+                ) : (
+                  <button>Add Terms and Conditions</button>
+                )}
               </div>
             </div>
           </div>

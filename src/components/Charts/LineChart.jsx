@@ -12,8 +12,9 @@ import {
 } from "chart.js"
 import { Line } from "react-chartjs-2"
 
-const LineChart = ({ currentYear, revenue }) => {
+const LineChart = ({ revenue }) => {
   // const currentYear = 2024
+  const [theme, setTheme] = useState(localStorage.getItem("theme"))
 
   ChartJS.register(
     CategoryScale,
@@ -54,11 +55,13 @@ const LineChart = ({ currentYear, revenue }) => {
       {
         label: "Monthly Revenue",
         data: yearData,
-        backgroundColor: "#3700FF90",
-        borderColor: "#2807a0",
+        backgroundColor:
+          localStorage.getItem("theme") == "dark" ? "#5122F5" : "#2807A1",
+        borderColor:
+          localStorage.getItem("theme") == "dark" ? "#5122F5" : "#2807A1",
         // hoverBackgroundColor: '#3D0CF0',
         pointStyle: "circle",
-        pointRadius: 5,
+        pointRadius: 3,
         pointHoverRadius: 7,
       },
     ],

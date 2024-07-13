@@ -55,7 +55,7 @@ const CustomerTable = () => {
         {customers ? (
           <>
             <div className="flex w-full flex-row flex-nowrap justify-between rounded-t-sm">
-              <div className="w-1/3 rounded-md border border-slate-300 bg-white p-2">
+              <div className="bg-background w-1/3 rounded-md border border-slate-300 p-2">
                 <div className="justfy-betweem flex h-fit w-full flex-nowrap items-center">
                   <HiMagnifyingGlass className="inline pr-2 text-4xl text-foreground" />
                   <input

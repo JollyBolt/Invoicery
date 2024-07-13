@@ -67,7 +67,7 @@ function MultistepAddProductModal({
     <>
       <AnimatePresence>
         {open && (
-          <div className="absolute inset-0 z-[100] flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-foreground/50 absolute inset-0 z-[100] flex h-screen w-full items-center justify-center backdrop-blur-sm">
             <motion.div
               className="w-full"
               initial={{ scale: 0.4, opacity: 0 }}
@@ -75,7 +75,7 @@ function MultistepAddProductModal({
               exit={{ scale: 0.4, opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="mx-auto h-fit w-2/5 max-w-none rounded-rounded bg-white px-7 pb-5 pt-3">
+              <div className="bg-background mx-auto h-fit w-2/5 max-w-none rounded-rounded px-7 pb-5 pt-3">
                 <div className="flex w-full justify-end">
                   <motion.button
                     initial={{ rotate: "0deg" }}
@@ -168,7 +168,7 @@ function MultistepAddProductModal({
                             />
                             {debouncedValue.length >= 3 && (
                               <motion.div
-                                className={`absolute top-12 -z-10 max-h-[100px] w-full overflow-scroll bg-white opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-50 peer-focus:opacity-100`}
+                                className={`bg-background absolute top-12 -z-10 max-h-[100px] w-full overflow-scroll opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-50 peer-focus:opacity-100`}
                               >
                                 {products?.length > 0 ? (
                                   products.map((product, i) => {

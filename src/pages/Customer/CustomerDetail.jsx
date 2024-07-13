@@ -95,8 +95,8 @@ const CustomerDetail = () => {
         />
       )}
       {/* CustomerDetail */}
-      <div className="flex h-full w-full gap-4">
-        <div className="flex h-[calc(100dvh-80px)] w-1/4 flex-col gap-3 rounded-rounded bg-white p-4 text-lg">
+      <div className="flex h-full w-full gap-4 text-foreground">
+        <div className="bg-background flex h-[calc(100dvh-80px)] w-1/4 flex-col gap-3 rounded-rounded p-4 text-lg">
           <div className="flex items-center justify-between">
             <p className="text-2xl font-bold">Customer Info</p>
             <button
@@ -138,19 +138,19 @@ const CustomerDetail = () => {
         <div className="no-scrollbar flex h-[calc(100dvh-80px)] w-3/4 scroll-m-0 flex-col gap-4 overflow-scroll">
           <div className="flex gap-4">
             <div className="flex w-1/3 flex-col gap-4">
-              <div className="rounded-rounded bg-white p-4">
+              <div className="bg-background rounded-rounded p-4">
                 <p className="font-light uppercase">Revenue This Month</p>
                 <p className="py-4 font-numbers text-4xl font-bold text-primary">
                   {"₹" + revenue?.revenueThisMonth.toLocaleString()}
                 </p>
               </div>
-              <div className="rounded-rounded bg-white p-4">
+              <div className="bg-background rounded-rounded p-4">
                 <p className="font-light uppercase">Revenue This Year</p>
                 <p className="py-4 font-numbers text-4xl font-bold text-primary">
                   {"₹" + revenue?.revenueThisYear.toLocaleString()}
                 </p>
               </div>
-              <div className="rounded-rounded bg-white p-4">
+              <div className="bg-background rounded-rounded p-4">
                 <p className="font-light uppercase">Revenue Till Date</p>
                 <p className="py-4 font-numbers text-4xl font-bold text-primary">
                   {"₹" + revenue?.revenueTillDate.toLocaleString()}
@@ -158,13 +158,13 @@ const CustomerDetail = () => {
               </div>
             </div>
             {/* Chart */}
-            <div className="w-2/3 rounded-rounded bg-white p-4">
+            <div className="bg-background w-2/3 rounded-rounded p-4">
               <div className="mb-3 flex items-center justify-between">
                 <div className="flex items-center gap-3 text-xl">
                   <button onClick={() => setCurrentYear((prev) => prev - 1)}>
                     <FaAngleLeft color="#2807a0" />
                   </button>
-                  <span className="font-numbers font-bold uppercase text-black">
+                  <span className="font-numbers font-bold uppercase">
                     <span className="font-numbers">{currentYear}</span> Revenue
                   </span>
                   <button onClick={() => setCurrentYear((prev) => prev + 1)}>
@@ -202,7 +202,7 @@ const CustomerDetail = () => {
                 setPagination={setPagination}
               />
             ) : (
-              <div className="flex h-[32.8vh] w-full items-center justify-center bg-white">
+              <div className="bg-background flex h-[32.8vh] w-full items-center justify-center">
                 <p className="text-xl">
                   You have not issued any invoice to {customerDetails?.client}.
                 </p>

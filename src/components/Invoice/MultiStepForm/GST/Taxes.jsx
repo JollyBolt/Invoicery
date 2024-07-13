@@ -40,7 +40,7 @@ const Taxes = ({
           <div className="flex flex-nowrap items-center gap-x-4">
             <p className="w-1/5 text-xl">Charges</p>
             <span>:</span>
-            <div className="rounded-rounded bg-white outline outline-1 outline-gray-300">
+            <div className="bg-background rounded-rounded outline outline-1 outline-gray-300">
               <input
                 {...register("miscellaneous", {
                   valueAsNumber: true,
@@ -69,7 +69,7 @@ const Taxes = ({
           <div className="flex flex-nowrap items-center gap-x-4">
             <p className="w-1/5 text-xl">IGST</p>
             <span>:</span>
-            <div className="rounded-rounded bg-white outline outline-1 outline-gray-300">
+            <div className="bg-background rounded-rounded outline outline-1 outline-gray-300">
               <input
                 {...register("taxes.igst", {
                   valueAsNumber: true,
@@ -101,7 +101,7 @@ const Taxes = ({
           <div className="flex flex-nowrap items-center gap-x-4">
             <p className="w-1/5 text-xl">CGST</p>
             <span>:</span>
-            <div className="rounded-rounded bg-white outline outline-1 outline-gray-300">
+            <div className="bg-background rounded-rounded outline outline-1 outline-gray-300">
               <input
                 {...register("taxes.cgst", {
                   valueAsNumber: true,
@@ -132,7 +132,7 @@ const Taxes = ({
           <div className="flex flex-nowrap items-center gap-x-4">
             <p className="w-1/5 text-xl">SGST</p>
             <span>:</span>
-            <div className="rounded-rounded bg-white outline outline-1 outline-gray-300">
+            <div className="bg-background rounded-rounded outline outline-1 outline-gray-300">
               <input
                 {...register("taxes.sgst", {
                   valueAsNumber: true,

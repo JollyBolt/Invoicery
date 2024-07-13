@@ -45,7 +45,7 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
       {/* <DevTool control={control} /> */}
       <AnimatePresence>
         {isOpen && (
-          <div className="absolute inset-0 z-[100] flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-foreground/50 absolute inset-0 z-[100] flex h-screen w-full items-center justify-center backdrop-blur-sm">
             <motion.div
               className="w-full"
               initial={{ scale: 0.4, opacity: 0 }}
@@ -56,7 +56,7 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
               <form
                 onSubmit={onSubmit}
                 noValidate
-                className="mx-auto w-1/3 max-w-none rounded-rounded bg-white p-2 px-4"
+                className="bg-background mx-auto w-1/3 max-w-none rounded-rounded p-2 px-4"
               >
                 <div className="mx-auto mb-2 flex w-full flex-nowrap justify-between">
                   <h3 className="font-sans text-3xl font-extrabold">

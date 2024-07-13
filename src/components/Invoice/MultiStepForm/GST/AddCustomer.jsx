@@ -131,7 +131,7 @@ const AddCustomer = ({
                 </p>
                 {debouncedValue.length > 2 && (
                   <motion.div
-                    className={`absolute top-12 -z-10 max-h-[70px] w-full overflow-scroll bg-white opacity-100 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
+                    className={`bg-background absolute top-12 -z-10 max-h-[70px] w-full overflow-scroll opacity-100 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
                   >
                     {customers?.length > 0 ? (
                       customers.map((customer, ind) => {

@@ -104,7 +104,7 @@ function EditInvoice() {
   return (
     <>
       <div className="flex h-[calc(100dvh-88px)] w-full gap-2">
-        <div className="flex h-[calc(100dvh-88px)] w-[40%] shrink-0 flex-col overflow-hidden rounded-r-3xl bg-white">
+        <div className="bg-background flex h-[calc(100dvh-88px)] w-[40%] shrink-0 flex-col overflow-hidden rounded-r-3xl">
           <InvoiceForm
             template={template}
             setTemplate={setTemplate}

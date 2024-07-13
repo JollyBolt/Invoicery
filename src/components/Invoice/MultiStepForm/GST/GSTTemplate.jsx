@@ -30,11 +30,16 @@ const GSTTemplate = forwardRef((props, ref) => {
   const { cgst, sgst, igst } = taxes
 
   return (
-    <div ref={ref} className="flex min-h-full flex-col bg-white p-2">
+    <div
+      ref={ref}
+      className="bg-background flex min-h-full flex-col p-2 text-foreground"
+    >
       {/* Organisation Details */}
-      <div className="flex justify-between border border-b-0 border-black p-1">
+      <div className="flex justify-between border border-b-0 border-foreground p-1">
         <div className="">
-          <p className="text-2xl font-black uppercase">{user?.org?.name}</p>
+          <p className="font-foreground text-2xl uppercase">
+            {user?.org?.name}
+          </p>
           <p className="">{user?.org?.address?.streetAddress}</p>
           <p>
             {user?.org?.address?.city} - {user?.org?.address?.zip},{" "}
@@ -62,8 +67,8 @@ const GSTTemplate = forwardRef((props, ref) => {
       </div>
 
       {/* Customer Deatils */}
-      <div className="border border-b-0 border-black text-base">
-        <div className="border-b border-black p-1">
+      <div className="border border-b-0 border-foreground text-base">
+        <div className="border-b border-foreground p-1">
           <p className="text-lg font-bold">Issued to</p>
           <div className="flex flex-col">
             <div className="flex justify-between">
@@ -113,7 +118,7 @@ const GSTTemplate = forwardRef((props, ref) => {
 
         {/* Addresses */}
         <div className="flex min-h-[100px] gap-2">
-          <div className="w-1/2 shrink-0 border-r border-black p-1">
+          <div className="w-1/2 shrink-0 border-r border-foreground p-1">
             <p className="text-lg font-bold">Billing Address</p>
             {billing.city != "" && (
               <>
@@ -147,24 +152,24 @@ const GSTTemplate = forwardRef((props, ref) => {
       </div>
 
       {/* Table */}
-      <div className="flex w-full flex-col border-black">
-        <div className="flex w-full shrink-0 border-black font-bold">
-          <div className="w-[10%] border border-black bg-primary p-2 text-center text-white">
+      <div className="flex w-full flex-col border-foreground">
+        <div className="flex w-full shrink-0 border-foreground font-bold">
+          <div className="w-[10%] border border-foreground bg-primary p-2 text-center text-white">
             S.No
           </div>
-          <div className="w-[30%] border border-l-0 border-black bg-primary p-2 text-center text-white">
+          <div className="w-[30%] border border-l-0 border-foreground bg-primary p-2 text-center text-white">
             Item
           </div>
-          <div className="w-[14%] border border-l-0 border-black bg-primary p-2 text-center text-white">
+          <div className="w-[14%] border border-l-0 border-foreground bg-primary p-2 text-center text-white">
             HSN Code
           </div>
-          <div className="w-[10%] border border-l-0 border-black bg-primary p-2 text-center text-white">
+          <div className="w-[10%] border border-l-0 border-foreground bg-primary p-2 text-center text-white">
             Qty
           </div>
-          <div className="w-[18%] border border-l-0 border-black bg-primary p-2 text-center text-white">
+          <div className="w-[18%] border border-l-0 border-foreground bg-primary p-2 text-center text-white">
             Price(INR)
           </div>
-          <div className="w-[18%] border border-l-0 border-black bg-primary p-2 text-center text-white">
+          <div className="w-[18%] border border-l-0 border-foreground bg-primary p-2 text-center text-white">
             Amount(INR)
           </div>
         </div>
@@ -172,38 +177,38 @@ const GSTTemplate = forwardRef((props, ref) => {
           products.map((product, index) => {
             return (
               <div key={index} className="flex w-full text-sm">
-                <div className="w-[10%] border-l border-r border-black p-2 text-center">
+                <div className="w-[10%] border-l border-r border-foreground p-2 text-center">
                   {index + 1}
                 </div>
-                <div className="w-[30%] border-r border-black p-2">
+                <div className="w-[30%] border-r border-foreground p-2">
                   {product.name}
                 </div>
-                <div className="w-[14%] border-r border-black p-2 text-center">
+                <div className="w-[14%] border-r border-foreground p-2 text-center">
                   {product.hsn_code}
                 </div>
-                <div className="w-[10%] border-r border-black p-2 text-center">
+                <div className="w-[10%] border-r border-foreground p-2 text-center">
                   {product.quantity}
                 </div>
-                <div className="w-[18%] border-r border-black p-2 text-center">
+                <div className="w-[18%] border-r border-foreground p-2 text-center">
                   {product.finalPrice.toFixed(2)}
                 </div>
-                <div className="w-[18%] border-r border-black p-2 pr-6 text-right">
+                <div className="w-[18%] border-r border-foreground p-2 pr-6 text-right">
                   {product.amount.toFixed(2)}
                 </div>
               </div>
             )
           })
         ) : (
-          <div className="w-full border-l border-r border-black p-2 text-white">
+          <div className="text-background w-full border-l border-r border-foreground p-2">
             &npsp;
           </div>
         )}
       </div>
       <div className="flex w-full justify-between text-sm">
-        <div className="w-[82%] shrink-0 border border-b-0 border-black p-2 text-right font-bold">
+        <div className="w-[82%] shrink-0 border border-b-0 border-foreground p-2 text-right font-bold">
           Micsellaneous Charges
         </div>
-        <div className="w-[18%] border border-b-0 border-l-0 border-black p-2 pr-5 text-right">
+        <div className="w-[18%] border border-b-0 border-l-0 border-foreground p-2 pr-5 text-right">
           {miscellaneous === ""
             ? 0
             : parseInt(miscellaneous).toLocaleString(undefined, {
@@ -212,18 +217,18 @@ const GSTTemplate = forwardRef((props, ref) => {
               })}
         </div>
       </div>
-      <div className="flex w-full justify-between border-black">
-        <div className="w-[82%] shrink-0 border border-black p-2 text-right font-bold">
+      <div className="flex w-full justify-between border-foreground">
+        <div className="w-[82%] shrink-0 border border-foreground p-2 text-right font-bold">
           Sub Total
         </div>
-        <div className="w-[18%] border border-l-0 border-black p-2 pr-5 text-right">
+        <div className="w-[18%] border border-l-0 border-foreground p-2 pr-5 text-right">
           {subTotal.toFixed(2)}
         </div>
       </div>
 
-      <div className="flex border border-t-0 border-black">
-        <div className="w-[64%] flex-col border-black">
-          <div className="w-full border-b border-black p-1">
+      <div className="flex border border-t-0 border-foreground">
+        <div className="w-[64%] flex-col border-foreground">
+          <div className="w-full border-b border-foreground p-1">
             <p className="text-lg font-bold">Amount in Words</p>
             <p className="capitalize">{numWords(totalAmount)} Rupees Only</p>
           </div>
@@ -255,7 +260,7 @@ const GSTTemplate = forwardRef((props, ref) => {
         </div>
 
         {/* Taxes */}
-        <div className="w-[36%] overflow-hidden border-l border-black p-2">
+        <div className="w-[36%] overflow-hidden border-l border-foreground p-2">
           <div className="flex w-full justify-between">
             <p className="w-[40%] text-right">CGST</p>
             <p className="w-[5%]">{cgst}%</p>
@@ -293,8 +298,8 @@ const GSTTemplate = forwardRef((props, ref) => {
       </div>
 
       {/* Terms and Conditions */}
-      <div className="flex w-full border border-t-0 border-black">
-        <div className="w-[64%] border-t-0 border-black p-1">
+      <div className="flex w-full border border-t-0 border-foreground">
+        <div className="w-[64%] border-t-0 border-foreground p-1">
           <div className="flex items-center justify-between">
             <p className="text-lg font-bold">Terms and Conditions</p>
             <span className="text-sm">E & O.E</span>
@@ -306,7 +311,7 @@ const GSTTemplate = forwardRef((props, ref) => {
             </ol>
           </div>
         </div>
-        <div className="flex w-[36%] flex-col items-end border-l border-black p-1">
+        <div className="flex w-[36%] flex-col items-end border-l border-foreground p-1">
           <p>For {user?.org?.name}</p>
           <div className="h-20"></div>
           <p>Authorized Signature</p>

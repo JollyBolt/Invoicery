@@ -135,13 +135,13 @@ function EditProfile({ open, setOpen }) {
     <>
       <AnimatePresence>
         {open && (
-          <div className="absolute inset-0 z-[100] flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-foreground/50 absolute inset-0 z-[100] flex h-screen w-full items-center justify-center backdrop-blur-sm">
             <motion.div
               initial={{ scale: 0.4, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.4, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="w-2/3 rounded-rounded bg-white"
+              className="bg-background w-2/3 rounded-rounded"
             >
               <form
                 noValidate

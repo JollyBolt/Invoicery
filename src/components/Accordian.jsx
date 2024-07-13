@@ -36,14 +36,14 @@ const Solution = ({
         setInvoiceState({ ...invoiceState, template: index })
         sessionStorage.setItem("template", index)
       }}
-      className="relative cursor-pointer overflow-hidden rounded-lg p-1"
+      className="relative cursor-pointer overflow-hidden rounded-lg p-1 text-foreground"
     >
       <motion.div
         initial={false}
         animate={{
           height: isOpen ? "170px" : "72px",
         }}
-        className="relative z-20 flex flex-col justify-between rounded-[7px] bg-white p-6"
+        className="bg-muted relative z-20 flex flex-col justify-between rounded-[7px] p-6"
       >
         <div>
           <motion.p initial={false} className="w-fit text-2xl font-bold">

@@ -152,7 +152,7 @@ function ShippingAddressDetails({
                   id="shippingStreetAddress"
                   type="text"
                   placeholder="Street Address"
-                  className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none disabled:bg-white"
+                  className="disabled:bg-background peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
                   {...register("shippingStreetAddress", {
                     required: "Street Address is required",
                     disabled: checked,
@@ -199,7 +199,7 @@ function ShippingAddressDetails({
                     id="shippingCity"
                     type="text"
                     placeholder="City"
-                    className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none disabled:bg-white"
+                    className="disabled:bg-background peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
                     {...register("shippingCity", {
                       required: "City is required",
                       disabled: checked,
@@ -245,7 +245,7 @@ function ShippingAddressDetails({
                     id="shippingZip"
                     type="text"
                     placeholder="ZIP Code"
-                    className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none disabled:bg-white"
+                    className="disabled:bg-background peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
                     {...register("shippingZip", {
                       required: "ZIP Code is required",
                       disabled: checked,
@@ -298,7 +298,7 @@ function ShippingAddressDetails({
                     id="shippingState"
                     type="text"
                     placeholder="State"
-                    className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none disabled:bg-white"
+                    className="disabled:bg-background peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
                     {...register("shippingState", {
                       required: "State is required",
                       disabled: checked,
@@ -345,7 +345,7 @@ function ShippingAddressDetails({
                     id="shippingStateCode"
                     type="text"
                     placeholder="State Code"
-                    className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none disabled:bg-white"
+                    className="disabled:bg-background peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
                     {...register("shippingStateCode", {
                       required: "State Code is required",
                       disabled: checked,
@@ -397,7 +397,7 @@ function ShippingAddressDetails({
                   id="shippingCountry"
                   type="text"
                   placeholder="Country"
-                  className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none disabled:bg-white"
+                  className="disabled:bg-background peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
                   {...register("shippingCountry", {
                     required: "Shipping Country is required",
                     disabled: checked,

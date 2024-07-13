@@ -86,7 +86,7 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
     <>
       <AnimatePresence>
         {modalOpen && (
-          <div className="absolute inset-0 z-[100] flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-foreground/50 absolute inset-0 z-[100] flex h-screen w-full items-center justify-center backdrop-blur-sm">
             <motion.div
               className="w-full"
               initial={{ scale: 0.4, opacity: 0 }}
@@ -97,7 +97,7 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
               <form
                 onSubmit={onSubmit}
                 noValidate
-                className="mx-auto h-fit w-2/3 max-w-none rounded-rounded bg-white px-5 pb-1 pt-4"
+                className="bg-background mx-auto h-fit w-2/3 max-w-none rounded-rounded px-5 pb-1 pt-4"
               >
                 <div className="mx-auto mb-2 flex w-full flex-nowrap justify-between">
                   <h3 className="font-sans text-3xl font-extrabold">

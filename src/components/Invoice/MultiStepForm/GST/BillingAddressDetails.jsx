@@ -104,7 +104,7 @@ function BillingAddressDetails({
                     Enter City<span className="text-red-500">&#42;</span>
                   </label>
                   <motion.div
-                    className={`absolute top-14 -z-10 max-h-[70px] w-full overflow-scroll bg-white opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
+                    className={`bg-background absolute top-14 -z-10 max-h-[70px] w-full overflow-scroll opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
                   >
                     {customers && billingAddresses.length > 0 ? (
                       billingAddresses

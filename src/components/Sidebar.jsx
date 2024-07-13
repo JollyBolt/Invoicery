@@ -116,7 +116,7 @@ function Sidebar() {
                       className={` ${
                         isActive
                           ? "bg-primary text-white"
-                          : "text-slate-500 hover:text-black"
+                          : "text-slate-500 hover:text-foreground"
                       } group flex items-center gap-3.5 rounded-md p-2 text-sm font-medium`}
                     >
                       <div>

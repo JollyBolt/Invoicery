@@ -47,7 +47,7 @@ const InvoiceActionsDropdown = ({ row }) => {
       >
         <BsThreeDotsVertical />
         <div
-          className={`absolute bottom-0 left-4 ${!open && "scale-0"} text-md flex w-[100px] origin-bottom-left flex-col overflow-hidden rounded-md border bg-white p-1 transition-all`}
+          className={`absolute bottom-0 left-4 ${!open && "scale-0"} text-md bg-background flex w-[100px] origin-bottom-left flex-col overflow-hidden rounded-md border p-1 transition-all`}
         >
           <button
             className="flex items-center gap-1.5 rounded-rounded px-2 py-1 hover:bg-slate-300"

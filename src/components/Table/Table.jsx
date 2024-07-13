@@ -38,7 +38,7 @@ const Table = ({
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex h-full w-full flex-1 flex-col rounded-md border border-slate-300 bg-white px-4 py-2">
+      <div className="bg-background flex h-full w-full flex-1 flex-col rounded-md border border-slate-300 px-4 py-2 text-foreground">
         <table className="w-full rounded-rounded px-2">
           <thead className="h-14 rounded-rounded text-left text-lg text-slate-600">
             {table.getHeaderGroups().map((headerGroup) => (

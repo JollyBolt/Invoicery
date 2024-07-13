@@ -3,6 +3,7 @@ import { customerSlice } from "./slices/customerSlice"
 import { invoiceSlice } from "./slices/invoiceSlice"
 import { authSlice } from "./slices/authSlice"
 import { userSlice } from "./slices/userSlice"
+import { themeSlice } from "./slices/themeSlice"
 import { configureStore } from "@reduxjs/toolkit"
 
 const store = configureStore({
@@ -12,6 +13,7 @@ const store = configureStore({
     products: productSlice.reducer,
     customers: customerSlice.reducer,
     invoices: invoiceSlice.reducer,
+    theme: themeSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -20,6 +22,8 @@ const store = configureStore({
         ignoredActions: [
           "auth/login",
           "auth/signup",
+          "auth/refreshAuth",
+          "theme/toggleTheme",
           "user/getProfile",
           "user/editProfile",
           "products/editProduct",

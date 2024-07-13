@@ -118,24 +118,6 @@ export const invoiceColumns = [
   },
 ]
 
-export const recentInvoicesColumns = [
-  {
-    id: "col1",
-    header: "Invoice Number",
-    accessorKey: "invoiceNumber",
-  },
-  {
-    id: "col2",
-    header: "Issued To",
-    accessorKey: "customer.name",
-  },
-  {
-    id: "col3",
-    header: "Amount",
-    accessorKey: "amount",
-  },
-]
-
 export const customerInvoicesColumns = [
   {
     id: "col1",
@@ -156,7 +138,7 @@ export const customerInvoicesColumns = [
     header: "Amount",
     cell: (row) => {
       return (
-        "" +
+        "₹ " +
         row.row.original.totalAmount.toLocaleString(undefined, {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,

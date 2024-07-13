@@ -176,7 +176,7 @@ const Dashboard = () => {
                   <FaAngleLeft className="text-primary" />
                 </button>
                 <span className="font-bold uppercase text-foreground">
-                  {monthNames[currentmonth]}
+                  {monthNames[currentMonth]}
                 </span>
                 <button
                   onClick={() =>

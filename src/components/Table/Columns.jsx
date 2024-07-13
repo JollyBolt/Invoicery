@@ -28,10 +28,13 @@ export const productColumns = [
     id: "col4",
     header: "Price(INR)",
     cell: (row) => {
-      return row.row.original.price.toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })
+      return (
+        "₹ " +
+        row.row.original.price.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+      )
     },
   },
   {
@@ -93,10 +96,13 @@ export const invoiceColumns = [
     id: "col4",
     header: "Amount",
     cell: (row) => {
-      return row.row.original.totalAmount.toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })
+      return (
+        "₹ " +
+        row.row.original.totalAmount.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+      )
     },
   },
   {
@@ -149,10 +155,13 @@ export const customerInvoicesColumns = [
     id: "col3",
     header: "Amount",
     cell: (row) => {
-      return row.row.original.totalAmount.toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })
+      return (
+        "" +
+        row.row.original.totalAmount.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+      )
     },
   },
   {

@@ -19,7 +19,7 @@ const Table = ({
     data,
     columns,
     state: {
-      pagination
+      pagination,
     },
     onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
@@ -37,14 +37,14 @@ const Table = ({
   } = table
 
   return (
-    <>
-      <div className="mt-5 flex h-full w-full flex-1 flex-col">
-        <table className="h-full w-full rounded-rounded">
-          <thead className="h-14 rounded-rounded bg-primary text-left text-xl text-white">
+    <div className="flex h-full flex-col">
+      <div className="flex h-full w-full flex-1 flex-col rounded-md border border-slate-300 bg-white px-4 py-2">
+        <table className="w-full rounded-rounded px-2">
+          <thead className="h-14 rounded-rounded text-left text-lg text-slate-600">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr className="p-5" key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th className="px-5" key={header.id}>
+                  <th className="px-5 uppercase" key={header.id}>
                     {flexRender(
                       header.column.columnDef.header,
                       header.getContext(),
@@ -57,11 +57,11 @@ const Table = ({
           <tbody>
             {table.getRowModel().rows.map((row, index) => (
               <tr
-                className="h-10 odd:bg-gray-200 even:bg-gray-100"
+                className="h-11 border-t border-slate-300 text-sm"
                 key={row.id}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <td className="px-5 py-[11px]" key={cell.id}>
+                  <td className="px-5 py-[14px]" key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
@@ -70,44 +70,44 @@ const Table = ({
           </tbody>
         </table>
       </div>
-      <div className="mt-2 flex w-full items-center justify-center gap-3">
+      <div className="mt-4 flex w-full items-center justify-center gap-3 text-sm">
         <button
           disabled={!getCanPreviousPage()}
           onClick={() => {
             firstPage()
           }}
-          className="rounded-rounded bg-primary p-2 px-4 font-bold uppercase text-white disabled:opacity-40"
+          className="rounded-rounded bg-primary p-1 px-4 font-bold uppercase text-white disabled:opacity-40"
         >
           First
         </button>
         <button
           disabled={!getCanPreviousPage()}
           onClick={() => previousPage()}
-          className="rounded-rounded bg-primary p-2 px-4 font-bold uppercase text-white disabled:opacity-40"
+          className="rounded-rounded bg-primary p-1 px-4 font-bold uppercase text-white disabled:opacity-40"
         >
           Prev
         </button>
 
-        <p className="text-lg text-foreground">
+        <p className="text-sm text-foreground">
           Page {pagination.pageIndex + 1} of {table.getPageCount()}
         </p>
 
         <button
           disabled={!getCanNextPage()}
           onClick={() => nextPage()}
-          className="rounded-rounded bg-primary p-2 px-4 font-bold uppercase text-white disabled:opacity-40"
+          className="rounded-rounded bg-primary p-1 px-4 font-bold uppercase text-white disabled:opacity-40"
         >
           Next
         </button>
         <button
           disabled={!getCanNextPage()}
           onClick={() => lastPage()}
-          className="rounded-rounded bg-primary p-2 px-4 font-bold uppercase text-white disabled:opacity-40"
+          className="rounded-rounded bg-primary p-1 px-4 font-bold uppercase text-white disabled:opacity-40"
         >
           Last
         </button>
       </div>
-    </>
+    </div>
   )
 }
 

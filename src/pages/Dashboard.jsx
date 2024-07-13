@@ -15,13 +15,15 @@ import { useSelector, useDispatch } from "react-redux"
 import Auth from "../components/Auth"
 import axios from "axios"
 import getCookieValue from "../utils/getCookieValue"
+import { fetchAllInvoices } from "../redux/slices/invoiceSlice"
+import { displayDate } from "../utils/displayDate"
 
 const Dashboard = () => {
   const [currentYear, setCurrentYear] = useState(
     new Date().getFullYear().toString(),
   )
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth())
-
+  const { invoices } = useSelector((state) => state.invoices)
   const [revenue, setRevenue] = useState(null) // This is to manage the revenue
 
   const [stats, setStats] = useState(null)
@@ -39,6 +41,7 @@ const Dashboard = () => {
   }
   useEffect(() => {
     getStats()
+    dispatch(fetchAllInvoices({ limit: 5 }))
   }, [])
 
   const getDashboardChartData = async () => {
@@ -107,7 +110,7 @@ const Dashboard = () => {
           {
             //Yearly Chart
           }
-          <div className="bg-background col-span-4 row-span-2 rounded-rounded p-5">
+          <div className="col-span-4 row-span-2 rounded-rounded bg-background p-5">
             <div className="mb-3 flex items-center justify-between">
               <div className="flex items-center gap-3 text-xl">
                 <button onClick={() => setCurrentYear((prev) => prev - 1)}>
@@ -124,7 +127,7 @@ const Dashboard = () => {
                 id="chartType"
                 value={chart}
                 onChange={handleChange}
-                className="bg-background mt-1 block w-[13%] rounded-md border border-gray-300 px-2 py-2 text-base text-foreground focus:outline-none sm:text-sm"
+                className="mt-1 block w-[13%] rounded-md border border-gray-300 bg-background px-2 py-2 text-base text-foreground focus:outline-none sm:text-sm"
               >
                 <option value="bar">Bar</option>
                 <option value="line">Line</option>
@@ -159,13 +162,40 @@ const Dashboard = () => {
           {
             //Recent Invoices Table
           }
-          <div className="bg-background col-span-4 rounded-rounded p-5 text-foreground">
-            {" "}
-            Recent Invoices
+          <div className="col-span-4 rounded-rounded bg-background p-5 text-foreground">
+            <p>Recent Invoices</p>
+            <div className="rounded-md px-2">
+              <table className="w-full">
+                <thead>
+                  <tr className="text-md border-b border-slate-300 text-left text-slate-600">
+                    <th>Invoice Number</th>
+                    <th>Date</th>
+                    <th>Issued To</th>
+                    <th>Total Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {invoices?.invoices?.map((invoice) => (
+                    <tr key={invoice._id}>
+                      <td>{invoice.invoiceNumber}</td>
+                      <td>{displayDate(invoice.invoiceDate)}</td>
+                      <td>{invoice.customer.name}</td>
+                      <td>
+                        {"₹ " +
+                          invoice.totalAmount.toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
 
           {}
-          <div className="bg-background col-span-4 rounded-rounded p-5">
+          <div className="col-span-4 rounded-rounded bg-background p-5">
             <div>
               <div className="flex items-center gap-3 text-xl">
                 <button

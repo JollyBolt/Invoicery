@@ -37,7 +37,7 @@ const Profile = () => {
       ) : loading ? (
         <>{/* // <Loader /> */}</>
       ) : (
-        <div className="bg-background flex h-full w-full flex-col flex-nowrap overflow-hidden rounded-rounded">
+        <div className="flex h-full w-full flex-col flex-nowrap overflow-hidden rounded-rounded bg-background">
           <div className="w-full bg-primary p-5 text-white shadow-md shadow-slate-400 dark:shadow-none">
             <p className="p-3 text-6xl font-black">{user.name}</p>
             <div className="flex items-center gap-20">
@@ -62,19 +62,19 @@ const Profile = () => {
           <div className="flex h-full w-full flex-1 p-3">
             <div className="h-full w-1/4 border-r p-3">
               <p
-                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "organization" ? "text-background bg-primary" : "text-foreground hover:bg-gray-50"} transition-all`}
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "organization" ? "bg-primary text-background" : "text-foreground hover:bg-gray-50"} transition-all`}
                 onClick={() => setDetails("organization")}
               >
                 Organization Details
               </p>
               <p
-                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "banking" ? "text-background bg-primary" : "text-foreground hover:bg-gray-50"} transition-all`}
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "banking" ? "bg-primary text-background" : "text-foreground hover:bg-gray-50"} transition-all`}
                 onClick={() => setDetails("banking")}
               >
                 Banking Details
               </p>
               <p
-                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "tnc" ? "text-background bg-primary" : "text-foreground hover:bg-gray-50"} transition-all`}
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "tnc" ? "bg-primary text-background" : "text-foreground hover:bg-gray-50"} transition-all`}
                 onClick={() => setDetails("tnc")}
               >
                 Terms and Conditions
@@ -154,13 +154,22 @@ const Profile = () => {
                 className={`${details !== "tnc" && "hidden"} flex w-full flex-col gap-5 p-5 text-xl text-foreground`}
               >
                 {user?.termsNConditions.length > 0 ? (
-                  <ol className="list-decimal">
-                    {user?.termsNConditions.map((tnc, ind) => (
-                      <li key={ind}>{tnc}</li>
-                    ))}
-                  </ol>
+                  <>
+                    <ol className="list-decimal px-5">
+                      {user?.termsNConditions.map((tnc, ind) => (
+                        <li key={ind}>{tnc}</li>
+                      ))}
+                    </ol>
+                    <button className="rounded-rounded bg-primary p-2 px-4 text-background">
+                      Edit Terms and Conditions
+                    </button>
+                  </>
                 ) : (
-                  <button type="button" onClick={() => setEditOpen(true)}>
+                  <button
+                    type="button"
+                    className="rounded-rounded bg-primary p-2 text-background"
+                    onClick={() => setEditOpen(true)}
+                  >
                     Add Terms and Conditions
                   </button>
                 )}

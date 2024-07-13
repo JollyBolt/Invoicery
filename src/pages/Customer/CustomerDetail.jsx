@@ -7,6 +7,8 @@ import LineChart from "../../components/Charts/LineChart"
 import BarChart from "../../components/Charts/BarChart"
 import { motion } from "framer-motion"
 import { fetchAllInvoices } from "../../redux/slices/invoiceSlice"
+import Table from "../../components/Table/Table"
+import { MdEdit } from "react-icons/md"
 
 import {
   FaAngleLeft,
@@ -15,14 +17,25 @@ import {
   FaFileInvoiceDollar,
   BsPeopleFill,
   BsBoxSeamFill,
+  FaPlus,
 } from "../../assets"
+import { customerInvoicesColumns } from "../../components/Table/Columns"
+import EditCustomer from "../../components/Customer/EditCustomer"
+import axios from "axios"
+import getCookieValue from "../../utils/getCookieValue"
 
 const CustomerDetail = () => {
-  const [currentYear, setCurrentYear] = useState(2024)
+  const [currentYear, setCurrentYear] = useState(
+    new Date().getFullYear().toString(),
+  )
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth())
   const [chart, setChart] = useState("line")
   const handleChange = (e) => {
     setChart(e.target.value)
   }
+  const [modalOpen, setModalOpen] = useState(false) // This is to manage the edit modal
+
+  const [revenue, setRevenue] = useState(null) // This is to manage the revenue
 
   const id = useParams().id
   const dispatch = useDispatch()
@@ -30,123 +43,181 @@ const CustomerDetail = () => {
     (state) => state.customers.customers,
   )
   const customerDetails = customers && customers[0]
+
   // const { loggedIn } = useSelector((state) => state.auth)
 
   useEffect(() => {
     async function getCustomer() {
-      dispatch(fetchSingleCustomer(id))
-      dispatch(fetchAllInvoices({ search: customerDetails.client }))
+      await dispatch(fetchSingleCustomer(id))
+      dispatch(
+        fetchAllInvoices({
+          search: sessionStorage.getItem("customerName"),
+        }),
+      )
     }
     getCustomer()
   }, [])
 
-  const { invoices } = useSelector((state) => state.invoices)
+  const getCustomerDetailData = async () => {
+    const { data } = await axios.get(
+      "http://localhost:4598/api/v1/invoice/getcustomerdetaildata",
+      {
+        headers: {
+          Authorization: "Bearer " + getCookieValue("authToken"),
+        },
+        params: {
+          year: currentYear,
+          month: currentMonth,
+          customer: sessionStorage.getItem("customerName"),
+        },
+      },
+    )
+    setRevenue(data)
+  }
 
-  if (!customerDetails) return <div>Loading</div>
+  useEffect(() => {
+    getCustomerDetailData()
+  }, [currentYear])
+
+  const { invoices } = useSelector((state) => state.invoices)
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  })
 
   return (
     <div>
+      {modalOpen && (
+        <EditCustomer
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+          customer={customerDetails}
+        />
+      )}
       {/* CustomerDetail */}
-      <div className="flex w-full flex-col gap-4">
-        <div className="flex w-full gap-4">
-          <div className="flex w-1/2 flex-col gap-3 rounded-rounded bg-primary p-4 text-lg text-white">
-            <p className="mb-5 text-5xl font-extrabold">
-              {customerDetails.client}
-            </p>
-            <div className="flex">
-              <p className="w-[30%] font-bold">GSTIN</p>
-              <p>{customerDetails.gstin}</p>
-            </div>
-            <div className="flex">
-              <p className="w-[30%] font-bold">EMAIL</p>
-              <p>{customerDetails.email || "-"}</p>
-            </div>
-            <div className="flex">
-              <p className="w-[30%] font-bold">PHONE</p>
-              <p>{displayPhone(customerDetails.phone)}</p>
-            </div>
-            <div className="flex">
-              <p className="w-[30%] font-bold uppercase">Contact Person</p>
-              <p>{customerDetails.contactPerson || "-"}</p>
-            </div>
-            <motion.button
-              initial={{ scale: 1 }}
-              whileTap={{ scale: 0.93 }}
-              transition={{ duration: 0.2 }}
-              onClick={() => setOpen(true)}
-              className="w-[30%] rounded-rounded border-2 border-white bg-primary p-3 text-lg font-semibold text-white transition-colors duration-200 hover:bg-primaryLight"
+      <div className="flex h-full w-full gap-4">
+        <div className="flex h-[calc(100dvh-80px)] w-1/4 flex-col gap-3 rounded-rounded bg-white p-4 text-lg">
+          <div className="flex items-center justify-between">
+            <p className="text-2xl font-bold">Customer Info</p>
+            <button
+              className="rounded-rounded p-2 transition-all hover:bg-slate-100"
+              onClick={() => setModalOpen(true)}
             >
-              Edit Customer
-            </motion.button>
+              <MdEdit />
+            </button>
           </div>
+          <div>
+            <p className="text-sm font-bold">Name</p>
+            <p className="font-abold text-lg">{customerDetails?.client}</p>
+          </div>
+          <div className="">
+            <p className="text-sm font-bold">GSTIN</p>
+            <p>{customerDetails?.gstin}</p>
+          </div>
+          <div className="">
+            <p className="text-sm font-bold">EMAIL</p>
+            <p>{customerDetails?.email || "-"}</p>
+          </div>
+          <div className="">
+            <p className="text-sm font-bold">PHONE</p>
+            <p>{customerDetails && displayPhone(customerDetails.phone)}</p>
+          </div>
+          <div className="">
+            <p className="text-sm font-bold uppercase">Contact Person</p>
+            <p>{customerDetails?.contactPerson || "-"}</p>
+          </div>
+          <div className="flex items-center justify-between text-sm">
+            <p className="font-bold uppercase">Billing Addresses</p>
+            <button className="rounded-rounded p-2 transition-all hover:bg-slate-100">
+              <FaPlus />
+            </button>
+          </div>
+          <div></div>
+        </div>
 
-          <div className="w-1/2 rounded-rounded bg-white p-4">
-            <div className="mb-3 flex items-center justify-between">
-              <div className="flex items-center gap-3 text-xl">
-                <button onClick={() => setCurrentYear((prev) => prev - 1)}>
-                  <FaAngleLeft color="#2807a0" />
-                </button>
-                <span className="font-numbers font-bold uppercase text-black">
-                  <span className="font-numbers">{currentYear}</span> Revenue
-                </span>
-                <button onClick={() => setCurrentYear((prev) => prev + 1)}>
-                  <FaAngleRight color="#2807a0" />
-                </button>
+        <div className="no-scrollbar flex h-[calc(100dvh-80px)] w-3/4 scroll-m-0 flex-col gap-4 overflow-scroll">
+          <div className="flex gap-4">
+            <div className="flex w-1/3 flex-col gap-4">
+              <div className="rounded-rounded bg-white p-4">
+                <p className="font-light uppercase">Revenue This Month</p>
+                <p className="py-4 font-numbers text-4xl font-bold text-primary">
+                  {"₹" + revenue?.revenueThisMonth.toLocaleString()}
+                </p>
               </div>
-              <select
-                id="chartType"
-                value={chart}
-                onChange={handleChange}
-                className="mt-1 block w-[13%] rounded-md border border-gray-300 px-2 py-2 text-base focus:outline-none sm:text-sm"
-              >
-                <option value="bar">Bar</option>
-                <option value="line">Line</option>
-              </select>
+              <div className="rounded-rounded bg-white p-4">
+                <p className="font-light uppercase">Revenue This Year</p>
+                <p className="py-4 font-numbers text-4xl font-bold text-primary">
+                  {"₹" + revenue?.revenueThisYear.toLocaleString()}
+                </p>
+              </div>
+              <div className="rounded-rounded bg-white p-4">
+                <p className="font-light uppercase">Revenue Till Date</p>
+                <p className="py-4 font-numbers text-4xl font-bold text-primary">
+                  {"₹" + revenue?.revenueTillDate.toLocaleString()}
+                </p>
+              </div>
             </div>
-            {chart == "line" ? (
-              <LineChart currentYear={currentYear} />
+            {/* Chart */}
+            <div className="w-2/3 rounded-rounded bg-white p-4">
+              <div className="mb-3 flex items-center justify-between">
+                <div className="flex items-center gap-3 text-xl">
+                  <button onClick={() => setCurrentYear((prev) => prev - 1)}>
+                    <FaAngleLeft color="#2807a0" />
+                  </button>
+                  <span className="font-numbers font-bold uppercase text-black">
+                    <span className="font-numbers">{currentYear}</span> Revenue
+                  </span>
+                  <button onClick={() => setCurrentYear((prev) => prev + 1)}>
+                    <FaAngleRight color="#2807a0" />
+                  </button>
+                </div>
+                <select
+                  id="chartType"
+                  value={chart}
+                  onChange={handleChange}
+                  className="mt-1 block w-[13%] rounded-md border border-gray-300 px-2 py-2 text-base focus:outline-none sm:text-sm"
+                >
+                  <option value="bar">Bar</option>
+                  <option value="line">Line</option>
+                </select>
+              </div>
+              <>
+                {chart == "line" ? (
+                  <LineChart revenue={revenue?.revenueForChart} />
+                ) : (
+                  <BarChart revenue={revenue?.revenueForChart} />
+                )}
+              </>
+            </div>
+          </div>
+
+          {/* Invoice Table */}
+          <div className="">
+            {invoices?.invoices?.length > 0 ? (
+              <Table
+                tableColumns={customerInvoicesColumns}
+                tableData={invoices?.invoices}
+                pageCount={invoices.pageCount}
+                pagination={pagination}
+                setPagination={setPagination}
+              />
             ) : (
-              <BarChart currentYear={currentYear} />
+              <div className="flex h-[32.8vh] w-full items-center justify-center bg-white">
+                <p className="text-xl">
+                  You have not issued any invoice to {customerDetails?.client}.
+                </p>
+              </div>
             )}
           </div>
         </div>
-        <div className="flex gap-4">
-          <div className="rounded-rounded bg-white p-4">
-            <div className="flex"></div>
-          </div>
-          <div className="rounded-rounded bg-white p-4">Invoices</div>
-        </div>
       </div>
 
-      <div className="w-full rounded-rounded bg-foreground px-4 py-4">
-        <h1 className="text-5xl font-bold">{customerDetails.client}</h1>
-        <div className="flex justify-between">
-          <div className="mt-5 flex flex-col gap-y-1">
-            {customerDetails.contactPerson && (
-              <p className="text-lg">
-                <span className="text-gray-400">Contact Person: Mr/Ms </span>
-                {customerDetails.contactPerson}
-              </p>
-            )}
-            <p className="text-lg">
-              <span className="text-gray-400">Contact Number: </span>
-              {customerDetails.phone}
-            </p>
-            <p className="text-lg">
-              <span className="text-gray-400">GSTIN: </span>
-              {customerDetails.gstin}
-            </p>
-          </div>
-          <div className="text-lg">Chart</div>
-        </div>
-      </div>
-
-      <div className="mt-7 flex w-full justify-between gap-x-7">
+      {/* <div className="mt-7 flex w-full justify-between gap-x-7">
         <div className="w-1/2 rounded-rounded bg-foreground px-2 py-4">
-          <h1 className="mb-5 text-2xl font-semibold">Billing Adresses</h1>
+          <h1 className="mb-5 text-2xl font-semibold">Billing Adresses</h1> */}
 
-          {/* list of billing addresses */}
-          <div className="flex h-fit max-h-[400px] w-full flex-col gap-y-6 overflow-y-scroll">
+      {/* list of billing addresses */}
+      {/* <div className="flex h-fit max-h-[400px] w-full flex-col gap-y-6 overflow-y-scroll">
             {customerDetails.billingAddresses &&
               customerDetails.billingAddresses.map((address, i) => {
                 return (
@@ -163,13 +234,9 @@ const CustomerDetail = () => {
                   </p>
                 )
               })}
-          </div>
-        </div>
-
-        <div className="w-full rounded-rounded bg-foreground">
-          Invoices Table
-        </div>
-      </div>
+          </div> */}
+      {/* </div> */}
+      {/* </div> */}
     </div>
   )
 }

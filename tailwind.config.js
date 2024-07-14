@@ -12,6 +12,8 @@ export default {
         muted: "hsl(var(--muted))",
         background: "hsl(var(--background))",
         disabledText: "hsl(var(--disabledText))",
+        placeholderText: "hsl(var(--placeholderText))",
+        secondaryBtnHover:"hsl(var(--secondaryBtnHover))",
       },
       // colors: {
       //   border: "hsl(var(--border))",

@@ -129,7 +129,7 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                             type="text"
                             id="editClient"
                             placeholder="Client Name"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground"
                           />
                           <label htmlFor="editClient" className="float-label">
                             Client Name (Person/Firm)
@@ -151,8 +151,7 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                             type="email"
                             placeholder="Email Address"
                             id="editCustomerEmail"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label
                             htmlFor="editCustomerEmail"
                             className="float-label"
@@ -182,7 +181,7 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                               {...register("contactPerson")}
                               type="text"
                               id="editCustomerContactPerson"
-                              className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+                              className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground"
                               placeholder="Contact Person"
                             />
                             <label
@@ -208,8 +207,7 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                             type="text"
                             id="editCustomerPhone"
                             placeholder="Contact Number"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label
                             htmlFor="editCustomerPhone"
                             className="float-label"
@@ -233,8 +231,7 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                             type="text"
                             id="editCustomerGstin"
                             placeholder="GSTIN"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label
                             htmlFor="editCustomerGstin"
                             className="float-label"
@@ -268,7 +265,7 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                       reset()
                       setModalOpen(false)
                     }}
-                    className="text-md h-fit w-fit rounded-rounded border-none bg-transparent p-2 shadow-none transition-colors duration-150 hover:border-none hover:bg-gray-300"
+                    className="text-md h-fit w-fit rounded-rounded border-none bg-transparent p-2 shadow-none transition-colors duration-150 hover:border-none hover:bg-secondaryBtnHover"
                   >
                     Cancel
                   </button>
@@ -277,7 +274,7 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                       <img src="/src/assets/Loading2.gif" className="w-9" />
                     </div>
                   ) : !isDirty ? (
-                    <div className="text-md flex items-center justify-center rounded-rounded bg-primaryLight px-2 py-1 text-center font-semibold text-gray-300">
+                    <div className="text-md flex items-center justify-center rounded-rounded bg-primaryLight px-2 py-1 text-center font-semibold text-disabledText">
                       Submit
                     </div>
                   ) : (

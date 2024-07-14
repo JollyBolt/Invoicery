@@ -151,7 +151,7 @@ function EditProfile({ open, setOpen }) {
                 <div className="flex w-full justify-between gap-x-7">
                   <div className="flex w-1/2 flex-col gap-y-4">
                     {/* User Details */}
-                    <h1 className="text-3xl font-semibold">User Details</h1>
+                    <h1 className="text-3xl font-semibold text-foreground">User Details</h1>
                     <div className="flex w-full flex-nowrap justify-between gap-x-4">
                       <div className="w-1/2">
                         <div className="relative flex w-full flex-col flex-nowrap">
@@ -160,8 +160,7 @@ function EditProfile({ open, setOpen }) {
                             type="text"
                             id="editFirstName"
                             placeholder="First Name"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label
                             htmlFor="editFirstName"
                             className="float-label"
@@ -186,8 +185,7 @@ function EditProfile({ open, setOpen }) {
                             type="text"
                             id="editLastName"
                             placeholder="Last Name"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label htmlFor="editLastName" className="float-label">
                             Last Name
                             <span className="text-red-500">&#42;</span>
@@ -210,8 +208,7 @@ function EditProfile({ open, setOpen }) {
                           type="text"
                           id="editPhone"
                           placeholder="Contact Number"
-                          className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                        />
+                          className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                         <label htmlFor="editPhone" className="float-label">
                           Contact Number
                           <span className="text-red-500">&#42;</span>
@@ -233,8 +230,7 @@ function EditProfile({ open, setOpen }) {
                           type="text"
                           id="editEmail"
                           placeholder="Email Address"
-                          className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                        />
+                          className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                         <label htmlFor="editEmail" className="float-label">
                           Email Address
                           <span className="text-red-500">&#42;</span>
@@ -252,9 +248,7 @@ function EditProfile({ open, setOpen }) {
 
                   <div className="flex w-1/2 flex-col gap-y-4">
                     {/* Banking Details */}
-                    <h1 className="text-3xl font-semibold">
-                      Organization Details
-                    </h1>
+                    <h1 className="text-3xl font-semibold text-foreground">Banking Details</h1>
 
                     <div className="flex w-full flex-nowrap gap-x-4">
                       <div className="w-1/2">
@@ -264,8 +258,7 @@ function EditProfile({ open, setOpen }) {
                             type="text"
                             id="editBankName"
                             placeholder="Bank Name"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label htmlFor="editBankName" className="float-label">
                             Bank Name
                             <span className="text-red-500">&#42;</span>
@@ -287,8 +280,7 @@ function EditProfile({ open, setOpen }) {
                             type="text"
                             id="editBankBranch"
                             placeholder="Bank Branch"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label
                             htmlFor="editBankBranch"
                             className="float-label"
@@ -314,8 +306,7 @@ function EditProfile({ open, setOpen }) {
                           type="text"
                           id="editAccountNumber"
                           placeholder="Account Number"
-                          className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                        />
+                          className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                         <label
                           htmlFor="editAccountNumber"
                           className="float-label"
@@ -339,9 +330,9 @@ function EditProfile({ open, setOpen }) {
                           {...register("ifsc")}
                           type="text"
                           id="editIfsc"
+                          autoComplete="off"
                           placeholder="IFSC Code"
-                          className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                        />
+                          className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                         <label htmlFor="editIfsc" className="float-label">
                           IFSC Code
                           <span className="text-red-500">&#42;</span>
@@ -362,7 +353,9 @@ function EditProfile({ open, setOpen }) {
 
                 {/* Org details */}
                 <div className="flex w-full flex-col gap-y-4">
-                  <h1 className="text-3xl font-semibold">Banking Details</h1>
+                <h1 className="text-3xl font-semibold text-foreground">
+                      Organization Details
+                    </h1>
 
                   <div className="flex w-full flex-nowrap gap-x-7">
                     <div className="w-1/2">
@@ -372,8 +365,7 @@ function EditProfile({ open, setOpen }) {
                           type="text"
                           id="editOrgName"
                           placeholder="Organization Name"
-                          className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                        />
+                          className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                         <label htmlFor="editOrgName" className="float-label">
                           Organization Name{" "}
                           <span className="text-red-500">&#42;</span>
@@ -395,8 +387,7 @@ function EditProfile({ open, setOpen }) {
                           type="text"
                           id="editOrgEmail"
                           placeholder="Organization Email Address"
-                          className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                        />
+                          className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                         <label htmlFor="editOrgEmail" className="float-label">
                           Organization Email Address
                           <span className="text-red-500">&#42;</span>
@@ -419,8 +410,7 @@ function EditProfile({ open, setOpen }) {
                         type="text"
                         id="editstreetAddress"
                         placeholder="Street Address"
-                        className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                      />
+                        className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                       <label
                         htmlFor="editStreetAddress"
                         className="float-label"
@@ -446,8 +436,7 @@ function EditProfile({ open, setOpen }) {
                           type="text"
                           id="editCity"
                           placeholder="City"
-                          className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                        />
+                          className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                         <label htmlFor="editCity" className="float-label">
                           City
                           <span className="text-red-500">&#42;</span>
@@ -469,8 +458,7 @@ function EditProfile({ open, setOpen }) {
                           type="text"
                           id="editState"
                           placeholder="State"
-                          className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                        />
+                          className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                         <label htmlFor="editState" className="float-label">
                           State
                           <span className="text-red-500">&#42;</span>
@@ -494,8 +482,7 @@ function EditProfile({ open, setOpen }) {
                           type="text"
                           id="editZip"
                           placeholder="ZIP Code"
-                          className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                        />
+                          className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                         <label htmlFor="editZip" className="float-label">
                           ZIP Code
                           <span className="text-red-500">&#42;</span>
@@ -517,8 +504,7 @@ function EditProfile({ open, setOpen }) {
                           type="text"
                           id="editGstin"
                           placeholder="GSTIN Number"
-                          className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                        />
+                          className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                         <label htmlFor="editGstin" className="float-label">
                           GSTIN Number
                           <span className="text-red-500">&#42;</span>
@@ -541,7 +527,7 @@ function EditProfile({ open, setOpen }) {
                         setOpen(false)
                       }}
                       type="button"
-                      className="rounded-rounded px-2 py-1 text-lg text-foreground transition-colors duration-200 hover:bg-gray-300"
+                      className="rounded-rounded px-2 py-1 text-lg text-foreground transition-colors duration-200 hover:bg-secondaryBtnHover "
                     >
                       Cancel
                     </button>

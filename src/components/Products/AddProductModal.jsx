@@ -26,7 +26,7 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
 
   const { register, handleSubmit, formState, reset, clearErrors, control } =
     form
-  const { errors, isSubmitting } = formState
+  const { errors, isSubmitting,isValid,isDirty } = formState
   // const { loading } = useSelector((state) => state.products);
   const dispatch = useDispatch()
   const onSubmit = async (e) => {
@@ -59,7 +59,7 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                 className="bg-background mx-auto w-1/3 max-w-none rounded-rounded p-2 px-4"
               >
                 <div className="mx-auto mb-2 flex w-full flex-nowrap justify-between">
-                  <h3 className="font-sans text-3xl font-extrabold">
+                  <h3 className="font-sans text-3xl font-extrabold text-foreground">
                     Add a Product
                   </h3>
                   {/* if there is a button in form, it will close the modal */}
@@ -89,8 +89,7 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                             {...register("name")}
                             type="text"
                             placeholder="Product Name"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label htmlFor="productName" className="float-label">
                             Product Name
                             <span className="text-red-500">&#42;</span>
@@ -111,8 +110,7 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                             {...register("hsn_code")}
                             type="text"
                             placeholder="HSN Code"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label htmlFor="hsnCode" className="float-label">
                             HSN Code
                           </label>
@@ -133,8 +131,7 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                             type="number"
                             min={0.0}
                             placeholder="HSN Code"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label htmlFor="price" className="float-label">
                             Price(INR)
                             <span className="text-red-500">&#42;</span>
@@ -161,7 +158,7 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                       setIsOpen(false)
                     }}
                     type="button"
-                    className="text-md rounded-rounded border-none bg-transparent px-2 py-1 text-lg text-black shadow-none transition-colors duration-200 hover:border-none hover:bg-gray-200"
+                    className="text-md rounded-rounded border-none bg-transparent px-2 py-1 text-lg text-foreground shadow-none transition-colors duration-200 hover:border-none hover:bg-secondaryBtnHover"
                   >
                     Cancel
                   </button>
@@ -173,12 +170,12 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                   ) : (
                     <motion.input
                       initial={{ scale: 1 }}
-                      whileTap={{ scale: 0.85 }}
+                      whileTap={isDirty && isValid && { scale: 0.85 }}
                       transition={{ delay: 0 }}
                       type="submit"
                       value="Submit"
-                      // disabled={isSubmitting}
-                      className="text-md rounded-rounded bg-primary px-2 py-1 font-semibold text-white transition-colors duration-200 hover:cursor-pointer hover:bg-primaryLight"
+                      disabled={!isDirty || !isValid}
+                      className="text-md rounded-rounded bg-primary px-2 py-1 font-semibold text-white transition-colors duration-200 hover:cursor-pointer hover:bg-primaryLight disabled:text-disabledText disabled:hover:cursor-default disabled:bg-primaryLight select-none"
                     />
                   )}
                 </div>

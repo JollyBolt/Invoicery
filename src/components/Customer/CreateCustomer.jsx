@@ -117,10 +117,10 @@ export default function CreateCustomer({ open, setOpen }) {
               <form
                 onSubmit={onSubmit}
                 noValidate
-                className="bbg-background mx-auto h-fit w-2/3 max-w-none rounded-rounded px-5 pb-1 pt-4"
+                className="bg-background mx-auto h-fit w-2/3 max-w-none  rounded-rounded px-5 pb-1 pt-4"
               >
                 <div className="mx-auto mb-2 flex w-full flex-nowrap justify-between">
-                  <h3 className="font-sans text-3xl font-extrabold">
+                  <h3 className="font-sans text-3xl font-extrabold text-foreground">
                     Add a Customer
                   </h3>
 
@@ -143,7 +143,7 @@ export default function CreateCustomer({ open, setOpen }) {
                 <div className="mt-2 space-y-1">
                   {/* Client Details */}
                   <div>
-                    <h3 className="text-xl font-semibold">Client Details</h3>
+                    <h3 className="text-xl font-semibold text-foreground">Client Details</h3>
                     <div className="mt-4 grid grid-cols-2 gap-3">
                       <div>
                         <div className="relative flex w-full flex-col flex-nowrap">
@@ -152,8 +152,7 @@ export default function CreateCustomer({ open, setOpen }) {
                             type="text"
                             id="client"
                             placeholder="Client Name"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label htmlFor="client" className="float-label">
                             Client Name (Person/Firm)
                             <span className="text-red-500">&#42;</span>
@@ -174,8 +173,7 @@ export default function CreateCustomer({ open, setOpen }) {
                             type="email"
                             placeholder="Email Address"
                             id="customerEmail"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label
                             htmlFor="customerEmail"
                             className="float-label"
@@ -202,9 +200,8 @@ export default function CreateCustomer({ open, setOpen }) {
                               {...register("contactPerson")}
                               type="text"
                               id="contactPerson"
-                              className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
                               placeholder="Contact Person"
-                            />
+                              className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                             <label
                               htmlFor="contactPerson"
                               className="float-label"
@@ -228,8 +225,7 @@ export default function CreateCustomer({ open, setOpen }) {
                             type="text"
                             id="customerPhone"
                             placeholder="Contact Number"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label
                             htmlFor="customerPhone"
                             className="float-label"
@@ -254,8 +250,7 @@ export default function CreateCustomer({ open, setOpen }) {
                             type="text"
                             id="customerGstin"
                             placeholder="GSTIN"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label
                             htmlFor="customerGstin"
                             className="float-label"
@@ -277,7 +272,7 @@ export default function CreateCustomer({ open, setOpen }) {
 
                   {/* Billing Address */}
                   <div>
-                    <h3 className="text-xl font-semibold">Billing Address</h3>
+                    <h3 className="text-xl font-semibold text-foreground">Billing Address</h3>
                     <div className="mt-4 grid grid-cols-2 gap-3">
                       <div className="col-span-2">
                         <div className="relative flex w-full flex-col flex-nowrap">
@@ -286,8 +281,7 @@ export default function CreateCustomer({ open, setOpen }) {
                             type="text"
                             id="customerStreetAddress"
                             placeholder="Street Address"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label
                             htmlFor="customerStreetAddress"
                             className="float-label"
@@ -311,8 +305,7 @@ export default function CreateCustomer({ open, setOpen }) {
                             type="text"
                             placeholder="City"
                             id="customerCity"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label className="float-label">
                             City<span className="text-red-500">&#42;</span>
                           </label>
@@ -332,8 +325,7 @@ export default function CreateCustomer({ open, setOpen }) {
                             type="text"
                             placeholder="ZIP Code"
                             id="customerZip"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label htmlFor="customerZip" className="float-label">
                             ZIP Code<span className="text-red-500">&#42;</span>
                           </label>
@@ -353,8 +345,7 @@ export default function CreateCustomer({ open, setOpen }) {
                             type="text"
                             placeholder="State"
                             id="customerState"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label
                             htmlFor="customerState"
                             className="float-label"
@@ -377,8 +368,7 @@ export default function CreateCustomer({ open, setOpen }) {
                             type="text"
                             placeholder="State Code"
                             id="customerStateCode"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label
                             htmlFor="customerStateCode"
                             className="float-label"
@@ -404,8 +394,7 @@ export default function CreateCustomer({ open, setOpen }) {
                           type="text"
                           placeholder="Country"
                           id="customerCountry"
-                          className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                        />
+                          className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                         <label
                           htmlFor="customerCountry"
                           className="float-label"
@@ -432,7 +421,7 @@ export default function CreateCustomer({ open, setOpen }) {
                       reset()
                       setOpen(false)
                     }}
-                    className="text-md h-fit w-fit rounded-rounded border-none bg-transparent p-2 shadow-none transition-colors duration-150 hover:border-none hover:bg-gray-300"
+                    className="text-md h-fit w-fit rounded-rounded border-none bg-transparent p-2 shadow-none transition-colors duration-150 hover:border-none hover:bg-secondaryBtnHover text-foreground"
                   >
                     Cancel
                   </button>
@@ -448,7 +437,7 @@ export default function CreateCustomer({ open, setOpen }) {
                       type="submit"
                       value="Submit"
                       disabled={isSubmitting || !isDirty}
-                      className="text-md rounded-rounded bg-primary px-2 py-1 font-semibold text-white transition-colors duration-200 hover:cursor-pointer hover:bg-primaryLight disabled:cursor-default disabled:bg-primaryLight disabled:text-gray-300"
+                      className="text-md rounded-rounded bg-primary px-2 py-1 font-semibold text-white transition-colors duration-200 hover:cursor-pointer hover:bg-primaryLight disabled:cursor-default disabled:bg-primaryLight disabled:text-disabledText"
                     />
                   )}
                 </div>

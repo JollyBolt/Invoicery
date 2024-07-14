@@ -139,7 +139,7 @@ function Sidebar() {
           <div className="flex flex-col gap-4 overflow-hidden border-t border-gray-500 pt-2">
             <div
               onClick={toggleDark}
-              className={`transition-[border-radius] hover:cursor-pointer hover:bg-slate-300 ${
+              className={`transition-[border-radius] hover:cursor-pointer hover:bg-secondaryBtnHover ${
                 open ? "rounded-rounded delay-0" : "rounded-[50%] delay-300"
               } duration-400 flex items-center gap-3.5 px-2 py-1 ease-linear`}
             >

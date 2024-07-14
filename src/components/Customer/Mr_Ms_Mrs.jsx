@@ -10,7 +10,7 @@ function Mr_Ms_Mrs({ selected, setSelected, watch, setValue }) {
       <div className="border-1 relative flex w-fit items-center justify-between rounded-rounded border border-gray-300">
         <p
           className={`${TOGGLE_CLASSES} ${
-            selected === "Mr" ? "text-white" : "text-slate-400"
+            selected === "Mr" ? "text-white" : "text-placeholderText"
           }`}
           onClick={() => {
             setSelected("Mr")
@@ -25,7 +25,7 @@ function Mr_Ms_Mrs({ selected, setSelected, watch, setValue }) {
         </p>
         <p
           className={`${TOGGLE_CLASSES} ${
-            selected === "Ms" ? "text-white" : "text-slate-400"
+            selected === "Ms" ? "text-white" : "text-placeholderText"
           }`}
           onClick={() => {
             setSelected("Ms")
@@ -40,7 +40,7 @@ function Mr_Ms_Mrs({ selected, setSelected, watch, setValue }) {
         </p>
         <p
           className={`${TOGGLE_CLASSES} ${
-            selected === "Mrs" ? "text-white" : "text-slate-400"
+            selected === "Mrs" ? "text-white" : "text-placeholderText"
           }`}
           onClick={() => {
             setSelected("Mrs")

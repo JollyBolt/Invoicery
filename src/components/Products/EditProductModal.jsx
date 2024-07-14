@@ -38,7 +38,7 @@ function EditProductModal({ modalOpen, setModalOpen, product }) {
     )
   }
   const { register, handleSubmit, formState, reset, clearErrors } = form
-  const { errors, isSubmitting, isDirty } = formState
+  const { errors, isSubmitting, isDirty,isValid } = formState
 
   return (
     <>
@@ -89,8 +89,7 @@ function EditProductModal({ modalOpen, setModalOpen, product }) {
                             {...register("name")}
                             type="text"
                             placeholder="Product Name"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label htmlFor="productName" className="float-label">
                             Product Name
                             <span className="text-red-500">&#42;</span>
@@ -111,8 +110,7 @@ function EditProductModal({ modalOpen, setModalOpen, product }) {
                             {...register("hsn_code")}
                             type="text"
                             placeholder="HSN Code"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label htmlFor="hsnCode" className="float-label">
                             HSN Code
                           </label>
@@ -135,8 +133,7 @@ function EditProductModal({ modalOpen, setModalOpen, product }) {
                             type="number"
                             min={0.0}
                             placeholder="HSN Code"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-                          />
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
                           <label htmlFor="price" className="float-label">
                             Price(INR)
                             <span className="text-red-500">&#42;</span>
@@ -162,7 +159,7 @@ function EditProductModal({ modalOpen, setModalOpen, product }) {
                       setModalOpen(false)
                     }}
                     type="button"
-                    className="text-md rounded-rounded border-none bg-transparent px-2 py-1 text-lg text-black shadow-none transition-colors duration-200 hover:border-none hover:bg-gray-200"
+                    className="text-md rounded-rounded border-none bg-transparent px-2 py-1 text-lg text-foreground shadow-none transition-colors duration-200 hover:border-none hover:bg-secondaryBtnHover"
                   >
                     Cancel
                   </button>
@@ -171,8 +168,8 @@ function EditProductModal({ modalOpen, setModalOpen, product }) {
                     <div className="flex w-20 justify-center rounded-rounded bg-primary text-center">
                       <img src="/src/assets/Loading2.gif" className="w-9" />
                     </div>
-                  ) : !isDirty ? (
-                    <div className="text-md flex items-center justify-center rounded-rounded bg-primaryLight px-2 py-1 text-center font-semibold text-gray-300">
+                  ) : !isDirty || !isValid ? (
+                    <div className="text-md flex items-center justify-center rounded-rounded bg-primaryLight px-2 py-1 text-center font-semibold text-disabledText select-none">
                       Submit
                     </div>
                   ) : (

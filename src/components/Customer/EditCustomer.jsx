@@ -24,7 +24,11 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
       .string()
       .required("GSTIN is required")
       .min(15, "Please enter valid 15 digit GSTIN")
-      .max(15, "Please enter valid 15 digit GSTIN"),
+      .max(15, "Please enter valid 15 digit GSTIN")
+      .matches(
+        /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/,
+        "Invalid GSTIN Format",
+      ),
   })
 
   const [selectedTitle, setSelectedTitle] = useState(
@@ -54,7 +58,7 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
     watch,
     setValue,
   } = form
-  const { errors, isSubmitting, isDirty } = formState
+  const { errors, isSubmitting, isDirty,isValid } = formState
   const dispatch = useDispatch()
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -128,8 +132,9 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                             {...register("client")}
                             type="text"
                             id="editClient"
+                            autoComplete="off"
                             placeholder="Client Name"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground"
+                            className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                           />
                           <label htmlFor="editClient" className="float-label">
                             Client Name (Person/Firm)
@@ -151,7 +156,9 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                             type="email"
                             placeholder="Email Address"
                             id="editCustomerEmail"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                            autoComplete="off"
+                            className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                          />
                           <label
                             htmlFor="editCustomerEmail"
                             className="float-label"
@@ -181,7 +188,8 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                               {...register("contactPerson")}
                               type="text"
                               id="editCustomerContactPerson"
-                              className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground"
+                              autoComplete="off"
+                              className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                               placeholder="Contact Person"
                             />
                             <label
@@ -207,7 +215,9 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                             type="text"
                             id="editCustomerPhone"
                             placeholder="Contact Number"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                            autoComplete="off"
+                            className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                          />
                           <label
                             htmlFor="editCustomerPhone"
                             className="float-label"
@@ -227,11 +237,17 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                       <div>
                         <div className="relative flex w-full flex-col flex-nowrap">
                           <input
-                            {...register("gstin")}
+                            {...register("gstin", {
+                              onChange: (e) => {
+                                e.target.value = e.target.value.toUpperCase()
+                              },
+                            })}
                             type="text"
                             id="editCustomerGstin"
+                            autoComplete="off"
                             placeholder="GSTIN"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                            className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                          />
                           <label
                             htmlFor="editCustomerGstin"
                             className="float-label"
@@ -265,7 +281,7 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                       reset()
                       setModalOpen(false)
                     }}
-                    className="text-md h-fit w-fit rounded-rounded border-none bg-transparent p-2 shadow-none transition-colors duration-150 hover:border-none hover:bg-secondaryBtnHover"
+                    className="text-md hover:bg-secondaryBtnHover h-fit w-fit rounded-rounded border-none bg-transparent p-2 shadow-none transition-colors duration-150 hover:border-none"
                   >
                     Cancel
                   </button>
@@ -273,8 +289,8 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                     <div className="flex w-20 justify-center rounded-rounded bg-primary text-center">
                       <img src="/src/assets/Loading2.gif" className="w-9" />
                     </div>
-                  ) : !isDirty ? (
-                    <div className="text-md flex items-center justify-center rounded-rounded bg-primaryLight px-2 py-1 text-center font-semibold text-disabledText">
+                  ) : !isDirty || !isValid ? (
+                    <div className="text-md text-disabledText flex items-center justify-center rounded-rounded bg-primaryLight px-2 py-1 text-center font-semibold">
                       Submit
                     </div>
                   ) : (

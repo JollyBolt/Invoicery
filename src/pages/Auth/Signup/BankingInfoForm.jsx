@@ -14,10 +14,11 @@ const BankingInfoForm = ({ register, errors }) => {
             id="bankName"
             {...register("bankName")}
             type="text"
+            autoComplete="off"
             placeholder="Bank Name"
             className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
           />
-          <label htmlFor="bankName" className="float-label">
+          <label htmlFor="bankName" className="float-label bg-white">
             Bank Name
             <span className="text-red-500">&#42;</span>
           </label>
@@ -37,10 +38,11 @@ const BankingInfoForm = ({ register, errors }) => {
             id="branch"
             {...register("branch")}
             type="text"
+            autoComplete="off"
             placeholder="Bank Branch"
             className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
           />
-          <label htmlFor="branch" className="float-label">
+          <label htmlFor="branch" className="float-label bg-white">
             Bank Branch
             <span className="text-red-500">&#42;</span>
           </label>
@@ -60,10 +62,11 @@ const BankingInfoForm = ({ register, errors }) => {
             id="accountNumber"
             {...register("accountNumber")}
             type="text"
+            autoComplete="off"
             placeholder="Account Number"
             className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
           />
-          <label htmlFor="accountNumber" className="float-label">
+          <label htmlFor="accountNumber" className="float-label bg-white">
             Account Number
             <span className="text-red-500">&#42;</span>
           </label>
@@ -81,12 +84,17 @@ const BankingInfoForm = ({ register, errors }) => {
         <div className="relative flex w-full flex-col flex-nowrap">
           <input
             id="ifsc"
-            {...register("ifsc")}
+            {...register("ifsc",{
+              onChange: (e) => {
+                e.target.value = e.target.value.toUpperCase()
+              },
+            })}
             type="text"
+            autoComplete="off"
             placeholder="IFSC Code"
             className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
           />
-          <label htmlFor="ifsc" className="float-label">
+          <label htmlFor="ifsc" className="float-label bg-white">
             IFSC Code
             <span className="text-red-500">&#42;</span>
           </label>

@@ -15,9 +15,10 @@ const PersonalInfoForm = ({ register, errors }) => {
             {...register("firstName")}
             type="text"
             placeholder="First Name"
+            autoComplete="off"
             className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
           />
-          <label htmlFor="firstName" className="float-label">
+          <label htmlFor="firstName" className="float-label bg-white">
             First Name
             <span className="text-red-500">&#42;</span>
           </label>
@@ -38,9 +39,10 @@ const PersonalInfoForm = ({ register, errors }) => {
             {...register("lastName")}
             type="text"
             placeholder="Last Name"
+            autoComplete="off"
             className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
           />
-          <label htmlFor="lastName" className="float-label">
+          <label htmlFor="lastName" className="float-label bg-white">
             Last Name
             <span className="text-red-500">&#42;</span>
           </label>
@@ -60,10 +62,11 @@ const PersonalInfoForm = ({ register, errors }) => {
             id="phoneSignUp"
             {...register("phone")}
             type="text"
+            autoComplete="off"
             placeholder="Phone Number"
             className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
           />
-          <label htmlFor="phoneSignUp" className="float-label">
+          <label htmlFor="phoneSignUp" className="float-label bg-white">
             Phone Number
             <span className="text-red-500">&#42;</span>
           </label>
@@ -76,9 +79,6 @@ const PersonalInfoForm = ({ register, errors }) => {
           )}
         </p>
       </div>
-
-
-
     </motion.div>
   )
 }

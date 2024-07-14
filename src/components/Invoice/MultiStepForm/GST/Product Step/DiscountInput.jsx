@@ -78,16 +78,16 @@ function DiscountInput({
           })}
           // min={0.0}
           // className="border-1 w-full rounded-l-rounded border-y border-l border-gray-200 pl-2 text-lg focus:outline-none"
-          className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+          className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" 
         />
         <label htmlFor="discount" className="float-label">
           Discount
         </label>
       </div>
-      <div className="border-1 relative flex w-fit items-center rounded-rounded border border-gray-200">
+      <div className="border-1 relative flex w-fit items-center rounded-rounded border border-placeholderText">
         <p
           className={`${TOGGLE_CLASSES} ${
-            selected === "percent" ? "text-white" : "text-slate-400"
+            selected === "percent" ? "text-white" : "text-placeholderText"
           }`}
           onClick={() => {
             setSelected("percent")
@@ -114,7 +114,7 @@ function DiscountInput({
         </p>
         <p
           className={`${TOGGLE_CLASSES} ${
-            selected === "rupee" ? "text-white" : "text-slate-800"
+            selected === "rupee" ? "text-white" : "text-placeholderText"
           }`}
           onClick={() => {
             setSelected("rupee")

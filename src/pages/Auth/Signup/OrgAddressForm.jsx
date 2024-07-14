@@ -15,10 +15,11 @@ function OrgAddressForm({ register, errors }) {
             id="streetAddressSignUp"
             {...register("streetAddress")}
             type="text"
+            autoComplete="off"
             placeholder="Street Address"
             className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
           />
-          <label htmlFor="streetAddressSignUp" className="float-label">
+          <label htmlFor="streetAddressSignUp" className="float-label bg-white">
             Street Address
             <span className="text-red-500">&#42;</span>
           </label>
@@ -40,9 +41,10 @@ function OrgAddressForm({ register, errors }) {
               {...register("city")}
               type="text"
               placeholder="City"
+              autoComplete="off"
               className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
             />
-            <label htmlFor="citySignUp" className="float-label">
+            <label htmlFor="citySignUp" className="float-label bg-white">
               City
               <span className="text-red-500">&#42;</span>
             </label>
@@ -62,10 +64,11 @@ function OrgAddressForm({ register, errors }) {
               id="zipSignUp"
               {...register("zip")}
               type="text"
+              autoComplete="off"
               placeholder="ZIP Code"
               className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
             />
-            <label htmlFor="zipSignUp" className="float-label">
+            <label htmlFor="zipSignUp" className="float-label bg-white">
               ZIP Code
               <span className="text-red-500">&#42;</span>
             </label>
@@ -87,10 +90,11 @@ function OrgAddressForm({ register, errors }) {
               id="stateSignUp"
               {...register("state")}
               type="text"
+              autoComplete="off"
               placeholder="State"
               className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
             />
-            <label htmlFor="stateSignUp" className="float-label">
+            <label htmlFor="stateSignUp" className="float-label bg-white">
               State
               <span className="text-red-500">&#42;</span>
             </label>
@@ -110,10 +114,11 @@ function OrgAddressForm({ register, errors }) {
               id="countrySignUp"
               {...register("country")}
               type="text"
+              autoComplete="off"
               placeholder="Country"
-              className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+              className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none "
             />
-            <label htmlFor="countrySignUp" className="float-label">
+            <label htmlFor="countrySignUp" className="float-label bg-white">
               Country
               <span className="text-red-500">&#42;</span>
             </label>

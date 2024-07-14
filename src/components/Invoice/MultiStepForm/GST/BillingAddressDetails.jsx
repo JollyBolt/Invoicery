@@ -72,7 +72,7 @@ function BillingAddressDetails({
       >
         {!selectedAddress ? (
           <div className="flex w-full flex-col gap-y-3">
-            <h1 className="text-2xl font-semibold">Billing Address</h1>
+            <h1 className="text-2xl font-semibold text-foreground">City of Billing Address</h1>
             <div className="flex w-full flex-nowrap justify-between">
               <div className="w-full">
                 <div className="relative flex w-full flex-col flex-nowrap">
@@ -95,7 +95,8 @@ function BillingAddressDetails({
                     type="text"
                     placeholder="Enter City"
                     autoComplete="off"
-                    className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+                    className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                    
                     {...register("billingCity", {
                       required: "Please enter city of Billing Address",
                     })}
@@ -104,7 +105,7 @@ function BillingAddressDetails({
                     Enter City<span className="text-red-500">&#42;</span>
                   </label>
                   <motion.div
-                    className={`bg-background absolute top-14 -z-10 max-h-[70px] w-full overflow-scroll opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
+                    className={`bg-background absolute top-14 -z-10 max-h-[120px] h-fit w-full overflow-scroll opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
                   >
                     {customers && billingAddresses.length > 0 ? (
                       billingAddresses
@@ -119,14 +120,14 @@ function BillingAddressDetails({
                               handleSubmit(ba)
                             }}
                             key={ind}
-                            className={`flex w-full justify-between p-3 text-lg hover:cursor-pointer hover:bg-gray-200 ${key === ind && "bg-gray-400"}`}
+                            className={`flex w-full justify-between p-3 text-lg text-foreground hover:cursor-pointer hover:bg-gray-200 ${key === ind && "bg-gray-400"}`}
                           >
                             <p>{ba.city}</p>
                             <p>{ba.state}</p>
                           </div>
                         ))
                     ) : (
-                      <h2 className="py-1 pl-2 text-lg">No Matches Found.</h2>
+                      <h2 className="py-1 pl-2 text-lg text-foreground">No Matches Found.</h2>
                     )}
                   </motion.div>
                 </div>
@@ -143,7 +144,7 @@ function BillingAddressDetails({
         ) : (
           <>
             <div className="w-full rounded-md bg-primary p-1">
-              <div className="flex flex-col gap-3 rounded-md bg-gray-50 p-5 font-semibold">
+              <div className="flex flex-col gap-3 rounded-md bg-background text-foreground p-5 font-semibold">
                 <div className="flex gap-10">
                   <p className="w-[20%]">Street Address</p>
                   <p className="w-[70%]">

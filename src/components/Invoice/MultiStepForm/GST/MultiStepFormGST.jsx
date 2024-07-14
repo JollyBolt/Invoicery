@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 import { useForm, useFieldArray } from "react-hook-form"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { createInvoice } from "../../../../redux/slices/invoiceSlice"
 import InvoiceDetails from "./InvoiceDetails"
 import AddCustomer from "./AddCustomer"
@@ -23,7 +23,7 @@ function MultiStepFormGST({
 }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
+  const { user } = useSelector((state) => state.user)
   const form = useForm({
     defaultValues: {
       invoiceNumber: sessionStorage.getItem("invoiceNumber")
@@ -51,7 +51,11 @@ function MultiStepFormGST({
         ? JSON.parse(sessionStorage.getItem("termsNConditions")).map((tnc) => {
             return { tnc }
           })
-        : [],
+        : user.termsNConditions
+          ? user.termsNConditions.map((tnc) => {
+              return { tnc }
+            })
+          : [],
       billingCity: "",
       shippingStreetAddress: sessionStorage.getItem("shippingAddress")
         ? JSON.parse(sessionStorage.getItem("shippingAddress")).streetAddress
@@ -244,7 +248,7 @@ function MultiStepFormGST({
             setStep(step - 1)
             sessionStorage.setItem("step", step - 1)
           }}
-          className="rounded-rounded px-3 py-1 text-xl text-black transition-colors duration-150 hover:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-transparent"
+          className="hover:bg-secondaryBtnHover rounded-rounded px-3 py-1 text-xl text-foreground transition-colors duration-150 disabled:text-gray-400 disabled:hover:bg-transparent"
         >
           Go Back
         </button>

@@ -39,7 +39,11 @@ export default function CreateCustomer({ open, setOpen }) {
       .string()
       .required("GSTIN is required")
       .min(15, "Please enter valid 15 digit GSTIN")
-      .max(15, "Please enter valid 15 digit GSTIN"),
+      .max(15, "Please enter valid 15 digit GSTIN")
+      .matches(
+        /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/,
+        "Invalid GSTIN Format",
+      ),
   })
 
   const form = useForm({
@@ -60,7 +64,7 @@ export default function CreateCustomer({ open, setOpen }) {
     resolver: yupResolver(customerSchema),
   })
   const { register, handleSubmit, reset, clearErrors, formState, watch } = form
-  const { errors, isSubmitting,isDirty } = formState
+  const { errors, isSubmitting, isDirty, isValid } = formState
   const dispatch = useDispatch()
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -117,7 +121,7 @@ export default function CreateCustomer({ open, setOpen }) {
               <form
                 onSubmit={onSubmit}
                 noValidate
-                className="bg-background mx-auto h-fit w-2/3 max-w-none  rounded-rounded px-5 pb-1 pt-4"
+                className="bg-background mx-auto h-fit w-2/3 max-w-none rounded-rounded px-5 pb-1 pt-4"
               >
                 <div className="mx-auto mb-2 flex w-full flex-nowrap justify-between">
                   <h3 className="font-sans text-3xl font-extrabold text-foreground">
@@ -143,7 +147,9 @@ export default function CreateCustomer({ open, setOpen }) {
                 <div className="mt-2 space-y-1">
                   {/* Client Details */}
                   <div>
-                    <h3 className="text-xl font-semibold text-foreground">Client Details</h3>
+                    <h3 className="text-xl font-semibold text-foreground">
+                      Client Details
+                    </h3>
                     <div className="mt-4 grid grid-cols-2 gap-3">
                       <div>
                         <div className="relative flex w-full flex-col flex-nowrap">
@@ -151,8 +157,10 @@ export default function CreateCustomer({ open, setOpen }) {
                             {...register("client")}
                             type="text"
                             id="client"
+                            autoComplete="off"
                             placeholder="Client Name"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                            className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                          />
                           <label htmlFor="client" className="float-label">
                             Client Name (Person/Firm)
                             <span className="text-red-500">&#42;</span>
@@ -173,7 +181,9 @@ export default function CreateCustomer({ open, setOpen }) {
                             type="email"
                             placeholder="Email Address"
                             id="customerEmail"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                            autoComplete="off"
+                            className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                          />
                           <label
                             htmlFor="customerEmail"
                             className="float-label"
@@ -200,8 +210,10 @@ export default function CreateCustomer({ open, setOpen }) {
                               {...register("contactPerson")}
                               type="text"
                               id="contactPerson"
+                              autoComplete="off"
                               placeholder="Contact Person"
-                              className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                              className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                            />
                             <label
                               htmlFor="contactPerson"
                               className="float-label"
@@ -224,8 +236,10 @@ export default function CreateCustomer({ open, setOpen }) {
                             {...register("phone")}
                             type="text"
                             id="customerPhone"
+                            autoComplete="off"
                             placeholder="Contact Number"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                            className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                          />
                           <label
                             htmlFor="customerPhone"
                             className="float-label"
@@ -246,11 +260,17 @@ export default function CreateCustomer({ open, setOpen }) {
                       <div>
                         <div className="relative flex w-full flex-col flex-nowrap">
                           <input
-                            {...register("gstin")}
+                            {...register("gstin", {
+                              onChange: (e) => {
+                                e.target.value = e.target.value.toUpperCase()
+                              },
+                            })}
                             type="text"
                             id="customerGstin"
+                            autoComplete="off"
                             placeholder="GSTIN"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                            className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                          />
                           <label
                             htmlFor="customerGstin"
                             className="float-label"
@@ -272,16 +292,20 @@ export default function CreateCustomer({ open, setOpen }) {
 
                   {/* Billing Address */}
                   <div>
-                    <h3 className="text-xl font-semibold text-foreground">Billing Address</h3>
+                    <h3 className="text-xl font-semibold text-foreground">
+                      Billing Address
+                    </h3>
                     <div className="mt-4 grid grid-cols-2 gap-3">
                       <div className="col-span-2">
                         <div className="relative flex w-full flex-col flex-nowrap">
                           <input
                             {...register("streetAddress")}
                             type="text"
+                            autoComplete="off"
                             id="customerStreetAddress"
                             placeholder="Street Address"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                            className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                          />
                           <label
                             htmlFor="customerStreetAddress"
                             className="float-label"
@@ -304,8 +328,10 @@ export default function CreateCustomer({ open, setOpen }) {
                             {...register("city")}
                             type="text"
                             placeholder="City"
+                            autoComplete="off"
                             id="customerCity"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                            className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                          />
                           <label className="float-label">
                             City<span className="text-red-500">&#42;</span>
                           </label>
@@ -325,7 +351,9 @@ export default function CreateCustomer({ open, setOpen }) {
                             type="text"
                             placeholder="ZIP Code"
                             id="customerZip"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                            autoComplete="off"
+                            className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                          />
                           <label htmlFor="customerZip" className="float-label">
                             ZIP Code<span className="text-red-500">&#42;</span>
                           </label>
@@ -345,7 +373,9 @@ export default function CreateCustomer({ open, setOpen }) {
                             type="text"
                             placeholder="State"
                             id="customerState"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                            autoComplete="off"
+                            className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                          />
                           <label
                             htmlFor="customerState"
                             className="float-label"
@@ -368,7 +398,9 @@ export default function CreateCustomer({ open, setOpen }) {
                             type="text"
                             placeholder="State Code"
                             id="customerStateCode"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                            autoComplete="off"
+                            className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                          />
                           <label
                             htmlFor="customerStateCode"
                             className="float-label"
@@ -394,7 +426,9 @@ export default function CreateCustomer({ open, setOpen }) {
                           type="text"
                           placeholder="Country"
                           id="customerCountry"
-                          className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                          autoComplete="off"
+                          className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                        />
                         <label
                           htmlFor="customerCountry"
                           className="float-label"
@@ -421,7 +455,7 @@ export default function CreateCustomer({ open, setOpen }) {
                       reset()
                       setOpen(false)
                     }}
-                    className="text-md h-fit w-fit rounded-rounded border-none bg-transparent p-2 shadow-none transition-colors duration-150 hover:border-none hover:bg-secondaryBtnHover text-foreground"
+                    className="text-md hover:bg-secondaryBtnHover h-fit w-fit rounded-rounded border-none bg-transparent p-2 text-foreground shadow-none transition-colors duration-150 hover:border-none"
                   >
                     Cancel
                   </button>
@@ -432,12 +466,12 @@ export default function CreateCustomer({ open, setOpen }) {
                   ) : (
                     <motion.input
                       initial={{ scale: 1 }}
-                      whileTap={isDirty && { scale: 0.85 }}
+                      whileTap={isDirty && isValid && { scale: 0.85 }}
                       transition={{ delay: 0 }}
                       type="submit"
                       value="Submit"
-                      disabled={isSubmitting || !isDirty}
-                      className="text-md rounded-rounded bg-primary px-2 py-1 font-semibold text-white transition-colors duration-200 hover:cursor-pointer hover:bg-primaryLight disabled:cursor-default disabled:bg-primaryLight disabled:text-disabledText"
+                      disabled={isSubmitting || !isDirty || !isValid}
+                      className="text-md disabled:text-disabledText rounded-rounded bg-primary px-2 py-1 font-semibold text-white transition-colors duration-200 hover:cursor-pointer hover:bg-primaryLight disabled:cursor-default disabled:bg-primaryLight"
                     />
                   )}
                 </div>

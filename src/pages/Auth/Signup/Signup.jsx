@@ -45,7 +45,11 @@ function Signup() {
       .string()
       .required("GSTIN is required")
       .min(15, "Please enter valid 15 digit GSTIN")
-      .max(15, "Please enter valid 15 digit GSTIN"),
+      .max(15, "Please enter valid 15 digit GSTIN")
+      .matches(
+        /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/,
+        "Invalid GSTIN Format",
+      ),
     streetAddress: yup.string().required("Street Address is required"),
     city: yup.string().required("City is required"),
     zip: yup
@@ -179,7 +183,13 @@ function Signup() {
   const nameSwitch = () => {
     switch (step) {
       case 1:
-        return <h1>Sign<br/>Up</h1>
+        return (
+          <h1>
+            Sign
+            <br />
+            Up
+          </h1>
+        )
       case 2:
         return <h1>Personal Information</h1>
       case 3:

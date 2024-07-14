@@ -94,7 +94,7 @@ const AddProducts = ({
           {invoiceState.products &&
             invoiceState.products.map((product, ind) => {
               return (
-                <div className="relative w-full pb-5">
+                <div className="relative w-full pb-5 text-foreground">
                   <h1 className="text-xl font-semibold">{product.name}</h1>
                   <div className="flex w-full justify-between">
                     <p className="text-lg">
@@ -129,7 +129,7 @@ const AddProducts = ({
                       type="button"
                       className="absolute bottom-7 right-0"
                     >
-                      <span className="text-lg font-semibold text-slate-400 transition-colors hover:text-black">
+                      <span className="text-lg font-semibold text-slate-400 transition-colors hover:text-foreground duration-150">
                         <FaTrash />
                       </span>
                     </button>

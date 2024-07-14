@@ -85,7 +85,7 @@ const AddCustomer = ({
       >
         {!selectedCustomer ? (
           <>
-            <p className="text-xl">Choose the customer you want to bill.</p>
+            <p className="text-xl text-foreground">Choose the customer you want to bill.</p>
             <div className="relative mt-2 flex w-full flex-nowrap justify-between gap-x-2 overflow-visible">
               <div className="flex w-full flex-col">
                 <input
@@ -119,7 +119,7 @@ const AddCustomer = ({
                       setValueState(watch("customer"))
                     },
                   })}
-                  className="peer w-full rounded-rounded bg-transparent px-2 py-2 text-lg outline outline-1 outline-gray-300 transition-colors duration-500 focus:outline-black"
+                  className="peer w-full rounded-rounded text-foreground bg-background px-2 py-2 text-lg border border-1 transition-colors duration-500 focus:border-foreground border-placeholderText focus:outline-none"
                   placeholder="Type at least 3 characters"
                 />
                 <p className="mt-1 text-sm text-red-500">
@@ -131,7 +131,7 @@ const AddCustomer = ({
                 </p>
                 {debouncedValue.length > 2 && (
                   <motion.div
-                    className={`bg-background absolute top-12 -z-10 max-h-[70px] w-full overflow-scroll opacity-100 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
+                    className={`bg-background absolute top-12 h-fit -z-10 max-h-[120px] w-full overflow-scroll opacity-100 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
                   >
                     {customers?.length > 0 ? (
                       customers.map((customer, ind) => {
@@ -145,14 +145,14 @@ const AddCustomer = ({
                               handleSubmit(customer)
                             }}
                             key={ind}
-                            className={`w-full py-1 pl-2 text-left text-lg hover:cursor-pointer hover:bg-gray-200 ${key === ind && "bg-gray-400"}`}
+                            className={`w-full py-1 pl-2 text-left text-lg hover:cursor-pointer text-foreground hover:bg-gray-200 ${key === ind && "bg-gray-400"}`}
                           >
                             {customer.client}
                           </h2>
                         )
                       })
                     ) : (
-                      <h2 className="py-1 pl-2 text-lg">No Matches Found.</h2>
+                      <h2 className="py-1 pl-2 text-lg text-foreground">No Matches Found.</h2>
                     )}
                   </motion.div>
                 )}
@@ -162,7 +162,7 @@ const AddCustomer = ({
         ) : (
           <>
             <div className="w-full rounded-md bg-primary p-1">
-              <div className="flex flex-col gap-5 rounded-md bg-gray-50 p-5 font-semibold">
+              <div className="flex flex-col gap-5 rounded-md bg-background text-foreground p-5 font-semibold">
                 <div className="flex gap-10">
                   <p className="w-[30%]">Customer</p>
                   <p className="">{invoiceState.customer?.name}</p>

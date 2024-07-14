@@ -26,7 +26,9 @@ function ShippingAddressDetails({
       >
         <div className="mt-3 flex w-full flex-col gap-y-3">
           <div className="flex flex-nowrap items-center justify-between">
-            <h1 className="text-2xl font-semibold">Shipping Address</h1>
+            <h1 className="text-2xl font-semibold text-foreground">
+              Shipping Address
+            </h1>
             <div>
               <input
                 type="checkbox"
@@ -139,7 +141,7 @@ function ShippingAddressDetails({
                   }
                 }}
               />
-              <label htmlFor="checkSameAsBilling">
+              <label htmlFor="checkSameAsBilling" className="text-foreground">
                 {" "}
                 Same as Billing Address
               </label>
@@ -152,7 +154,8 @@ function ShippingAddressDetails({
                   id="shippingStreetAddress"
                   type="text"
                   placeholder="Street Address"
-                  className="disabled:bg-background peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+                  autoComplete="off"
+                  className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                   {...register("shippingStreetAddress", {
                     required: "Street Address is required",
                     disabled: checked,
@@ -197,9 +200,10 @@ function ShippingAddressDetails({
                 <div className="relative flex w-full flex-col flex-nowrap">
                   <input
                     id="shippingCity"
+                    autoComplete="off"
                     type="text"
                     placeholder="City"
-                    className="disabled:bg-background peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+                    className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                     {...register("shippingCity", {
                       required: "City is required",
                       disabled: checked,
@@ -244,8 +248,9 @@ function ShippingAddressDetails({
                   <input
                     id="shippingZip"
                     type="text"
+                    autoComplete="off"
                     placeholder="ZIP Code"
-                    className="disabled:bg-background peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+                    className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                     {...register("shippingZip", {
                       required: "ZIP Code is required",
                       disabled: checked,
@@ -296,9 +301,10 @@ function ShippingAddressDetails({
                 <div className="relative flex w-full flex-col flex-nowrap">
                   <input
                     id="shippingState"
+                    autoComplete="off"
                     type="text"
                     placeholder="State"
-                    className="disabled:bg-background peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+                    className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                     {...register("shippingState", {
                       required: "State is required",
                       disabled: checked,
@@ -344,8 +350,9 @@ function ShippingAddressDetails({
                   <input
                     id="shippingStateCode"
                     type="text"
+                    autoComplete="off"
                     placeholder="State Code"
-                    className="disabled:bg-background peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+                    className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                     {...register("shippingStateCode", {
                       required: "State Code is required",
                       disabled: checked,
@@ -397,7 +404,8 @@ function ShippingAddressDetails({
                   id="shippingCountry"
                   type="text"
                   placeholder="Country"
-                  className="disabled:bg-background peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+                  autoComplete="off"
+                  className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                   {...register("shippingCountry", {
                     required: "Shipping Country is required",
                     disabled: checked,

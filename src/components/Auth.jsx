@@ -117,6 +117,7 @@ const Modal = ({ open, setOpen }) => {
                   <input
                     type="text"
                     id="email"
+                    autoComplete="off"
                     placeholder="email"
                     {...register("email")}
                     className="peer w-full rounded-rounded border border-gray-300 p-3 transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
@@ -140,6 +141,7 @@ const Modal = ({ open, setOpen }) => {
                     {...register("password")}
                     type="password"
                     id="password"
+                    autoComplete="off"
                     placeholder="password"
                     className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
                   />

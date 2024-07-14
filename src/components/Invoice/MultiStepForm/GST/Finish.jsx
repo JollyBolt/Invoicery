@@ -15,11 +15,11 @@ const Finish = ({ printDocRef,handlePrint }) => {
         className="w-full overflow-y-scroll"
       >
         <div className="w-full">
-          <h1 className="text-2xl font-semibold">
+          <h1 className="text-2xl font-semibold text-foreground">
             Review the Invoice Information.
           </h1>
         </div>
-        <button type="button" onClick={handlePrint}>
+        <button type="button" onClick={handlePrint} className="text-foreground">
           Print
         </button>
       </motion.div>

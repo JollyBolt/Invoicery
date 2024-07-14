@@ -15,10 +15,11 @@ function UserAuthForm({ register, errors }) {
             id="emailSignUp"
             {...register("email")}
             type="email"
+            autoComplete="off"
             placeholder="Email Address"
             className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
           />
-          <label htmlFor="emailSignUp" className="float-label">
+          <label htmlFor="emailSignUp" className="float-label bg-white">
             Email Address
             <span className="text-red-500">&#42;</span>
           </label>
@@ -38,10 +39,11 @@ function UserAuthForm({ register, errors }) {
             id="passwordSignUp"
             {...register("password")}
             type="password"
+            autoComplete="off"
             placeholder="Password"
             className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
           />
-          <label htmlFor="passwordSignUp" className="float-label">
+          <label htmlFor="passwordSignUp" className="float-label bg-white">
             Password
             <span className="text-red-500">&#42;</span>
           </label>
@@ -61,10 +63,11 @@ function UserAuthForm({ register, errors }) {
             id="confirmPassword"
             {...register("confirmPassword")}
             type="password"
+            autoComplete="off"
             placeholder="Confirm Password"
             className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
           />
-          <label htmlFor="confirmPassword" className="float-label">
+          <label htmlFor="confirmPassword" className="float-label bg-white">
             Confirm Password
             <span className="text-red-500">&#42;</span>
           </label>

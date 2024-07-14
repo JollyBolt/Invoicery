@@ -94,7 +94,7 @@ const Stepper = ({ step, template }) => {
           <p className="pl-1">
             Step {step} of {template === "gst" ? 9 : template === "simple" && 5}
           </p>
-          <h1 className="text-4xl font-bold text-black">{templateSwitch()}</h1>
+          <h1 className="text-4xl font-bold text-foreground transition-colors">{templateSwitch()}</h1>
         </div>
         {/* Horizontal Progress Bar */}
         <div className="h-1 w-full bg-gray-200">

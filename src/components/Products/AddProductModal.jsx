@@ -26,7 +26,7 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
 
   const { register, handleSubmit, formState, reset, clearErrors, control } =
     form
-  const { errors, isSubmitting,isValid,isDirty } = formState
+  const { errors, isSubmitting, isValid, isDirty } = formState
   // const { loading } = useSelector((state) => state.products);
   const dispatch = useDispatch()
   const onSubmit = async (e) => {
@@ -88,8 +88,10 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                             id="productName"
                             {...register("name")}
                             type="text"
+                            autoComplete="off"
                             placeholder="Product Name"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                            className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                          />
                           <label htmlFor="productName" className="float-label">
                             Product Name
                             <span className="text-red-500">&#42;</span>
@@ -109,8 +111,10 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                             id="hsnCode"
                             {...register("hsn_code")}
                             type="text"
+                            autoComplete="off"
                             placeholder="HSN Code"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                            className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                          />
                           <label htmlFor="hsnCode" className="float-label">
                             HSN Code
                           </label>
@@ -130,8 +134,10 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                             {...register("price")}
                             type="number"
                             min={0.0}
+                            autoComplete="off"
                             placeholder="HSN Code"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                            className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                          />
                           <label htmlFor="price" className="float-label">
                             Price(INR)
                             <span className="text-red-500">&#42;</span>
@@ -158,7 +164,7 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                       setIsOpen(false)
                     }}
                     type="button"
-                    className="text-md rounded-rounded border-none bg-transparent px-2 py-1 text-lg text-foreground shadow-none transition-colors duration-200 hover:border-none hover:bg-secondaryBtnHover"
+                    className="text-md hover:bg-secondaryBtnHover rounded-rounded border-none bg-transparent px-2 py-1 text-lg text-foreground shadow-none transition-colors duration-200 hover:border-none"
                   >
                     Cancel
                   </button>
@@ -175,7 +181,7 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                       type="submit"
                       value="Submit"
                       disabled={!isDirty || !isValid}
-                      className="text-md rounded-rounded bg-primary px-2 py-1 font-semibold text-white transition-colors duration-200 hover:cursor-pointer hover:bg-primaryLight disabled:text-disabledText disabled:hover:cursor-default disabled:bg-primaryLight select-none"
+                      className="text-md disabled:text-disabledText select-none rounded-rounded bg-primary px-2 py-1 font-semibold text-white transition-colors duration-200 hover:cursor-pointer hover:bg-primaryLight disabled:bg-primaryLight disabled:hover:cursor-default"
                     />
                   )}
                 </div>

@@ -38,7 +38,7 @@ function EditProductModal({ modalOpen, setModalOpen, product }) {
     )
   }
   const { register, handleSubmit, formState, reset, clearErrors } = form
-  const { errors, isSubmitting, isDirty,isValid } = formState
+  const { errors, isSubmitting, isDirty, isValid } = formState
 
   return (
     <>
@@ -89,7 +89,9 @@ function EditProductModal({ modalOpen, setModalOpen, product }) {
                             {...register("name")}
                             type="text"
                             placeholder="Product Name"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                            autoComplete="off"
+                            className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                          />
                           <label htmlFor="productName" className="float-label">
                             Product Name
                             <span className="text-red-500">&#42;</span>
@@ -109,8 +111,10 @@ function EditProductModal({ modalOpen, setModalOpen, product }) {
                             id="hsnCode"
                             {...register("hsn_code")}
                             type="text"
+                            autoComplete="off"
                             placeholder="HSN Code"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                            className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                          />
                           <label htmlFor="hsnCode" className="float-label">
                             HSN Code
                           </label>
@@ -132,8 +136,10 @@ function EditProductModal({ modalOpen, setModalOpen, product }) {
                             })}
                             type="number"
                             min={0.0}
+                            autoComplete="off"
                             placeholder="HSN Code"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" />
+                            className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                          />
                           <label htmlFor="price" className="float-label">
                             Price(INR)
                             <span className="text-red-500">&#42;</span>
@@ -159,7 +165,7 @@ function EditProductModal({ modalOpen, setModalOpen, product }) {
                       setModalOpen(false)
                     }}
                     type="button"
-                    className="text-md rounded-rounded border-none bg-transparent px-2 py-1 text-lg text-foreground shadow-none transition-colors duration-200 hover:border-none hover:bg-secondaryBtnHover"
+                    className="text-md hover:bg-secondaryBtnHover rounded-rounded border-none bg-transparent px-2 py-1 text-lg text-foreground shadow-none transition-colors duration-200 hover:border-none"
                   >
                     Cancel
                   </button>
@@ -169,7 +175,7 @@ function EditProductModal({ modalOpen, setModalOpen, product }) {
                       <img src="/src/assets/Loading2.gif" className="w-9" />
                     </div>
                   ) : !isDirty || !isValid ? (
-                    <div className="text-md flex items-center justify-center rounded-rounded bg-primaryLight px-2 py-1 text-center font-semibold text-disabledText select-none">
+                    <div className="text-md text-disabledText flex select-none items-center justify-center rounded-rounded bg-primaryLight px-2 py-1 text-center font-semibold">
                       Submit
                     </div>
                   ) : (

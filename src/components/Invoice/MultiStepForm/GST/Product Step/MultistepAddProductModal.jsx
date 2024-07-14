@@ -89,6 +89,7 @@ function MultistepAddProductModal({
                       setValueState("")
                       setSelectedProduct(null)
                       setOpen(false)
+                      setKey(0)
                     }}
                   >
                     x
@@ -99,13 +100,14 @@ function MultistepAddProductModal({
                     <div className="mb-5 flex flex-col gap-y-4">
                       <div className="flex w-full flex-col flex-nowrap justify-between gap-4">
                         <div>
-                          <h1 className="mb-2 px-1 text-2xl font-semibold">
+                          <h1 className="mb-2 px-1 text-2xl font-semibold text-foreground">
                             Enter Product Name
                           </h1>
                           <div className="relative flex w-full flex-col overflow-visible">
                             <input
-                              className="peer w-full rounded-md border px-3 py-2 text-lg transition-colors duration-150 focus:border-black focus:outline-none"
+                               className="peer w-full rounded-rounded text-foreground bg-background px-2 py-2 text-lg border border-1 transition-colors duration-500 focus:border-foreground border-placeholderText focus:outline-none"
                               type="text"
+                              autoComplete="off"
                               onKeyDown={(e) => {
                                 if (e.key === "ArrowDown") {
                                   if (debouncedValue.length > 2) {
@@ -168,7 +170,7 @@ function MultistepAddProductModal({
                             />
                             {debouncedValue.length >= 3 && (
                               <motion.div
-                                className={`bg-background absolute top-12 -z-10 max-h-[100px] w-full overflow-scroll opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-50 peer-focus:opacity-100`}
+                                className={`bg-background absolute top-12 -z-10 max-h-[100px] h-fit w-full overflow-scroll opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-50 peer-focus:opacity-100`}
                               >
                                 {products?.length > 0 ? (
                                   products.map((product, i) => {
@@ -192,14 +194,14 @@ function MultistepAddProductModal({
                                           )
                                         }}
                                         key={i}
-                                        className={`py-1 pl-2 text-lg hover:cursor-pointer hover:bg-gray-200 ${key === i && "bg-gray-400"}`}
+                                        className={`py-1 pl-2 text-lg text-foreground hover:cursor-pointer hover:bg-gray-200 ${key === i && "bg-gray-400"}`}
                                       >
                                         {product.name}
                                       </h2>
                                     )
                                   })
                                 ) : (
-                                  <h2 className="py-1 pl-2 text-lg">
+                                  <h2 className="py-1 pl-2 text-lg text-foreground">
                                     No Matches Found.
                                   </h2>
                                 )}
@@ -211,10 +213,10 @@ function MultistepAddProductModal({
                     </div>
                   ) : (
                     <>
-                      <h1 className="w-full text-xl font-bold">
+                      <h1 className="w-full text-xl font-bold text-foreground">
                         Product Name: {selectedProduct.name}
                       </h1>
-                      <div className="flex w-full flex-nowrap gap-x-4">
+                      <div className="flex w-full flex-nowrap gap-x-4 text-foreground">
                         <p>Price: {selectedProduct.price}</p>
                         <p>HSN Code: {selectedProduct.hsn_code}</p>
                       </div>
@@ -224,7 +226,7 @@ function MultistepAddProductModal({
                             type="number"
                             id="qty"
                             placeholder="Quantity"
-                            className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
+                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" 
                             min={1}
                             max={999}
                             {...register(`product.quantity`, {
@@ -285,11 +287,11 @@ function MultistepAddProductModal({
                         />
                       </div>
 
-                      <div className="mt-3 flex w-full flex-nowrap justify-center">
+                      <div className="mt-3 flex w-full flex-nowrap justify-center text-foreground">
                         <p className="w-1/3">Final Price:</p>
                         <span className="">{watch("product.finalPrice")}</span>
                       </div>
-                      <div className="flex w-full flex-nowrap justify-center">
+                      <div className="flex w-full flex-nowrap justify-center text-foreground">
                         <p className="w-1/3">Amount:</p>
                         <span>{watch("product.amount")}</span>
                       </div>
@@ -308,7 +310,7 @@ function MultistepAddProductModal({
                           setSelectedProduct(null)
                         }}
                         type="button"
-                        className="rounded-rounded bg-gray-200 px-2 py-1 transition-colors duration-200 hover:bg-gray-300"
+                        className="rounded-rounded text-foreground px-2 py-1 transition-colors duration-200 hover:bg-secondaryBtnHover"
                       >
                         Change Product
                       </button>

@@ -14,10 +14,11 @@ const OrgInfoForm = ({ register, errors }) => {
             id="orgName"
             {...register("orgName")}
             type="text"
+            autoComplete="off"
             placeholder="Organization Name"
             className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
           />
-          <label htmlFor="orgName" className="float-label">
+          <label htmlFor="orgName" className="float-label bg-white">
             Organization Name
             <span className="text-red-500">&#42;</span>
           </label>
@@ -37,11 +38,12 @@ const OrgInfoForm = ({ register, errors }) => {
             id="orgEmail"
             {...register("orgEmail")}
             type="email"
+            autoComplete="off"
             placeholder="Organization Email Address"
             className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
           />
-          <label htmlFor="orgEmail" className="float-label">
-          Organization Email Address
+          <label htmlFor="orgEmail" className="float-label bg-white">
+            Organization Email Address
             <span className="text-red-500">&#42;</span>
           </label>
         </div>
@@ -58,12 +60,17 @@ const OrgInfoForm = ({ register, errors }) => {
         <div className="relative flex w-full flex-col flex-nowrap">
           <input
             id="gstin"
-            {...register("gstin")}
+            {...register("gstin", {
+              onChange: (e) => {
+                e.target.value = e.target.value.toUpperCase()
+              },
+            })}
             type="text"
             placeholder="GSTIN"
+            autoComplete="off"
             className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
           />
-          <label htmlFor="gstin" className="float-label">
+          <label htmlFor="gstin" className="float-label bg-white">
             GSTIN
             <span className="text-red-500">&#42;</span>
           </label>
@@ -76,8 +83,6 @@ const OrgInfoForm = ({ register, errors }) => {
           )}
         </p>
       </div>
-
-         
     </motion.div>
   )
 }

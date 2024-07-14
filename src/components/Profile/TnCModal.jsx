@@ -58,11 +58,11 @@ function TnCModal({ editOpen, setEditOpen, user }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 z-[100] flex h-screen w-full items-center justify-center bg-black/50 backdrop-blur-sm"
+            className="absolute inset-0 z-[100] flex h-screen w-full items-center justify-center bg-foreground/50 backdrop-blur-sm"
           >
             <button
               type="button"
-              className="absolute right-10 top-10 text-xl text-foreground"
+              className="absolute right-10 top-10 text-xl text-white"
               onClick={() => setEditOpen(false)}
             >
               X
@@ -72,9 +72,9 @@ function TnCModal({ editOpen, setEditOpen, user }) {
               animate={{ scale: 1 }}
               exit={{ scale: 0 }}
               transition={{ ease: "easeOut", delay: 0 }}
-              className="flex w-2/5 flex-col rounded-rounded bg-white p-10"
+              className="flex w-2/5 flex-col rounded-rounded bg-background p-10"
             >
-              <h2 className="text-center text-3xl font-semibold">
+              <h2 className="text-center text-3xl font-semibold text-foreground">
                 Terms and Conditions
               </h2>
               <form className="mt-4 flex flex-col" onSubmit={onSubmit}>
@@ -99,8 +99,9 @@ function TnCModal({ editOpen, setEditOpen, user }) {
                         <div className="relative flex w-10/12 flex-col overflow-visible">
                           <textarea
                             rows={1}
-                            className="peer w-full rounded-md border px-3 py-2 text-lg transition-colors duration-150 focus:border-black focus:outline-none"
+                             className="peer w-full rounded-rounded text-foreground bg-background px-2 py-2 text-lg border border-1 transition-colors duration-500 focus:border-foreground border-placeholderText focus:outline-none placeholder:text-placeholderText"
                             type="text"
+                            autoComplete="off"
                             placeholder="Terms and Conditions"
                             {...register(`TnC[${ind}].tnc`, {
                               onBlur: () => {

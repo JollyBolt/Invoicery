@@ -29,6 +29,7 @@ const InvoiceDetails = ({
           <div>
             <div className="relative flex w-full flex-col flex-nowrap">
               <input
+                autoComplete="off"
                 {...register("invoiceNumber", {
                   required: "Invoice Number is required",
                   onBlur: (e) => {
@@ -42,8 +43,8 @@ const InvoiceDetails = ({
                 type="text"
                 id="invoiceNo"
                 placeholder="Invoice Number"
-                className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-              />
+                className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                />
               <label htmlFor="invoiceNo" className="float-label">
                 Invoice Number<span className="text-red-500">&#42;</span>
               </label>
@@ -60,6 +61,7 @@ const InvoiceDetails = ({
           <div>
             <div className="relative flex w-full flex-col flex-nowrap">
               <input
+                autoComplete="off"
                 {...register("date", {
                   required: "Please select invoice issue date",
                   onBlur: (e) => {
@@ -87,8 +89,8 @@ const InvoiceDetails = ({
                 }}
                 id="invoiceDate"
                 placeholder="Invoice Date"
-                className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-              />
+                className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                />
               <label htmlFor="invoiceDate" className="float-label">
                 Invoice Date<span className="text-red-500">&#42;</span>
               </label>
@@ -105,6 +107,7 @@ const InvoiceDetails = ({
           <div>
             <div className="relative flex w-full flex-col flex-nowrap">
               <input
+                autoComplete="off"
                 {...register("purchaseOrder", {
                   onBlur: (e) => {
                     sessionStorage.setItem("purchaseOrder", e.target.value)
@@ -117,8 +120,8 @@ const InvoiceDetails = ({
                 type="text"
                 id="purchaseOrder"
                 placeholder="Purchase Order"
-                className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-              />
+                className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                />
               <label htmlFor="purchaseOrder" className="float-label">
                 Purchase Order
               </label>
@@ -135,6 +138,7 @@ const InvoiceDetails = ({
           <div>
             <div className="relative flex w-full flex-col flex-nowrap">
               <input
+                autoComplete="off"
                 {...register("purchaseOrderDate", {
                   onBlur: (e) => {
                     e.target.type = "text"
@@ -151,8 +155,8 @@ const InvoiceDetails = ({
                 }}
                 id="purchaseOrderDate"
                 placeholder="Purchase Order Date"
-                className="peer rounded-rounded border border-gray-300 p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-black focus:outline-none"
-              />
+                className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                />
               <label htmlFor="purchaseOrderDate" className="float-label">
                 Purchase Order Date
               </label>

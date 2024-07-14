@@ -7,7 +7,7 @@ function Mr_Ms_Mrs({ selected, setSelected, watch, setValue }) {
     "font-medium flex items-center justify-center cursor-pointer w-[50px] px-3 text-lg transition-colors relative z-10"
   return (
     <div className="flex h-[55px] w-2/5 flex-nowrap">
-      <div className="border-1 relative flex w-fit items-center justify-between rounded-rounded border border-gray-300">
+      <div className="border-1 relative flex w-fit items-center justify-between rounded-rounded border border-placeholderText">
         <p
           className={`${TOGGLE_CLASSES} ${
             selected === "Mr" ? "text-white" : "text-placeholderText"

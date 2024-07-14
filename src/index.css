@@ -6,20 +6,26 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
-
     --primary: 253 92% 33%;
 
+    --foreground: 0 0% 0%;
+    --background: 0 0% 100%;
     --muted: 210 40% 96%;
+
+    --disabledText: 216 12% 84%;
+
+    /* For hovering on Cancel & Toggle theme buttons */
+    --secondaryBtnHover:;
   }
   .dark {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 100%;
-
     --primary: 253 92% 55%;
 
+    --foreground: 0 0% 100%;
+    --background: 0 0% 0%;
     --muted: 240 7% 9%;
+
+    --disabledText: 216 50% 60%;
+
   }
 }
 
@@ -98,20 +104,20 @@
 
 @layer components {
   .float-label {
-    @apply absolute left-1 top-0 translate-y-[-50%] bg-background px-2 text-sm font-semibold text-gray-500 transition-all duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:translate-y-[-50%] peer-placeholder-shown:cursor-text peer-focus:top-0;
+    @apply bg-background absolute left-1 top-0 translate-y-[-50%] px-2 text-sm font-semibold text-gray-500 transition-all duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:translate-y-[-50%] peer-placeholder-shown:cursor-text peer-focus:top-0;
   }
 }
 
 @layer utilities {
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
-      display: none;
+    display: none;
   }
- /* Hide scrollbar for IE, Edge and Firefox */
+  /* Hide scrollbar for IE, Edge and Firefox */
   .no-scrollbar {
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
-}
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }
 
 :root {

@@ -541,7 +541,7 @@ function EditProfile({ open, setOpen }) {
                         setOpen(false)
                       }}
                       type="button"
-                      className="rounded-rounded px-2 py-1 text-lg text-black transition-colors duration-200 hover:bg-gray-300"
+                      className="rounded-rounded px-2 py-1 text-lg text-foreground transition-colors duration-200 hover:bg-gray-300"
                     >
                       Cancel
                     </button>
@@ -552,7 +552,7 @@ function EditProfile({ open, setOpen }) {
                       type="submit"
                       disabled={!isDirty}
                       value="Submit"
-                      className="rounded-rounded bg-primary px-2 py-1 text-lg font-semibold text-white transition-colors duration-200 hover:cursor-pointer hover:bg-primaryLight disabled:bg-primaryLight disabled:text-gray-300 disabled:hover:cursor-default"
+                      className="rounded-rounded bg-primary px-2 py-1 text-lg font-semibold text-white transition-colors duration-200 hover:cursor-pointer hover:bg-primaryLight disabled:bg-primaryLight disabled:text-disabledText disabled:hover:cursor-default"
                     />
                   </div>
                 </div>

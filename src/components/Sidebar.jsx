@@ -175,7 +175,7 @@ function Sidebar() {
                 <IoPowerOutline size={24} className="shrink-0" />
 
                 <h2
-                  className={`text-md overflow-hidden whitespace-pre [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s] ${
+                  className={`text-md overflow-hidden whitespace-pre select-none [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s] ${
                     open ? "translate-x-0 opacity-100" : "translate-x-24"
                   }`}
                 >

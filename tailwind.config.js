@@ -10,7 +10,8 @@ export default {
         // accent: "var(--accent)",
         primaryLight: "var(--primaryLight)",
         muted: "hsl(var(--muted))",
-        background:"hsl(var(--background))"
+        background: "hsl(var(--background))",
+        disabledText: "hsl(var(--disabledText))",
       },
       // colors: {
       //   border: "hsl(var(--border))",

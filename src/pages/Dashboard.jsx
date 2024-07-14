@@ -28,6 +28,8 @@ const Dashboard = () => {
 
   const [stats, setStats] = useState(null)
 
+  const { loggedIn } = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
   const getStats = async () => {
     const { data } = await axios.get(
       "http://localhost:4598/api/v1/stats/getstats",
@@ -42,7 +44,7 @@ const Dashboard = () => {
   useEffect(() => {
     getStats()
     dispatch(fetchAllInvoices({ limit: 5 }))
-  }, [])
+  }, [loggedIn])
 
   const getDashboardChartData = async () => {
     const { data } = await axios.get(
@@ -62,7 +64,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     getDashboardChartData()
-  }, [currentYear, currentMonth])
+  }, [loggedIn, currentYear, currentMonth])
 
   const monthNames = [
     "January",
@@ -83,10 +85,6 @@ const Dashboard = () => {
   const handleChange = (e) => {
     setChart(e.target.value)
   }
-
-  //Checking if authtoken exists, i.e., logged in on refresh
-  const dispatch = useDispatch()
-  const { loggedIn } = useSelector((state) => state.auth)
 
   return (
     <div>
@@ -110,7 +108,7 @@ const Dashboard = () => {
           {
             //Yearly Chart
           }
-          <div className="col-span-4 row-span-2 rounded-rounded bg-background p-5">
+          <div className="bg-background col-span-4 row-span-2 rounded-rounded p-5">
             <div className="mb-3 flex items-center justify-between">
               <div className="flex items-center gap-3 text-xl">
                 <button onClick={() => setCurrentYear((prev) => prev - 1)}>
@@ -127,7 +125,7 @@ const Dashboard = () => {
                 id="chartType"
                 value={chart}
                 onChange={handleChange}
-                className="mt-1 block w-[13%] rounded-md border border-gray-300 bg-background px-2 py-2 text-base text-foreground focus:outline-none sm:text-sm"
+                className="bg-background mt-1 block w-[13%] rounded-md border border-gray-300 px-2 py-2 text-base text-foreground focus:outline-none sm:text-sm"
               >
                 <option value="bar">Bar</option>
                 <option value="line">Line</option>
@@ -162,7 +160,7 @@ const Dashboard = () => {
           {
             //Recent Invoices Table
           }
-          <div className="col-span-4 rounded-rounded bg-background p-5 text-foreground">
+          <div className="bg-background col-span-4 rounded-rounded p-5 text-foreground">
             <p>Recent Invoices</p>
             <div className="rounded-md px-2">
               <table className="w-full">
@@ -195,7 +193,7 @@ const Dashboard = () => {
           </div>
 
           {}
-          <div className="col-span-4 rounded-rounded bg-background p-5">
+          <div className="bg-background col-span-4 rounded-rounded p-5">
             <div>
               <div className="flex items-center gap-3 text-xl">
                 <button

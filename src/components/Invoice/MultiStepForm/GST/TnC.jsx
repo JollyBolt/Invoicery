@@ -2,7 +2,12 @@ import { motion } from "framer-motion"
 import { useEffect } from "react"
 import { useSelector } from "react-redux"
 
-const TermsNConditions = ({ register, tNc, invoiceState, setInvoiceState }) => {
+const TermsNConditions = ({
+  register,
+  tNc,
+  invoiceState,
+  setInvoiceState,
+}) => {
   const { fields, append, remove } = tNc
 
   useEffect(() => {
@@ -35,6 +40,7 @@ const TermsNConditions = ({ register, tNc, invoiceState, setInvoiceState }) => {
       }
     })
   }
+
 
   return (
     <>

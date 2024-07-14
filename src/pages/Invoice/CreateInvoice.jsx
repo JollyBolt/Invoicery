@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from "react"
 import InvoicePreview from "../../components/Invoice/InvoicePreview"
 import InvoiceForm from "../../components/Invoice/InvoiceForm"
+import { useSelector } from "react-redux"
 
 function CreateInvoice() {
+  const { user } = useSelector((state) => state.user)
   const [template, setTemplate] = useState(
     sessionStorage.getItem("template")
       ? sessionStorage.getItem("template")
@@ -67,7 +69,7 @@ function CreateInvoice() {
       sgst: 0,
       igst: 0,
     },
-    termsNConditions: [],
+    termsNConditions: user.termsNConditions ? user.termsNConditions : [],
   })
   return (
     <>

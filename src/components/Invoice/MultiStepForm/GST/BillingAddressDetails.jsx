@@ -6,6 +6,7 @@ function BillingAddressDetails({
   register,
   errors,
   watch,
+  resetField,
   invoiceState,
   setInvoiceState,
 }) {
@@ -72,7 +73,9 @@ function BillingAddressDetails({
       >
         {!selectedAddress ? (
           <div className="flex w-full flex-col gap-y-3">
-            <h1 className="text-2xl font-semibold text-foreground">City of Billing Address</h1>
+            <h1 className="text-2xl font-semibold text-foreground">
+              City of Billing Address
+            </h1>
             <div className="flex w-full flex-nowrap justify-between">
               <div className="w-full">
                 <div className="relative flex w-full flex-col flex-nowrap">
@@ -96,7 +99,6 @@ function BillingAddressDetails({
                     placeholder="Enter City"
                     autoComplete="off"
                     className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
-                    
                     {...register("billingCity", {
                       required: "Please enter city of Billing Address",
                     })}
@@ -105,7 +107,7 @@ function BillingAddressDetails({
                     Enter City<span className="text-red-500">&#42;</span>
                   </label>
                   <motion.div
-                    className={`bg-background absolute top-14 -z-10 max-h-[120px] h-fit w-full overflow-scroll opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
+                    className={`bg-background absolute top-14 -z-10 h-fit max-h-[120px] w-full overflow-scroll opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
                   >
                     {customers && billingAddresses.length > 0 ? (
                       billingAddresses
@@ -127,7 +129,9 @@ function BillingAddressDetails({
                           </div>
                         ))
                     ) : (
-                      <h2 className="py-1 pl-2 text-lg text-foreground">No Matches Found.</h2>
+                      <h2 className="py-1 pl-2 text-lg text-foreground">
+                        No Matches Found.
+                      </h2>
                     )}
                   </motion.div>
                 </div>
@@ -144,7 +148,7 @@ function BillingAddressDetails({
         ) : (
           <>
             <div className="w-full rounded-md bg-primary p-1">
-              <div className="flex flex-col gap-3 rounded-md bg-background text-foreground p-5 font-semibold">
+              <div className="bg-background flex flex-col gap-3 rounded-md p-5 font-semibold text-foreground">
                 <div className="flex gap-10">
                   <p className="w-[20%]">Street Address</p>
                   <p className="w-[70%]">
@@ -178,7 +182,40 @@ function BillingAddressDetails({
                 type="button"
                 onClick={() => {
                   setSelectedAddress(false)
-                  setBillingAddressIndex(null)
+                  // setBillingAddressIndex(null)
+                  sessionStorage.removeItem("billingAddress")
+                  sessionStorage.removeItem("shippingAddress")
+                  sessionStorage.removeItem("shippingChecked")
+                  resetField("shippingStreetAddress")
+                  resetField("shippingCity")
+                  resetField("shippingState")
+                  resetField("shippingStateCode")
+                  resetField("shippingZip")
+                  resetField("shippingCountry")
+                  setInvoiceState({
+                    ...invoiceState,
+                    customer: {
+     ...invoiceState.customer,
+                      address: {
+                        billing: {
+                          streetAddress: "",
+                          city: "",
+                          state: "",
+                          stateCode: "",
+                          zip: "",
+                          country: "",
+                        },
+                        shipping: {
+                          streetAddress: "",
+                          city: "",
+                          state: "",
+                          stateCode: "",
+                          zip: "",
+                          country: "",
+                        },
+                      },
+                    },
+                  })
                 }}
                 className="mt-4 rounded-rounded border-2 border-primary p-3 font-semibold text-primary"
               >

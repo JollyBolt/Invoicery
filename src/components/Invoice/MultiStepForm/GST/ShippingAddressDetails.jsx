@@ -70,53 +70,63 @@ function ShippingAddressDetails({
                       "shippingAddress",
                       JSON.stringify(invoiceState.customer.address.billing),
                     )
-                    // setValue(
-                    //   "shippingStreetAddress",
-                    //   invoiceState.customer.address.billing.streetAddress,
-                    //   { shouldTouch: true },
-                    // )
-                    // setValue(
-                    //   "shippingCity",
-                    //   invoiceState.customer.address.billing.city,
-                    //   { shouldTouch: true },
-                    // )
-                    // setValue(
-                    //   "shippingState",
-                    //   invoiceState.customer.address.billing.state,
-                    //   { shouldTouch: true },
-                    // )
-                    // setValue(
-                    //   "shippingStateCode",
-                    //   invoiceState.customer.address.billing.stateCode,
-                    //   { shouldTouch: true },
-                    // )
-                    // setValue(
-                    //   "shippingZip",
-                    //   invoiceState.customer.address.billing.zip,
-                    //   { shouldTouch: true },
-                    // )
-
-                    resetField("shippingStreetAddress", {
-                      defaultValue:
-                        invoiceState.customer.address.billing.streetAddress,
-                    })
-                    resetField("shippingCity", {
-                      defaultValue: invoiceState.customer.address.billing.city,
-                    })
-                    resetField("shippingState", {
-                      defaultValue: invoiceState.customer.address.billing.state,
-                    })
-                    resetField("shippingStateCode", {
-                      defaultValue:
-                        invoiceState.customer.address.billing.stateCode,
-                    })
-                    resetField("shippingZip", {
-                      defaultValue: invoiceState.customer.address.billing.zip,
-                    })
-                    resetField("shippingCountry", {
-                      defaultValue:
-                        invoiceState.customer.address.billing.country,
-                    })
+                    setValue(
+                      "shippingStreetAddress",
+                      invoiceState.customer.address.billing.streetAddress,
+                      { shouldTouch: true, shouldDirty: true },
+                    )
+                    setValue(
+                      "shippingCity",
+                      invoiceState.customer.address.billing.city,
+                      { shouldTouch: true, shouldDirty: true },
+                    )
+                    setValue(
+                      "shippingState",
+                      invoiceState.customer.address.billing.state,
+                      { shouldTouch: true, shouldDirty: true },
+                    )
+                    setValue(
+                      "shippingStateCode",
+                      invoiceState.customer.address.billing.stateCode,
+                      { shouldTouch: true, shouldDirty: true },
+                    )
+                    setValue(
+                      "shippingZip",
+                      invoiceState.customer.address.billing.zip,
+                      { shouldTouch: true, shouldDirty: true },
+                    )
+                    setValue(
+                      "shippingCountry",
+                      invoiceState.customer.address.billing.country,
+                      { shouldTouch: true, shouldDirty: true },
+                    )
+                    // resetField("shippingStreetAddress", {
+                    //   defaultValue:
+                    //     invoiceState.customer.address.billing.streetAddress,
+                    //   keepDirty: true,
+                    // })
+                    // resetField("shippingCity", {
+                    //   defaultValue: invoiceState.customer.address.billing.city,
+                    //   keepDirty: true,
+                    // })
+                    // resetField("shippingState", {
+                    //   defaultValue: invoiceState.customer.address.billing.state,
+                    //   keepDirty: true,
+                    // })
+                    // resetField("shippingStateCode", {
+                    //   defaultValue:
+                    //     invoiceState.customer.address.billing.stateCode,
+                    //   keepDirty: true,
+                    // })
+                    // resetField("shippingZip", {
+                    //   defaultValue: invoiceState.customer.address.billing.zip,
+                    //   keepDirty: true,
+                    // })
+                    // resetField("shippingCountry", {
+                    //   defaultValue:
+                    //     invoiceState.customer.address.billing.country,
+                    //   keepDirty: true,
+                    // })
                     setInvoiceState({
                       ...invoiceState,
                       customer: {

@@ -115,7 +115,7 @@ function MultiStepFormGST({
     resetField,
     getFieldState,
   } = form
-  const { errors } = formState
+  const { errors, isValid, isDirty } = formState
 
   const tNc = useFieldArray({
     name: "termsNConditions",
@@ -152,6 +152,7 @@ function MultiStepFormGST({
             register={register}
             errors={errors}
             watch={watch}
+            resetField={resetField}
             invoiceState={invoiceState}
             setInvoiceState={setInvoiceState}
           />
@@ -212,30 +213,45 @@ function MultiStepFormGST({
         return false
       case 2:
         if (
-          getFieldState("invoiceNumber", formState).error ||
-          !getFieldState("invoiceNumber", formState).isDirty
-        ) {
-          return true
-        } else if (
-          getFieldState("invoiceDate", formState).error ||
-          !getFieldState("invoiceDate", formState).isDirty
+          sessionStorage.getItem("invoiceNumber") === "" ||
+          sessionStorage.getItem("date") == ""
         ) {
           return true
         } else {
           return false
         }
-      // console.log(getFieldState("invoiceNumber", formState))
       case 3:
+        return !sessionStorage.getItem("customer") ? true : false
       case 4:
+        return !sessionStorage.getItem("billingAddress") ? true : false
       case 5:
+        if (
+          getFieldState("shippingCity", formState).error ||
+          watch("shippingCity") === "" ||
+          getFieldState("shippingStreetAddress", formState).error ||
+          !!watch("shippingStreetAddress") === "" ||
+          getFieldState("shippingState", formState).error ||
+          !!watch("shippingState") === "" ||
+          getFieldState("shippingStateCode", formState).error ||
+          !!watch("shippingStateCode") === "" ||
+          getFieldState("shippingZip", formState).error ||
+          !!watch("shippingZip") === "" ||
+          getFieldState("shippingCountry", formState).error ||
+          !!watch("shippingCountry") === ""
+        ) {
+          return true
+        } else {
+          return false
+        }
       case 6:
+        return !invoiceState.products.length > 0 ? true : false
       case 7:
+        return false
       case 8:
-      case 9:
         return false
     }
   }
-  // console.log(getFieldState("invoiceNumber", formState))
+
   return (
     <div className="flex h-full w-full flex-col justify-between">
       <div className="max-h-[58dvh] flex-1 overflow-y-scroll p-3">
@@ -255,27 +271,40 @@ function MultiStepFormGST({
         <button type="button" onClick={handlePrint}>
           Print
         </button>
-        <motion.button
-          initial={{ scale: 1 }}
-          whileTap={{ scale: 0.85 }}
-          transition={{ duration: 0.2 }}
-          onClick={() => {
-            // Step addition logic
-            if (step < 9) {
-              setStep(step + 1)
-              sessionStorage.setItem("step", step + 1)
-            } else if (step === 9) {
+        {step === 9 ? (
+          <motion.button
+            initial={{ scale: 1 }}
+            whileTap={isDirty && isValid && { scale: 0.85 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => {
               console.log(invoiceState)
               dispatch(createInvoice(invoiceState))
               sessionStorage.clear()
               navigate("/invoice")
-            }
-          }}
-          // disabled={setDisabled()}
-          className="rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight"
-        >
-          {step === 9 ? "Save" : "Next"}
-        </motion.button>
+            }}
+            // disabled={setDisabled()}
+            className="disabled:text-disabledText select-none rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight disabled:cursor-default disabled:bg-primaryLight"
+          >
+            Save
+          </motion.button>
+        ) : (
+          <motion.button
+            initial={{ scale: 1 }}
+            whileTap={!setDisabled() && { scale: 0.85 }}
+            transition={{ duration: 0.2 }}
+            disabled={setDisabled()}
+            className="disabled:text-disabledText rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight disabled:cursor-default disabled:bg-primaryLight"
+            onClick={() => {
+              if (step < 9) {
+                console.log(invoiceState)
+                setStep(step + 1)
+                sessionStorage.setItem("step", step + 1)
+              }
+            }}
+          >
+            Next
+          </motion.button>
+        )}
       </div>
     </div>
   )

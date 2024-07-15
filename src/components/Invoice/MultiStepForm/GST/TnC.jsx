@@ -2,12 +2,7 @@ import { motion } from "framer-motion"
 import { useEffect } from "react"
 import { useSelector } from "react-redux"
 
-const TermsNConditions = ({
-  register,
-  tNc,
-  invoiceState,
-  setInvoiceState,
-}) => {
+const TermsNConditions = ({ register, tNc, invoiceState, setInvoiceState }) => {
   const { fields, append, remove } = tNc
 
   useEffect(() => {
@@ -41,7 +36,6 @@ const TermsNConditions = ({
     })
   }
 
-
   return (
     <>
       <motion.div
@@ -61,7 +55,7 @@ const TermsNConditions = ({
                 <div className="relative flex w-10/12 flex-col overflow-visible">
                   <textarea
                     rows={1}
-                    className="bg-background border-1 border-placeholderText placeholder:text-placeholderText peer w-full rounded-rounded border px-2 py-2 text-lg text-foreground transition-colors duration-500 focus:border-foreground focus:outline-none"
+                    className="border-1 border-placeholderText placeholder:text-placeholderText peer w-full rounded-rounded border bg-background px-2 py-2 text-lg text-foreground transition-colors duration-500 focus:border-foreground focus:outline-none"
                     type="text"
                     placeholder="Terms and Conditions"
                     {...register(`termsNConditions[${ind}].tnc`, {

@@ -74,7 +74,7 @@ function CreateInvoice() {
   return (
     <>
       <div className="flex h-[calc(100dvh-88px)] w-full gap-2">
-        <div className="bg-background flex h-[calc(100dvh-88px)] w-[40%] shrink-0 flex-col overflow-hidden rounded-r-3xl">
+        <div className="flex h-[calc(100dvh-88px)] w-[40%] shrink-0 flex-col overflow-hidden rounded-r-3xl bg-background">
           <InvoiceForm
             template={template}
             setTemplate={setTemplate}
@@ -83,7 +83,7 @@ function CreateInvoice() {
             setInvoiceState={setInvoiceState}
           />
         </div>
-        <div className="h-[calc(100dvh-88px)] w-full overflow-hidden overflow-y-scroll">
+        <div className="no-scrollbar h-[calc(100dvh-88px)] w-full overflow-hidden overflow-y-scroll">
           <InvoicePreview
             template={template}
             ref={componentRef}

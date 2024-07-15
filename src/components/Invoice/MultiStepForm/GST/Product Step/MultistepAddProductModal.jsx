@@ -23,9 +23,7 @@ function MultistepAddProductModal({
 
   useEffect(() => {
     async function getRecomendations() {
-      if (debouncedValue.length > 2) {
-        await dispatch(fetchAllProducts({ search: debouncedValue }))
-      }
+      await dispatch(fetchAllProducts({ search: debouncedValue }))
     }
     getRecomendations()
   }, [debouncedValue])
@@ -67,7 +65,7 @@ function MultistepAddProductModal({
     <>
       <AnimatePresence>
         {open && (
-          <div className="bg-foreground/50 absolute inset-0 z-[100] flex h-screen w-full items-center justify-center backdrop-blur-sm">
+          <div className="absolute inset-0 z-[100] flex h-screen w-full items-center justify-center bg-foreground/50 backdrop-blur-sm">
             <motion.div
               className="w-full"
               initial={{ scale: 0.4, opacity: 0 }}
@@ -75,7 +73,7 @@ function MultistepAddProductModal({
               exit={{ scale: 0.4, opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="bg-background mx-auto h-fit w-2/5 max-w-none rounded-rounded px-7 pb-5 pt-3">
+              <div className="mx-auto h-fit w-2/5 max-w-none rounded-rounded bg-background px-7 pb-5 pt-3">
                 <div className="flex w-full justify-end">
                   <motion.button
                     initial={{ rotate: "0deg" }}
@@ -105,18 +103,18 @@ function MultistepAddProductModal({
                           </h1>
                           <div className="relative flex w-full flex-col overflow-visible">
                             <input
-                               className="peer w-full rounded-rounded text-foreground bg-background px-2 py-2 text-lg border border-1 transition-colors duration-500 focus:border-foreground border-placeholderText focus:outline-none"
+                              className="border-1 border-placeholderText peer w-full rounded-rounded border bg-background px-2 py-2 text-lg text-foreground transition-colors duration-500 focus:border-foreground focus:outline-none"
                               type="text"
                               autoComplete="off"
                               onKeyDown={(e) => {
                                 if (e.key === "ArrowDown") {
-                                  if (debouncedValue.length > 2) {
+                                  if (products.length > 2) {
                                     if (key < products.length - 1) {
                                       setKey(key + 1)
                                     }
                                   }
                                 } else if (e.key === "ArrowUp") {
-                                  if (debouncedValue.length > 2) {
+                                  if (products.length > 2) {
                                     if (key > 0) {
                                       setKey(key - 1)
                                     }
@@ -168,9 +166,9 @@ function MultistepAddProductModal({
                                 },
                               })}
                             />
-                            {debouncedValue.length >= 3 && (
+                            {debouncedValue.length >= 0 && (
                               <motion.div
-                                className={`bg-background absolute top-12 -z-10 max-h-[100px] h-fit w-full overflow-scroll opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-50 peer-focus:opacity-100`}
+                                className={`absolute top-12 -z-10 h-fit max-h-[100px] w-full overflow-scroll bg-background opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-50 peer-focus:opacity-100`}
                               >
                                 {products?.length > 0 ? (
                                   products.map((product, i) => {
@@ -226,7 +224,7 @@ function MultistepAddProductModal({
                             type="number"
                             id="qty"
                             placeholder="Quantity"
-                            className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" 
+                            className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                             min={1}
                             max={999}
                             {...register(`product.quantity`, {
@@ -310,7 +308,7 @@ function MultistepAddProductModal({
                           setSelectedProduct(null)
                         }}
                         type="button"
-                        className="rounded-rounded text-foreground px-2 py-1 transition-colors duration-200 hover:bg-secondaryBtnHover"
+                        className="hover:bg-secondaryBtnHover rounded-rounded px-2 py-1 text-foreground transition-colors duration-200"
                       >
                         Change Product
                       </button>

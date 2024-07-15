@@ -78,13 +78,13 @@ function DiscountInput({
           })}
           // min={0.0}
           // className="border-1 w-full rounded-l-rounded border-y border-l border-gray-200 pl-2 text-lg focus:outline-none"
-          className="peer rounded-rounded border border-placeholderText p-3 text-lg transition-colors duration-150 placeholder:text-transparent focus:border-foreground bg-background focus:outline-none text-foreground" 
+          className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
         />
         <label htmlFor="discount" className="float-label">
           Discount
         </label>
       </div>
-      <div className="border-1 relative flex w-fit items-center rounded-rounded border border-placeholderText">
+      <div className="border-1 border-placeholderText relative flex w-fit items-center rounded-rounded border">
         <p
           className={`${TOGGLE_CLASSES} ${
             selected === "percent" ? "text-white" : "text-placeholderText"

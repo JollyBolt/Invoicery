@@ -98,7 +98,7 @@ function BillingAddressDetails({
                     type="text"
                     placeholder="Enter City"
                     autoComplete="off"
-                    className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                    className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                     {...register("billingCity", {
                       required: "Please enter city of Billing Address",
                     })}
@@ -107,7 +107,7 @@ function BillingAddressDetails({
                     Enter City<span className="text-red-500">&#42;</span>
                   </label>
                   <motion.div
-                    className={`bg-background absolute top-14 -z-10 h-fit max-h-[120px] w-full overflow-scroll opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
+                    className={`absolute top-14 -z-10 h-fit max-h-[120px] w-full overflow-scroll bg-background opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-10 peer-focus:opacity-100`}
                   >
                     {customers && billingAddresses.length > 0 ? (
                       billingAddresses
@@ -148,7 +148,7 @@ function BillingAddressDetails({
         ) : (
           <>
             <div className="w-full rounded-md bg-primary p-1">
-              <div className="bg-background flex flex-col gap-3 rounded-md p-5 font-semibold text-foreground">
+              <div className="flex flex-col gap-3 rounded-md bg-background p-5 font-semibold text-foreground">
                 <div className="flex gap-10">
                   <p className="w-[20%]">Street Address</p>
                   <p className="w-[70%]">
@@ -195,7 +195,7 @@ function BillingAddressDetails({
                   setInvoiceState({
                     ...invoiceState,
                     customer: {
-     ...invoiceState.customer,
+                      ...invoiceState.customer,
                       address: {
                         billing: {
                           streetAddress: "",

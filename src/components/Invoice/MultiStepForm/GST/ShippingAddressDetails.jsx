@@ -165,7 +165,7 @@ function ShippingAddressDetails({
                   type="text"
                   placeholder="Street Address"
                   autoComplete="off"
-                  className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                  className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                   {...register("shippingStreetAddress", {
                     required: "Street Address is required",
                     disabled: checked,
@@ -213,7 +213,7 @@ function ShippingAddressDetails({
                     autoComplete="off"
                     type="text"
                     placeholder="City"
-                    className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                    className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                     {...register("shippingCity", {
                       required: "City is required",
                       disabled: checked,
@@ -260,7 +260,7 @@ function ShippingAddressDetails({
                     type="text"
                     autoComplete="off"
                     placeholder="ZIP Code"
-                    className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                    className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                     {...register("shippingZip", {
                       required: "ZIP Code is required",
                       disabled: checked,
@@ -314,7 +314,7 @@ function ShippingAddressDetails({
                     autoComplete="off"
                     type="text"
                     placeholder="State"
-                    className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                    className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                     {...register("shippingState", {
                       required: "State is required",
                       disabled: checked,
@@ -362,7 +362,7 @@ function ShippingAddressDetails({
                     type="text"
                     autoComplete="off"
                     placeholder="State Code"
-                    className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                    className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                     {...register("shippingStateCode", {
                       required: "State Code is required",
                       disabled: checked,
@@ -415,7 +415,7 @@ function ShippingAddressDetails({
                   type="text"
                   placeholder="Country"
                   autoComplete="off"
-                  className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                  className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                   {...register("shippingCountry", {
                     required: "Shipping Country is required",
                     disabled: checked,

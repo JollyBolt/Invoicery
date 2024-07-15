@@ -99,7 +99,7 @@ function TnCModal({ editOpen, setEditOpen, user }) {
                         <div className="relative flex w-10/12 flex-col overflow-visible">
                           <textarea
                             rows={1}
-                             className="peer w-full rounded-rounded text-foreground bg-background px-2 py-2 text-lg border border-1 transition-colors duration-500 focus:border-foreground border-placeholderText focus:outline-none placeholder:text-placeholderText"
+                            className="border-1 border-placeholderText placeholder:text-placeholderText peer w-full rounded-rounded border bg-background px-2 py-2 text-lg text-foreground transition-colors duration-500 focus:border-foreground focus:outline-none"
                             type="text"
                             autoComplete="off"
                             placeholder="Terms and Conditions"

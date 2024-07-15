@@ -43,8 +43,8 @@ const InvoiceDetails = ({
                 type="text"
                 id="invoiceNo"
                 placeholder="Invoice Number"
-                className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
-                />
+                className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+              />
               <label htmlFor="invoiceNo" className="float-label">
                 Invoice Number<span className="text-red-500">&#42;</span>
               </label>
@@ -89,8 +89,8 @@ const InvoiceDetails = ({
                 }}
                 id="invoiceDate"
                 placeholder="Invoice Date"
-                className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
-                />
+                className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+              />
               <label htmlFor="invoiceDate" className="float-label">
                 Invoice Date<span className="text-red-500">&#42;</span>
               </label>
@@ -120,8 +120,8 @@ const InvoiceDetails = ({
                 type="text"
                 id="purchaseOrder"
                 placeholder="Purchase Order"
-                className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
-                />
+                className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+              />
               <label htmlFor="purchaseOrder" className="float-label">
                 Purchase Order
               </label>
@@ -155,8 +155,8 @@ const InvoiceDetails = ({
                 }}
                 id="purchaseOrderDate"
                 placeholder="Purchase Order Date"
-                className="border-placeholderText bg-background peer rounded-rounded border p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
-                />
+                className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+              />
               <label htmlFor="purchaseOrderDate" className="float-label">
                 Purchase Order Date
               </label>

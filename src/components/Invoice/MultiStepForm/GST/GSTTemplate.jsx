@@ -32,33 +32,44 @@ const GSTTemplate = forwardRef((props, ref) => {
   return (
     <div
       ref={ref}
-      className="bg-background flex min-h-full flex-col p-2 text-foreground"
+      className="flex min-h-full flex-col bg-background p-2 text-foreground"
     >
+      <div className="flex w-full justify-between border border-b-0 border-foreground p-1 font-bold">
+        <p className="uppercase">Tax Invoice</p>
+        <p className="uppercase">Original for Recepient</p>
+      </div>
       {/* Organisation Details */}
-      <div className="flex justify-between border border-b-0 border-foreground p-1">
-        <div className="">
-          <p className="font-foreground text-2xl uppercase">
+      <div className="flex justify-between border border-b-0 border-foreground">
+        <div className="p-1 text-sm">
+          <p className="font-foreground text-3xl font-bold uppercase">
             {user?.org?.name}
+          </p>
+          <p>
+            <span className="font-bold">GSTIN:</span> {user?.org?.gstin}
           </p>
           <p className="">{user?.org?.address?.streetAddress}</p>
           <p>
             {user?.org?.address?.city} - {user?.org?.address?.zip},{" "}
             {user?.org?.address?.state}, {user?.org?.address?.country}
           </p>
-          <p>Phone: {displayPhone(user?.phone)}</p>
-          <p>Email: {user?.org?.email}</p>
-          <p>GSTIN: {user?.org?.gstin}</p>
-        </div>
-        <div className="flex w-2/6 flex-col justify-evenly">
-          <div className="bg-primary p-3 text-xl font-bold text-white">
-            Tax Invoice
+          <div className="flex gap-4">
+            <p>
+              <span className="font-bold">Phone:</span>{" "}
+              {displayPhone(user?.phone)}
+            </p>
+            <p>
+              <span className="font-bold">Email:</span> {user?.org?.email}
+            </p>
           </div>
-          <div className="flex">
-            <p className="w-32">Invoice Number</p>
+        </div>
+        <div className="flex w-1/5 flex-col justify-evenly border-l border-foreground">
+          {/* <div className="p-3 text-xl font-bold">Tax Invoice</div> */}
+          <div className="flex h-1/2 flex-col border-b border-foreground p-1">
+            <p className="">Invoice #</p>
             <span className="font-bold">{invoiceNumber}</span>
           </div>
-          <div className="flex">
-            <p className="w-32">Invoice Date</p>
+          <div className="flex h-1/2 flex-col p-1">
+            <p className="">Invoice Date</p>
             {invoiceDate.day && (
               <span className="font-bold">{displayDate(invoiceDate)}</span>
             )}
@@ -67,10 +78,10 @@ const GSTTemplate = forwardRef((props, ref) => {
       </div>
 
       {/* Customer Deatils */}
-      <div className="border border-b-0 border-foreground text-base">
+      <div className="border border-b-0 border-foreground text-sm">
         <div className="border-b border-foreground p-1">
-          <p className="text-lg font-bold">Issued to</p>
-          <div className="flex flex-col">
+          <p className="text-base font-bold">Issued to</p>
+          <div className="flex flex-col gap-1">
             <div className="flex justify-between">
               <div className="flex w-[60%]">
                 <p className="w-[30%] font-semibold">Organization</p>
@@ -84,9 +95,7 @@ const GSTTemplate = forwardRef((props, ref) => {
             <div className="flex justify-between">
               <div className="flex w-[40%]">
                 <p className="w-[45%] font-semibold">Contact Person</p>
-                <p>
-                  {contactPerson && contactPerson === "" ? "-" : contactPerson}
-                </p>
+                <p>{name != "" && contactPerson == "" ? "-" : contactPerson}</p>
               </div>
               <div className="flex w-[40%]">
                 <p className="w-[25%] font-semibold">Phone</p>
@@ -96,7 +105,7 @@ const GSTTemplate = forwardRef((props, ref) => {
             {purchaseOrder !== "" && (
               <div className="flex">
                 <div className="flex w-[60%] shrink-0">
-                  <p className="w-[30%] font-semibold">PO Number</p>
+                  <p className="w-[30%] font-semibold">PO #</p>
                   <p>{purchaseOrder}</p>
                 </div>
                 {purchaseOrderDate && (
@@ -117,9 +126,9 @@ const GSTTemplate = forwardRef((props, ref) => {
         </div>
 
         {/* Addresses */}
-        <div className="flex min-h-[100px] gap-2">
-          <div className="w-1/2 shrink-0 border-r border-foreground p-1">
-            <p className="text-lg font-bold">Billing Address</p>
+        <div className="flex min-h-[100px]">
+          <div className="w-1/2 shrink-0 border-r border-foreground p-1 text-sm">
+            <p className="text-base font-bold">Billing Address</p>
             {billing.city != "" && (
               <>
                 <p>{billing.streetAddress}</p>
@@ -133,8 +142,8 @@ const GSTTemplate = forwardRef((props, ref) => {
               </>
             )}
           </div>
-          <div className="p-1">
-            <p className="text-lg font-bold">Shipping Address</p>
+          <div className="p-1 text-sm">
+            <p className="text-base font-bold">Shipping Address</p>
             {shipping?.streetAddress != "" && (
               <>
                 <p>{shipping?.streetAddress}</p>
@@ -152,147 +161,170 @@ const GSTTemplate = forwardRef((props, ref) => {
       </div>
 
       {/* Table */}
-      <div className="flex w-full flex-col border-foreground">
+      <div className="flex w-full flex-col border-foreground text-xs">
         <div className="flex w-full shrink-0 border-foreground font-bold">
-          <div className="w-[10%] border border-foreground bg-primary p-2 text-center text-white">
-            S.No
+          <div className="w-[5%] border border-foreground p-2 text-center">
+            #
           </div>
-          <div className="w-[30%] border border-l-0 border-foreground bg-primary p-2 text-center text-white">
+          <div className="w-[40%] border border-l-0 border-foreground p-2 text-left">
             Item
           </div>
-          <div className="w-[14%] border border-l-0 border-foreground bg-primary p-2 text-center text-white">
-            HSN Code
+          <div className="w-[14%] border border-l-0 border-foreground p-2 text-right">
+            HSN
           </div>
-          <div className="w-[10%] border border-l-0 border-foreground bg-primary p-2 text-center text-white">
+          <div className="w-[8%] border border-l-0 border-foreground p-2 text-right">
             Qty
           </div>
-          <div className="w-[18%] border border-l-0 border-foreground bg-primary p-2 text-center text-white">
-            Price(INR)
+          <div className="w-[15%] border border-l-0 border-foreground p-2 text-right">
+            Price
           </div>
-          <div className="w-[18%] border border-l-0 border-foreground bg-primary p-2 text-center text-white">
-            Amount(INR)
+          <div className="w-[18%] border border-l-0 border-foreground p-2 text-right">
+            Amount
           </div>
         </div>
-        {products.length > 0 ? (
-          products.map((product, index) => {
-            return (
-              <div key={index} className="flex w-full text-sm">
-                <div className="w-[10%] border-l border-r border-foreground p-2 text-center">
-                  {index + 1}
+        <div className="flex h-[310px] flex-col">
+          {products.length > 0 &&
+            products.map((product, index) => {
+              return (
+                <div key={index} className="flex w-full shrink-0 text-xs">
+                  <div className="w-[5%] border-l border-r border-foreground px-2 pb-1 text-center">
+                    {index + 1}
+                  </div>
+                  <div className="w-[40%] border-r border-foreground px-2 pb-1">
+                    {product.name}
+                  </div>
+                  <div className="w-[14%] border-r border-foreground px-2 pb-1 text-right">
+                    {product.hsn_code}
+                  </div>
+                  <div className="w-[8%] border-r border-foreground px-2 pb-1 text-right">
+                    {product.quantity}
+                  </div>
+                  <div className="w-[15%] border-r border-foreground px-2 pb-1 text-right">
+                    {product.finalPrice.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </div>
+                  <div className="w-[18%] border-r border-foreground px-2 pb-1 text-right">
+                    {product.amount.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </div>
                 </div>
-                <div className="w-[30%] border-r border-foreground p-2">
-                  {product.name}
-                </div>
-                <div className="w-[14%] border-r border-foreground p-2 text-center">
-                  {product.hsn_code}
-                </div>
-                <div className="w-[10%] border-r border-foreground p-2 text-center">
-                  {product.quantity}
-                </div>
-                <div className="w-[18%] border-r border-foreground p-2 text-center">
-                  {product.finalPrice.toFixed(2)}
-                </div>
-                <div className="w-[18%] border-r border-foreground p-2 pr-6 text-right">
-                  {product.amount.toFixed(2)}
-                </div>
-              </div>
-            )
-          })
-        ) : (
-          <div className="text-background w-full border-l border-r border-foreground p-2">
-            &npsp;
+              )
+            })}
+          <div className="flex w-full flex-1 shrink-0 text-sm">
+            <div className="w-[5%] border-l border-r border-foreground p-2 py-1 text-center"></div>
+            <div className="w-[40%] border-r border-foreground p-2 py-1"></div>
+            <div className="w-[14%] border-r border-foreground p-2 py-1 text-right"></div>
+            <div className="w-[8%] border-r border-foreground p-2 py-1 text-right"></div>
+            <div className="w-[15%] border-r border-foreground p-2 py-1 text-right"></div>
+            <div className="w-[18%] border-r border-foreground p-2 py-1 text-right"></div>
           </div>
-        )}
-      </div>
-      <div className="flex w-full justify-between text-sm">
-        <div className="w-[82%] shrink-0 border border-b-0 border-foreground p-2 text-right font-bold">
-          Micsellaneous Charges
-        </div>
-        <div className="w-[18%] border border-b-0 border-l-0 border-foreground p-2 pr-5 text-right">
-          {miscellaneous === ""
-            ? 0
-            : parseInt(miscellaneous).toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
-        </div>
-      </div>
-      <div className="flex w-full justify-between border-foreground">
-        <div className="w-[82%] shrink-0 border border-foreground p-2 text-right font-bold">
-          Sub Total
-        </div>
-        <div className="w-[18%] border border-l-0 border-foreground p-2 pr-5 text-right">
-          {subTotal.toFixed(2)}
         </div>
       </div>
 
-      <div className="flex border border-t-0 border-foreground">
-        <div className="w-[64%] flex-col border-foreground">
+      <div className="flex border border-foreground">
+        <div className="w-[55%] flex-col border-foreground">
           <div className="w-full border-b border-foreground p-1">
-            <p className="text-lg font-bold">Amount in Words</p>
-            <p className="capitalize">{numWords(totalAmount)} Rupees Only</p>
+            <p className="text-base font-bold">Amount in Words</p>
+            <p className="text-sm capitalize">
+              {numWords(totalAmount)} Rupees Only
+            </p>
           </div>
 
-          <div className="w-full p-1">
-            <p className="text-lg font-bold">Bank Details</p>
-            <div className="flex w-full">
-              <div className="flex w-[35%]">
-                <p className="w-16 font-bold">Bank</p>
-                <p>{user?.banking?.bankName}</p>
-              </div>
+          <div className="flex w-full flex-col p-1 text-sm">
+            <p className="text-base font-bold">Bank Details</p>
+            <div className="flex">
+              <p className="w-24 font-bold">Bank</p>
+              <p>{user?.banking?.bankName}</p>
+            </div>
 
-              <div className="flex">
-                <p className="w-40 font-bold">Account Number</p>
-                <p>{user?.banking?.accountNumber}</p>
-              </div>
+            <div className="flex">
+              <p className="w-24 font-bold">Account #</p>
+              <p>{user?.banking?.accountNumber}</p>
+            </div>
+
+            <div className="flex">
+              <p className="w-24 font-bold">Branch</p>
+              <p>{user?.banking?.branch}</p>
             </div>
             <div className="flex">
-              <div className="flex w-[35%]">
-                <p className="w-16 font-bold">Branch</p>
-                <p>{user?.banking?.branch}</p>
-              </div>
-              <div className="flex">
-                <p className="w-40 font-bold">IFSC Code</p>
-                <p>{user?.banking?.ifsc}</p>
-              </div>
+              <p className="w-24 font-bold">IFSC</p>
+              <p>{user?.banking?.ifsc}</p>
             </div>
           </div>
         </div>
 
         {/* Taxes */}
-        <div className="w-[36%] overflow-hidden border-l border-foreground p-2">
-          <div className="flex w-full justify-between">
-            <p className="w-[40%] text-right">CGST</p>
-            <p className="w-[5%]">{cgst}%</p>
-            <p className="w-[50%] pr-3 text-right">
-              {(subTotal * cgst * 0.01).toFixed(2)}
-            </p>
+        <div className="w-[45%] shrink-0 overflow-hidden border-l border-foreground">
+          <div className="p-2">
+            <div className="flex w-full justify-between">
+              <p className="w-[36%] text-right">Misc Charges</p>
+              <p className="">
+                {miscellaneous === ""
+                  ? 0
+                  : parseInt(miscellaneous).toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+              </p>
+            </div>
+            <div className="flex w-full justify-between font-bold">
+              <p className="w-[36%] text-right">Taxable Amount</p>
+              <p className="">
+                {"₹ " +
+                  subTotal.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+              </p>
+            </div>
+            <div className="flex w-full justify-between">
+              <p className="w-[36%] text-right">CGST {cgst}%</p>
+              <p>
+                {"₹ " +
+                  (subTotal * cgst * 0.01).toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+              </p>
+            </div>
+            <div className="flex w-full justify-between">
+              <p className="w-[36%] text-right">SGST {sgst}%</p>
+              <p>
+                {"₹ " +
+                  (subTotal * sgst * 0.01).toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+              </p>
+            </div>
+            <div className="flex w-full justify-between">
+              <p className="w-[36%] text-right">IGST {igst}%</p>
+              <p>
+                {"₹ " +
+                  (subTotal * igst * 0.01).toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+              </p>
+            </div>
+            <div className="flex w-full justify-between">
+              <p className="w-[36%] text-right">Round off</p>
+              <p>{(Math.round(total) - total).toFixed(2)}</p>
+            </div>
           </div>
-          <div className="flex w-full justify-between">
-            <p className="w-[40%] text-right">SGST</p>
-            <p className="w-[5%]">{sgst}%</p>
-            <p className="w-[50%] pr-3 text-right">
-              {(subTotal * sgst * 0.01).toFixed(2)}
+          <div className="flex w-full justify-between border-t border-foreground p-2 font-bold">
+            <p className="w-[36%] text-right text-lg">Total</p>
+            <p className="text-lg font-bold">
+              {"₹ " +
+                totalAmount.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
             </p>
-          </div>
-          <div className="flex w-full justify-between">
-            <p className="w-[40%] text-right">IGST</p>
-            <p className="w-[5%]">{igst}%</p>
-            <p className="w-[50%] pr-3 text-right">
-              {(subTotal * igst * 0.01).toFixed(2)}
-            </p>
-          </div>
-          <div className="flex w-full justify-between">
-            <p className="w-[50%] text-right">Round off</p>
-            {/* <p className="w-[45%] pr-3 text-right">{roundOff.toFixed(2)}</p> */}
-            <p className="w-[45%] pr-3 text-right">
-              {(Math.round(total) - total).toFixed(2)}
-            </p>
-          </div>
-          <div className="flex w-full justify-between bg-primary text-white">
-            <p className="w-[30%] p-2 text-right text-lg">Total</p>
-            <p className="p-2 text-xl font-bold">Rs. {totalAmount}</p>
-            {/* <p className="p-2 text-xl font-bold">Rs. 550</p> */}
           </div>
         </div>
       </div>

@@ -201,12 +201,12 @@ const InvoicePreview = forwardRef((props, ref) => {
   }, [products, cgst, sgst, igst])
 
   return (
-      <GSTTemplate
-        invoiceState={invoiceState}
-        subTotal={subTotal}
-        total={total}
-        ref={ref}
-      />
+    <GSTTemplate
+      invoiceState={invoiceState}
+      subTotal={subTotal}
+      total={total}
+      ref={ref}
+    />
   )
 })
 

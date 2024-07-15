@@ -216,8 +216,10 @@ function MultiStepFormGST({
         return false
       case 2:
         if (
-          sessionStorage.getItem("invoiceNumber") === "" ||
-          sessionStorage.getItem("date") == ""
+          // sessionStorage.getItem("invoiceNumber") === "" ||
+          // sessionStorage.getItem("date") === ""
+          !sessionStorage.getItem("invoiceNumber") ||
+          !sessionStorage.getItem("date")
         ) {
           return true
         } else {
@@ -273,9 +275,11 @@ function MultiStepFormGST({
         >
           Go Back
         </button>
-        <button type="button" onClick={handlePrint}>
-          Print
-        </button>
+        {step === 9 && (
+          <button type="button" onClick={handlePrint}>
+            Print
+          </button>
+        )}
         {step === 9 ? (
           <motion.button
             initial={{ scale: 1 }}

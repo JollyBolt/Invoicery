@@ -71,7 +71,7 @@ function EditInvoice() {
     const invoice = JSON.parse(sessionStorage.getItem("invoiceState"))
     sessionStorage.setItem("invoiceNumber", invoice.invoiceNumber)
     sessionStorage.setItem(
-      "invoiceDate",
+      "date",
       invoice.invoiceDate.year +
         "-" +
         invoice.invoiceDate.month +

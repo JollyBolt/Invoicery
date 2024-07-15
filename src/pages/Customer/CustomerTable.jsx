@@ -13,9 +13,10 @@ import { fetchAllCustomers } from "../../redux/slices/customerSlice"
 import Table from "../../components/Table/Table"
 import { customerColumns } from "../../components/Table/Columns"
 import { useDebounce } from "../../hooks/useDebounce"
+import Loader from "../../components/Loader"
 
 const CustomerTable = () => {
-  const { customers } = useSelector((state) => state.customers)
+  const { customers, loading } = useSelector((state) => state.customers)
   const [search, setSearch] = useState("")
   const debouncedSearch = useDebounce(search)
   const [pagination, setPagination] = useState({
@@ -52,51 +53,57 @@ const CustomerTable = () => {
       <div
         className={`flex h-[calc(100dvh-80px)] flex-col flex-nowrap gap-4 rounded-rounded`}
       >
-        {customers ? (
-          <>
-            <div className="flex w-full flex-row flex-nowrap justify-between rounded-t-sm">
-              <div className="bg-background w-1/3 rounded-md border border-slate-300 p-2">
-                <div className="justfy-betweem flex h-fit w-full flex-nowrap items-center">
-                  <HiMagnifyingGlass className="inline pr-2 text-4xl text-foreground" />
-                  <input
-                    onChange={(e) => {
-                      setSearch(e.target.value)
-                    }}
-                    type="text"
-                    autoComplete="off"
-                    value={search}
-                    name="search"
-                    placeholder="Search Customers"
-                    id="searchCustom"
-                    className="inline w-full bg-transparent py-0 text-foreground outline-none active:outline-none"
-                  />
-                  {search && (
-                    <button
-                      type="btn"
-                      className="h-fit w-fit"
-                      onClick={() => {
-                        document.getElementById("searchCustom").value = ""
-                        setSearch("")
-                      }}
-                    >
-                      <RxCross1 className="text-lg text-red-400" />
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              <div className="flex flex-nowrap items-center justify-between">
+        {/* {customers ? (
+          <> */}
+        <div className="flex w-full flex-row flex-nowrap justify-between rounded-t-sm">
+          <div className="bg-background w-1/3 rounded-md border border-slate-300 p-2">
+            <div className="justfy-betweem flex h-fit w-full flex-nowrap items-center">
+              <HiMagnifyingGlass className="inline pr-2 text-4xl text-foreground" />
+              <input
+                onChange={(e) => {
+                  setSearch(e.target.value)
+                }}
+                type="text"
+                autoComplete="off"
+                value={search}
+                disabled={!debouncedSearch && customers.pageCount===0}
+                name="search"
+                placeholder="Search Customers"
+                id="searchCustom"
+                className="inline w-full bg-transparent py-0 text-foreground outline-none active:outline-none"
+              />
+              {search && (
                 <button
-                  onClick={() => setOpen(true)}
-                  type="button"
-                  className="flex w-fit items-center gap-2 rounded-rounded bg-primary p-2 px-4 text-lg font-semibold text-white transition-colors hover:bg-primaryLight"
+                  type="btn"
+                  className="h-fit w-fit"
+                  onClick={() => {
+                    document.getElementById("searchCustom").value = ""
+                    setSearch("")
+                  }}
                 >
-                  <FaPlus className="inline text-white" />
-                  <p className="font-semibold">Add Customer</p>
+                  <RxCross1 className="text-lg text-red-400" />
                 </button>
-              </div>
+              )}
             </div>
-            {customers.customers && (
+          </div>
+
+          <div className="flex flex-nowrap items-center justify-between">
+            <button
+              onClick={() => setOpen(true)}
+              type="button"
+              className="flex w-fit items-center gap-2 rounded-rounded bg-primary p-2 px-4 text-lg font-semibold text-white transition-colors hover:bg-primaryLight"
+            >
+              <FaPlus className="inline text-white" />
+              <p className="font-semibold">Add Customer</p>
+            </button>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        {!loading ? (
+          debouncedSearch || customers.customers.length !== 0 ? (
+            <>
+              {/* {customers.customers && ( */}
               <Table
                 tableColumns={customerColumns}
                 tableData={customers.customers}
@@ -104,24 +111,29 @@ const CustomerTable = () => {
                 pagination={pagination}
                 setPagination={setPagination}
               />
-            )}
-          </>
-        ) : (
-          <div className="flex h-full flex-1 flex-col items-center justify-evenly">
-            <h2 className="text-center text-xl">
-              You don't have any customers. Click{" "}
-              <span
-                onClick={() => setOpen(true)}
-                className="text-primaryLight transition-all hover:cursor-pointer hover:underline hover:underline-offset-2"
-              >
-                here{" "}
-              </span>
-              to add new customer.
-            </h2>
-            <div className="float-end">
-              <img src={AddCustomer} alt="" />
+              {/* )} */}
+            </>
+          ) : (
+            <div className="flex h-full flex-1 flex-col items-center justify-evenly">
+              <h2 className="text-center text-xl text-foreground">
+                You don't have any customers. Click{" "}
+                <span
+                  onClick={() => setOpen(true)}
+                  className="text-primaryLight transition-all hover:cursor-pointer hover:underline hover:underline-offset-2"
+                >
+                  here{" "}
+                </span>
+                to add new customer.
+              </h2>
+              <div className="float-end">
+                <img src={AddCustomer} alt="" />
+              </div>
             </div>
-          </div>
+          )
+        ) : (
+          <>
+            <Loader />
+          </>
         )}
       </div>
     </>

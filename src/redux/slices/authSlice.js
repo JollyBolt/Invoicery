@@ -39,23 +39,23 @@ const signup = createAsyncThunk("auth/signup", async (body) => {
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    loading: true,
-    loggedIn: false,
+    loading: false,
+    loggedIn: getCookieValue("authToken") ? true : false,
     error: "",
   },
-  reducers: {
-    refreshAuth: (state) => {
-      if (getCookieValue("authToken")) {
-        state.loading = false;
-        state.loggedIn = true;
-        state.error = "";
-      } else {
-        state.loading = false;
-        state.loggedIn = false;
-        state.error = "";
-      }
-    },
-  },
+  // reducers: {
+  //   refreshAuth: (state) => {
+  //     if (getCookieValue("authToken")) {
+  //       state.loading = false;
+  //       state.loggedIn = true;
+  //       state.error = "";
+  //     } else {
+  //       state.loading = false;
+  //       state.loggedIn = false;
+  //       state.error = "";
+  //     }
+  //   },
+  // },
   extraReducers: (builder) => {
     builder.addCase(login.pending, (state) => {
       state.loading = true;

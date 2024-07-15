@@ -6,12 +6,12 @@ import { authSlice } from "../redux/slices/authSlice"
 import PageWrapper from "../hoc/PageWrapper"
 
 const CustomerLayout = () => {
-    const { refreshAuth } = authSlice.actions
+    // const { refreshAuth } = authSlice.actions
     const dispatch = useDispatch()
     const { loggedIn } = useSelector((state) => state.auth)
-    useEffect(() => {
-      dispatch(refreshAuth())
-    }, [])
+    // useEffect(() => {
+    //   dispatch(refreshAuth())
+    // }, [])
 
   return (
     <div className="mt-4 flex min-h-[calc(100dvh-80px)] w-full flex-col">

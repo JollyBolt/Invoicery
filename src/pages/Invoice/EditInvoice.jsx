@@ -17,7 +17,7 @@ function EditInvoice() {
     invoiceNumber: "",
     invoiceDate: { day: "", month: 0, year: "" },
     purchaseOrder: "",
-    purchaseOrderDate:"",
+    purchaseOrderDate: "",
     template: "gst",
     customer: {
       name: "",

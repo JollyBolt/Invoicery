@@ -6,11 +6,11 @@ import { useDispatch } from "react-redux"
 import { authSlice } from "../redux/slices/authSlice"
 
 const RootLayout = () => {
-  const { refreshAuth } = authSlice.actions
+  // const { refreshAuth } = authSlice.actions
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(refreshAuth())
-  }, [])
+  // useEffect(() => {
+  //   dispatch(refreshAuth())
+  // }, [])
   return (
     <>
       <Sidebar/>

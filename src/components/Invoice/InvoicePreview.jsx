@@ -158,7 +158,10 @@ const InvoicePreview = forwardRef((props, ref) => {
 
     //For taxes and charges
     if (sessionStorage.getItem("miscellaneous")) {
-      const miscellaneous = parseInt(sessionStorage.getItem("miscellaneous"))
+      const miscellaneous =
+        sessionStorage.getItem("miscellaneous") === ""
+          ? 0
+          : parseInt(sessionStorage.getItem("miscellaneous"))
       setInvoiceState((prevState) => {
         return {
           ...prevState,
@@ -166,8 +169,7 @@ const InvoicePreview = forwardRef((props, ref) => {
         }
       })
     }
-    
-    
+
     const taxes = JSON.parse(sessionStorage.getItem("taxes"))
     if (taxes) {
       setInvoiceState((prevState) => {
@@ -199,12 +201,12 @@ const InvoicePreview = forwardRef((props, ref) => {
   }, [products, cgst, sgst, igst])
 
   return (
-    <GSTTemplate
-      invoiceState={invoiceState}
-      subTotal={subTotal}
-      total={total}
-      ref={ref}
-    />
+      <GSTTemplate
+        invoiceState={invoiceState}
+        subTotal={subTotal}
+        total={total}
+        ref={ref}
+      />
   )
 })
 

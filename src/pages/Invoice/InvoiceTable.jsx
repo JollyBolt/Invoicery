@@ -84,6 +84,7 @@ const InvoiceTable = () => {
             onClick={() => {
               navigate("createInvoice")
               sessionStorage.clear()
+              sessionStorage.setItem("mode", "create")
             }}
             type="button"
             className="flex w-fit items-center gap-2 rounded-rounded bg-primary p-2 px-4 text-lg text-white transition-colors hover:bg-primaryLight"
@@ -118,6 +119,7 @@ const InvoiceTable = () => {
                 onClick={() => {
                   navigate("createInvoice")
                   sessionStorage.clear()
+                  sessionStorage.setItem("mode", "create")
                 }}
                 className="text-primaryLight transition-all hover:cursor-pointer hover:underline hover:underline-offset-2"
               >

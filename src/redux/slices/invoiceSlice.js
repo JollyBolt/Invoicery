@@ -70,6 +70,24 @@ const createInvoice = createAsyncThunk(
   },
 )
 
+const editInvoice = createAsyncThunk("invoice/editInvoice", async (params) => {
+  try {
+    const res = await axios.put(
+      `http://localhost:4598/api/v1/invoice/editinvoice/${params.id}`,
+      params.body,
+      {
+        headers: {
+          Authorization: "Bearer " + getCookieValue("authToken"),
+        },
+      },
+    )
+    return res.data
+  } catch (err) {
+    console.log(err)
+    return rejectWithValue(err)
+  }
+})
+
 const deleteInvoice = createAsyncThunk("invoice/deleteInvoice", async (id) => {
   try {
     const res = await axios.delete(
@@ -139,12 +157,43 @@ const invoiceSlice = createSlice({
       state.invoices = []
       state.error = action.error.message
     })
+
+    //Edit Invoice
+    builder.addCase(editInvoice.pending, (state) => {
+      state.loading = true
+    })
+    builder.addCase(editInvoice.fulfilled, (state, action) => {
+      state.loading = false
+      // state.invoices = action.payload
+      state.error = ""
+    })
+    builder.addCase(editInvoice.rejected, (state, action) => {
+      state.loading = false
+      // state.invoices = []
+      state.error = action.error.message
+    })
+
+    //Delete Invoice
+    builder.addCase(deleteInvoice.pending, (state) => {
+      state.loading = true
+    })
+    builder.addCase(deleteInvoice.fulfilled, (state, action) => {
+      state.loading = false
+      // state.invoices = state.invoices.filter((invoice) => invoice._id!== action.payload)
+      state.error = ""
+    })
+    builder.addCase(deleteInvoice.rejected, (state,action)=>{
+      state.loading = false
+      // state.invoices = []
+      state.error = action.error.message
+    })
   },
 })
 
 export {
   invoiceSlice,
   createInvoice,
+  editInvoice,
   deleteInvoice,
   fetchAllInvoices,
   fetchSingleInvoice,

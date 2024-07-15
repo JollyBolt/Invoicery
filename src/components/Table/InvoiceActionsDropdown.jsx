@@ -70,6 +70,7 @@ const InvoiceActionsDropdown = ({ row }) => {
                 "invoiceState",
                 JSON.stringify(row.original),
               )
+              sessionStorage.setItem("mode","edit")
               navigate(`./${row.original._id}`)
             }}
           >

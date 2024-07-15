@@ -36,6 +36,7 @@ const store = configureStore({
           "customers/deleteCustomer",
           "invoices/fetchSingleInvoice",
           "invoices/createInvoice",
+          "invoices/editInvoice",
           "invoices/deleteInvoice",
         ],
       },

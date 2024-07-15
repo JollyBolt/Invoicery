@@ -66,19 +66,19 @@ const Profile = () => {
           <div className="flex h-full w-full flex-1 p-3">
             <div className="h-full w-1/4 border-r p-3">
               <p
-                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "organization" ? "text-background bg-primary" : "text-foreground hover:bg-gray-50"} transition-all`}
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "organization" ? "text-background bg-primary" : "text-foreground hover:bg-secondaryBtnHover"} transition-all`}
                 onClick={() => setDetails("organization")}
               >
                 Organization Details
               </p>
               <p
-                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "banking" ? "text-background bg-primary" : "text-foreground hover:bg-gray-50"} transition-all`}
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "banking" ? "text-background bg-primary" : "text-foreground hover:bg-secondaryBtnHover"} transition-all`}
                 onClick={() => setDetails("banking")}
               >
                 Banking Details
               </p>
               <p
-                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "tnc" ? "text-background bg-primary" : "text-foreground hover:bg-gray-50"} transition-all`}
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "tnc" ? "text-background bg-primary" : "text-foreground hover:bg-secondaryBtnHover"} transition-all`}
                 onClick={() => setDetails("tnc")}
               >
                 Terms and Conditions

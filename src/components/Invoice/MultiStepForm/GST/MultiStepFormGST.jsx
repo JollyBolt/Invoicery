@@ -1,7 +1,10 @@
 import { motion } from "framer-motion"
 import { useForm, useFieldArray } from "react-hook-form"
 import { useDispatch, useSelector } from "react-redux"
-import { createInvoice } from "../../../../redux/slices/invoiceSlice"
+import {
+  createInvoice,
+  editInvoice,
+} from "../../../../redux/slices/invoiceSlice"
 import InvoiceDetails from "./InvoiceDetails"
 import AddCustomer from "./AddCustomer"
 import Taxes from "./Taxes"
@@ -11,7 +14,7 @@ import BillingAddressDetails from "./BillingAddressDetails"
 import AddProducts from "./Product Step/AddProducts"
 import ShippingAddressDetails from "./ShippingAddressDetails"
 import { useReactToPrint } from "react-to-print"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 function MultiStepFormGST({
   step,
@@ -252,6 +255,8 @@ function MultiStepFormGST({
     }
   }
 
+  const { id } = useParams()
+
   return (
     <div className="flex h-full w-full flex-col justify-between">
       <div className="max-h-[58dvh] flex-1 overflow-y-scroll p-3">
@@ -278,7 +283,11 @@ function MultiStepFormGST({
             transition={{ duration: 0.2 }}
             onClick={() => {
               console.log(invoiceState)
-              dispatch(createInvoice(invoiceState))
+              if (sessionStorage.getItem("mode") === "create") {
+                dispatch(createInvoice(invoiceState))
+              } else if (sessionStorage.getItem("mode") === "edit") {
+                dispatch(editInvoice({ id, body: invoiceState }))
+              }
               sessionStorage.clear()
               navigate("/invoice")
             }}

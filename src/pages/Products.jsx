@@ -59,7 +59,7 @@ const Products = () => {
 
           {/* Search Bar & Add Product Button */}
           <div className="flex w-full flex-row flex-nowrap justify-between rounded-t-sm">
-            <div className="bg-background w-1/3 rounded-md border border-slate-300 p-2">
+            <div className="border-border w-1/3 rounded-md border bg-background p-2">
               <div className="justfy-betweem flex h-fit w-full flex-nowrap items-center">
                 <HiMagnifyingGlass className="inline pr-2 text-4xl text-foreground" />
                 <input
@@ -69,7 +69,7 @@ const Products = () => {
                   type="text"
                   autoComplete="off"
                   value={search}
-                  disabled={!debouncedSearch && products.pageCount===0}
+                  disabled={!debouncedSearch && products.pageCount === 0}
                   name="search"
                   placeholder="Search Products"
                   id="searchProduct"
@@ -104,7 +104,7 @@ const Products = () => {
 
           {/* Main Content */}
           {!loading ? (
-            debouncedSearch || products.products.length!==0 ? (
+            debouncedSearch || products.products.length !== 0 ? (
               <>
                 <div className="w-full flex-1">
                   {/* {products.products && ( */}

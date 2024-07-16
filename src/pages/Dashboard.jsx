@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import PageWrapper from "../hoc/PageWrapper"
-import BarChart from "../components/Charts/BarChart"
-import LineChart from "../components/Charts/LineChart"
+import BarChartComponent from "../components/Charts/BarChartComponent"
+import AreaChartComponent from "../components/Charts/AreaChartComponent"
 import {
   FaAngleLeft,
   FaAngleRight,
@@ -17,12 +17,15 @@ import axios from "axios"
 import getCookieValue from "../utils/getCookieValue"
 import { fetchAllInvoices } from "../redux/slices/invoiceSlice"
 import { displayDate } from "../utils/displayDate"
+import YearChart from "../components/Charts/YearChart"
+import DoughnutChartComponent from "../components/Charts/DoughnutChartComponent"
 
 const Dashboard = () => {
   const [currentYear, setCurrentYear] = useState(
     new Date().getFullYear().toString(),
   )
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth())
+  // const [currentMonth, setCurrentMonth] = useState(new Date().getMonth())
+  const [currentMonth, setCurrentMonth] = useState(5)
   const { invoices } = useSelector((state) => state.invoices)
   const [revenue, setRevenue] = useState(null) // This is to manage the revenue
 
@@ -43,7 +46,7 @@ const Dashboard = () => {
   }
   useEffect(() => {
     getStats()
-    dispatch(fetchAllInvoices({ limit: 5 }))
+    dispatch(fetchAllInvoices({ limit: 10 }))
   }, [loggedIn])
 
   const getDashboardChartData = async () => {
@@ -60,6 +63,7 @@ const Dashboard = () => {
       },
     )
     setRevenue(data)
+    console.log(data)
   }
 
   useEffect(() => {
@@ -81,7 +85,7 @@ const Dashboard = () => {
     "December",
   ]
 
-  const [chart, setChart] = useState("line")
+  const [chart, setChart] = useState("area")
   const handleChange = (e) => {
     setChart(e.target.value)
   }
@@ -94,6 +98,9 @@ const Dashboard = () => {
         </>
       ) : (
         <div className="grid grid-cols-8 gap-4">
+          <p className="col-span-8 text-2xl font-extrabold uppercase text-foreground">
+            Overall Stats
+          </p>
           <Stats
             title="Total Invoices"
             number={stats?.totalInvoices}
@@ -104,11 +111,24 @@ const Dashboard = () => {
             number={stats?.totalRevenue}
             icon={<FaRupeeSign />}
           />
+          <Stats
+            title="Total Customers"
+            number={stats?.totalCustomers}
+            icon={<BsPeopleFill />}
+          />
+          <Stats
+            title="Total Products"
+            number={stats?.totalProducts}
+            icon={<BsBoxSeamFill />}
+          />
 
           {
             //Yearly Chart
           }
-          <div className="bg-background col-span-4 row-span-2 rounded-rounded p-5">
+          <p className="col-span-8 text-2xl font-extrabold uppercase text-foreground">
+            Yearly Stats
+          </p>
+          <div className="col-span-8 row-span-2 rounded-rounded bg-background p-5">
             <div className="mb-3 flex items-center justify-between">
               <div className="flex items-center gap-3 text-xl">
                 <button onClick={() => setCurrentYear((prev) => prev - 1)}>
@@ -125,76 +145,100 @@ const Dashboard = () => {
                 id="chartType"
                 value={chart}
                 onChange={handleChange}
-                className="bg-background mt-1 block w-[13%] rounded-md border border-gray-300 px-2 py-2 text-base text-foreground focus:outline-none sm:text-sm"
+                className="mt-1 block w-[13%] rounded-md border border-gray-300 bg-background px-2 py-2 text-base text-foreground focus:outline-none sm:text-sm"
               >
                 <option value="bar">Bar</option>
-                <option value="line">Line</option>
+                <option value="area">Area</option>
               </select>
             </div>
-            <>
-              {chart == "line" ? (
-                <LineChart
-                  currentYear={currentYear}
-                  revenue={revenue?.revenueForYearlyChart}
+            <div className="flex w-full">
+              <div className="w-[65%]">
+                <YearChart
+                  chart={chart}
+                  revenue={revenue?.revenueForYearlyChart.monthlyRevenue}
                 />
-              ) : (
-                <BarChart
-                  currentYear={currentYear}
-                  revenue={revenue?.revenueForYearlyChart}
-                />
-              )}
-            </>
+              </div>
+              <div className="h-[300px] w-[35%] p-5">
+                <div className="flex h-full flex-col justify-evenly text-foreground">
+                  <div className="flex gap-4 text-2xl">
+                    <p className="w-[250px]">Invoices Issued:</p>
+                    <p className="font-numbers font-bold text-primary">
+                      {
+                        revenue?.revenueForYearlyChart.overallStats[0]
+                          .invoiceCount
+                      }
+                    </p>
+                  </div>
+                  <div className="flex gap-4 text-2xl">
+                    <p className="w-[250px]">Highest Invoice Value:</p>
+                    <p className="font-numbers font-bold text-primary">
+                      {"₹ " +
+                        revenue?.revenueForYearlyChart.overallStats[0].highestInvoiceValue.toLocaleString()}
+                    </p>
+                  </div>
+                  <div className="flex gap-4 text-2xl">
+                    <p className="w-[250px]">Lowest Invoice Value:</p>
+                    <p className="font-numbers font-bold text-primary">
+                      {"₹ " +
+                        revenue?.revenueForYearlyChart.overallStats[0].lowestInvoiceValue.toLocaleString()}
+                    </p>
+                  </div>
+                  <div className="flex gap-4 text-2xl">
+                    <p className="w-[250px]">Revenue:</p>
+                    <p className="font-numbers font-bold text-primary">
+                      {"₹ " +
+                        revenue?.revenueForYearlyChart.overallStats[0].totalRevenue.toLocaleString()}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <Stats
-            title="Total Customers"
-            number={stats?.totalCustomers}
-            icon={<BsPeopleFill />}
-          />
-          <Stats
-            title="Total Products"
-            number={stats?.totalProducts}
-            icon={<BsBoxSeamFill />}
-          />
+          <p className="col-span-5 text-2xl font-extrabold uppercase text-foreground">
+            Recent Invoices{" "}
+          </p>
+          <p className="col-span-3 text-2xl font-extrabold uppercase text-foreground">
+            Monthly Stats{" "}
+          </p>
 
           {
             //Recent Invoices Table
           }
-          <div className="bg-background col-span-4 rounded-rounded p-5 text-foreground">
-            <p>Recent Invoices</p>
-            <div className="rounded-md px-2">
-              <table className="w-full">
-                <thead>
-                  <tr className="text-md border-b border-slate-300 text-left text-slate-600">
-                    <th>Invoice Number</th>
-                    <th>Date</th>
-                    <th>Issued To</th>
-                    <th>Total Amount</th>
+          {/* <div className="col-span-5 rounded-rounded"> */}
+          <div className="border-border col-span-5 rounded-lg border bg-background p-4 text-foreground">
+            <table className="text-s w-full">
+              <thead>
+                <tr className="border-border h-12 border-b py-2 text-left text-slate-600">
+                  <th>Invoice #</th>
+                  <th>Date</th>
+                  <th>Issued To</th>
+                  <th>Total Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {invoices?.invoices?.map((invoice) => (
+                  <tr key={invoice._id} className="h-11 py-4">
+                    <td>{invoice.invoiceNumber}</td>
+                    <td>{displayDate(invoice.invoiceDate)}</td>
+                    <td>{invoice.customer.name}</td>
+                    <td>
+                      {"₹ " +
+                        invoice.totalAmount.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {invoices?.invoices?.map((invoice) => (
-                    <tr key={invoice._id}>
-                      <td>{invoice.invoiceNumber}</td>
-                      <td>{displayDate(invoice.invoiceDate)}</td>
-                      <td>{invoice.customer.name}</td>
-                      <td>
-                        {"₹ " +
-                          invoice.totalAmount.toLocaleString(undefined, {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                ))}
+              </tbody>
+            </table>
           </div>
+          {/* </div> */}
 
-          {}
-          <div className="bg-background col-span-4 rounded-rounded p-5">
-            <div>
+          {/* Monthly Chart */}
+          <div className="col-span-3 rounded-rounded bg-background p-5">
+            <div className="flex flex-col">
               <div className="flex items-center gap-3 text-xl">
                 <button
                   onClick={() =>
@@ -213,6 +257,53 @@ const Dashboard = () => {
                 >
                   <FaAngleRight className="text-primary" />
                 </button>
+              </div>
+              <div className="mx-auto flex h-[400px] w-[400px] items-center justify-center">
+                {revenue?.monthlyChartData.length > 0 ? (
+                  <DoughnutChartComponent
+                    chartData={revenue?.monthlyChartData}
+                  />
+                ) : (
+                  <p>Insufficient Data to display Chart</p>
+                )}
+              </div>
+              <div className="w-full text-foreground">
+                <div className="flex justify-between">
+                  <div className="flex gap-4">
+                    <p>Invoices Issued:</p>
+                    <p className="font-numbers font-bold text-primary">
+                      {revenue?.monthlyStats.length > 0
+                        ? revenue.monthlyStats[0].invoiceCount
+                        : 0}
+                    </p>
+                  </div>
+                  <div className="flex gap-4">
+                    <p>Highest Invoice Value:</p>
+                    <p className="font-numbers font-bold text-primary">
+                      {"₹ " + revenue?.monthlyStats?.length > 0
+                        ? revenue?.monthlyStats[0]?.highestInvoiceValue.toLocaleString()
+                        : 0}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex justify-between">
+                  <div className="flex gap-4">
+                    <p>Revenue:</p>
+                    <p className="font-numbers font-bold text-primary">
+                      {"₹ " + parseInt(revenue?.monthlyStats?.length) > 0
+                        ? revenue.monthlyStats[0].totalRevenue.toLocaleString()
+                        : 0}
+                    </p>
+                  </div>
+                  <div className="flex gap-4">
+                    <p>Lowest Invoice Value:</p>
+                    <p className="font-numbers font-bold text-primary">
+                      {"₹ " + revenue?.monthlyStats.length > 0
+                        ? revenue.monthlyStats[0].lowestInvoiceValue.toLocaleString()
+                        : 0}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

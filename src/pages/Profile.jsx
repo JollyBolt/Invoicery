@@ -7,6 +7,7 @@ import Auth from "../components/Auth"
 import EditProfile from "../components/Profile/EditProfile"
 import Loader from "../components/Loader"
 import TnCModal from "../components/Profile/TnCModal"
+import { displayPhone } from "../utils/displayPhone"
 
 const Profile = () => {
   const [open, setOpen] = useState(false)
@@ -41,7 +42,7 @@ const Profile = () => {
       ) : loading ? (
         <>{/* // <Loader /> */}</>
       ) : (
-        <div className="bg-background flex h-full w-full flex-col flex-nowrap overflow-hidden rounded-rounded">
+        <div className="flex h-full w-full flex-col flex-nowrap overflow-hidden rounded-rounded bg-background">
           <div className="w-full bg-primary p-5 text-white shadow-md shadow-slate-400 dark:shadow-none">
             <p className="p-3 text-6xl font-black">{user.name}</p>
             <div className="flex items-center gap-20">
@@ -49,7 +50,8 @@ const Profile = () => {
                 Email: <span className="font-bold">{user.email}</span>
               </p>
               <p className="p-3 text-lg font-light">
-                Phone: <span className="font-bold">{user.phone}</span>
+                Phone:{" "}
+                <span className="font-bold">{displayPhone(user.phone)}</span>
               </p>
               <motion.button
                 initial={{ scale: 1 }}
@@ -64,27 +66,27 @@ const Profile = () => {
           </div>
 
           <div className="flex h-full w-full flex-1 p-3">
-            <div className="h-full w-1/4 border-r p-3">
+            <div className="flex h-full w-1/4 shrink-0 flex-col gap-2 border-r p-3">
               <p
-                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "organization" ? "text-background bg-primary" : "text-foreground hover:bg-secondaryBtnHover"} transition-all`}
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "organization" ? "bg-primary text-white" : "hover:bg-secondaryBtnHover text-foreground"} transition-all`}
                 onClick={() => setDetails("organization")}
               >
                 Organization Details
               </p>
               <p
-                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "banking" ? "text-background bg-primary" : "text-foreground hover:bg-secondaryBtnHover"} transition-all`}
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "banking" ? "bg-primary text-white" : "hover:bg-secondaryBtnHover text-foreground"} transition-all`}
                 onClick={() => setDetails("banking")}
               >
                 Banking Details
               </p>
               <p
-                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "tnc" ? "text-background bg-primary" : "text-foreground hover:bg-secondaryBtnHover"} transition-all`}
+                className={`cursor-pointer rounded-rounded p-3 text-2xl ${details == "tnc" ? "bg-primary text-white" : "hover:bg-secondaryBtnHover text-foreground"} transition-all`}
                 onClick={() => setDetails("tnc")}
               >
                 Terms and Conditions
               </p>
             </div>
-            <div className="p-3">
+            <div className="w-2/3">
               <div
                 className={`${
                   details !== "organization" && "hidden"
@@ -155,7 +157,7 @@ const Profile = () => {
                 </div>
               </div>
               <div
-                className={`${details !== "tnc" && "hidden"} flex w-full flex-col gap-5 p-5 text-xl text-foreground`}
+                className={`${details !== "tnc" && "hidden"} flex w-2/3 flex-col gap-5 p-5 text-xl text-foreground`}
               >
                 {user?.termsNConditions.length > 0 ? (
                   <>
@@ -164,22 +166,26 @@ const Profile = () => {
                         <li key={ind}>{tnc}</li>
                       ))}
                     </ol>
-                    <button
-                      type="button"
-                      onClick={() => setEditOpen(true)}
-                      className="text-background rounded-rounded bg-primary p-2 px-4"
-                    >
-                      Edit Terms and Conditions
-                    </button>
+                    <div>
+                      <button
+                        type="button"
+                        onClick={() => setEditOpen(true)}
+                        className="rounded-rounded bg-primary p-2 px-4 text-white"
+                      >
+                        Edit Terms and Conditions
+                      </button>
+                    </div>
                   </>
                 ) : (
-                  <button
-                    type="button"
-                    className="text-background rounded-rounded bg-primary p-2"
-                    onClick={() => setEditOpen(true)}
-                  >
-                    Add Terms and Conditions
-                  </button>
+                  <div className="flex w-full">
+                    <button
+                      type="button"
+                      className="rounded-rounded bg-primary p-2 text-white"
+                      onClick={() => setEditOpen(true)}
+                    >
+                      Add Terms and Conditions
+                    </button>
+                  </div>
                 )}
               </div>
             </div>

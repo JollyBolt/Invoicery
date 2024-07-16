@@ -12,15 +12,15 @@ const RootLayout = () => {
   //   dispatch(refreshAuth())
   // }, [])
   return (
-    <>
-      <Sidebar/>
+    <div className="bg-muted">
+      <Sidebar />
       <div
         id="parent"
-        className={`ml-[56px] bg-muted transition-all duration-500`}
+        className={`ml-[56px] max-w-screen-2xl bg-muted 2xl:mx-auto`}
       >
         <Outlet />
       </div>
-    </>
+    </div>
   )
 }
 

@@ -74,7 +74,7 @@ function Sidebar() {
     <div>
       <nav id="nav" className="fixed top-0 z-50">
         <div
-          className={`bg-background flex h-screen flex-col justify-between p-2 shadow-lg ${dark === "light" && "shadow- slate-300"} transition-all delay-[25ms] duration-500 ${
+          className={`flex h-screen flex-col justify-between bg-background p-2 shadow-lg ${dark === "light" && "shadow- slate-300"} transition-[colors_0s,transform_0.5s] delay-[25ms] ${
             open ? "w-[230px]" : "w-[56px]"
           }`}
           onMouseEnter={() => setOpen(true)}
@@ -139,7 +139,7 @@ function Sidebar() {
           <div className="flex flex-col gap-4 overflow-hidden border-t border-gray-500 pt-2">
             <div
               onClick={toggleDark}
-              className={`transition-[border-radius] hover:cursor-pointer hover:bg-secondaryBtnHover ${
+              className={`hover:bg-secondaryBtnHover transition-[border-radius] hover:cursor-pointer ${
                 open ? "rounded-rounded delay-0" : "rounded-[50%] delay-300"
               } duration-400 flex items-center gap-3.5 px-2 py-1 ease-linear`}
             >
@@ -175,7 +175,7 @@ function Sidebar() {
                 <IoPowerOutline size={24} className="shrink-0" />
 
                 <h2
-                  className={`text-md overflow-hidden whitespace-pre select-none [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s] ${
+                  className={`text-md select-none overflow-hidden whitespace-pre [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s] ${
                     open ? "translate-x-0 opacity-100" : "translate-x-24"
                   }`}
                 >

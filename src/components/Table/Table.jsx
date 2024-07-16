@@ -38,13 +38,17 @@ const Table = ({
 
   return (
     <div className="flex h-full flex-col">
-      <div className="bg-background flex h-full w-full flex-1 flex-col rounded-md border border-slate-300 px-4 py-2 text-foreground">
+      <div className="border-border flex w-full flex-col rounded-md border bg-background px-4 py-2 text-foreground">
         <table className="w-full rounded-rounded px-2">
-          <thead className="h-14 rounded-rounded text-left text-lg text-slate-600">
+          <thead className="h-11 rounded-rounded text-left text-sm text-slate-600">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr className="p-5" key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th className="px-5 uppercase" key={header.id}>
+                  <th
+                    className="px-5 capitalize"
+                    key={header.id}
+                    style={{ width: `${header.getSize()}%` }}
+                  >
                     {flexRender(
                       header.column.columnDef.header,
                       header.getContext(),
@@ -57,11 +61,15 @@ const Table = ({
           <tbody>
             {table.getRowModel().rows.map((row, index) => (
               <tr
-                className="h-11 border-t border-slate-300 text-sm"
+                className="border-border max-h-20 grow-0 border-t text-sm"
                 key={row.id}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <td className="px-5 py-[14px]" key={cell.id}>
+                  <td
+                    className="px-5 py-[14px]"
+                    key={cell.id}
+                    style={{ width: `${cell.column.getSize()}%` }}
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}

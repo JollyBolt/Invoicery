@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchSingleCustomer } from "../../redux/slices/customerSlice"
 import { displayPhone } from "../../utils/displayPhone"
-import LineChart from "../../components/Charts/LineChart"
-import BarChart from "../../components/Charts/BarChart"
+import AreaChartComponent from "../../components/Charts/AreaChartComponent"
+import BarChartComponent from "../../components/Charts/BarChartComponent"
 import { motion } from "framer-motion"
 import { fetchAllInvoices } from "../../redux/slices/invoiceSlice"
 import Table from "../../components/Table/Table"
@@ -23,13 +23,14 @@ import { customerInvoicesColumns } from "../../components/Table/Columns"
 import EditCustomer from "../../components/Customer/EditCustomer"
 import axios from "axios"
 import getCookieValue from "../../utils/getCookieValue"
+import YearChart from "../../components/Charts/YearChart"
 
 const CustomerDetail = () => {
   const [currentYear, setCurrentYear] = useState(
     new Date().getFullYear().toString(),
   )
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth())
-  const [chart, setChart] = useState("line")
+  const [chart, setChart] = useState("area")
   const handleChange = (e) => {
     setChart(e.target.value)
   }
@@ -73,6 +74,7 @@ const CustomerDetail = () => {
       },
     )
     setRevenue(data)
+    console.log(data)
   }
 
   useEffect(() => {
@@ -96,7 +98,7 @@ const CustomerDetail = () => {
       )}
       {/* CustomerDetail */}
       <div className="flex h-full w-full gap-4 text-foreground">
-        <div className="bg-background flex h-[calc(100dvh-80px)] w-1/4 flex-col gap-3 rounded-rounded p-4 text-lg">
+        <div className="flex h-[calc(100dvh-80px)] w-1/4 flex-col gap-3 rounded-rounded bg-background p-4 text-lg">
           <div className="flex items-center justify-between">
             <p className="text-2xl font-bold">Customer Info</p>
             <button
@@ -138,27 +140,33 @@ const CustomerDetail = () => {
         <div className="no-scrollbar flex h-[calc(100dvh-80px)] w-3/4 scroll-m-0 flex-col gap-4 overflow-scroll">
           <div className="flex gap-4">
             <div className="flex w-1/3 flex-col gap-4">
-              <div className="bg-background rounded-rounded p-4">
+              <div className="rounded-rounded bg-background p-4">
                 <p className="font-light uppercase">Revenue This Month</p>
                 <p className="py-4 font-numbers text-4xl font-bold text-primary">
-                  {"₹" + revenue?.revenueThisMonth.toLocaleString()}
+                  {"₹" + revenue
+                    ? revenue?.revenueThisMonth.toLocaleString()
+                    : 0}
                 </p>
               </div>
-              <div className="bg-background rounded-rounded p-4">
+              <div className="rounded-rounded bg-background p-4">
                 <p className="font-light uppercase">Revenue This Year</p>
                 <p className="py-4 font-numbers text-4xl font-bold text-primary">
-                  {"₹" + revenue?.revenueThisYear.toLocaleString()}
+                  {"₹" + revenue
+                    ? revenue?.revenueThisYear.toLocaleString()
+                    : 0}
                 </p>
               </div>
-              <div className="bg-background rounded-rounded p-4">
+              <div className="rounded-rounded bg-background p-4">
                 <p className="font-light uppercase">Revenue Till Date</p>
                 <p className="py-4 font-numbers text-4xl font-bold text-primary">
-                  {"₹" + revenue?.revenueTillDate.toLocaleString()}
+                  {"₹" + revenue
+                    ? revenue?.revenueTillDate.toLocaleString()
+                    : 0}
                 </p>
               </div>
             </div>
             {/* Chart */}
-            <div className="bg-background w-2/3 rounded-rounded p-4">
+            <div className="w-2/3 rounded-rounded bg-background p-4">
               <div className="mb-3 flex items-center justify-between">
                 <div className="flex items-center gap-3 text-xl">
                   <button onClick={() => setCurrentYear((prev) => prev - 1)}>
@@ -175,18 +183,14 @@ const CustomerDetail = () => {
                   id="chartType"
                   value={chart}
                   onChange={handleChange}
-                  className="mt-1 block w-[13%] rounded-md border border-gray-300 px-2 py-2 text-base focus:outline-none sm:text-sm"
+                  className="border-border mt-1 w-[13%] rounded-md border px-2 py-2 text-sm focus:outline-none"
                 >
                   <option value="bar">Bar</option>
-                  <option value="line">Line</option>
+                  <option value="area">Area</option>
                 </select>
               </div>
               <>
-                {chart == "line" ? (
-                  <LineChart revenue={revenue?.revenueForChart} />
-                ) : (
-                  <BarChart revenue={revenue?.revenueForChart} />
-                )}
+                <YearChart chart={chart} revenue={revenue?.revenueForChart} />
               </>
             </div>
           </div>
@@ -202,7 +206,7 @@ const CustomerDetail = () => {
                 setPagination={setPagination}
               />
             ) : (
-              <div className="bg-background flex h-[32.8vh] w-full items-center justify-center">
+              <div className="flex h-[32.8vh] w-full items-center justify-center bg-background">
                 <p className="text-xl">
                   You have not issued any invoice to {customerDetails?.client}.
                 </p>

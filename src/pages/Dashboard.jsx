@@ -24,8 +24,7 @@ const Dashboard = () => {
   const [currentYear, setCurrentYear] = useState(
     new Date().getFullYear().toString(),
   )
-  // const [currentMonth, setCurrentMonth] = useState(new Date().getMonth())
-  const [currentMonth, setCurrentMonth] = useState(5)
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth())
   const { invoices } = useSelector((state) => state.invoices)
   const [revenue, setRevenue] = useState(null) // This is to manage the revenue
 
@@ -63,7 +62,6 @@ const Dashboard = () => {
       },
     )
     setRevenue(data)
-    console.log(data)
   }
 
   useEffect(() => {
@@ -163,31 +161,37 @@ const Dashboard = () => {
                   <div className="flex gap-4 text-2xl">
                     <p className="w-[250px]">Invoices Issued:</p>
                     <p className="font-numbers font-bold text-primary">
-                      {
-                        revenue?.revenueForYearlyChart.overallStats[0]
-                          .invoiceCount
-                      }
+                      {revenue?.revenueForYearlyChart.overallStats.length > 0
+                        ? revenue?.revenueForYearlyChart.overallStats[0]
+                            .invoiceCount
+                        : 0}
                     </p>
                   </div>
                   <div className="flex gap-4 text-2xl">
                     <p className="w-[250px]">Highest Invoice Value:</p>
                     <p className="font-numbers font-bold text-primary">
-                      {"₹ " +
-                        revenue?.revenueForYearlyChart.overallStats[0].highestInvoiceValue.toLocaleString()}
+                      ₹
+                      {revenue?.revenueForYearlyChart.overallStats.length > 0
+                        ? revenue?.revenueForYearlyChart.overallStats[0].highestInvoiceValue.toLocaleString()
+                        : 0}
                     </p>
                   </div>
                   <div className="flex gap-4 text-2xl">
                     <p className="w-[250px]">Lowest Invoice Value:</p>
                     <p className="font-numbers font-bold text-primary">
-                      {"₹ " +
-                        revenue?.revenueForYearlyChart.overallStats[0].lowestInvoiceValue.toLocaleString()}
+                      ₹
+                      {revenue?.revenueForYearlyChart.overallStats.length > 0
+                        ? revenue?.revenueForYearlyChart.overallStats[0].lowestInvoiceValue.toLocaleString()
+                        : 0}
                     </p>
                   </div>
                   <div className="flex gap-4 text-2xl">
                     <p className="w-[250px]">Revenue:</p>
                     <p className="font-numbers font-bold text-primary">
-                      {"₹ " +
-                        revenue?.revenueForYearlyChart.overallStats[0].totalRevenue.toLocaleString()}
+                      ₹
+                      {revenue?.revenueForYearlyChart.overallStats.length > 0
+                        ? revenue?.revenueForYearlyChart.overallStats[0].totalRevenue.toLocaleString()
+                        : 0}
                     </p>
                   </div>
                 </div>
@@ -280,9 +284,10 @@ const Dashboard = () => {
                   <div className="flex gap-4">
                     <p>Highest Invoice Value:</p>
                     <p className="font-numbers font-bold text-primary">
-                      {"₹ " + revenue?.monthlyStats?.length > 0
+                      ₹
+                      {revenue?.monthlyStats?.length > 0
                         ? revenue?.monthlyStats[0]?.highestInvoiceValue.toLocaleString()
-                        : 0}
+                        : +0}
                     </p>
                   </div>
                 </div>
@@ -290,7 +295,8 @@ const Dashboard = () => {
                   <div className="flex gap-4">
                     <p>Revenue:</p>
                     <p className="font-numbers font-bold text-primary">
-                      {"₹ " + parseInt(revenue?.monthlyStats?.length) > 0
+                      ₹
+                      {revenue?.monthlyStats?.length > 0
                         ? revenue.monthlyStats[0].totalRevenue.toLocaleString()
                         : 0}
                     </p>
@@ -298,7 +304,8 @@ const Dashboard = () => {
                   <div className="flex gap-4">
                     <p>Lowest Invoice Value:</p>
                     <p className="font-numbers font-bold text-primary">
-                      {"₹ " + revenue?.monthlyStats.length > 0
+                      ₹
+                      {revenue?.monthlyStats.length > 0
                         ? revenue.monthlyStats[0].lowestInvoiceValue.toLocaleString()
                         : 0}
                     </p>

@@ -10,10 +10,11 @@ export default {
         // accent: "var(--accent)",
         primaryLight: "var(--primaryLight)",
         muted: "hsl(var(--muted))",
+        border: "hsl(var(--border))",
         background: "hsl(var(--background))",
         disabledText: "hsl(var(--disabledText))",
         placeholderText: "hsl(var(--placeholderText))",
-        secondaryBtnHover:"hsl(var(--secondaryBtnHover))",
+        secondaryBtnHover: "hsl(var(--secondaryBtnHover))",
       },
       // colors: {
       //   border: "hsl(var(--border))",

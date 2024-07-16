@@ -26,7 +26,7 @@ const CustomerActions = ({ row }) => {
           className="hover:bg-border flex items-center gap-1.5 rounded-rounded px-2"
           onClick={(e) => {
             e.stopPropagation()
-            setOpen((prev) => !prev)
+            setModalOpen((prev) => !prev)
             sessionStorage.setItem("customerName", row.original.client)
             navigate(`./${row.original._id}`)
           }}
@@ -38,7 +38,6 @@ const CustomerActions = ({ row }) => {
           className="hover:bg-border flex items-center gap-1.5 rounded-rounded px-2"
           onClick={(e) => {
             e.stopPropagation()
-            setOpen((prev) => !prev)
             setModalOpen(true)
           }}
         >

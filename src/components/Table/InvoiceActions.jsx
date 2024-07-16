@@ -39,7 +39,7 @@ const InvoiceActions = ({ row }) => {
             e.stopPropagation()
             sessionStorage.setItem("invoiceState", JSON.stringify(row.original))
             sessionStorage.setItem("mode", "edit")
-            navigate(`./${row.original._id}`)
+            navigate(`/invoice/${row.original._id}`)
           }}
         >
           <MdEdit />

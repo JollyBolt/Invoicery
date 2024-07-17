@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 import { useEffect } from "react"
-import { useSelector } from "react-redux"
+import { MdEdit, MdDelete } from "react-icons/md"
 
 const TermsNConditions = ({ register, tNc, invoiceState, setInvoiceState }) => {
   const { fields, append, remove } = tNc
@@ -44,6 +44,23 @@ const TermsNConditions = ({ register, tNc, invoiceState, setInvoiceState }) => {
         exit={{ opacity: 0 }}
         transition={{ duration: 1 }}
       >
+        <button
+          onClick={() => {
+            append({ tnc: "" })
+            setInvoiceState({
+              ...invoiceState,
+              termsNConditions: invoiceState.termsNConditions.concat([
+                // { tnc: "" },
+                "",
+              ]),
+            })
+          }}
+          type="button"
+          className="text-md mb-4 w-full rounded-rounded bg-primary p-1 text-white"
+        >
+          <span className="text-lg font-semibold">+</span> Add Field
+        </button>
+
         <div className="mb-5 mt-2 flex flex-col gap-y-4">
           {fields.map((field, ind) => {
             //RHF recommends using field.id as key instead of ind
@@ -54,8 +71,8 @@ const TermsNConditions = ({ register, tNc, invoiceState, setInvoiceState }) => {
               >
                 <div className="relative flex w-10/12 flex-col overflow-visible">
                   <textarea
-                    rows={1}
-                    className="border-1 border-placeholderText placeholder:text-placeholderText peer w-full rounded-rounded border bg-background px-2 py-2 text-lg text-foreground transition-colors duration-500 focus:border-foreground focus:outline-none"
+                    rows={2}
+                    className="border-1 peer w-full rounded-rounded border border-placeholderText bg-background px-2 py-2 text-sm text-foreground transition-colors duration-500 placeholder:text-placeholderText focus:border-foreground focus:outline-none"
                     type="text"
                     placeholder="Terms and Conditions"
                     {...register(`termsNConditions[${ind}].tnc`, {
@@ -76,41 +93,20 @@ const TermsNConditions = ({ register, tNc, invoiceState, setInvoiceState }) => {
                     })}
                   />
                 </div>
-
-                {/* {ind > 0 ? ( //can't remove all fields, atleast one field has to be added */}
                 <button
-                  className="flex w-fit flex-nowrap justify-center text-white"
+                  className="flex w-fit flex-nowrap justify-center px-4 py-2 text-xl text-slate-400 transition-colors hover:text-foreground"
                   type="button"
                   onClick={() => {
                     remove(ind)
                     handleDelete(ind)
                   }}
                 >
-                  <span className="rounded-full bg-transparent px-4 py-2 text-xl font-light text-red-500 transition-colors hover:bg-neutral-200">
-                    X
-                  </span>
+                  <MdDelete />
                 </button>
               </div>
             )
           })}
         </div>
-
-        <button
-          onClick={() => {
-            append({ tnc: "" })
-            setInvoiceState({
-              ...invoiceState,
-              termsNConditions: invoiceState.termsNConditions.concat([
-                // { tnc: "" },
-                "",
-              ]),
-            })
-          }}
-          type="button"
-          className="text-md float-right mb-4 rounded-rounded p-1 text-primary outline outline-1 outline-primary hover:bg-primary hover:text-white"
-        >
-          <span className="text-lg font-semibold">+</span> Add Field
-        </button>
       </motion.div>
     </>
   )

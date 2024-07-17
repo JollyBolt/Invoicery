@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React from "react"
+import { Link, useLocation } from "react-router-dom"
 
 /**
  * A functional component that renders breadcrumb navigation based on the current route.
@@ -9,26 +9,32 @@ const Breadcrumb = () => {
   /**
    * Get the current location's pathname.
    */
-  const { pathname } = useLocation();
+  const { pathname } = useLocation()
 
   /**
    * Split the pathname into an array of path segments, excluding empty segments.
    * @type {string[]}
    */
-  const path = pathname.split("/").filter((pathname) => pathname);
+  const path = pathname.split("/").filter((pathname) => pathname)
 
   /**
    * Initialize a string to store the current breadcrumb path.
    * @type {string}
    */
-  let breadcrumbPath = "";
+  let breadcrumbPath = ""
 
   return (
     <div className="">
       {
         // Render the Dashboard link if there are path segments.
         path.length > 0 && (
-          <Link to="/" className="capitalize text-foreground hover:underline">
+          <Link
+            to="/"
+            onClick={() => {
+              sessionStorage.clear()
+            }}
+            className="capitalize text-foreground hover:underline"
+          >
             Dashboard
           </Link>
         )
@@ -37,7 +43,7 @@ const Breadcrumb = () => {
         // Map through the path segments to render the breadcrumb links.
         path.map((name, index) => {
           // Update the breadcrumb path.
-          breadcrumbPath += `/${name}`;
+          breadcrumbPath += `/${name}`
           return (
             // Render the last breadcrumb segment without a link.
             index === path.length - 1 ? (
@@ -50,6 +56,7 @@ const Breadcrumb = () => {
               <span key={index} className="text-foreground">
                 &nbsp;{">"}{" "}
                 <Link
+                  onClick={() => sessionStorage.clear()}
                   to={breadcrumbPath}
                   className="capitalize text-foreground hover:underline"
                 >
@@ -57,11 +64,11 @@ const Breadcrumb = () => {
                 </Link>
               </span>
             )
-          );
+          )
         })
       }
     </div>
-  );
-};
+  )
+}
 
-export default Breadcrumb;
+export default Breadcrumb

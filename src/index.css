@@ -6,6 +6,21 @@
 
 @layer base {
   :root {
+    font-family: "Figtree", serif;
+    line-height: 1.5;
+    font-weight: 400;
+    --primaryLight: #3d1df1fb;
+    --primaryDark: #220468;
+    --secondary: #1e2ede;
+    --accent: #8884ff;
+    --rounded: 4px;
+  
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    
     --primary: 253 92% 33%;
 
     --foreground: 0 0% 0%;
@@ -15,7 +30,7 @@
     --border: 240 6% 90%;
 
     --disabledText: 216 12% 84%;
-    --placeholderText:220 9% 46%;
+    --placeholderText: 220 9% 46%;
 
     /* For hovering on Cancel & Toggle theme buttons */
     --secondaryBtnHover: 216 12% 84%;
@@ -30,7 +45,7 @@
     --border: 240 4% 16%;
 
     --disabledText: 216 50% 60%;
-    --placeholderText:220 9% 46%;
+    --placeholderText: 220 9% 46%;
 
     /* For hovering on Cancel & Toggle theme buttons */
     --secondaryBtnHover: 216 50% 60%;
@@ -101,18 +116,18 @@
   }
 } */
 
-/* @layer base {
+@layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
   }
-} */
+}
 
 @layer components {
   .float-label {
-    @apply bg-background absolute left-1 top-0 translate-y-[-50%] px-2 text-sm font-semibold transition-all duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:translate-y-[-50%] peer-placeholder-shown:cursor-text peer-focus:top-0 text-placeholderText;
+    @apply absolute left-1 top-0 translate-y-[-50%] bg-background px-2 text-sm font-semibold text-placeholderText transition-all duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:translate-y-[-50%] peer-placeholder-shown:cursor-text peer-focus:top-0;
   }
 }
 
@@ -128,28 +143,6 @@
   }
 }
 
-:root {
-  font-family: "Figtree", serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  /* --primary: #460E7A; */
-  --primaryLight: #3d1df1fb;
-  --primaryDark: #220468;
-  /* --primary: #2807a0; */
-  /* --primary: #2a0948; */
-  /* --foreground: #ffffff; */
-  --secondary: #1e2ede;
-  --accent: #8884ff;
-  --rounded: 4px;
-  /* #DCCCBB */
-  /* --secondary: #E7EBC5; */
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,

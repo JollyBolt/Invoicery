@@ -4,7 +4,7 @@ import { HiMenuAlt2 } from "../assets/index"
 import { navLinks } from "../constants"
 import { useNavigate } from "react-router-dom"
 import { IoSunnyOutline, IoMoonOutline, IoPowerOutline } from "../assets/index"
-
+import { themeSlice } from "../redux/slices/themeSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { getProfile } from "../redux/slices/userSlice"
 
@@ -50,7 +50,10 @@ function Sidebar() {
         ? "dark"
         : "light",
   )
+  const { toggleTheme } = themeSlice.actions
+
   const toggleDark = () => {
+    dispatch(toggleTheme())
     if (dark !== "dark") {
       setDark("dark")
     } else {
@@ -136,7 +139,7 @@ function Sidebar() {
                 open ? "rounded-rounded delay-0" : "rounded-[50%] delay-300"
               } duration-400 flex items-center gap-3.5 p-2 ease-linear`}
             >
-              {dark === "dark" ? (
+              {dark === "light" ? (
                 <IoSunnyOutline
                   size={24}
                   className="shrink-0 text-foreground"
@@ -159,6 +162,7 @@ function Sidebar() {
                   document.cookie =
                     "authToken= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
                   // navigate("/");
+                  sessionStorage.clear()
                   window.location.reload()
                 }}
                 className={`text-red-500 transition-[border-radius] hover:bg-red-500 hover:text-white ${

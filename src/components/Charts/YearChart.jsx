@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react"
 import AreaChartComponent from "./AreaChartComponent"
 import BarChartComponent from "./BarChartComponent"
+import { useSelector } from "react-redux"
 
 const YearChart = ({ chart, revenue }) => {
   const [finalYearData, setFinalYearData] = useState(null)
+  const { theme } = useSelector((state) => state.theme)
 
   const labels = [
     "Jan",

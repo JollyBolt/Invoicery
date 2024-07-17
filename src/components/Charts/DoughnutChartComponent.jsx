@@ -1,5 +1,6 @@
 import React from "react"
 import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from "recharts"
+import { useSelector } from "react-redux"
 
 const DoughnutChartComponent = ({ chartData }) => {
   const renderCustomizedLabel = ({
@@ -15,6 +16,8 @@ const DoughnutChartComponent = ({ chartData }) => {
     const x = cx + radius * Math.cos(-midAngle * RADIAN) + 3
     const y = cy + radius * Math.sin(-midAngle * RADIAN)
 
+
+    const { theme } = useSelector((state) => state.theme)
     return (
       <text
         x={x}

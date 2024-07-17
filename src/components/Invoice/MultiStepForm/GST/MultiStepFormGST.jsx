@@ -1,10 +1,6 @@
 import { motion } from "framer-motion"
 import { useForm, useFieldArray } from "react-hook-form"
 import { useDispatch, useSelector } from "react-redux"
-import {
-  createInvoice,
-  editInvoice,
-} from "../../../../redux/slices/invoiceSlice"
 import InvoiceDetails from "./InvoiceDetails"
 import AddCustomer from "./AddCustomer"
 import Taxes from "./Taxes"
@@ -13,13 +9,11 @@ import Finish from "./Finish"
 import BillingAddressDetails from "./BillingAddressDetails"
 import AddProducts from "./Product Step/AddProducts"
 import ShippingAddressDetails from "./ShippingAddressDetails"
-import { useReactToPrint } from "react-to-print"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 function MultiStepFormGST({
   step,
   setStep,
-  // printDocRef,
   invoiceState,
   setInvoiceState,
   handlePrint,
@@ -205,7 +199,8 @@ function MultiStepFormGST({
       case 9:
         return (
           <Finish
-          //  printDocRef={printDocRef}
+          handlePrint={handlePrint}
+          invoiceState={invoiceState}
           />
         )
     }
@@ -257,7 +252,7 @@ function MultiStepFormGST({
     }
   }
 
-  const { id } = useParams()
+
 
   return (
     <div className="flex h-full w-full flex-col justify-between">
@@ -275,32 +270,32 @@ function MultiStepFormGST({
         >
           Go Back
         </button>
-        {step === 9 && (
+        {/* {step === 9 && (
           <button type="button" onClick={handlePrint}>
             Print
           </button>
-        )}
-        {step === 9 ? (
-          <motion.button
-            initial={{ scale: 1 }}
-            whileTap={isDirty && isValid && { scale: 0.85 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => {
-              console.log(invoiceState)
-              if (sessionStorage.getItem("mode") === "create") {
-                dispatch(createInvoice(invoiceState))
-              } else if (sessionStorage.getItem("mode") === "edit") {
-                dispatch(editInvoice({ id, body: invoiceState }))
-              }
-              sessionStorage.clear()
-              navigate("/invoice")
-            }}
-            // disabled={setDisabled()}
-            className="disabled:text-disabledText select-none rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight disabled:cursor-default disabled:bg-primaryLight"
-          >
-            Save
-          </motion.button>
-        ) : (
+        )} */}
+        {step < 9 && (
+          // <motion.button
+          //   initial={{ scale: 1 }}
+          //   whileTap={isDirty && isValid && { scale: 0.85 }}
+          //   transition={{ duration: 0.2 }}
+          //   onClick={() => {
+          //     console.log(invoiceState)
+          //     if (sessionStorage.getItem("mode") === "create") {
+          //       dispatch(createInvoice(invoiceState))
+          //     } else if (sessionStorage.getItem("mode") === "edit") {
+          //       dispatch(editInvoice({ id, body: invoiceState }))
+          //     }
+          //     sessionStorage.clear()
+          //     navigate("/invoice")
+          //   }}
+          //   // disabled={setDisabled()}
+          //   className="disabled:text-disabledText select-none rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight disabled:cursor-default disabled:bg-primaryLight"
+          // >
+          //   Save
+          // </motion.button>
+        // ) : (
           <motion.button
             initial={{ scale: 1 }}
             whileTap={!setDisabled() && { scale: 0.85 }}

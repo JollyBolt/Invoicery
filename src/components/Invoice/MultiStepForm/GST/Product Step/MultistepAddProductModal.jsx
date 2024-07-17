@@ -138,7 +138,7 @@ function MultistepAddProductModal({
                                   setKey(0)
                                 }
                               }}
-                              placeholder="Enter at least 3 characters"
+                              placeholder="Enter Product Name"
                               {...register(`product.name`, {
                                 required: {
                                   value: true,

@@ -6,8 +6,10 @@ import {
   AreaChart,
   Area,
 } from "recharts"
+import { useSelector } from "react-redux"
 
 const AreaChartComponent = ({ yearData }) => {
+  const { theme } = useSelector((state) => state.theme)
   return (
     <ResponsiveContainer width="100%" height={300}>
       <AreaChart width={600} height={300} data={yearData}>

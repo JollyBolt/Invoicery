@@ -59,7 +59,7 @@ const Stepper = ({ step, template }) => {
       case 8:
         return "Terms & Conditions"
       case 9:
-        return "Review Information"
+        return "Save & Print"
     }
   }
 

@@ -104,7 +104,7 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                 className="bg-background mx-auto h-fit w-2/3 max-w-none rounded-rounded px-5 pb-1 pt-4"
               >
                 <div className="mx-auto mb-2 flex w-full flex-nowrap justify-between">
-                  <h3 className="font-sans text-3xl font-extrabold">
+                  <h3 className="font-sans text-3xl font-extrabold text-foreground">
                     Edit Customer
                   </h3>
                   <motion.button
@@ -267,7 +267,7 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                   </div>
                 </div>
 
-                <p className="text-center text-xs">
+                <p className="text-center text-xs text-foreground">
                   Billing Adresses are added & edited inside{" "}
                   <span className="text-primaryLight">Customer Detail </span>
                   page.
@@ -281,7 +281,7 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                       reset()
                       setModalOpen(false)
                     }}
-                    className="text-md hover:bg-secondaryBtnHover h-fit w-fit rounded-rounded border-none bg-transparent p-2 shadow-none transition-colors duration-150 hover:border-none"
+                    className="text-md hover:bg-secondaryBtnHover h-fit w-fit rounded-rounded border-none bg-transparent p-2 shadow-none transition-colors duration-150 hover:border-none text-foreground"
                   >
                     Cancel
                   </button>

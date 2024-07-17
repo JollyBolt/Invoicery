@@ -83,6 +83,7 @@ const editCustomer = createAsyncThunk(
           },
         },
       )
+      console.log(res.data)
       return res.data
     } catch (e) {
       console.log(e)

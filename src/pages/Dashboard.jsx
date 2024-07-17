@@ -19,6 +19,7 @@ import { fetchAllInvoices } from "../redux/slices/invoiceSlice"
 import { displayDate } from "../utils/displayDate"
 import YearChart from "../components/Charts/YearChart"
 import DoughnutChartComponent from "../components/Charts/DoughnutChartComponent"
+import AreaBarSwitch from "../components/Charts/AreaBarSwitch"
 
 const Dashboard = () => {
   const [currentYear, setCurrentYear] = useState(
@@ -139,15 +140,12 @@ const Dashboard = () => {
                   <FaAngleRight className="text-primary" />
                 </button>
               </div>
-              <select
-                id="chartType"
-                value={chart}
-                onChange={handleChange}
-                className="mt-1 block w-[13%] rounded-md border border-gray-300 bg-background px-2 py-2 text-base text-foreground focus:outline-none sm:text-sm"
-              >
-                <option value="bar">Bar</option>
-                <option value="area">Area</option>
-              </select>
+
+              <AreaBarSwitch
+                chart={chart}
+                setChart={setChart}
+                style={"w-1/12"}
+              />
             </div>
             <div className="flex w-full">
               <div className="w-[65%]">
@@ -210,10 +208,10 @@ const Dashboard = () => {
             //Recent Invoices Table
           }
           {/* <div className="col-span-5 rounded-rounded"> */}
-          <div className="border-border col-span-5 rounded-lg border bg-background p-4 text-foreground">
+          <div className="col-span-5 rounded-lg border border-border bg-background p-4 text-foreground">
             <table className="text-s w-full">
               <thead>
-                <tr className="border-border h-12 border-b py-2 text-left text-slate-600">
+                <tr className="h-12 border-b border-border py-2 text-left text-slate-600">
                   <th>Invoice #</th>
                   <th>Date</th>
                   <th>Issued To</th>
@@ -268,7 +266,9 @@ const Dashboard = () => {
                     chartData={revenue?.monthlyChartData}
                   />
                 ) : (
-                  <p>Insufficient Data to display Chart</p>
+                  <p className="text-foreground">
+                    Insufficient Data to display Chart
+                  </p>
                 )}
               </div>
               <div className="w-full text-foreground">

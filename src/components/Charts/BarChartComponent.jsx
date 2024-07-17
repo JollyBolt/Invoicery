@@ -9,7 +9,10 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts"
+import { useSelector } from "react-redux"
+
 const BarChartComponent = ({ yearData }) => {
+  const { theme } = useSelector((state) => state.theme)
   return (
     <ResponsiveContainer width="100%" height={300}>
       <BarChart width={600} height={300} data={yearData}>

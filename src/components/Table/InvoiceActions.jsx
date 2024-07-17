@@ -23,7 +23,7 @@ const InvoiceActions = ({ row }) => {
       )}
       <div className="flex gap-1">
         <button
-          className="hover:bg-border flex items-center gap-1.5 rounded-rounded px-2"
+          className="flex items-center gap-1.5 rounded-rounded px-2 hover:bg-border"
           onClick={(e) => {
             e.stopPropagation()
             setModalOpen((prev) => !prev)
@@ -34,9 +34,10 @@ const InvoiceActions = ({ row }) => {
         </button>
 
         <button
-          className="hover:bg-border flex items-center gap-1.5 rounded-rounded px-2"
+          className="flex items-center gap-1.5 rounded-rounded px-2 hover:bg-border"
           onClick={(e) => {
             e.stopPropagation()
+            sessionStorage.clear()
             sessionStorage.setItem("invoiceState", JSON.stringify(row.original))
             sessionStorage.setItem("mode", "edit")
             navigate(`/invoice/${row.original._id}`)
@@ -47,7 +48,7 @@ const InvoiceActions = ({ row }) => {
         </button>
 
         <button
-          className="hover:bg-border flex items-center gap-1.5 rounded-rounded px-2 text-red-500"
+          className="flex items-center gap-1.5 rounded-rounded px-2 text-red-500 hover:bg-border"
           onClick={(e) => {
             e.stopPropagation()
             dispatch(deleteInvoice(row.original._id))

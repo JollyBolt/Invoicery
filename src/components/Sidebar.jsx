@@ -81,13 +81,6 @@ function Sidebar() {
           onMouseLeave={() => setOpen(false)}
         >
           <div>
-            {/* <div className={`flex py-3`}>
-              <HiMenuAlt2
-                size={24}
-                className="cursor-pointer"
-                onClick={() => setOpen(!open)}
-              />
-            </div> */}
             <div className="relative mt-4 flex flex-col justify-between gap-4">
               <div className="flex gap-3.5 overflow-hidden text-nowrap px-2">
                 <div className="flex w-6 shrink-0 -skew-x-12 justify-center border border-primary text-2xl font-extrabold uppercase text-primary">
@@ -139,9 +132,9 @@ function Sidebar() {
           <div className="flex flex-col gap-4 overflow-hidden border-t border-gray-500 pt-2">
             <div
               onClick={toggleDark}
-              className={`hover:bg-secondaryBtnHover transition-[border-radius] hover:cursor-pointer ${
+              className={`transition-[border-radius] hover:cursor-pointer hover:bg-secondaryBtnHover ${
                 open ? "rounded-rounded delay-0" : "rounded-[50%] delay-300"
-              } duration-400 flex items-center gap-3.5 px-2 py-1 ease-linear`}
+              } duration-400 flex items-center gap-3.5 p-2 ease-linear`}
             >
               {dark === "dark" ? (
                 <IoSunnyOutline
@@ -170,7 +163,7 @@ function Sidebar() {
                 }}
                 className={`text-red-500 transition-[border-radius] hover:bg-red-500 hover:text-white ${
                   open ? "rounded-rounded delay-0" : "rounded-[50%] delay-300"
-                } duration-400 flex items-center gap-3.5 px-2 py-1 ease-linear`}
+                } duration-400 flex items-center gap-3.5 p-2 ease-linear`}
               >
                 <IoPowerOutline size={24} className="shrink-0" />
 
@@ -185,7 +178,7 @@ function Sidebar() {
             )}
 
             <div
-              className={`group flex items-center gap-3.5 rounded-md p-2 text-sm font-medium text-foreground`}
+              className={`group flex items-center gap-3.5 rounded-md px-2 text-sm font-medium text-foreground`}
             >
               <div className="flex flex-row flex-nowrap">
                 {user.name &&
@@ -198,7 +191,7 @@ function Sidebar() {
                   })}
               </div>
               <div
-                className={`text-blac text-md flex flex-col overflow-hidden whitespace-pre [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s] ${
+                className={`text-md flex flex-col overflow-hidden whitespace-pre [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s] ${
                   open ? "translate-x-0 opacity-100" : "translate-x-24"
                 }`}
               >

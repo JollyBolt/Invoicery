@@ -8,7 +8,7 @@ import BarChartComponent from "../../components/Charts/BarChartComponent"
 import { motion } from "framer-motion"
 import { fetchAllInvoices } from "../../redux/slices/invoiceSlice"
 import Table from "../../components/Table/Table"
-import { MdEdit } from "react-icons/md"
+import { MdEdit, MdDelete } from "react-icons/md"
 
 import {
   FaAngleLeft,
@@ -134,7 +134,38 @@ const CustomerDetail = () => {
               <FaPlus />
             </button>
           </div>
-          <div></div>
+          <div className="flex flex-col gap-2 overflow-scroll">
+            {customerDetails.billingAddresses &&
+              customerDetails.billingAddresses.map((address, i) => {
+                return (
+                  <div className="border-border flex justify-between rounded-md border p-2">
+                    <div className="w-[85%] text-sm">
+                      <p>
+                        {address.streetAddress +
+                          ", " +
+                          address.city +
+                          ", " +
+                          address.state +
+                          ", " +
+                          address.country}
+                      </p>
+                      {"ZIP: " +
+                        address.zip +
+                        ", State Code: " +
+                        address.stateCode}
+                    </div>
+                    <div className="flex flex-col justify-between">
+                      <button className="text-slate-400 hover:text-foreground">
+                        <MdEdit />
+                      </button>
+                      <button className="text-slate-400 hover:text-foreground">
+                        <MdDelete />
+                      </button>
+                    </div>
+                  </div>
+                )
+              })}
+          </div>
         </div>
 
         <div className="no-scrollbar flex h-[calc(100dvh-80px)] w-3/4 scroll-m-0 flex-col gap-4 overflow-scroll">
@@ -143,25 +174,19 @@ const CustomerDetail = () => {
               <div className="rounded-rounded bg-background p-4">
                 <p className="font-light uppercase">Revenue This Month</p>
                 <p className="py-4 font-numbers text-4xl font-bold text-primary">
-                  {"₹" + revenue
-                    ? revenue?.revenueThisMonth.toLocaleString()
-                    : 0}
+                  ₹{revenue ? revenue?.revenueThisMonth.toLocaleString() : 0}
                 </p>
               </div>
               <div className="rounded-rounded bg-background p-4">
                 <p className="font-light uppercase">Revenue This Year</p>
                 <p className="py-4 font-numbers text-4xl font-bold text-primary">
-                  {"₹" + revenue
-                    ? revenue?.revenueThisYear.toLocaleString()
-                    : 0}
+                  ₹{revenue ? revenue?.revenueThisYear.toLocaleString() : 0}
                 </p>
               </div>
               <div className="rounded-rounded bg-background p-4">
                 <p className="font-light uppercase">Revenue Till Date</p>
                 <p className="py-4 font-numbers text-4xl font-bold text-primary">
-                  {"₹" + revenue
-                    ? revenue?.revenueTillDate.toLocaleString()
-                    : 0}
+                  ₹{revenue ? revenue?.revenueTillDate.toLocaleString() : 0}
                 </p>
               </div>
             </div>

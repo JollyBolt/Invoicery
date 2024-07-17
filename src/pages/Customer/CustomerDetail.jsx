@@ -28,8 +28,9 @@ import axios from "axios"
 import getCookieValue from "../../utils/getCookieValue"
 import YearChart from "../../components/Charts/YearChart"
 import AreaBarSwitch from "../../components/Charts/AreaBarSwitch"
-import ChangeBillingAddressesModal from "../../components/Customer/AddBillingAddressesModal"
 import Loader from "../../components/Loader"
+import AddBillingAddressesModal from "../../components/Customer/AddBillingAddressesModal"
+import EditBillingAddressesModal from "../../components/Customer/EditBillingAddressesModal"
 
 const CustomerDetail = () => {
   const [currentYear, setCurrentYear] = useState(
@@ -42,7 +43,7 @@ const CustomerDetail = () => {
   }
   const [modalOpen, setModalOpen] = useState(false) // This is to manage the edit modal
 
-  const [revenue, setRevenue] = useState(null) // This is to manage the revenue
+  const [revenue, setRevenue] = useState(0) // This is to manage the revenue
 
   const id = useParams().id
   const dispatch = useDispatch()
@@ -93,8 +94,9 @@ const CustomerDetail = () => {
     pageSize: 10,
   })
 
-  const [billingModalOpen, setBillingModalOpen] = useState(false)
-
+  const [addBillingModalOpen, setAddBillingModalOpen] = useState(false)
+  const [editBillingModalOpen, setEditBillingModalOpen] = useState(false)
+  const [editAddressIndex, setEditAddressIndex] = useState(0)
   return (
     <div>
       {modalOpen && (
@@ -106,12 +108,21 @@ const CustomerDetail = () => {
       )}
       {/* {billingModalOpen &&} */}
       {customerDetails && (
-        <ChangeBillingAddressesModal
-          open={billingModalOpen}
-          setOpen={setBillingModalOpen}
-          customer={customerDetails}
-        />
+          <AddBillingAddressesModal
+            open={addBillingModalOpen}
+            setOpen={setAddBillingModalOpen}
+            customer={customerDetails}
+          />
       )}
+      {editBillingModalOpen && <EditBillingAddressesModal
+        open={editBillingModalOpen}
+        setOpen={setEditBillingModalOpen}
+        customer={customerDetails}
+        ind={editAddressIndex}
+      />
+      }
+      {/* {customerDetails && ( */}
+      {/* )} */}
 
       {/* CustomerDetail */}
       {!loading ? (
@@ -179,14 +190,18 @@ const CustomerDetail = () => {
                       <div className="flex flex-col justify-between">
                         <button
                           type="button"
+                          onClick={() => {
+                            setEditAddressIndex(i)
+                            setEditBillingModalOpen(true)
+                          }}
                           className="text-slate-400 hover:text-foreground"
                         >
                           <MdEdit />
                         </button>
                         <button
                           type="button"
-                          onClick={() => {
-                            dispatch(
+                          onClick={async () => {
+                            await dispatch(
                               editCustomer({
                                 id: customerDetails._id,
                                 customer: {
@@ -198,6 +213,7 @@ const CustomerDetail = () => {
                                 },
                               }),
                             )
+                            location.reload()
                           }}
                           className="text-slate-400 hover:text-foreground"
                         >

@@ -6,7 +6,7 @@ import * as yup from "yup"
 import { editCustomer } from "../../redux/slices/customerSlice"
 import { useForm } from "react-hook-form"
 
-function AddBillingAddressesModal({ open, setOpen, customer }) {
+function EditBillingAddressesModal({ open, setOpen, customer, ind }) {
   const dispatch = useDispatch()
 
   const schema = yup.object({
@@ -29,18 +29,18 @@ function AddBillingAddressesModal({ open, setOpen, customer }) {
   })
   const form = useForm({
     defaultValues: {
-      streetAddress: "",
-      city: "",
-      state: "",
-      stateCode: "",
-      zip: "",
-      country: "",
+      streetAddress: customer.billingAddresses[ind].streetAddress,
+      city: customer.billingAddresses[ind].city,
+      state: customer.billingAddresses[ind].state,
+      stateCode: customer.billingAddresses[ind].stateCode,
+      zip: customer.billingAddresses[ind].zip,
+      country: customer.billingAddresses[ind].country,
     },
     resolver: yupResolver(schema),
     mode: "all",
   })
   const { register, handleSubmit, reset, clearErrors, formState } = form
-  const { errors,isSubmitting,isDirty,isValid } = formState
+  const { errors, isSubmitting, isDirty, isValid } = formState
 
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -58,16 +58,26 @@ function AddBillingAddressesModal({ open, setOpen, customer }) {
     state,
     stateCode,
   }) => {
+    // billingAddressList = customer.billingAddresses.map((ba, i) => {
+    //   if (i === ind) {
+    //     return { streetAddress, city, zip, country, state, stateCode }
+    //   } else {
+    //     return ba
+    //   }
+    // })
     dispatch(
       editCustomer({
         customer: {
           ...customer,
-          billingAddresses: [
-            ...customer.billingAddresses,
-            { streetAddress, city, zip, country, state, stateCode },
-          ],
+          billingAddresses: customer.billingAddresses.map((ba, i) => {
+            if (i === ind) {
+              return { streetAddress, city, zip, country, state, stateCode }
+            } else {
+              return ba
+            }
+          }),
         },
-        id:customer._id
+        id: customer._id,
       }),
     )
   }
@@ -278,7 +288,7 @@ function AddBillingAddressesModal({ open, setOpen, customer }) {
                       reset()
                       setOpen(false)
                     }}
-                    className="text-md hover:bg-secondaryBtnHover h-fit w-fit rounded-rounded border-none bg-transparent p-2 shadow-none transition-colors duration-150 hover:border-none text-foreground"
+                    className="text-md h-fit w-fit rounded-rounded border-none bg-transparent p-2 text-foreground shadow-none transition-colors duration-150 hover:border-none hover:bg-secondaryBtnHover"
                   >
                     Cancel
                   </button>
@@ -287,7 +297,7 @@ function AddBillingAddressesModal({ open, setOpen, customer }) {
                       <img src="/src/assets/Loading2.gif" className="w-9" />
                     </div>
                   ) : !isDirty || !isValid ? (
-                    <div className="text-md text-disabledText flex items-center justify-center rounded-rounded bg-primaryLight px-2 py-1 text-center font-semibold">
+                    <div className="text-md flex items-center justify-center rounded-rounded bg-primaryLight px-2 py-1 text-center font-semibold text-disabledText">
                       Submit
                     </div>
                   ) : (
@@ -302,7 +312,6 @@ function AddBillingAddressesModal({ open, setOpen, customer }) {
                     />
                   )}
                 </div>
-
               </form>
             </motion.div>
           </div>
@@ -312,4 +321,4 @@ function AddBillingAddressesModal({ open, setOpen, customer }) {
   )
 }
 
-export default AddBillingAddressesModal
+export default EditBillingAddressesModal

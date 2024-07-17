@@ -101,7 +101,7 @@ function EditBillingAddressesModal({ open, setOpen, customer, ind }) {
               >
                 <div className="mx-auto mb-2 flex w-full flex-nowrap justify-between">
                   <h3 className="font-sans text-3xl font-extrabold text-foreground">
-                    Add Billing Address
+                    Edit Billing Address
                   </h3>
                   <motion.button
                     initial={{ rotate: "0deg" }}
@@ -293,12 +293,12 @@ function EditBillingAddressesModal({ open, setOpen, customer, ind }) {
                     Cancel
                   </button>
                   {isSubmitting ? (
-                    <div className="flex w-20 justify-center rounded-rounded bg-primary text-center">
-                      <img src="/src/assets/Loading2.gif" className="w-9" />
+                    <div className="flex w-16 justify-center rounded-rounded bg-primary text-center">
+                      <img src="/src/assets/Loading2.gif" className="w-10" />
                     </div>
                   ) : !isDirty || !isValid ? (
-                    <div className="text-md flex items-center justify-center rounded-rounded bg-primaryLight px-2 py-1 text-center font-semibold text-disabledText">
-                      Submit
+                    <div className="text-md flex items-center justify-center rounded-rounded bg-primaryLight px-3.5 py-1 text-center font-semibold text-disabledText">
+                      Save
                     </div>
                   ) : (
                     <motion.input
@@ -306,7 +306,7 @@ function EditBillingAddressesModal({ open, setOpen, customer, ind }) {
                       whileTap={{ scale: 0.85 }}
                       transition={{ delay: 0, duration: 0.2 }}
                       type="submit"
-                      value="Submit"
+                      value="Save"
                       // disabled={!isDirty || isSubmitting}
                       className="text-md rounded-rounded bg-primary px-2 py-1 font-semibold text-white transition-colors duration-200 hover:cursor-pointer hover:bg-primaryLight"
                     />

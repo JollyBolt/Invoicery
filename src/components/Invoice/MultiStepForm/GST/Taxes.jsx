@@ -30,7 +30,7 @@ const Taxes = ({
             </p>
             <div className="group relative inline-flex items-center justify-center rounded-full border border-foreground px-[6px] text-[12px]">
               <span className="cursor-default font-bold">?</span>
-              <span className="invisible absolute left-5 top-1 border bg-slate-300 p-1 text-xs text-foreground opacity-0 transition-opacity group-hover:visible group-hover:opacity-100">
+              <span className="invisible absolute left-5 top-1 w-[200px] overflow-hidden rounded-md rounded-tl-none border bg-border p-1 px-2 text-xs text-foreground opacity-0 transition-opacity group-hover:visible group-hover:opacity-100">
                 Miscellaneous charges can include freight, set up, insurance,
                 and a variety of other costs incurred to deliver purchased goods
                 to a location.

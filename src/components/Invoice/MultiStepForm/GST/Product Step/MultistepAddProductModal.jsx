@@ -168,7 +168,7 @@ function MultistepAddProductModal({
                             />
                             {debouncedValue.length >= 0 && (
                               <motion.div
-                                className={`absolute top-12 -z-10 h-fit max-h-[100px] w-full overflow-scroll bg-background opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-50 peer-focus:opacity-100`}
+                                className={`absolute top-12 -z-10 h-fit max-h-[250px] w-full overflow-scroll rounded-md bg-background p-0.5 opacity-0 drop-shadow-lg transition-all duration-300 peer-focus:z-50 peer-focus:opacity-100`}
                               >
                                 {products?.length > 0 ? (
                                   products.map((product, i) => {
@@ -192,7 +192,8 @@ function MultistepAddProductModal({
                                           )
                                         }}
                                         key={i}
-                                        className={`py-1 pl-2 text-lg text-foreground hover:cursor-pointer hover:bg-gray-200 ${key === i && "bg-gray-400"}`}
+                                        onMouseEnter={() => setKey(i)}
+                                        className={`rounded-md py-1 pl-2 text-lg text-foreground hover:cursor-pointer ${key === i && "bg-gray-400"}`}
                                       >
                                         {product.name}
                                       </h2>

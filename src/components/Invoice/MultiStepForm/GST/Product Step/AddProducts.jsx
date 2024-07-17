@@ -80,58 +80,73 @@ const AddProducts = ({
           setInvoiceState={setInvoiceState}
         />
 
-        <div className="text-center">
+        <div className="w-full text-center">
           <button
             onClick={() => setOpen(true)}
             type="button"
-            className="text-md mb-4 rounded-rounded p-1 text-primary outline-1 outline-primary hover:bg-primary hover:text-white"
+            className="text-md mb-4 w-full rounded-rounded bg-primary p-1 text-white hover:bg-primaryLight"
           >
             <span className="text-lg font-semibold">+</span> Add Products
           </button>
         </div>
 
-        <div className="gap-5 flex w-full flex-col">
+        <div className="flex w-full flex-col gap-5">
           {invoiceState.products &&
-            invoiceState.products.map((product, ind) => {
+            invoiceState.products.toReversed().map((product, ind) => {
               return (
-                <div className="relative w-full pb-5 text-foreground">
-                  <h1 className="text-xl font-semibold">{product.name}</h1>
-                  <div className="flex w-full justify-between">
-                    <p className="text-lg">
-                      <span className="text-gray-400">HSN Code: </span>
-                      {product.hsn_code}
-                    </p>
-                    <p className="text-lg">
-                      <span className="text-gray-400">Quantity: </span>
-                      {product.quantity}
-                    </p>
-                    <p className="text-lg">
-                      <span className="text-gray-400">Discount: </span>
-                      {product.discount.value}{" "}
-                      {product.discount.type === "percent" ? "%" : "₹"}
-                    </p>
+                <div className="bg-border flex w-full justify-between rounded-md border border-primary p-2 pb-5 text-foreground">
+                  <div className="flex flex-1 flex-col gap-0.5 text-sm">
+                    <p className="text-xl font-semibold">{product.name}</p>
+                    <div className="flex w-full">
+                      <p className="w-1/2">
+                        <span className="text-gray-400">HSN </span>
+                        {product.hsn_code}
+                      </p>
+                      <p className="">
+                        <span className="text-gray-400">Price: </span>₹
+                        {product.price.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </p>
+                    </div>
+                    <div className="flex">
+                      <p className="w-1/2">
+                        <span className="text-gray-400">Quantity: </span>
+                        {product.quantity}
+                      </p>
+                      <p className="">
+                        <span className="text-gray-400">Discount: </span>
+                        {product.discount.value}{" "}
+                        {product.discount.type === "percent" ? "%" : "₹"}
+                      </p>
+                    </div>
+                    <div className="flex">
+                      <p className="w-1/2">
+                        <span className="text-gray-400">Final Price: </span>₹
+                        {product.finalPrice.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </p>
+                      <p className="">
+                        <span className="text-gray-400">Amount: </span>₹
+                        {product.amount.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </p>
+                    </div>
                   </div>
-                  <div className="flex w-2/3 justify-between">
-                    <p className="text-lg">
-                      <span className="text-gray-400">Price: </span>
-                      {product.finalPrice}
-                    </p>
-                    <p className="text-lg">
-                      <span className="text-gray-400">Amount: </span>
-                      {product.amount}
-                    </p>
-                  </div>
-                  <div>
+                  <div className="flex h-full w-[10%] shrink-0 items-center justify-center">
                     <button
                       onClick={() => {
                         handleDelete(ind)
                       }}
                       type="button"
-                      className="absolute bottom-7 right-0"
+                      className="py-3 text-lg font-semibold text-slate-400 transition-colors duration-150 hover:text-foreground"
                     >
-                      <span className="text-lg font-semibold text-slate-400 transition-colors hover:text-foreground duration-150">
-                        <FaTrash />
-                      </span>
+                      <FaTrash />
                     </button>
                   </div>
                 </div>

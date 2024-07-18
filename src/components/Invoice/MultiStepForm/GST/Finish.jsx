@@ -4,6 +4,8 @@ import {
   editInvoice,
   createInvoice,
 } from "../../../../redux/slices/invoiceSlice"
+import { FaSave } from "react-icons/fa"
+import { IoIosPrint } from "react-icons/io"
 import { useParams } from "react-router-dom"
 
 const Finish = ({ handlePrint, invoiceState }) => {
@@ -16,19 +18,15 @@ const Finish = ({ handlePrint, invoiceState }) => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 1 }}
-        className="flex w-full justify-evenly overflow-y-scroll"
+        className="flex h-[58vh] w-full flex-col items-center justify-center gap-4"
       >
-        {/* <div className="w-full">
-          <h1 className="text-2xl font-semibold text-foreground">
-            Review the Invoice Information.
-          </h1>
-        </div> */}
         <motion.button
           type="button"
           onClick={handlePrint}
-          className="select-none rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight"
+          className="flex w-[200px] select-none items-center justify-between rounded-rounded bg-primary px-3 py-1 text-xl font-semibold uppercase text-white transition-colors duration-150 hover:bg-primaryLight"
         >
-          Print
+          <IoIosPrint />
+          Print Invoice
         </motion.button>
 
         <motion.button
@@ -46,9 +44,10 @@ const Finish = ({ handlePrint, invoiceState }) => {
             sessionStorage.clear()
             navigate("/invoice")
           }}
-          className="select-none rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight"
+          className="flex w-[200px] select-none items-center justify-between rounded-rounded bg-green-500 px-3 py-1 text-xl font-semibold uppercase text-white transition-colors duration-150 hover:bg-green-400"
         >
-          Save
+          <FaSave />
+          Save Invoice
         </motion.button>
       </motion.div>
     </>

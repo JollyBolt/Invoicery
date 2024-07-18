@@ -1,13 +1,13 @@
 import React from "react"
-import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from "recharts"
+import { PieChart, Pie, Tooltip } from "recharts"
 import { useSelector } from "react-redux"
 
 const DoughnutChartComponent = ({ chartData }) => {
+  const { theme } = useSelector((state) => state.theme)
   const renderCustomizedLabel = ({
     cx,
     cy,
     midAngle,
-    innerRadius,
     outerRadius,
     percent,
   }) => {
@@ -16,13 +16,11 @@ const DoughnutChartComponent = ({ chartData }) => {
     const x = cx + radius * Math.cos(-midAngle * RADIAN) + 3
     const y = cy + radius * Math.sin(-midAngle * RADIAN)
 
-
-    const { theme } = useSelector((state) => state.theme)
     return (
       <text
         x={x}
         y={y}
-        fill="black"
+        fill={theme === "light" ? "black" : "white"}
         fontSize={12}
         textAnchor={x > cx ? "start" : "end"}
         dominantBaseline="central"
@@ -30,6 +28,20 @@ const DoughnutChartComponent = ({ chartData }) => {
         {`${(percent * 100).toFixed(0)}%`}
       </text>
     )
+  }
+
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      const { customer, revenue, invoiceCount } = payload[0].payload
+      return (
+        <div className="rounded-lg bg-border p-2 text-sm text-foreground">
+          <p className="label">{`${customer}`}</p>
+          <p className="">{`Revenue: ₹${revenue.toLocaleString()}`}</p>
+          <p className="">{`Invoices: ${invoiceCount}`}</p>
+        </div>
+      )
+    }
+    return null
   }
 
   return (
@@ -45,10 +57,11 @@ const DoughnutChartComponent = ({ chartData }) => {
           cy="50%"
           outerRadius={130}
           innerRadius={100}
-          fill="#8884d8"
+          fill={theme === "light" ? "#2807a1" : "#5122F5"}
+          stroke={theme !== "light" ? "black" : "white"}
           label={renderCustomizedLabel}
         />
-        <Tooltip />
+        <Tooltip content={<CustomTooltip />} />
       </PieChart>
       {/* </ResponsiveContainer> */}
     </>

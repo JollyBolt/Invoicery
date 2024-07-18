@@ -13,23 +13,32 @@ import { useSelector } from "react-redux"
 
 const BarChartComponent = ({ yearData }) => {
   const { theme } = useSelector((state) => state.theme)
+
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      const { month, revenue } = payload[0].payload
+      return (
+        <div className="rounded-lg bg-border p-2 text-sm text-foreground">
+          <p className="label">{`${month}`}</p>
+          <p className="intro">{`Revenue: ₹${revenue.toLocaleString()}`}</p>
+        </div>
+      )
+    }
+    return null
+  }
   return (
     <ResponsiveContainer width="100%" height={300}>
       <BarChart width={600} height={300} data={yearData}>
-        {/* <CartesianGrid /> */}
         <XAxis
           dataKey="month"
           padding={{ left: 30, right: 30 }}
           color="black"
         />
         <YAxis />
-        <Tooltip />
-        {/* <Legend /> */}
-        {/* <Bar dataKey="pv" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} /> */}
+        <Tooltip content={<CustomTooltip />} />
         <Bar
           dataKey="revenue"
-          fill="#2807A1"
-          // activeBar={<Rectangle fill="gold" stroke="purple" />}
+          fill={theme === "light" ? "#2807a1" : "#5122F5"}
         />
       </BarChart>
     </ResponsiveContainer>

@@ -256,7 +256,7 @@ function MultiStepFormGST({
 
   return (
     <div className="flex h-full w-full flex-col justify-between">
-      <div className="max-h-[58dvh] flex-1 overflow-y-scroll p-3">
+      <div className="h-[58dvh] flex-1 overflow-y-scroll p-3">
         <form noValidate>{formSwitch()}</form>
       </div>
       <div className="flex w-full justify-between">
@@ -266,7 +266,7 @@ function MultiStepFormGST({
             setStep(step - 1)
             sessionStorage.setItem("step", step - 1)
           }}
-          className="hover:bg-secondaryBtnHover rounded-rounded px-3 py-1 text-xl text-foreground transition-colors duration-150 disabled:text-gray-400 disabled:hover:bg-transparent"
+          className="rounded-rounded px-3 py-1 text-xl text-foreground transition-colors duration-150 hover:bg-secondaryBtnHover disabled:text-gray-400 disabled:hover:bg-transparent"
         >
           Go Back
         </button>
@@ -295,13 +295,13 @@ function MultiStepFormGST({
           // >
           //   Save
           // </motion.button>
-        // ) : (
+          // ) : (
           <motion.button
             initial={{ scale: 1 }}
             whileTap={!setDisabled() && { scale: 0.85 }}
             transition={{ duration: 0.2 }}
             disabled={setDisabled()}
-            className="disabled:text-disabledText rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight disabled:cursor-default disabled:bg-primaryLight"
+            className="rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight disabled:cursor-default disabled:bg-primaryLight disabled:text-disabledText"
             onClick={() => {
               if (step < 9) {
                 console.log(invoiceState)

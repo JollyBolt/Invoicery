@@ -136,7 +136,9 @@ const Dashboard = () => {
                 <span className="font-numbers font-bold uppercase text-foreground">
                   <span className="font-numbers">{currentYear}</span> Revenue
                 </span>
-                <button onClick={() => setCurrentYear((prev) => prev + 1)}>
+                <button
+                  onClick={() => setCurrentYear((prev) => parseInt(prev) + 1)}
+                >
                   <FaAngleRight className="text-primary" />
                 </button>
               </div>

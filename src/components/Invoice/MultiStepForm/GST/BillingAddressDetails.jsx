@@ -98,7 +98,7 @@ function BillingAddressDetails({
                     type="text"
                     placeholder="Enter City"
                     autoComplete="off"
-                    className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                    className="peer rounded-rounded border border-placeholderText bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                     {...register("billingCity", {
                       required: "Please enter city of Billing Address",
                     })}
@@ -217,7 +217,7 @@ function BillingAddressDetails({
                     },
                   })
                 }}
-                className="mt-4 rounded-rounded border-2 border-primary p-3 font-semibold text-primary"
+                className="mt-4 rounded-rounded bg-primary p-3 font-semibold text-white"
               >
                 Change Address
               </button>

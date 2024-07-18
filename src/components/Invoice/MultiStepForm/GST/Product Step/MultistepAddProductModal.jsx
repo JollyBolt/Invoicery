@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { useDebounce } from "../../../../../hooks/useDebounce"
 import { fetchAllProducts } from "../../../../../redux/slices/productSlice"
 import { motion, AnimatePresence } from "framer-motion"
@@ -60,6 +60,32 @@ function MultistepAddProductModal({
   }
 
   const [key, setKey] = useState(0)
+  const [id, setId] = useState(0)
+  const ref = useRef()
+  const handleScrollUp = () => {
+    if (ref.current)
+      ref.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      })
+  }
+  const handleScrollDown = () => {
+    if (ref.current)
+      ref.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      })
+  }
+
+  useEffect(() => {
+    if (id < key) {
+      setId(key)
+      handleScrollDown()
+    } else {
+      setId(key)
+      handleScrollUp()
+    }
+  }, [key])
 
   return (
     <>
@@ -103,7 +129,7 @@ function MultistepAddProductModal({
                           </h1>
                           <div className="relative flex w-full flex-col overflow-visible">
                             <input
-                              className="border-1 border-placeholderText peer w-full rounded-rounded border bg-background px-2 py-2 text-lg text-foreground transition-colors duration-500 focus:border-foreground focus:outline-none"
+                              className="border-1 peer w-full rounded-rounded border border-placeholderText bg-background px-2 py-2 text-lg text-foreground transition-colors duration-500 focus:border-foreground focus:outline-none"
                               type="text"
                               autoComplete="off"
                               onKeyDown={(e) => {
@@ -147,23 +173,6 @@ function MultistepAddProductModal({
                                 onChange: (e) => {
                                   setValueState(watch(`product.name`))
                                 },
-                                onBlur: (e) => {
-                                  //   setInvoiceState({
-                                  //     ...invoiceState,
-                                  //     products: invoiceState.products.map(
-                                  //       (FieldObject, i) => {
-                                  //         if (i === ind) {
-                                  //           return {
-                                  //             ...FieldObject,
-                                  //             name: e.target.value,
-                                  //           }
-                                  //         } else {
-                                  //           return FieldObject
-                                  //         }
-                                  //       },
-                                  //     ),
-                                  //   })
-                                },
                               })}
                             />
                             {debouncedValue.length >= 0 && (
@@ -173,7 +182,8 @@ function MultistepAddProductModal({
                                 {products?.length > 0 ? (
                                   products.map((product, i) => {
                                     return (
-                                      <h2
+                                      <div
+                                        ref={id === i ? ref : null}
                                         onClick={() => {
                                           setValue(
                                             `product.name`,
@@ -193,10 +203,10 @@ function MultistepAddProductModal({
                                         }}
                                         key={i}
                                         onMouseEnter={() => setKey(i)}
-                                        className={`rounded-md py-1 pl-2 text-lg text-foreground hover:cursor-pointer ${key === i && "bg-gray-400"}`}
+                                        className={`rounded-md py-1 pl-2 text-lg text-foreground hover:cursor-pointer ${key === i && "bg-border"}`}
                                       >
                                         {product.name}
-                                      </h2>
+                                      </div>
                                     )
                                   })
                                 ) : (
@@ -225,7 +235,7 @@ function MultistepAddProductModal({
                             type="number"
                             id="qty"
                             placeholder="Quantity"
-                            className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                            className="peer rounded-rounded border border-placeholderText bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                             min={1}
                             max={999}
                             {...register(`product.quantity`, {
@@ -243,31 +253,6 @@ function MultistepAddProductModal({
                                   "product.amount",
                                   watch("product.finalPrice") * e.target.value,
                                 )
-                                // if (
-                                //   watch("product.discount.type") === "rupee"
-                                // ) {
-                                //   setValue(
-                                //     "product.finalPrice",
-                                //     (selectedProduct.price -
-                                //       watch("product.discount.value")) *
-                                //       e.target.value,
-                                //   )
-                                // }
-                                // setInvoiceState({
-                                //   ...invoiceState,
-                                //   products: invoiceState.products.map(
-                                //     (FieldObject, i) => {
-                                //       if (i === ind) {
-                                //         return {
-                                //           ...FieldObject,
-                                //           quantity: e.target.value,
-                                //         }
-                                //       } else {
-                                //         return FieldObject
-                                //       }
-                                //     },
-                                //   ),
-                                // })
                               },
                             })}
                           />
@@ -309,7 +294,7 @@ function MultistepAddProductModal({
                           setSelectedProduct(null)
                         }}
                         type="button"
-                        className="hover:bg-secondaryBtnHover rounded-rounded px-2 py-1 text-foreground transition-colors duration-200"
+                        className="rounded-rounded px-2 py-1 text-foreground transition-colors duration-200 hover:bg-secondaryBtnHover"
                       >
                         Change Product
                       </button>

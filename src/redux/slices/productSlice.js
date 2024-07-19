@@ -9,7 +9,7 @@ const fetchAllProducts = createAsyncThunk(
   async ({ search = "", page = 0, limit = 10 }) => {
     try {
       const res = await axios.get(
-        "http://localhost:4598/api/v1/product/getallproducts",
+        `${import.meta.env.VITE_URL}/api/v1/product/getallproducts`,
         {
           headers: {
             Authorization: "Bearer " + getCookieValue("authToken"),
@@ -33,7 +33,7 @@ const fetchSingleProduct = createAsyncThunk(
   "products/fetchSingleProduct",
   async (id) => {
     const res = await axios.get(
-      `http://localhost:4598/api/v1/product/getproduct/${id}`,
+      `${import.meta.env.VITE_URL}/api/v1/product/getproduct/${id}`,
     )
     return res.data
   },
@@ -44,7 +44,7 @@ const postProduct = createAsyncThunk(
   async (product) => {
     try {
       const res = await axios.post(
-        "http://localhost:4598/api/v1/product/createproduct",
+        `${import.meta.env.VITE_URL}/api/v1/product/createproduct`,
         product,
         {
           headers: {
@@ -64,7 +64,7 @@ const postProduct = createAsyncThunk(
 const editProduct = createAsyncThunk("products/editProduct", async (params) => {
   try {
     const res = await axios.put(
-      `http://localhost:4598/api/v1/product/editproduct/${params.id}`,
+      `${import.meta.env.VITE_URL}/api/v1/product/editproduct/${params.id}`,
       params.product,
       {
         headers: {
@@ -83,7 +83,7 @@ const editProduct = createAsyncThunk("products/editProduct", async (params) => {
 const deleteProduct = createAsyncThunk("products/deleteProduct", async (id) => {
   try {
     const res = await axios.delete(
-      `http://localhost:4598/api/v1/product/deleteproduct/${id}`,
+      `${import.meta.env.VITE_URL}/api/v1/product/deleteproduct/${id}`,
       {
         headers: {
           Authorization: "Bearer " + getCookieValue("authToken"),

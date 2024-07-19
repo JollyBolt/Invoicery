@@ -35,7 +35,7 @@ const Dashboard = () => {
   const dispatch = useDispatch()
   const getStats = async () => {
     const { data } = await axios.get(
-      "http://localhost:4598/api/v1/stats/getstats",
+      `${import.meta.env.VITE_URL}/api/v1/stats/getstats`,
       {
         headers: {
           Authorization: "Bearer " + getCookieValue("authToken"),
@@ -51,7 +51,7 @@ const Dashboard = () => {
 
   const getDashboardChartData = async () => {
     const { data } = await axios.get(
-      "http://localhost:4598/api/v1/invoice/getdashboardchartdata",
+      `${import.meta.env.VITE_URL}/api/v1/invoice/getdashboardchartdata`,
       {
         headers: {
           Authorization: "Bearer " + getCookieValue("authToken"),

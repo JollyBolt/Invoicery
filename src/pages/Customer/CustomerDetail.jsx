@@ -68,7 +68,7 @@ const CustomerDetail = () => {
 
   const getCustomerDetailData = async () => {
     const { data } = await axios.get(
-      "http://localhost:4598/api/v1/invoice/getcustomerdetaildata",
+      `${import.meta.env.VITE_URL}/api/v1/invoice/getcustomerdetaildata`,
       {
         headers: {
           Authorization: "Bearer " + getCookieValue("authToken"),

@@ -9,7 +9,7 @@ const fetchAllCustomers = createAsyncThunk(
   async ({ search = "", page = 0, limit = 10 }) => {
     try {
       const res = await axios.get(
-        "http://localhost:4598/api/v1/customer/getallcustomers",
+        `${import.meta.env.VITE_URL}/api/v1/customer/getallcustomers `,
         {
           headers: {
             Authorization: "Bearer " + getCookieValue("authToken"),
@@ -35,14 +35,14 @@ const fetchSingleCustomer = createAsyncThunk(
   async (id) => {
     try {
       const res = await axios.get(
-        `http://localhost:4598/api/v1/customer/getcustomer`,
+        `${import.meta.env.VITE_URL}/api/v1/customer/getcustomer`,
         {
           headers: {
             Authorization: "Bearer " + getCookieValue("authToken"),
           },
-          params:{
+          params: {
             id: id,
-          }
+          },
         },
       )
       return res.data
@@ -57,7 +57,7 @@ const postCustomer = createAsyncThunk(
   "customers/postCustomer",
   async (customer) => {
     const res = await axios.post(
-      "http://localhost:4598/api/v1/customer/createcustomer",
+      `${import.meta.env.VITE_URL}/api/v1/customer/createcustomer`,
       customer,
       {
         headers: {
@@ -75,7 +75,7 @@ const editCustomer = createAsyncThunk(
   async (params) => {
     try {
       const res = await axios.put(
-        `http://localhost:4598/api/v1/customer/editcustomer/${params.id}`,
+        `${import.meta.env.VITE_URL}/api/v1/customer/editcustomer/${params.id}`,
         params.customer,
         {
           headers: {
@@ -97,7 +97,7 @@ const deleteCustomer = createAsyncThunk(
   async (id) => {
     try {
       const res = await axios.delete(
-        `http://localhost:4598/api/v1/customer/deletecustomer/${id}`,
+        `${import.meta.env.VITE_URL}/api/v1/customer/deletecustomer/${id}`,
         {
           headers: {
             Authorization: "Bearer " + getCookieValue("authToken"),

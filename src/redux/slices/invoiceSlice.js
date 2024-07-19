@@ -9,7 +9,7 @@ const fetchAllInvoices = createAsyncThunk(
   async ({ search = "", page = 0, limit = 10 }) => {
     try {
       const res = await axios.get(
-        `http://localhost:4598/api/v1/invoice/getallinvoices`,
+        `${import.meta.env.VITE_URL}/api/v1/invoice/getallinvoices`,
         {
           headers: {
             Authorization: "Bearer " + getCookieValue("authToken"),
@@ -34,7 +34,7 @@ const fetchSingleInvoice = createAsyncThunk(
   async (id) => {
     try {
       const res = await axios.get(
-        `http://localhost:4598/api/v1/invoice/getinvoice/${id}`,
+        `${import.meta.env.VITE_URL}/api/v1/invoice/getinvoice/${id}`,
         {
           headers: {
             Authorization: "Bearer " + getCookieValue("authToken"),
@@ -54,7 +54,7 @@ const createInvoice = createAsyncThunk(
   async (body) => {
     try {
       const res = await axios.post(
-        `http://localhost:4598/api/v1/invoice/createinvoice`,
+        `${import.meta.env.VITE_URL}/api/v1/invoice/createinvoice`,
         body,
         {
           headers: {
@@ -73,7 +73,7 @@ const createInvoice = createAsyncThunk(
 const editInvoice = createAsyncThunk("invoice/editInvoice", async (params) => {
   try {
     const res = await axios.put(
-      `http://localhost:4598/api/v1/invoice/editinvoice/${params.id}`,
+      `${import.meta.env.VITE_URL}/api/v1/invoice/editinvoice/${params.id}`,
       params.body,
       {
         headers: {
@@ -91,7 +91,7 @@ const editInvoice = createAsyncThunk("invoice/editInvoice", async (params) => {
 const deleteInvoice = createAsyncThunk("invoice/deleteInvoice", async (id) => {
   try {
     const res = await axios.delete(
-      `http://localhost:4598/api/v1/invoice/deleteinvoice/${id}`,
+      `${import.meta.env.VITE_URL}/api/v1/invoice/deleteinvoice/${id}`,
       {
         headers: {
           Authorization: "Bearer " + getCookieValue("authToken"),

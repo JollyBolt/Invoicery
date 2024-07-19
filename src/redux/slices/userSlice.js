@@ -4,18 +4,16 @@ import axios from "axios"
 import getCookieValue from "../../utils/getCookieValue"
 axios.defaults.withCredentials = true
 
-// const forgotPassword=createAsyncThunk('user/login',async(body)=>{
-
-// }
-
 const getProfile = createAsyncThunk("user/getProfile", async () => {
   try {
-    const res = await axios.get("http://localhost:4598/api/v1/user/getUser", {
-      headers: {
-        Authorization: "Bearer " + getCookieValue("authToken"),
+    const res = await axios.get(
+      `${import.meta.env.VITE_URL}/api/v1/user/getUser`,
+      {
+        headers: {
+          Authorization: "Bearer " + getCookieValue("authToken"),
+        },
       },
-    })
-    // console.log(res.data)
+    )
     return res.data
   } catch (err) {
     console.log(err)
@@ -26,7 +24,7 @@ const getProfile = createAsyncThunk("user/getProfile", async () => {
 const editProfile = createAsyncThunk("user/editProfile", async (body) => {
   try {
     const res = await axios.put(
-      `http://localhost:4598/api/v1/user/updateUser/${body._id}`,
+      `${import.meta.env.VITE_URL}/api/v1/user/updateUser/${body._id}`,
       body,
       {
         headers: {

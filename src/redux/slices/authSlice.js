@@ -8,9 +8,9 @@ axios.defaults.withCredentials = true;
 const login = createAsyncThunk("auth/login", async (body) => {
   try {
     const res = await axios.post(
-      `http://localhost:4598/api/v1/auth/login`,
+      `${import.meta.env.VITE_URL}/api/v1/auth/login`,
       body,
-    );
+    )
     return res.data;
   } catch (err) {
     console.log(err);
@@ -22,9 +22,9 @@ const signup = createAsyncThunk("auth/signup", async (body) => {
   try {
     console.log(body);
     const res = await axios.post(
-      `http://localhost:4598/api/v1/auth/signup`,
+      `${import.meta.env.VITE_URL}/api/v1/auth/signup`,
       body,
-    );
+    )
     return res.data;
   } catch (err) {
     console.log(err);

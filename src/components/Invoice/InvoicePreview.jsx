@@ -87,7 +87,7 @@ const InvoicePreview = forwardRef((props, ref) => {
           ...prevState,
           customer: {
             ...prevState.customer,
-            name: customer.client,
+            name: customer.name,
             gstin: customer.gstin,
             contactPerson: customer.contactPerson,
             phone: customer.phone,

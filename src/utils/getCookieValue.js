@@ -5,6 +5,6 @@ export default function getCookieValue(name) {
   var match = document.cookie.match(
     RegExp("(?:^|;\\s*)" + escape(name) + "=([^;]*)"),
   );
-  console.log(match)
+  console.log(document.cookie)
   return match ? match[1] : null;
 }

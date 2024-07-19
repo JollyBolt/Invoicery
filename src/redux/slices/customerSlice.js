@@ -9,7 +9,7 @@ const fetchAllCustomers = createAsyncThunk(
   async ({ search = "", page = 0, limit = 10 }) => {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_URL}/api/v1/customer/getallcustomers `,
+        `${import.meta.env.VITE_URL}/api/v1/customer/getallcustomers`,
         {
           headers: {
             Authorization: "Bearer " + getCookieValue("authToken"),

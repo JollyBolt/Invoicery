@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import PageWrapper from "../hoc/PageWrapper"
-import BarChartComponent from "../components/Charts/BarChartComponent"
-import AreaChartComponent from "../components/Charts/AreaChartComponent"
+
 import {
   FaAngleLeft,
   FaAngleRight,
@@ -45,8 +44,10 @@ const Dashboard = () => {
     setStats(data.stats)
   }
   useEffect(() => {
-    getStats()
-    dispatch(fetchAllInvoices({ limit: 10 }))
+    if (loggedIn) {
+      getStats()
+      dispatch(fetchAllInvoices({ limit: 10 }))
+    }
   }, [loggedIn])
 
   const getDashboardChartData = async () => {
@@ -66,7 +67,9 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    getDashboardChartData()
+    if (loggedIn) {
+        getDashboardChartData()
+    }
   }, [loggedIn, currentYear, currentMonth])
 
   const monthNames = [

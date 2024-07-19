@@ -62,7 +62,7 @@ const AddCustomer = ({
       "customer",
       JSON.stringify({
         id: customer._id,
-        client: customer.client,
+        name: customer.client,
         gstin: customer.gstin,
         contactPerson: customer.contactPerson,
         phone: customer.phone,

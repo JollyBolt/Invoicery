@@ -11,15 +11,7 @@ const TermsNConditions = ({
 }) => {
   const { fields, append, remove } = tNc
   const [disableAdd, setDisableAdd] = useState(false)
-
-  /**
-   * Handles the deletion of a specific term and condition from the list.
-   * If the list contains only one term and condition, it removes the item from session storage.
-   * Updates the invoice state by removing the selected term and condition.
-   *
-   * @param {number} ind - The index of the term and condition to be deleted.
-   * @returns {void}
-   */
+  const [isEditing, setIsEditing] = useState(false)
   const [add, setAdd] = useState(false)
   return (
     <>
@@ -61,6 +53,8 @@ const TermsNConditions = ({
                   add={add}
                   watch={watch}
                   setDisableAdd={setDisableAdd}
+                  isEditing={isEditing}
+                  setIsEditing={setIsEditing}
                 />
               </div>
             )
@@ -82,14 +76,9 @@ const Input = ({
   add,
   watch,
   setDisableAdd,
+  isEditing,
+  setIsEditing,
 }) => {
-  // const [val, setVal] = useState(
-  //   // JSON.parse(sessionStorage.getItem("termsNConditions")).length >= ind + 1
-  //   //   ? JSON.parse(sessionStorage.getItem("termsNConditions"))[ind]
-  //   //   : "",
-  //   watch(`termsNConditions[${ind}].tnc`) || "",
-  // )
-
   const [save, setSave] = useState(add ? false : true)
 
   const handleDelete = (ind) => {
@@ -134,8 +123,10 @@ const Input = ({
   }
 
   useEffect(() => {
-    JSON.parse(sessionStorage.getItem('termsNConditions')).length!==invoiceState.termsNConditions.length?
-      setDisableAdd(true):setDisableAdd(false)
+    JSON.parse(sessionStorage.getItem("termsNConditions")).length !==
+    invoiceState.termsNConditions.length
+      ? setDisableAdd(true)
+      : setDisableAdd(false)
   }, [invoiceState.termsNConditions])
 
   return (
@@ -147,7 +138,7 @@ const Input = ({
           </p>
         ) : (
           <textarea
-            rows={2}
+            rows={4}
             className="border-1 peer w-full rounded-rounded border border-placeholderText bg-background px-2 py-2 text-sm text-foreground transition-colors duration-500 placeholder:text-placeholderText focus:border-foreground focus:outline-none"
             type="text"
             placeholder="Terms and Conditions"
@@ -158,9 +149,11 @@ const Input = ({
 
       {save ? (
         <button
-          className="flex w-fit flex-nowrap justify-center px-4 py-2 text-xl text-slate-400 transition-colors hover:text-foreground"
+          className="flex w-fit flex-nowrap justify-center px-4 py-2 text-xl text-slate-400 transition-colors hover:text-foreground disabled:cursor-not-allowed disabled:hover:text-slate-400"
           type="button"
+          disabled={isEditing}
           onClick={() => {
+            setIsEditing(true)
             setSave(false)
             handleEdit(ind)
           }}
@@ -173,6 +166,7 @@ const Input = ({
           type="button"
           disabled={watch(`termsNConditions[${ind}].tnc`) === ""}
           onClick={() => {
+            setIsEditing(false)
             let newTnc = invoiceState.termsNConditions.map((tnc, i) => {
               if (i === ind) {
                 return watch(`termsNConditions[${ind}].tnc`)

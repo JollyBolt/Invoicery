@@ -9,7 +9,6 @@ const TermsNConditions = ({
   setInvoiceState,
   watch,
 }) => {
-  
   const { fields, append, remove } = tNc
   const [disableAdd, setDisableAdd] = useState(false)
 
@@ -135,9 +134,8 @@ const Input = ({
   }
 
   useEffect(() => {
-    watch(`termsNConditions[${ind}].tnc`).trim() === ""
-      ? setDisableAdd(true)
-      : setDisableAdd(false)
+    JSON.parse(sessionStorage.getItem('termsNConditions')).length!==invoiceState.termsNConditions.length?
+      setDisableAdd(true):setDisableAdd(false)
   }, [invoiceState.termsNConditions])
 
   return (

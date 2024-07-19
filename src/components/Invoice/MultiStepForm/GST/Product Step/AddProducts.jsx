@@ -33,7 +33,7 @@ const AddProducts = ({
   useEffect(() => {
     if (invoiceState.products.length > 0) {
       sessionStorage.setItem(
-        "productList",
+        "products",
         JSON.stringify(invoiceState.products),
       )
     }
@@ -41,14 +41,14 @@ const AddProducts = ({
 
   /**
    * Handles the deletion of a product from the invoice state.
-   * If the product to be deleted is the only one in the list, it removes the session storage item "productList".
+   * If the product to be deleted is the only one in the list, it removes the session storage item "products".
    *
    * @param {number} ind - The index of the product to be deleted in the invoice state's products array.
    * @returns {void}
    */
   const handleDelete = (ind) => {
     if (invoiceState.products.length === 1) {
-      sessionStorage.removeItem("productList")
+      sessionStorage.removeItem("products")
     }
     setInvoiceState((prevState) => {
       return {

@@ -161,7 +161,7 @@ const CustomerDetail = () => {
               <p className="font-bold uppercase">Billing Addresses</p>
               <button
                 type="button"
-                onClick={() => setBillingModalOpen(true)}
+                onClick={() => setAddBillingModalOpen(true)}
                 className="rounded-rounded p-2 transition-all hover:bg-secondaryBtnHover"
               >
                 <FaPlus />

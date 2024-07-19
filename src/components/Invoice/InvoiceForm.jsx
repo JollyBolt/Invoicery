@@ -23,7 +23,7 @@ function InvoiceForm({
 
   const handlePrint = useReactToPrint({
     content: () => printDocRef.current,
-    documentTitle: invoiceState.invoiceNumber
+    documentTitle: invoiceState.invoiceNumber,
   })
 
   const formSwitch = () => {
@@ -46,7 +46,7 @@ function InvoiceForm({
     <>
       <Stepper step={step} template={template} />
 
-      <div className="bg-background h-full p-6">
+      <div className="h-full bg-background p-6">
         {step === 1 ? (
           <div className="flex h-full w-full flex-col gap-y-5">
             <div className="w-full flex-1">
@@ -57,14 +57,8 @@ function InvoiceForm({
               />
             </div>
             <div className="flex w-full justify-between">
-              <button
-                disabled
-                className="px-3 py-1 text-xl text-black transition-colors duration-150 hover:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-transparent"
-              >
+              <button disabled className="px-3 py-1 text-xl text-gray-400">
                 Go Back
-              </button>
-              <button type="button" onClick={handlePrint}>
-                Print
               </button>
               <motion.button
                 initial={{ scale: 1 }}

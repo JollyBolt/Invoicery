@@ -69,7 +69,11 @@ function CreateInvoice() {
       sgst: 0,
       igst: 0,
     },
-    termsNConditions: user.termsNConditions ? user.termsNConditions : [],
+    termsNConditions: sessionStorage.getItem("termsNConditions")
+      ? JSON.parse(sessionStorage.getItem("termsNConditions"))
+      : user.termsNConditions
+        ? user.termsNConditions
+        : [],
   })
   return (
     <>

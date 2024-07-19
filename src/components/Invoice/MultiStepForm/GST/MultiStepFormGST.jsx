@@ -194,6 +194,7 @@ function MultiStepFormGST({
             tNc={tNc}
             invoiceState={invoiceState}
             setInvoiceState={setInvoiceState}
+            watch={watch}
           />
         )
       case 9:

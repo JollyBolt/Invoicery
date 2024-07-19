@@ -66,6 +66,9 @@ import { IoMoonOutline } from "react-icons/io5";
 //Power Icon
 import { IoPowerOutline } from "react-icons/io5";
 
+//Edit & Delete Icons
+import { MdEdit, MdDelete } from "react-icons/md"
+
 export {
   MdDashboard,
   BsBoxSeamFill,
@@ -94,5 +97,7 @@ export {
   HiArrowLongLeft,
   IoSunnyOutline,
   IoMoonOutline,
-  IoPowerOutline
+  IoPowerOutline,
+  MdEdit,
+  MdDelete,
 };

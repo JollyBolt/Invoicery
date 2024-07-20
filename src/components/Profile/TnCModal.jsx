@@ -27,10 +27,10 @@ function TnCModal({ editOpen, setEditOpen, user }) {
   const onSubmit = async (e) => {
     e.preventDefault()
     await handleSubmit(handleEdit)(e)
-    setEditOpen(false)
     reset()
+    location.reload()
   }
-  const handleEdit = ({ TnC }) => {
+  const handleEdit = async ({ TnC }) => {
     // console.log(
     //   TnC.filter((obj) => {
     //     if (!!obj.tnc) {
@@ -39,7 +39,7 @@ function TnCModal({ editOpen, setEditOpen, user }) {
     //     }
     //   }).map((obj) => obj.tnc),
     // )
-    dispatch(
+    await dispatch(
       editProfile({
         ...user,
         termsNConditions: TnC.filter((obj) => {
@@ -49,6 +49,7 @@ function TnCModal({ editOpen, setEditOpen, user }) {
         }).map((obj) => obj.tnc),
       }),
     )
+    setEditOpen(false)
   }
 
   return (
@@ -100,7 +101,7 @@ function TnCModal({ editOpen, setEditOpen, user }) {
                         <div className="relative flex w-10/12 flex-col overflow-visible">
                           <textarea
                             rows={1}
-                            className="border-1 border-placeholderText placeholder:text-placeholderText peer w-full rounded-rounded border bg-background px-2 py-2 text-lg text-foreground transition-colors duration-500 focus:border-foreground focus:outline-none"
+                            className="border-1 peer w-full rounded-rounded border border-placeholderText bg-background px-2 py-2 text-lg text-foreground transition-colors duration-500 placeholder:text-placeholderText focus:border-foreground focus:outline-none"
                             type="text"
                             autoComplete="off"
                             placeholder="Terms and Conditions"

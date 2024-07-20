@@ -109,7 +109,7 @@ function EditInvoice() {
         "termsNConditions",
         JSON.stringify(invoice?.termsNConditions),
       )
-    // setInvoiceState(invoice)
+    setInvoiceState(invoice)
     // sessionStorage.removeItem("invoiceState")
   }, [loggedIn])
 

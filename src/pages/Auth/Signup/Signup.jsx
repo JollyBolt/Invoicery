@@ -274,11 +274,11 @@ function Signup() {
     }
   }
 
-  const { refreshAuth } = authSlice.actions
+  // const { refreshAuth } = authSlice.actions
   const { loggedIn, loading } = useSelector((state) => state.auth)
-  useEffect(() => {
-    dispatch(refreshAuth())
-  }, [])
+  // useEffect(() => {
+  //   dispatch(refreshAuth())
+  // }, [])
 
   const navigate = useNavigate()
   return (

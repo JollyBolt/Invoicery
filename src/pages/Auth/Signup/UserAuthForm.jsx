@@ -81,7 +81,7 @@ function UserAuthForm({ register, errors }) {
         </p>
       </div>
 
-      <div className="relative flex w-full items-center justify-center">
+      {/* <div className="relative flex w-full items-center justify-center">
         <hr className="my-3 w-full border bg-gray-300" />
         <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-1 font-medium text-gray-400">
           OR
@@ -105,7 +105,7 @@ function UserAuthForm({ register, errors }) {
         className="rounded-rounded border py-2 font-semibold"
       >
         Sign Up with Google
-      </motion.button>
+      </motion.button> */}
     </motion.div>
   )
 }

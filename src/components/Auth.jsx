@@ -1,12 +1,12 @@
 import React, { useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { GoogleLogin } from "@react-oauth/google"
-import { jwtDecode } from "jwt-decode"
-import { useGoogleLogin } from "@react-oauth/google"
-import axios from "axios"
-import { FcGoogle } from "../assets"
+// import { GoogleLogin } from "@react-oauth/google"
+// import { jwtDecode } from "jwt-decode"
+// import { useGoogleLogin } from "@react-oauth/google"
+// import axios from "axios"
+// import { FcGoogle } from "../assets"
 import { useForm } from "react-hook-form"
-import { DevTool } from "@hookform/devtools"
+// import { DevTool } from "@hookform/devtools"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { useDispatch, useSelector } from "react-redux"
@@ -173,16 +173,16 @@ const Modal = ({ open, setOpen }) => {
                 )}
               </form>
 
-              <div className="relative my-5 flex w-full items-center justify-center">
+              {/* <div className="relative my-5 flex w-full items-center justify-center">
                 <hr className="my-5 w-full border bg-gray-300" />
                 <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-1 font-medium text-gray-400">
                   OR
                 </span>
-              </div>
+              </div> */}
 
               {/* Google Auth */}
-              <div className="w-full flex-1">
-                {/* <button
+              {/* <div className="w-full flex-1"> */}
+              {/* <button
                   onClick={googleLogin}
                   className="flex w-full items-center gap-3 rounded-rounded border-2 p-2 px-4 text-2xl"
                 >
@@ -193,8 +193,8 @@ const Modal = ({ open, setOpen }) => {
                     Sign in with Google
                   </span>
                 </button> */}
-                {/* import {GoogleLogin} from '@react-oauth/google'; */}
-                <GoogleLogin
+              {/* import {GoogleLogin} from '@react-oauth/google'; */}
+              {/* <GoogleLogin
                   size="large"
                   width={320}
                   onSuccess={(credentialResponse) => {
@@ -205,7 +205,7 @@ const Modal = ({ open, setOpen }) => {
                     console.log("Login Failed")
                   }}
                 />
-              </div>
+              </div> */}
 
               <div className="mt-10 flex items-center justify-between">
                 <div>

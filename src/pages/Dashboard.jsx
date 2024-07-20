@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
 import PageWrapper from "../hoc/PageWrapper"
-
 import {
   FaAngleLeft,
   FaAngleRight,
@@ -19,6 +18,8 @@ import { displayDate } from "../utils/displayDate"
 import YearChart from "../components/Charts/YearChart"
 import DoughnutChartComponent from "../components/Charts/DoughnutChartComponent"
 import AreaBarSwitch from "../components/Charts/AreaBarSwitch"
+import { set } from "react-hook-form"
+import Loader from "../components/Loader"
 
 const Dashboard = () => {
   const [currentYear, setCurrentYear] = useState(
@@ -50,7 +51,9 @@ const Dashboard = () => {
     }
   }, [loggedIn])
 
+  const [loading, setLoading] = useState(false)
   const getDashboardChartData = async () => {
+    setLoading(true)
     const { data } = await axios.get(
       `${import.meta.env.VITE_URL}/api/v1/invoice/getdashboardchartdata`,
       {
@@ -64,11 +67,12 @@ const Dashboard = () => {
       },
     )
     setRevenue(data)
+    setLoading(false)
   }
 
   useEffect(() => {
     if (loggedIn) {
-        getDashboardChartData()
+      getDashboardChartData()
     }
   }, [loggedIn, currentYear, currentMonth])
 
@@ -152,54 +156,58 @@ const Dashboard = () => {
                 style={"w-1/12"}
               />
             </div>
-            <div className="flex w-full">
-              <div className="w-[65%]">
-                <YearChart
-                  chart={chart}
-                  revenue={revenue?.revenueForYearlyChart.monthlyRevenue}
-                />
-              </div>
-              <div className="h-[300px] w-[35%] p-5">
-                <div className="flex h-full flex-col justify-evenly text-foreground">
-                  <div className="flex gap-4 text-2xl">
-                    <p className="w-[250px]">Invoices Issued:</p>
-                    <p className="font-numbers font-bold text-primary">
-                      {revenue?.revenueForYearlyChart.overallStats.length > 0
-                        ? revenue?.revenueForYearlyChart.overallStats[0]
-                            .invoiceCount
-                        : 0}
-                    </p>
-                  </div>
-                  <div className="flex gap-4 text-2xl">
-                    <p className="w-[250px]">Highest Invoice Value:</p>
-                    <p className="font-numbers font-bold text-primary">
-                      ₹
-                      {revenue?.revenueForYearlyChart.overallStats.length > 0
-                        ? revenue?.revenueForYearlyChart.overallStats[0].highestInvoiceValue.toLocaleString()
-                        : 0}
-                    </p>
-                  </div>
-                  <div className="flex gap-4 text-2xl">
-                    <p className="w-[250px]">Lowest Invoice Value:</p>
-                    <p className="font-numbers font-bold text-primary">
-                      ₹
-                      {revenue?.revenueForYearlyChart.overallStats.length > 0
-                        ? revenue?.revenueForYearlyChart.overallStats[0].lowestInvoiceValue.toLocaleString()
-                        : 0}
-                    </p>
-                  </div>
-                  <div className="flex gap-4 text-2xl">
-                    <p className="w-[250px]">Revenue:</p>
-                    <p className="font-numbers font-bold text-primary">
-                      ₹
-                      {revenue?.revenueForYearlyChart.overallStats.length > 0
-                        ? revenue?.revenueForYearlyChart.overallStats[0].totalRevenue.toLocaleString()
-                        : 0}
-                    </p>
+            {loading ? (
+              <Loader height="300px" />
+            ) : (
+              <div className="flex w-full">
+                <div className="w-[65%]">
+                  <YearChart
+                    chart={chart}
+                    revenue={revenue?.revenueForYearlyChart.monthlyRevenue}
+                  />
+                </div>
+                <div className="h-[300px] w-[35%] p-5">
+                  <div className="flex h-full flex-col justify-evenly text-foreground">
+                    <div className="flex gap-4 text-2xl">
+                      <p className="w-[250px]">Invoices Issued:</p>
+                      <p className="font-numbers font-bold text-primary">
+                        {revenue?.revenueForYearlyChart.overallStats.length > 0
+                          ? revenue?.revenueForYearlyChart.overallStats[0]
+                              .invoiceCount
+                          : 0}
+                      </p>
+                    </div>
+                    <div className="flex gap-4 text-2xl">
+                      <p className="w-[250px]">Highest Invoice Value:</p>
+                      <p className="font-numbers font-bold text-primary">
+                        ₹
+                        {revenue?.revenueForYearlyChart.overallStats.length > 0
+                          ? revenue?.revenueForYearlyChart.overallStats[0].highestInvoiceValue.toLocaleString()
+                          : 0}
+                      </p>
+                    </div>
+                    <div className="flex gap-4 text-2xl">
+                      <p className="w-[250px]">Lowest Invoice Value:</p>
+                      <p className="font-numbers font-bold text-primary">
+                        ₹
+                        {revenue?.revenueForYearlyChart.overallStats.length > 0
+                          ? revenue?.revenueForYearlyChart.overallStats[0].lowestInvoiceValue.toLocaleString()
+                          : 0}
+                      </p>
+                    </div>
+                    <div className="flex gap-4 text-2xl">
+                      <p className="w-[250px]">Revenue:</p>
+                      <p className="font-numbers font-bold text-primary">
+                        ₹
+                        {revenue?.revenueForYearlyChart.overallStats.length > 0
+                          ? revenue?.revenueForYearlyChart.overallStats[0].totalRevenue.toLocaleString()
+                          : 0}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
 
           <p className="col-span-5 text-2xl font-extrabold uppercase text-foreground">
@@ -266,7 +274,9 @@ const Dashboard = () => {
                 </button>
               </div>
               <div className="mx-auto flex h-[400px] w-[400px] items-center justify-center">
-                {revenue?.monthlyChartData.length > 0 ? (
+                {loading ? (
+                  <Loader height="400px" />
+                ) : revenue?.monthlyChartData.length > 0 ? (
                   <DoughnutChartComponent
                     chartData={revenue?.monthlyChartData}
                   />

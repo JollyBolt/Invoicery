@@ -159,8 +159,10 @@ function Sidebar() {
             {loggedIn && (
               <div
                 onClick={() => {
+                  // document.cookie =
+                  //   "authToken=logout; expires = Thu, 01 Jan 1970 00:00:00 GMT"
                   document.cookie =
-                    "authToken=logout; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+                    "authToken=; Max-Age=0; path=/; domain=" + location.hostname
                   // navigate("/");
                   sessionStorage.clear()
                   location.reload()

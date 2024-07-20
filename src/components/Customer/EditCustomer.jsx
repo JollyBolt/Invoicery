@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { useDispatch, useSelector } from "react-redux"
 import { editCustomer } from "../../redux/slices/customerSlice"
 import Mr_Ms_Mrs from "./Mr_Ms_Mrs"
+import { Loader2 } from "../../assets"
 
 const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
   const customerSchema = yup.object({
@@ -287,7 +288,7 @@ const EditCustomer = ({ modalOpen, setModalOpen, customer }) => {
                   </button>
                   {isSubmitting ? (
                     <div className="flex w-20 justify-center rounded-rounded bg-primary text-center">
-                      <img src="/src/assets/Loading2.gif" className="w-9" />
+                      <img src={Loader2} className="w-9" />
                     </div>
                   ) : !isDirty || !isValid ? (
                     <div className="text-md text-disabledText flex items-center justify-center rounded-rounded bg-primaryLight px-2 py-1 text-center font-semibold">

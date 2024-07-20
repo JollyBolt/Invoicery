@@ -12,6 +12,7 @@ import * as yup from "yup"
 import { useDispatch, useSelector } from "react-redux"
 import { login } from "../redux/slices/authSlice.js"
 import { useNavigate } from "react-router-dom"
+import { Loader2 } from "../assets/index.js"
 
 function Auth() {
   const [open, setOpen] = useState(false)
@@ -159,7 +160,7 @@ const Modal = ({ open, setOpen }) => {
 
                 {loading ? (
                   <div className="flex w-full justify-center rounded-rounded bg-primary text-center">
-                    <img src="/src/assets/Loading2.gif" className="w-11" />
+                    <img src={Loader2} className="w-11" />
                   </div>
                 ) : (
                   <motion.input

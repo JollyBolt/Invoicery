@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { useDispatch, useSelector } from "react-redux"
 import { postCustomer } from "../../redux/slices/customerSlice"
 import Mr_Ms_Mrs from "./Mr_Ms_Mrs"
+import { Loader2 } from "../../assets"
 
 export default function CreateCustomer({ open, setOpen }) {
   const customerSchema = yup.object({
@@ -461,7 +462,7 @@ export default function CreateCustomer({ open, setOpen }) {
                   </button>
                   {isSubmitting ? (
                     <div className="flex w-20 justify-center rounded-rounded bg-primary text-center">
-                      <img src="/src/assets/Loading2.gif" className="w-9" />
+                      <img src={Loader2} className="w-9" />
                     </div>
                   ) : (
                     <motion.input

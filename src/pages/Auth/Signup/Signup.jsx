@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { signup } from "../../../redux/slices/authSlice"
 import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom"
-import { HiArrowLongLeft } from "../../../assets/index"
+import { HiArrowLongLeft, Loader2 } from "../../../assets/index"
 import { authSlice } from "../../../redux/slices/authSlice"
 import PersonalInfoForm from "./PersonalInfoForm"
 import OrgInfoForm from "./OrgInfoForm"
@@ -363,7 +363,7 @@ function Signup() {
               </motion.button>
             ) : loading ? (
               <div className="flex w-20 justify-center rounded-rounded bg-primary px-3 text-center">
-                <img src="/src/assets/Loading2.gif" className="w-8" />
+                <img src={Loader2} className="w-8" />
               </div>
             ) : (
               <motion.button

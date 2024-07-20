@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { editCustomer } from "../../redux/slices/customerSlice"
 import { useForm } from "react-hook-form"
+import { Loader2 } from "../../assets"
 
 function EditBillingAddressesModal({ open, setOpen, customer, ind }) {
   const dispatch = useDispatch()
@@ -294,7 +295,7 @@ function EditBillingAddressesModal({ open, setOpen, customer, ind }) {
                   </button>
                   {isSubmitting ? (
                     <div className="flex w-16 justify-center rounded-rounded bg-primary text-center">
-                      <img src="/src/assets/Loading2.gif" className="w-10" />
+                      <img src={Loader2} className="w-10" />
                     </div>
                   ) : !isDirty || !isValid ? (
                     <div className="text-md flex items-center justify-center rounded-rounded bg-primaryLight px-3.5 py-1 text-center font-semibold text-disabledText">

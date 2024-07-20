@@ -9,6 +9,10 @@ import { FaFileInvoiceDollar } from "react-icons/fa";
 import NoData from "./svg/no_data.svg";
 import AddCustomer from "./svg/add_customer.svg";
 
+//Loaders
+import Loader1 from './Loader.gif'
+import Loader2 from './Loading2.gif'
+
 //Pagination Icons
 import {
   MdOutlineKeyboardArrowLeft,
@@ -100,4 +104,6 @@ export {
   IoPowerOutline,
   MdEdit,
   MdDelete,
+  Loader1,
+  Loader2
 };

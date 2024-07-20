@@ -6,6 +6,7 @@ import { postProduct } from "../../redux/slices/productSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { motion, AnimatePresence } from "framer-motion"
 import { DevTool } from "@hookform/devtools"
+import { Loader2 } from "../../assets"
 
 const AddProductModal = ({ isOpen, setIsOpen }) => {
   const productSchema = yup.object({
@@ -171,7 +172,7 @@ const AddProductModal = ({ isOpen, setIsOpen }) => {
                   {/* </form> */}
                   {isSubmitting ? (
                     <div className="flex w-20 justify-center rounded-rounded bg-primary text-center">
-                      <img src="/src/assets/Loading2.gif" className="w-9" />
+                      <img src={Loader2} className="w-9" />
                     </div>
                   ) : (
                     <motion.input

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useFieldArray, useForm } from "react-hook-form"
 import { useDispatch, useSelector } from "react-redux"
 import { editProfile } from "../../redux/slices/userSlice"
+import { Loader2 } from "../../assets"
 
 function TnCModal({ editOpen, setEditOpen, user }) {
   const dispatch = useDispatch()
@@ -130,7 +131,7 @@ function TnCModal({ editOpen, setEditOpen, user }) {
 
                 {loading ? (
                   <div className="flex w-full justify-center rounded-rounded bg-primary text-center">
-                    <img src="/src/assets/Loading2.gif" className="w-11" />
+                    <img src={Loader2} className="w-11" />
                   </div>
                 ) : (
                   <motion.input

@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { useForm } from "react-hook-form"
 import { editProduct, fetchAllProducts } from "../../redux/slices/productSlice"
 import { useDispatch } from "react-redux"
+import { Loader2 } from "../../assets"
 
 function EditProductModal({ modalOpen, setModalOpen, product }) {
   const EditProductSchema = yup.object({
@@ -172,7 +173,7 @@ function EditProductModal({ modalOpen, setModalOpen, product }) {
                   {/* </form> */}
                   {isSubmitting ? (
                     <div className="flex w-20 justify-center rounded-rounded bg-primary text-center">
-                      <img src="/src/assets/Loading2.gif" className="w-9" />
+                      <img src={Loader2} className="w-9" />
                     </div>
                   ) : !isDirty || !isValid ? (
                     <div className="text-md text-disabledText flex select-none items-center justify-center rounded-rounded bg-primaryLight px-2 py-1 text-center font-semibold">

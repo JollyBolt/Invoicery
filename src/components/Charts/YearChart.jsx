@@ -83,6 +83,7 @@ const YearChart = ({ chart, revenue }) => {
         return data
       }),
     )
+    setFinalYearData(null)
     setFinalYearData(yearData)
   }, [revenue])
 

@@ -54,6 +54,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false)
   const getDashboardChartData = async () => {
     setLoading(true)
+    setRevenue(null)
     const { data } = await axios.get(
       `${import.meta.env.VITE_URL}/api/v1/invoice/getdashboardchartdata`,
       {
@@ -156,7 +157,7 @@ const Dashboard = () => {
                 style={"w-1/12"}
               />
             </div>
-            {loading ? (
+            {loading || !revenue ? (
               <Loader height="300px" />
             ) : (
               <div className="flex w-full">

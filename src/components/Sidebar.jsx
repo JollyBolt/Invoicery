@@ -160,10 +160,10 @@ function Sidebar() {
               <div
                 onClick={() => {
                   document.cookie =
-                    "authToken= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+                    "authToken=logout; expires = Thu, 01 Jan 1970 00:00:00 GMT"
                   // navigate("/");
                   sessionStorage.clear()
-                  window.location.reload()
+                  location.reload()
                 }}
                 className={`text-red-500 transition-[border-radius] hover:bg-red-500 hover:text-white ${
                   open ? "rounded-rounded delay-0" : "rounded-[50%] delay-300"

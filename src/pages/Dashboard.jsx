@@ -162,10 +162,12 @@ const Dashboard = () => {
             ) : (
               <div className="flex w-full">
                 <div className="w-[65%]">
-                  <YearChart
-                    chart={chart}
-                    revenue={revenue?.revenueForYearlyChart.monthlyRevenue}
-                  />
+                  {revenue && (
+                    <YearChart
+                      chart={chart}
+                      revenue={revenue?.revenueForYearlyChart.monthlyRevenue}
+                    />
+                  )}
                 </div>
                 <div className="h-[300px] w-[35%] p-5">
                   <div className="flex h-full flex-col justify-evenly text-foreground">

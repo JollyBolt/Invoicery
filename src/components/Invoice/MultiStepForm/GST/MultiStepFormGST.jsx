@@ -76,15 +76,6 @@ function MultiStepFormGST({
         sessionStorage.getItem("miscellaneous") &&
         sessionStorage.getItem("miscellaneous"),
       taxes: {
-        // igst: sessionStorage.getItem("taxes")
-        //   ? JSON.parse(sessionStorage.getItem("taxes")).igst
-        //   : 0.0,
-        // cgst: sessionStorage.getItem("taxes")
-        //   ? JSON.parse(sessionStorage.getItem("taxes")).cgst
-        //   : 0.0,
-        // sgst: sessionStorage.getItem("taxes")
-        //   ? JSON.parse(sessionStorage.getItem("taxes")).sgst
-        //   : 0.0,
         igst:
           sessionStorage.getItem("taxes") &&
           JSON.parse(sessionStorage.getItem("taxes")).igst,
@@ -198,12 +189,7 @@ function MultiStepFormGST({
           />
         )
       case 9:
-        return (
-          <Finish
-          handlePrint={handlePrint}
-          invoiceState={invoiceState}
-          />
-        )
+        return <Finish handlePrint={handlePrint} invoiceState={invoiceState} />
     }
   }
   const setDisabled = () => {
@@ -253,11 +239,9 @@ function MultiStepFormGST({
     }
   }
 
-
-
   return (
     <div className="flex h-full w-full flex-col justify-between">
-      <div className="h-[58dvh] flex-1 overflow-y-scroll p-3">
+      <div className="h-[65dvh] overflow-y-scroll p-3">
         <form noValidate>{formSwitch()}</form>
       </div>
       <div className="flex w-full justify-between">
@@ -271,32 +255,7 @@ function MultiStepFormGST({
         >
           Go Back
         </button>
-        {/* {step === 9 && (
-          <button type="button" onClick={handlePrint}>
-            Print
-          </button>
-        )} */}
         {step < 9 && (
-          // <motion.button
-          //   initial={{ scale: 1 }}
-          //   whileTap={isDirty && isValid && { scale: 0.85 }}
-          //   transition={{ duration: 0.2 }}
-          //   onClick={() => {
-          //     console.log(invoiceState)
-          //     if (sessionStorage.getItem("mode") === "create") {
-          //       dispatch(createInvoice(invoiceState))
-          //     } else if (sessionStorage.getItem("mode") === "edit") {
-          //       dispatch(editInvoice({ id, body: invoiceState }))
-          //     }
-          //     sessionStorage.clear()
-          //     navigate("/invoice")
-          //   }}
-          //   // disabled={setDisabled()}
-          //   className="disabled:text-disabledText select-none rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight disabled:cursor-default disabled:bg-primaryLight"
-          // >
-          //   Save
-          // </motion.button>
-          // ) : (
           <motion.button
             initial={{ scale: 1 }}
             whileTap={!setDisabled() && { scale: 0.85 }}

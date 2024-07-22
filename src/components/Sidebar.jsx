@@ -161,8 +161,6 @@ function Sidebar() {
                 onClick={() => {
                   document.cookie =
                     "authToken=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=.ishansen.in;"
-                  // document.cookie =
-                    // "authToken=; Max-Age=0; path=/; domain=.ishansen.in;"
                   // navigate("/");
                   sessionStorage.clear()
                   location.reload()

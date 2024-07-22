@@ -83,7 +83,8 @@ const Input = ({
 
   const handleDelete = (ind) => {
     if (invoiceState.termsNConditions.length === 1) {
-      sessionStorage.removeItem("termsNConditions")
+      sessionStorage.setItem("termsNConditions",[])
+      return
     }
     setInvoiceState((prevState) => {
       return {
@@ -123,10 +124,11 @@ const Input = ({
   }
 
   useEffect(() => {
-    JSON.parse(sessionStorage.getItem("termsNConditions")).length !==
+      JSON.parse(sessionStorage.getItem("termsNConditions")) && JSON.parse(sessionStorage.getItem("termsNConditions")).length !==
     invoiceState.termsNConditions.length
       ? setDisableAdd(true)
       : setDisableAdd(false)
+
   }, [invoiceState.termsNConditions])
 
   return (

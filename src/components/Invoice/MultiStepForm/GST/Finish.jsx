@@ -6,10 +6,11 @@ import {
 } from "../../../../redux/slices/invoiceSlice"
 import { FaSave } from "react-icons/fa"
 import { IoIosPrint } from "react-icons/io"
-import { useParams } from "react-router-dom"
+import { useNavigate,useParams } from "react-router-dom"
 
 const Finish = ({ handlePrint, invoiceState }) => {
   const dispatch = useDispatch()
+  const navigate=useNavigate()
   const { id } = useParams()
   return (
     <>

@@ -1,74 +1,73 @@
 //Sidebar Icons
-import { MdDashboard } from "react-icons/md";
-import { BsBoxSeamFill } from "react-icons/bs";
-import { FaCircleUser } from "react-icons/fa6";
-import { BsPeopleFill } from "react-icons/bs";
-import { FaFileInvoiceDollar } from "react-icons/fa";
+import { MdDashboard } from "react-icons/md"
+import { BsBoxSeamFill } from "react-icons/bs"
+import { FaCircleUser } from "react-icons/fa6"
+import { BsPeopleFill } from "react-icons/bs"
+import { FaFileInvoiceDollar } from "react-icons/fa"
 
 //svg
-import NoData from "./svg/no_data.svg";
-import AddCustomer from "./svg/add_customer.svg";
+import NoData from "./svg/no_data.svg"
+import AddCustomer from "./svg/add_customer.svg"
 
 //Loaders
-import Loader1 from './Loader.gif'
-import Loader2 from './Loading2.gif'
+import Loader1 from "./Loader.gif"
+import Loader2 from "./Loading2.gif"
 
 //Pagination Icons
 import {
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
-} from "react-icons/md";
+} from "react-icons/md"
 
 //Search Icon
-import { HiMagnifyingGlass } from "react-icons/hi2";
+import { HiMagnifyingGlass } from "react-icons/hi2"
 
 //Create Icon
-import { FaPlus } from "react-icons/fa6";
+import { FaPlus } from "react-icons/fa6"
 
 //Cross Icon
-import { RxCross1 } from "react-icons/rx";
+import { RxCross1 } from "react-icons/rx"
 
 //Filter Icon
-import { FaFilter } from "react-icons/fa";
+import { FaFilter } from "react-icons/fa"
 
 //Hamburger Icon
-import { HiMenuAlt2 } from "react-icons/hi";
+import { HiMenuAlt2 } from "react-icons/hi"
 
 //Action Icon
-import { BsThreeDotsVertical } from "react-icons/bs";
+import { BsThreeDotsVertical } from "react-icons/bs"
 
 //Dashboard
-import { FaRupeeSign } from "react-icons/fa";
-import { FaFileInvoice } from "react-icons/fa";
+import { FaRupeeSign } from "react-icons/fa"
+import { FaFileInvoice } from "react-icons/fa"
 
 //Chart Icons
-import { FaAngleLeft } from "react-icons/fa";
-import { FaAngleRight } from "react-icons/fa";
+import { FaAngleLeft } from "react-icons/fa"
+import { FaAngleRight } from "react-icons/fa"
 
 //Tick Icon
-import { FaCheck } from "react-icons/fa6";
+import { FaCheck } from "react-icons/fa6"
 
 //Up Down Arrows
-import { RiExpandUpDownLine } from "react-icons/ri";
+import { RiExpandUpDownLine } from "react-icons/ri"
 
-import { SlSocialDropbox } from "react-icons/sl";
+import { SlSocialDropbox } from "react-icons/sl"
 
 //Auth
-import { FcGoogle } from "react-icons/fc";
+import { FcGoogle } from "react-icons/fc"
 
 //Left Arrow
 import { HiArrowLongLeft } from "react-icons/hi2"
 
 //Trash Can
-import { FaTrash } from "react-icons/fa";
-
+import { FaTrash } from "react-icons/fa"
 
 //Light & Dark Icons
-import { IoSunnyOutline } from "react-icons/io5";
-import { IoMoonOutline } from "react-icons/io5";
+import { IoSunnyOutline } from "react-icons/io5"
+import { IoMoonOutline } from "react-icons/io5"
 
 //Power Icon
-import { IoPowerOutline } from "react-icons/io5";
+import { IoPowerOutline } from "react-icons/io5"
 
 //Edit & Delete Icons
 import { MdEdit, MdDelete } from "react-icons/md"
@@ -105,5 +104,5 @@ export {
   MdEdit,
   MdDelete,
   Loader1,
-  Loader2
-};
+  Loader2,
+}

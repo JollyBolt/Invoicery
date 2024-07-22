@@ -89,6 +89,9 @@ function EditProfile({ open, setOpen }) {
   const onSubmit = async (e) => {
     e.preventDefault()
     await handleSubmit(handleEdit)(e)
+    setOpen(false)
+    reset()
+    location.reload()
   }
   const handleEdit = ({
     firstName,
@@ -101,6 +104,7 @@ function EditProfile({ open, setOpen }) {
     streetAddress,
     state,
     city,
+    // country,
     zip,
     gstin,
 
@@ -112,6 +116,7 @@ function EditProfile({ open, setOpen }) {
     console.log("object")
     dispatch(
       editProfile({
+        _id: user._id,
         name: firstName + " " + lastName,
         // email,
         phone,
@@ -123,6 +128,7 @@ function EditProfile({ open, setOpen }) {
             city,
             state,
             zip,
+            country: user.org.address.country,
           },
           gstin,
         },
@@ -158,60 +164,56 @@ function EditProfile({ open, setOpen }) {
                     <h1 className="text-3xl font-semibold text-foreground">
                       User Details
                     </h1>
-                    <div 
+                    <div
                     // className="flex w-full flex-nowrap justify-between"
                     >
                       {/* <div className="w-full"> */}
-                        <div className="relative flex w-full flex-col flex-nowrap">
-                          <input
-                            {...register("firstName")}
-                            type="text"
-                            id="editFirstName"
-                            autoComplete="off"
-                            placeholder="First Name"
-                            className="peer rounded-rounded border border-placeholderText bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
-                          />
-                          <label
-                            htmlFor="editFirstName"
-                            className="float-label"
-                          >
-                            First Name
-                            <span className="text-red-500">&#42;</span>
-                          </label>
-                        </div>
-                        <p className="text-xs text-red-500">
-                          {errors.firstName ? (
-                            errors.firstName.message
-                          ) : (
-                            <span className="select-none">&nbsp;</span>
-                          )}
-                        </p>
+                      <div className="relative flex w-full flex-col flex-nowrap">
+                        <input
+                          {...register("firstName")}
+                          type="text"
+                          id="editFirstName"
+                          autoComplete="off"
+                          placeholder="First Name"
+                          className="peer rounded-rounded border border-placeholderText bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                        />
+                        <label htmlFor="editFirstName" className="float-label">
+                          First Name
+                          <span className="text-red-500">&#42;</span>
+                        </label>
                       </div>
+                      <p className="text-xs text-red-500">
+                        {errors.firstName ? (
+                          errors.firstName.message
+                        ) : (
+                          <span className="select-none">&nbsp;</span>
+                        )}
+                      </p>
+                    </div>
 
-                      <div className="w-full">
-                        <div className="relative flex w-full flex-col flex-nowrap">
-                          <input
-                            {...register("lastName")}
-                            type="text"
-                            id="editLastName"
-                            autoComplete="off"
-                            placeholder="Last Name"
-                            className="peer rounded-rounded border border-placeholderText bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
-                          />
-                          <label htmlFor="editLastName" className="float-label">
-                            Last Name
-                            <span className="text-red-500">&#42;</span>
-                          </label>
-                        </div>
-                        <p className="text-xs text-red-500">
-                          {errors.lastName ? (
-                            errors.lastName.message
-                          ) : (
-                            <span className="select-none">&nbsp;</span>
-                          )}
-                        </p>
+                    <div className="w-full">
+                      <div className="relative flex w-full flex-col flex-nowrap">
+                        <input
+                          {...register("lastName")}
+                          type="text"
+                          id="editLastName"
+                          autoComplete="off"
+                          placeholder="Last Name"
+                          className="peer rounded-rounded border border-placeholderText bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                        />
+                        <label htmlFor="editLastName" className="float-label">
+                          Last Name
+                          <span className="text-red-500">&#42;</span>
+                        </label>
                       </div>
-              
+                      <p className="text-xs text-red-500">
+                        {errors.lastName ? (
+                          errors.lastName.message
+                        ) : (
+                          <span className="select-none">&nbsp;</span>
+                        )}
+                      </p>
+                    </div>
 
                     <div className="w-full">
                       <div className="relative flex w-full flex-col flex-nowrap">
@@ -260,7 +262,6 @@ function EditProfile({ open, setOpen }) {
                         )}
                       </p>
                     </div> */}
-
                   </div>
 
                   <div className="flex w-1/2 flex-col gap-y-4">
@@ -382,7 +383,7 @@ function EditProfile({ open, setOpen }) {
                 </div>
 
                 {/* Org details */}
-                <div className="flex w-full flex-col gap-y-4 mt-3">
+                <div className="mt-3 flex w-full flex-col gap-y-4">
                   <h1 className="text-3xl font-semibold text-foreground">
                     Organization Details
                   </h1>

@@ -15,6 +15,41 @@ function ShippingAddressDetails({
       : false,
   )
 
+  useEffect(() => {
+    if (!!sessionStorage.getItem("shippingChecked")) {
+      setValue(
+        "shippingStreetAddress",
+        JSON.parse(sessionStorage.getItem("shippingAddress")).streetAddress,
+        { shouldTouch: true, shouldDirty: true, shouldValidate: true },
+      )
+      setValue(
+        "shippingCity",
+        JSON.parse(sessionStorage.getItem("shippingAddress")).city,
+        { shouldTouch: true, shouldDirty: true, shouldValidate: true },
+      )
+      setValue(
+        "shippingState",
+        JSON.parse(sessionStorage.getItem("shippingAddress")).state,
+        { shouldTouch: true, shouldDirty: true, shouldValidate: true },
+      )
+      setValue(
+        "shippingStateCode",
+        JSON.parse(sessionStorage.getItem("shippingAddress")).stateCode,
+        { shouldTouch: true, shouldDirty: true, shouldValidate: true },
+      )
+      setValue(
+        "shippingZip",
+        JSON.parse(sessionStorage.getItem("shippingAddress")).zip,
+        { shouldTouch: true, shouldDirty: true, shouldValidate: true },
+      )
+      setValue(
+        "shippingCountry",
+        JSON.parse(sessionStorage.getItem("shippingAddress")).country,
+        { shouldTouch: true, shouldDirty: true, shouldValidate: true },
+      )
+    }
+  }, [])
+
   return (
     <>
       <motion.div
@@ -40,12 +75,30 @@ function ShippingAddressDetails({
                     setChecked(false)
                     sessionStorage.removeItem("shippingChecked")
                     sessionStorage.removeItem("shippingAddress")
-                    setValue("shippingStreetAddress", "", { shouldTouch: true })
-                    setValue("shippingCity", "", { shouldTouch: true })
-                    setValue("shippingState", "", { shouldTouch: true })
-                    setValue("shippingStateCode", "", { shouldTouch: true })
-                    setValue("shippingZip", "", { shouldTouch: true })
-                    setValue("shippingCountry", "", { shouldTouch: true })
+                    setValue("shippingStreetAddress", "", {
+                      shouldTouch: true,
+                      shouldValidate: true,
+                    })
+                    setValue("shippingCity", "", {
+                      shouldTouch: true,
+                      shouldValidate: true,
+                    })
+                    setValue("shippingState", "", {
+                      shouldTouch: true,
+                      shouldValidate: true,
+                    })
+                    setValue("shippingStateCode", "", {
+                      shouldTouch: true,
+                      shouldValidate: true,
+                    })
+                    setValue("shippingZip", "", {
+                      shouldTouch: true,
+                      shouldValidate: true,
+                    })
+                    setValue("shippingCountry", "", {
+                      shouldTouch: true,
+                      shouldValidate: true,
+                    })
                     setInvoiceState({
                       ...invoiceState,
                       customer: {
@@ -73,60 +126,58 @@ function ShippingAddressDetails({
                     setValue(
                       "shippingStreetAddress",
                       invoiceState.customer.address.billing.streetAddress,
-                      { shouldTouch: true, shouldDirty: true },
+                      {
+                        shouldTouch: true,
+                        shouldDirty: true,
+                        shouldValidate: true,
+                      },
                     )
                     setValue(
                       "shippingCity",
                       invoiceState.customer.address.billing.city,
-                      { shouldTouch: true, shouldDirty: true },
+                      {
+                        shouldTouch: true,
+                        shouldDirty: true,
+                        shouldValidate: true,
+                      },
                     )
                     setValue(
                       "shippingState",
                       invoiceState.customer.address.billing.state,
-                      { shouldTouch: true, shouldDirty: true },
+                      {
+                        shouldTouch: true,
+                        shouldDirty: true,
+                        shouldValidate: true,
+                      },
                     )
                     setValue(
                       "shippingStateCode",
                       invoiceState.customer.address.billing.stateCode,
-                      { shouldTouch: true, shouldDirty: true },
+                      {
+                        shouldTouch: true,
+                        shouldDirty: true,
+                        shouldValidate: true,
+                      },
                     )
                     setValue(
                       "shippingZip",
                       invoiceState.customer.address.billing.zip,
-                      { shouldTouch: true, shouldDirty: true },
+                      {
+                        shouldTouch: true,
+                        shouldDirty: true,
+                        shouldValidate: true,
+                      },
                     )
                     setValue(
                       "shippingCountry",
                       invoiceState.customer.address.billing.country,
-                      { shouldTouch: true, shouldDirty: true },
+                      {
+                        shouldTouch: true,
+                        shouldDirty: true,
+                        shouldValidate: true,
+                      },
                     )
-                    // resetField("shippingStreetAddress", {
-                    //   defaultValue:
-                    //     invoiceState.customer.address.billing.streetAddress,
-                    //   keepDirty: true,
-                    // })
-                    // resetField("shippingCity", {
-                    //   defaultValue: invoiceState.customer.address.billing.city,
-                    //   keepDirty: true,
-                    // })
-                    // resetField("shippingState", {
-                    //   defaultValue: invoiceState.customer.address.billing.state,
-                    //   keepDirty: true,
-                    // })
-                    // resetField("shippingStateCode", {
-                    //   defaultValue:
-                    //     invoiceState.customer.address.billing.stateCode,
-                    //   keepDirty: true,
-                    // })
-                    // resetField("shippingZip", {
-                    //   defaultValue: invoiceState.customer.address.billing.zip,
-                    //   keepDirty: true,
-                    // })
-                    // resetField("shippingCountry", {
-                    //   defaultValue:
-                    //     invoiceState.customer.address.billing.country,
-                    //   keepDirty: true,
-                    // })
+
                     setInvoiceState({
                       ...invoiceState,
                       customer: {
@@ -165,7 +216,7 @@ function ShippingAddressDetails({
                   type="text"
                   placeholder="Street Address"
                   autoComplete="off"
-                  className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                  className="peer rounded-rounded border border-placeholderText bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                   {...register("shippingStreetAddress", {
                     required: "Street Address is required",
                     disabled: checked,
@@ -213,7 +264,7 @@ function ShippingAddressDetails({
                     autoComplete="off"
                     type="text"
                     placeholder="City"
-                    className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                    className="peer rounded-rounded border border-placeholderText bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                     {...register("shippingCity", {
                       required: "City is required",
                       disabled: checked,
@@ -260,7 +311,7 @@ function ShippingAddressDetails({
                     type="text"
                     autoComplete="off"
                     placeholder="ZIP Code"
-                    className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                    className="peer rounded-rounded border border-placeholderText bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                     {...register("shippingZip", {
                       required: "ZIP Code is required",
                       disabled: checked,
@@ -314,7 +365,7 @@ function ShippingAddressDetails({
                     autoComplete="off"
                     type="text"
                     placeholder="State"
-                    className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                    className="peer rounded-rounded border border-placeholderText bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                     {...register("shippingState", {
                       required: "State is required",
                       disabled: checked,
@@ -362,7 +413,7 @@ function ShippingAddressDetails({
                     type="text"
                     autoComplete="off"
                     placeholder="State Code"
-                    className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                    className="peer rounded-rounded border border-placeholderText bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                     {...register("shippingStateCode", {
                       required: "State Code is required",
                       disabled: checked,
@@ -415,7 +466,7 @@ function ShippingAddressDetails({
                   type="text"
                   placeholder="Country"
                   autoComplete="off"
-                  className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
+                  className="peer rounded-rounded border border-placeholderText bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
                   {...register("shippingCountry", {
                     required: "Shipping Country is required",
                     disabled: checked,

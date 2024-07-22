@@ -118,12 +118,12 @@ const InvoiceDetails = ({
                   },
                 })}
                 type="text"
-                id="purchaseOrder"
-                placeholder="Purchase Order"
+                id="purchaseOrderNumber"
+                placeholder="Purchase Order Number"
                 className="border-placeholderText peer rounded-rounded border bg-background p-3 text-lg text-foreground transition-colors duration-150 placeholder:text-transparent focus:border-foreground focus:outline-none"
               />
-              <label htmlFor="purchaseOrder" className="float-label">
-                Purchase Order
+              <label htmlFor="purchaseOrderNumber" className="float-label">
+                Purchase Order Number
               </label>
             </div>
             <p className="mt-1 text-sm text-red-500">

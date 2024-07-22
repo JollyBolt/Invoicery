@@ -75,6 +75,10 @@ function CreateInvoice() {
         ? user.termsNConditions
         : [],
   })
+  useEffect(() => {
+    !sessionStorage.getItem("termsNConditions") &&
+      sessionStorage.setItem("termsNConditions", JSON.stringify(user.termsNConditions))
+  }, [])
   return (
     <>
       <div className="flex h-[calc(100dvh-88px)] w-full gap-2">

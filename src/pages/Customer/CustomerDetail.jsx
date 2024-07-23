@@ -6,22 +6,10 @@ import {
   editCustomer,
 } from "../../redux/slices/customerSlice"
 import { displayPhone } from "../../utils/displayPhone"
-import AreaChartComponent from "../../components/Charts/AreaChartComponent"
-import BarChartComponent from "../../components/Charts/BarChartComponent"
-import { motion } from "framer-motion"
 import { fetchAllInvoices } from "../../redux/slices/invoiceSlice"
 import Table from "../../components/Table/Table"
 import { MdEdit, MdDelete } from "react-icons/md"
-
-import {
-  FaAngleLeft,
-  FaAngleRight,
-  FaRupeeSign,
-  FaFileInvoiceDollar,
-  BsPeopleFill,
-  BsBoxSeamFill,
-  FaPlus,
-} from "../../assets"
+import { FaAngleLeft, FaAngleRight, FaPlus } from "../../assets"
 import { customerInvoicesColumns } from "../../components/Table/Columns"
 import EditCustomer from "../../components/Customer/EditCustomer"
 import axios from "axios"
@@ -36,11 +24,9 @@ const CustomerDetail = () => {
   const [currentYear, setCurrentYear] = useState(
     new Date().getFullYear().toString(),
   )
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth())
+  // const [currentMonth, setCurrentMonth] = useState(new Date().getMonth())
   const [chart, setChart] = useState("area")
-  const handleChange = (e) => {
-    setChart(e.target.value)
-  }
+
   const [modalOpen, setModalOpen] = useState(false) // This is to manage the edit modal
 
   const [revenue, setRevenue] = useState(0) // This is to manage the revenue
@@ -51,8 +37,6 @@ const CustomerDetail = () => {
     (state) => state.customers.customers,
   )
   const customerDetails = customers && customers[0]
-
-  // const { loggedIn } = useSelector((state) => state.auth)
 
   useEffect(() => {
     async function getCustomer() {
@@ -75,13 +59,12 @@ const CustomerDetail = () => {
         },
         params: {
           year: currentYear,
-          month: currentMonth,
+          month: new Date().getMonth(),
           customer: sessionStorage.getItem("customerName"),
         },
       },
     )
     setRevenue(data)
-    console.log(data)
   }
 
   useEffect(() => {
@@ -108,21 +91,20 @@ const CustomerDetail = () => {
       )}
       {/* {billingModalOpen &&} */}
       {customerDetails && (
-          <AddBillingAddressesModal
-            open={addBillingModalOpen}
-            setOpen={setAddBillingModalOpen}
-            customer={customerDetails}
-          />
+        <AddBillingAddressesModal
+          open={addBillingModalOpen}
+          setOpen={setAddBillingModalOpen}
+          customer={customerDetails}
+        />
       )}
-      {editBillingModalOpen && <EditBillingAddressesModal
-        open={editBillingModalOpen}
-        setOpen={setEditBillingModalOpen}
-        customer={customerDetails}
-        ind={editAddressIndex}
-      />
-      }
-      {/* {customerDetails && ( */}
-      {/* )} */}
+      {editBillingModalOpen && (
+        <EditBillingAddressesModal
+          open={editBillingModalOpen}
+          setOpen={setEditBillingModalOpen}
+          customer={customerDetails}
+          ind={editAddressIndex}
+        />
+      )}
 
       {/* CustomerDetail */}
       {!loading ? (
@@ -301,31 +283,6 @@ const CustomerDetail = () => {
           <Loader />
         </>
       )}
-      {/* <div className="mt-7 flex w-full justify-between gap-x-7">
-        <div className="w-1/2 rounded-rounded bg-foreground px-2 py-4">
-          <h1 className="mb-5 text-2xl font-semibold">Billing Adresses</h1> */}
-
-      {/* list of billing addresses */}
-      {/* <div className="flex h-fit max-h-[400px] w-full flex-col gap-y-6 overflow-y-scroll">
-            {customerDetails.billingAddresses &&
-              customerDetails.billingAddresses.map((address, i) => {
-                return (
-                  <p>
-                    {address.streetAddress +
-                      ", " +
-                      address.city +
-                      ", ZIP: " +
-                      address.zip +
-                      ", " +
-                      address.state +
-                      ", State Code: " +
-                      address.stateCode}
-                  </p>
-                )
-              })}
-          </div> */}
-      {/* </div> */}
-      {/* </div> */}
     </div>
   )
 }

@@ -95,7 +95,7 @@ function MultiStepFormGST({
 
   const {
     register,
-    handleSubmit,
+    setFocus,
     formState,
     control,
     setValue,
@@ -118,6 +118,7 @@ function MultiStepFormGST({
             register={register}
             errors={errors}
             setValue={setValue}
+            setFocus={setFocus}
             invoiceState={invoiceState}
             setInvoiceState={setInvoiceState}
           />
@@ -128,6 +129,7 @@ function MultiStepFormGST({
             register={register}
             errors={errors}
             setValue={setValue}
+            setFocus={setFocus}
             resetField={resetField}
             watch={watch}
             invoiceState={invoiceState}
@@ -140,6 +142,7 @@ function MultiStepFormGST({
             register={register}
             errors={errors}
             watch={watch}
+            setFocus={setFocus}
             resetField={resetField}
             invoiceState={invoiceState}
             setInvoiceState={setInvoiceState}
@@ -151,7 +154,7 @@ function MultiStepFormGST({
             register={register}
             errors={errors}
             setValue={setValue}
-            resetField={resetField}
+            setFocus={setFocus}
             invoiceState={invoiceState}
             setInvoiceState={setInvoiceState}
           />
@@ -164,6 +167,7 @@ function MultiStepFormGST({
             setValue={setValue}
             resetField={resetField}
             watch={watch}
+            setFocus={setFocus}
             invoiceState={invoiceState}
             setInvoiceState={setInvoiceState}
           />
@@ -174,6 +178,7 @@ function MultiStepFormGST({
             register={register}
             errors={errors}
             setValue={setValue}
+            setFocus={setFocus}
             invoiceState={invoiceState}
             setInvoiceState={setInvoiceState}
           />

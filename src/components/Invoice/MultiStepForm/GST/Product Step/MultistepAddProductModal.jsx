@@ -11,6 +11,7 @@ function MultistepAddProductModal({
   setInvoiceState,
   resetField,
   register,
+  setFocus,
   watch,
   setValue,
   invoiceState,
@@ -87,6 +88,11 @@ function MultistepAddProductModal({
     }
   }, [key])
 
+  useEffect(()=>{
+open && !selectedProduct && setFocus('product.name')
+  },[open,selectedProduct])
+
+
   return (
     <>
       <AnimatePresence>
@@ -129,7 +135,7 @@ function MultistepAddProductModal({
                           </h1>
                           <div className="relative flex w-full flex-col overflow-visible">
                             <input
-                              className="border-1 peer w-full rounded-rounded border border-placeholderText bg-background px-2 py-2 text-lg text-foreground transition-colors duration-500 focus:border-foreground focus:outline-none"
+                              className="border-1 peer w-full rounded-rounded border border-placeholderText bg-background px-2 py-2 text-lg text-foreground transition-colors duration-500 focus:border-foreground focus:outline-none outline-none"
                               type="text"
                               autoComplete="off"
                               onKeyDown={(e) => {
@@ -166,10 +172,6 @@ function MultistepAddProductModal({
                               }}
                               placeholder="Enter Product Name"
                               {...register(`product.name`, {
-                                required: {
-                                  value: true,
-                                  message: "Please enter a Product name",
-                                },
                                 onChange: (e) => {
                                   setValueState(watch(`product.name`))
                                 },

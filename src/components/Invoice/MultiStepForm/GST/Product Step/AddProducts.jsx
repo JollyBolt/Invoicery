@@ -11,6 +11,7 @@ const AddProducts = ({
   register,
   watch,
   setValue,
+  setFocus,
   resetField,
   invoiceState,
   setInvoiceState,
@@ -74,6 +75,7 @@ const AddProducts = ({
           watch={watch}
           errors={errors}
           open={open}
+          setFocus={setFocus}
           resetField={resetField}
           setOpen={setOpen}
           invoiceState={invoiceState}

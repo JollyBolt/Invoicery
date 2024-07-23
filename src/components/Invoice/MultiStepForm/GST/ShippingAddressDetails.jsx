@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 function ShippingAddressDetails({
   register,
   errors,
-  resetField,
+  setFocus,
   setValue,
   invoiceState,
   setInvoiceState,
@@ -48,6 +48,10 @@ function ShippingAddressDetails({
         { shouldTouch: true, shouldDirty: true, shouldValidate: true },
       )
     }
+  }, [])
+
+  useEffect(() => {
+    setFocus("shippingStreetAddress")
   }, [])
 
   return (

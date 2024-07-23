@@ -8,6 +8,7 @@ import EditProfile from "../components/Profile/EditProfile"
 import Loader from "../components/Loader"
 import TnCModal from "../components/Profile/TnCModal"
 import { displayPhone } from "../utils/displayPhone"
+import { PageLoader } from "../assets"
 
 const Profile = () => {
   const [open, setOpen] = useState(false)

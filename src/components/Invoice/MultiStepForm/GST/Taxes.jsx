@@ -3,16 +3,10 @@ import { motion } from "framer-motion"
 
 const Taxes = ({
   register,
-  setValue,
-  errors,
-  // watch,
+
   invoiceState,
   setInvoiceState,
 }) => {
-  const [selected, setSelected] = useState("percent")
-
-  const TOGGLE_CLASSES =
-    "font-medium flex items-center gap-2 cursor-pointer px-3 md:pl-3 md:pr-3.5 text-lg py-3 md:py-1.5 transition-colors relative z-10"
 
   return (
     <>

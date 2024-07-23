@@ -6,6 +6,7 @@ function BillingAddressDetails({
   register,
   errors,
   watch,
+  setFocus,
   resetField,
   invoiceState,
   setInvoiceState,
@@ -62,6 +63,10 @@ function BillingAddressDetails({
 
   const [key, setKey] = useState(0)
 
+
+  useEffect(() => {
+    setFocus("billingCity")
+  }, [])
   return (
     <>
       <motion.div

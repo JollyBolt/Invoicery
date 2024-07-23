@@ -5,6 +5,7 @@ const InvoiceDetails = ({
   register,
   errors,
   setValue,
+  setFocus,
   invoiceState,
   setInvoiceState,
 }) => {
@@ -16,6 +17,11 @@ const InvoiceDetails = ({
     sessionStorage.getItem("date") &&
       setValue("date", sessionStorage.getItem("date"), { shouldTouch: true })
   }, [])
+
+  useEffect(() => {
+    setFocus("invoiceNumber")
+  }, [])
+
   return (
     <>
       <motion.div

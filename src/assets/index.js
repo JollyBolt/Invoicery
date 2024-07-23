@@ -8,6 +8,7 @@ import { FaFileInvoiceDollar } from "react-icons/fa"
 //svg
 import NoData from "./svg/no_data.svg"
 import AddCustomer from "./svg/add_customer.svg"
+import PageLoader from "./svg/page_loader.svg"
 
 //Loaders
 import Loader1 from "./Loader.gif"
@@ -90,6 +91,7 @@ export {
   FaCheck,
   NoData,
   AddCustomer,
+  PageLoader,
   FaAngleLeft,
   FaAngleRight,
   FaRupeeSign,

@@ -13,6 +13,7 @@ const AddCustomer = ({
   watch,
   setValue,
   resetField,
+  setFocus,
   setInvoiceState,
   invoiceState,
 }) => {
@@ -74,6 +75,10 @@ const AddCustomer = ({
 
   const [key, setKey] = useState(0) //State created for key inputs
 
+  useEffect(() => {
+    setFocus("customer")
+  }, [])
+  
   return (
     <>
       <motion.div

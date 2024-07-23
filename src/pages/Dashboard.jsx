@@ -22,12 +22,16 @@ import { set } from "react-hook-form"
 import Loader from "../components/Loader"
 
 const Dashboard = () => {
-  const [currentYear, setCurrentYear] = useState(
+  const [currentYearYearlyChart, setCurrentYearYearlyChart] = useState(
+    new Date().getFullYear().toString(),
+  )
+  const [currentYearMonthlyChart, setCurrentYearMonthlyChart] = useState(
     new Date().getFullYear().toString(),
   )
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth())
   const { invoices } = useSelector((state) => state.invoices)
-  const [revenue, setRevenue] = useState(null) // This is to manage the revenue
+  const [yearlyRevenue, setYearlyRevenue] = useState(null) // This is to manage the Yearly revenue
+  const [monthlyRevenue, setMonthlyRevenue] = useState(null) // This is to manage the Yearly revenue
 
   const [stats, setStats] = useState(null)
 
@@ -51,31 +55,57 @@ const Dashboard = () => {
     }
   }, [loggedIn])
 
-  const [loading, setLoading] = useState(false)
-  const getDashboardChartData = async () => {
-    setLoading(true)
-    setRevenue(null)
+  const [yearlyRevenueLoading, setYearlyRevenueLoading] = useState(false)
+  const [monthlyRevenueLoading, setMonthlyRevenueLoading] = useState(false)
+
+  const getDashboardYearlyChartData = async () => {
+    setYearlyRevenueLoading(true)
+    setYearlyRevenue(null)
     const { data } = await axios.get(
-      `${import.meta.env.VITE_URL}/api/v1/invoice/getdashboardchartdata`,
+      `${import.meta.env.VITE_URL}/api/v1/invoice/getdashboardyearlychartdata`,
       {
         headers: {
           Authorization: "Bearer " + getCookieValue("authToken"),
         },
         params: {
-          year: currentYear,
+          year: currentYearYearlyChart,
+        },
+      },
+    )
+    setYearlyRevenue(data)
+    setYearlyRevenueLoading(false)
+  }
+
+  const getDashboardMonthlyChartData = async () => {
+    setMonthlyRevenueLoading(true)
+    setMonthlyRevenue(null)
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_URL}/api/v1/invoice/getdashboardmonthlychartdata`,
+      {
+        headers: {
+          Authorization: "Bearer " + getCookieValue("authToken"),
+        },
+        params: {
+          year: currentYearMonthlyChart,
           month: currentMonth,
         },
       },
     )
-    setRevenue(data)
-    setLoading(false)
+    setMonthlyRevenue(data)
+    setMonthlyRevenueLoading(false)
   }
 
   useEffect(() => {
     if (loggedIn) {
-      getDashboardChartData()
+      getDashboardYearlyChartData()
     }
-  }, [loggedIn, currentYear, currentMonth])
+  }, [loggedIn, currentYearYearlyChart])
+
+  useEffect(() => {
+    if (loggedIn) {
+      getDashboardMonthlyChartData()
+    }
+  }, [loggedIn, currentYearMonthlyChart, currentMonth])
 
   const monthNames = [
     "January",
@@ -93,9 +123,6 @@ const Dashboard = () => {
   ]
 
   const [chart, setChart] = useState("area")
-  const handleChange = (e) => {
-    setChart(e.target.value)
-  }
 
   return (
     <div>
@@ -138,14 +165,19 @@ const Dashboard = () => {
           <div className="col-span-8 row-span-2 rounded-rounded bg-background p-5">
             <div className="mb-3 flex items-center justify-between">
               <div className="flex items-center gap-3 text-xl">
-                <button onClick={() => setCurrentYear((prev) => prev - 1)}>
+                <button
+                  onClick={() => setCurrentYearYearlyChart((prev) => prev - 1)}
+                >
                   <FaAngleLeft className="text-primary" />
                 </button>
                 <span className="font-numbers font-bold uppercase text-foreground">
-                  <span className="font-numbers">{currentYear}</span> Revenue
+                  <span className="font-numbers">{currentYearYearlyChart}</span>{" "}
+                  Revenue
                 </span>
                 <button
-                  onClick={() => setCurrentYear((prev) => parseInt(prev) + 1)}
+                  onClick={() =>
+                    setCurrentYearYearlyChart((prev) => parseInt(prev) + 1)
+                  }
                 >
                   <FaAngleRight className="text-primary" />
                 </button>
@@ -157,15 +189,17 @@ const Dashboard = () => {
                 style={"w-1/12"}
               />
             </div>
-            {loading || !revenue ? (
+            {yearlyRevenueLoading || !yearlyRevenue ? (
               <Loader height="300px" />
             ) : (
               <div className="flex w-full">
                 <div className="w-[65%]">
-                  {revenue && (
+                  {yearlyRevenue && (
                     <YearChart
                       chart={chart}
-                      revenue={revenue?.revenueForYearlyChart.monthlyRevenue}
+                      revenue={
+                        yearlyRevenue?.revenueForYearlyChart.monthlyRevenue
+                      }
                     />
                   )}
                 </div>
@@ -174,8 +208,9 @@ const Dashboard = () => {
                     <div className="flex gap-4 text-2xl">
                       <p className="w-[250px]">Invoices Issued:</p>
                       <p className="font-numbers font-bold text-primary">
-                        {revenue?.revenueForYearlyChart.overallStats.length > 0
-                          ? revenue?.revenueForYearlyChart.overallStats[0]
+                        {yearlyRevenue?.revenueForYearlyChart.overallStats
+                          .length > 0
+                          ? yearlyRevenue?.revenueForYearlyChart.overallStats[0]
                               .invoiceCount
                           : 0}
                       </p>
@@ -184,8 +219,9 @@ const Dashboard = () => {
                       <p className="w-[250px]">Highest Invoice Value:</p>
                       <p className="font-numbers font-bold text-primary">
                         ₹
-                        {revenue?.revenueForYearlyChart.overallStats.length > 0
-                          ? revenue?.revenueForYearlyChart.overallStats[0].highestInvoiceValue.toLocaleString()
+                        {yearlyRevenue?.revenueForYearlyChart.overallStats
+                          .length > 0
+                          ? yearlyRevenue?.revenueForYearlyChart.overallStats[0].highestInvoiceValue.toLocaleString()
                           : 0}
                       </p>
                     </div>
@@ -193,8 +229,9 @@ const Dashboard = () => {
                       <p className="w-[250px]">Lowest Invoice Value:</p>
                       <p className="font-numbers font-bold text-primary">
                         ₹
-                        {revenue?.revenueForYearlyChart.overallStats.length > 0
-                          ? revenue?.revenueForYearlyChart.overallStats[0].lowestInvoiceValue.toLocaleString()
+                        {yearlyRevenue?.revenueForYearlyChart.overallStats
+                          .length > 0
+                          ? yearlyRevenue?.revenueForYearlyChart.overallStats[0].lowestInvoiceValue.toLocaleString()
                           : 0}
                       </p>
                     </div>
@@ -202,8 +239,9 @@ const Dashboard = () => {
                       <p className="w-[250px]">Revenue:</p>
                       <p className="font-numbers font-bold text-primary">
                         ₹
-                        {revenue?.revenueForYearlyChart.overallStats.length > 0
-                          ? revenue?.revenueForYearlyChart.overallStats[0].totalRevenue.toLocaleString()
+                        {yearlyRevenue?.revenueForYearlyChart.overallStats
+                          .length > 0
+                          ? yearlyRevenue?.revenueForYearlyChart.overallStats[0].totalRevenue.toLocaleString()
                           : 0}
                       </p>
                     </div>
@@ -223,7 +261,6 @@ const Dashboard = () => {
           {
             //Recent Invoices Table
           }
-          {/* <div className="col-span-5 rounded-rounded"> */}
           <div className="col-span-5 rounded-lg border border-border bg-background p-4 text-foreground">
             <table className="text-s w-full">
               <thead>
@@ -259,6 +296,24 @@ const Dashboard = () => {
             <div className="flex flex-col">
               <div className="flex items-center gap-3 text-xl">
                 <button
+                  onClick={() => setCurrentYearMonthlyChart((prev) => prev - 1)}
+                >
+                  <FaAngleLeft className="text-primary" />
+                </button>
+                <span className="font-numbers font-bold uppercase text-foreground">
+                  <span className="font-numbers">
+                    {currentYearMonthlyChart}
+                  </span>{" "}
+                  Revenue
+                </span>
+                <button
+                  onClick={() =>
+                    setCurrentYearMonthlyChart((prev) => parseInt(prev) + 1)
+                  }
+                >
+                  <FaAngleRight className="text-primary" />
+                </button>
+                <button
                   onClick={() =>
                     setCurrentMonth((prev) => (prev > 0 ? prev - 1 : 11))
                   }
@@ -277,11 +332,11 @@ const Dashboard = () => {
                 </button>
               </div>
               <div className="mx-auto flex h-[400px] w-[400px] items-center justify-center">
-                {loading ? (
+                {monthlyRevenueLoading ? (
                   <Loader height="400px" />
-                ) : revenue?.monthlyChartData.length > 0 ? (
+                ) : monthlyRevenue?.monthlyChartData.length > 0 ? (
                   <DoughnutChartComponent
-                    chartData={revenue?.monthlyChartData}
+                    chartData={monthlyRevenue?.monthlyChartData}
                   />
                 ) : (
                   <p className="text-foreground">
@@ -294,8 +349,8 @@ const Dashboard = () => {
                   <div className="flex gap-4">
                     <p>Invoices Issued:</p>
                     <p className="font-numbers font-bold text-primary">
-                      {revenue?.monthlyStats.length > 0
-                        ? revenue.monthlyStats[0].invoiceCount
+                      {monthlyRevenue?.monthlyStats.length > 0
+                        ? monthlyRevenue.monthlyStats[0].invoiceCount
                         : 0}
                     </p>
                   </div>
@@ -303,8 +358,8 @@ const Dashboard = () => {
                     <p>Highest Invoice Value:</p>
                     <p className="font-numbers font-bold text-primary">
                       ₹
-                      {revenue?.monthlyStats?.length > 0
-                        ? revenue?.monthlyStats[0]?.highestInvoiceValue.toLocaleString()
+                      {monthlyRevenue?.monthlyStats?.length > 0
+                        ? monthlyRevenue?.monthlyStats[0]?.highestInvoiceValue.toLocaleString()
                         : +0}
                     </p>
                   </div>
@@ -314,8 +369,8 @@ const Dashboard = () => {
                     <p>Revenue:</p>
                     <p className="font-numbers font-bold text-primary">
                       ₹
-                      {revenue?.monthlyStats?.length > 0
-                        ? revenue.monthlyStats[0].totalRevenue.toLocaleString()
+                      {monthlyRevenue?.monthlyStats?.length > 0
+                        ? monthlyRevenue.monthlyStats[0].totalRevenue.toLocaleString()
                         : 0}
                     </p>
                   </div>
@@ -323,8 +378,8 @@ const Dashboard = () => {
                     <p>Lowest Invoice Value:</p>
                     <p className="font-numbers font-bold text-primary">
                       ₹
-                      {revenue?.monthlyStats.length > 0
-                        ? revenue.monthlyStats[0].lowestInvoiceValue.toLocaleString()
+                      {monthlyRevenue?.monthlyStats.length > 0
+                        ? monthlyRevenue.monthlyStats[0].lowestInvoiceValue.toLocaleString()
                         : 0}
                     </p>
                   </div>

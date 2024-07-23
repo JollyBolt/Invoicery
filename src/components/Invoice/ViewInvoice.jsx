@@ -37,7 +37,7 @@ const ViewInvoice = ({ modalOpen, setModalOpen, invoiceState }) => {
   return (
     <AnimatePresence>
       {modalOpen && (
-        <div className="bg-foreground/50 absolute left-0 top-0 z-[100] flex w-full items-center justify-center backdrop-blur-md">
+        <div className="absolute left-0 top-0 z-[100] flex w-full items-center justify-center bg-foreground/50 backdrop-blur-md">
           <motion.div
             className="relative h-screen w-full overflow-y-scroll"
             initial={{ scale: 0.4, opacity: 0 }}
@@ -56,7 +56,7 @@ const ViewInvoice = ({ modalOpen, setModalOpen, invoiceState }) => {
               </div>
               <div className="fixed right-5 top-5 flex flex-col gap-5">
                 <button
-                  className="bg-background group relative flex h-11 w-[44px] origin-right items-center justify-end self-end overflow-hidden rounded-rounded px-3 py-1 text-xl font-semibold transition-all hover:w-[120px]"
+                  className="group relative flex h-11 w-[44px] origin-right items-center justify-end self-end overflow-hidden rounded-rounded bg-background px-3 py-1 text-xl font-semibold transition-all hover:w-[120px]"
                   onClick={() => setModalOpen(false)}
                 >
                   <div className="flex w-[90px] shrink-0 flex-nowrap items-center justify-between">
@@ -67,8 +67,15 @@ const ViewInvoice = ({ modalOpen, setModalOpen, invoiceState }) => {
                   </div>
                 </button>
                 <button
-                  className="bg-background group relative flex h-11 w-[44px] origin-right items-center justify-end self-end overflow-hidden rounded-rounded px-3 py-1 text-xl font-semibold transition-all hover:w-[120px]"
-                  onClick={() => navigate(`./${invoiceState._id}`)}
+                  className="group relative flex h-11 w-[44px] origin-right items-center justify-end self-end overflow-hidden rounded-rounded bg-background px-3 py-1 text-xl font-semibold transition-all hover:w-[120px]"
+                  onClick={() => {
+                    sessionStorage.setItem(
+                      "invoiceState",
+                      JSON.stringify(invoiceState),
+                    )
+                    sessionStorage.setItem("mode", "edit")
+                    navigate(`/invoice/${invoiceState._id}`)
+                  }}
                 >
                   <div className="flex w-[90px] shrink-0 flex-nowrap items-center justify-between">
                     <span className="shrink-0">Edit</span>
@@ -78,7 +85,7 @@ const ViewInvoice = ({ modalOpen, setModalOpen, invoiceState }) => {
                   </div>
                 </button>
                 <button
-                  className="bg-background group relative flex h-11 w-[44px] origin-right items-center justify-end self-end overflow-hidden rounded-rounded px-3 py-1 text-xl font-semibold transition-all hover:w-[120px]"
+                  className="group relative flex h-11 w-[44px] origin-right items-center justify-end self-end overflow-hidden rounded-rounded bg-background px-3 py-1 text-xl font-semibold transition-all hover:w-[120px]"
                   onClick={handlePrint}
                 >
                   <div className="flex w-[90px] shrink-0 flex-nowrap items-center justify-between">

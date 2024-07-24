@@ -14,12 +14,11 @@
     --secondary: #1e2ede;
     --accent: #8884ff;
     --rounded: 4px;
-  
+
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-
 
     --primary: 253 92% 33%;
 
@@ -82,6 +81,9 @@
   }
 }
 
+body {
+  background-color: hsl(var(--muted));
+}
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,

@@ -18,8 +18,8 @@ import { displayDate } from "../utils/displayDate"
 import YearChart from "../components/Charts/YearChart"
 import DoughnutChartComponent from "../components/Charts/DoughnutChartComponent"
 import AreaBarSwitch from "../components/Charts/AreaBarSwitch"
-import { set } from "react-hook-form"
 import Loader from "../components/Loader"
+import Skeleton from "./Skeleton"
 
 const Dashboard = () => {
   const [currentYearYearlyChart, setCurrentYearYearlyChart] = useState(
@@ -48,17 +48,17 @@ const Dashboard = () => {
     )
     setStats(data.stats)
   }
-  useEffect(() => {
-    if (loggedIn) {
-      getStats()
-      dispatch(fetchAllInvoices({ limit: 10 }))
-    }
-  }, [loggedIn])
+  // useEffect(() => {
+  //   if (loggedIn) {
+  //     getStats()
+  //     dispatch(fetchAllInvoices({ limit: 10 }))
+  //   }
+  // }, [loggedIn])
 
   const [yearlyRevenueLoading, setYearlyRevenueLoading] = useState(false)
   const [monthlyRevenueLoading, setMonthlyRevenueLoading] = useState(false)
 
-  const getDashboardYearlyChartData = async () => {
+  const getDashboardYearlyChartData = async (currentYearYearlyChart) => {
     setYearlyRevenueLoading(true)
     setYearlyRevenue(null)
     const { data } = await axios.get(
@@ -72,11 +72,15 @@ const Dashboard = () => {
         },
       },
     )
+
     setYearlyRevenue(data)
     setYearlyRevenueLoading(false)
   }
 
-  const getDashboardMonthlyChartData = async () => {
+  const getDashboardMonthlyChartData = async (
+    currentYearMonthlyChart,
+    currentMonth,
+  ) => {
     setMonthlyRevenueLoading(true)
     setMonthlyRevenue(null)
     const { data } = await axios.get(
@@ -95,17 +99,27 @@ const Dashboard = () => {
     setMonthlyRevenueLoading(false)
   }
 
-  useEffect(() => {
-    if (loggedIn) {
-      getDashboardYearlyChartData()
-    }
-  }, [loggedIn, currentYearYearlyChart])
+  // useEffect(() => {
+  //   if (loggedIn) {
+  //     getDashboardYearlyChartData()
+  //   }
+  // }, [loggedIn, currentYearYearlyChart])
+
+  // useEffect(() => {
+  //   if (loggedIn) {
+  //     getDashboardMonthlyChartData()
+  //   }
+  // }, [loggedIn, currentYearMonthlyChart, currentMonth])
+
+  const [dashboardLoading, setDashboardLoading] = useState(true)
 
   useEffect(() => {
-    if (loggedIn) {
-      getDashboardMonthlyChartData()
-    }
-  }, [loggedIn, currentYearMonthlyChart, currentMonth])
+    getDashboardYearlyChartData(currentYearYearlyChart)
+    getDashboardMonthlyChartData(currentYearMonthlyChart, currentMonth)
+    getStats()
+    dispatch(fetchAllInvoices({ limit: 10 }))
+    setDashboardLoading(false)
+  }, [])
 
   const monthNames = [
     "January",
@@ -129,6 +143,10 @@ const Dashboard = () => {
       {loggedIn === false ? (
         <>
           <Auth />
+        </>
+      ) : dashboardLoading ? (
+        <>
+          <Skeleton />
         </>
       ) : (
         <div className="grid grid-cols-8 gap-4">
@@ -166,7 +184,10 @@ const Dashboard = () => {
             <div className="mb-3 flex items-center justify-between">
               <div className="flex items-center gap-3 text-xl">
                 <button
-                  onClick={() => setCurrentYearYearlyChart((prev) => prev - 1)}
+                  onClick={() => {
+                    setCurrentYearYearlyChart((prev) => prev - 1)
+                    getDashboardYearlyChartData(currentYearYearlyChart - 1)
+                  }}
                 >
                   <FaAngleLeft className="text-primary" />
                 </button>
@@ -175,9 +196,10 @@ const Dashboard = () => {
                   Revenue
                 </span>
                 <button
-                  onClick={() =>
+                  onClick={() => {
                     setCurrentYearYearlyChart((prev) => parseInt(prev) + 1)
-                  }
+                    getDashboardYearlyChartData(currentYearYearlyChart + 1)
+                  }}
                 >
                   <FaAngleRight className="text-primary" />
                 </button>
@@ -302,7 +324,13 @@ const Dashboard = () => {
             <div className="flex flex-col">
               <div className="flex items-center gap-3 text-xl">
                 <button
-                  onClick={() => setCurrentYearMonthlyChart((prev) => prev - 1)}
+                  onClick={() => {
+                    setCurrentYearMonthlyChart((prev) => prev - 1)
+                    getDashboardMonthlyChartData(
+                      (parseInt(currentYearMonthlyChart) - 1).toString(),
+                      currentMonth,
+                    )
+                  }}
                 >
                   <FaAngleLeft className="text-primary" />
                 </button>
@@ -313,16 +341,24 @@ const Dashboard = () => {
                   Revenue
                 </span>
                 <button
-                  onClick={() =>
+                  onClick={() => {
                     setCurrentYearMonthlyChart((prev) => parseInt(prev) + 1)
-                  }
+                    getDashboardMonthlyChartData(
+                      (parseInt(currentYearMonthlyChart) + 1).toString(),
+                      currentMonth,
+                    )
+                  }}
                 >
                   <FaAngleRight className="text-primary" />
                 </button>
                 <button
-                  onClick={() =>
+                  onClick={() => {
                     setCurrentMonth((prev) => (prev > 0 ? prev - 1 : 11))
-                  }
+                    getDashboardMonthlyChartData(
+                      currentYearMonthlyChart,
+                      currentMonth > 0 ? currentMonth - 1 : 11,
+                    )
+                  }}
                 >
                   <FaAngleLeft className="text-primary" />
                 </button>
@@ -330,9 +366,13 @@ const Dashboard = () => {
                   {monthNames[currentMonth]}
                 </span>
                 <button
-                  onClick={() =>
+                  onClick={() => {
                     setCurrentMonth((prev) => (prev < 11 ? prev + 1 : 0))
-                  }
+                    getDashboardMonthlyChartData(
+                      currentYearMonthlyChart,
+                      currentMonth < 11 ? currentMonth + 1 : 0,
+                    )
+                  }}
                 >
                   <FaAngleRight className="text-primary" />
                 </button>

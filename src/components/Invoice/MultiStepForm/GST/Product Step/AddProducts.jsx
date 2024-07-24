@@ -33,10 +33,7 @@ const AddProducts = ({
 
   useEffect(() => {
     if (invoiceState.products.length > 0) {
-      sessionStorage.setItem(
-        "products",
-        JSON.stringify(invoiceState.products),
-      )
+      sessionStorage.setItem("products", JSON.stringify(invoiceState.products))
     }
   }, [invoiceState.products])
 
@@ -143,7 +140,7 @@ const AddProducts = ({
                   <div className="flex h-full w-[10%] shrink-0 items-center justify-center">
                     <button
                       onClick={() => {
-                        handleDelete(ind)
+                        handleDelete(invoiceState.products.length - ind - 1)
                       }}
                       type="button"
                       className="py-3 text-lg font-semibold text-slate-400 transition-colors duration-150 hover:text-foreground"

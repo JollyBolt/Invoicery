@@ -75,37 +75,7 @@ function CreateInvoice() {
         ? user.termsNConditions
         : [],
   })
-  useEffect(() => {
-    !sessionStorage.getItem("invoiceNumber") &&
-      sessionStorage.setItem("invoiceNumber", "")
-    !sessionStorage.getItem("date") && sessionStorage.setItem("date", "")
-    !sessionStorage.getItem("purchaseOrder") &&
-      sessionStorage.setItem("purchaseOrder", "")
-    !sessionStorage.getItem("purchaseOrderDate") &&
-      sessionStorage.setItem("purchaseOrderDate", "")
-    // !sessionStorage.getItem("billingAddress") &&
-    //   sessionStorage.setItem("billingAddress", JSON.stringify(""))
-    !sessionStorage.getItem("shippingAddress") &&
-      sessionStorage.setItem("shippingAddress", JSON.stringify(""))
-    !sessionStorage.getItem("customer") &&
-      sessionStorage.setItem("customer", JSON.stringify(""))
-    !sessionStorage.getItem("products") &&
-      sessionStorage.setItem("products", JSON.stringify([]))
-    !sessionStorage.getItem("totalAmount") &&
-      sessionStorage.setItem("totalAmount", "")
-    !sessionStorage.getItem("miscellaneous") &&
-      sessionStorage.setItem("miscellaneous", "")
-    !sessionStorage.getItem("taxes") &&
-      sessionStorage.setItem(
-        "taxes",
-        JSON.stringify({ cgst: "", sgst: "", igst: "" }),
-      )
-    !sessionStorage.getItem("termsNConditions") &&
-      sessionStorage.setItem(
-        "termsNConditions",
-        JSON.stringify(user.termsNConditions),
-      )
-  }, [])
+
   return (
     <>
       <div className="flex h-[calc(100dvh-88px)] w-full gap-2">

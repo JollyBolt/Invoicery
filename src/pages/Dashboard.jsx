@@ -122,18 +122,18 @@ const Dashboard = () => {
   }, [])
 
   const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
     "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
   ]
 
   const [chart, setChart] = useState("area")
@@ -377,6 +377,7 @@ const Dashboard = () => {
                   <FaAngleRight className="text-primary" />
                 </button>
               </div>
+
               <div className="mx-auto flex h-[400px] w-[400px] items-center justify-center">
                 {monthlyRevenueLoading ? (
                   <Loader height="400px" />

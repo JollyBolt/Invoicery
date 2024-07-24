@@ -48,8 +48,8 @@ function InvoiceForm({
 
       <div className="h-full bg-background p-6">
         {step === 1 ? (
-          <div className="flex h-full w-full flex-col gap-y-5">
-            <div className="w-full flex-1">
+          <div className="flex h-full w-full flex-col">
+            <div className="h-[65dvh] w-full">
               <AccordionSolutions
                 setTemplate={setTemplate}
                 setInvoiceState={setInvoiceState}
@@ -57,7 +57,10 @@ function InvoiceForm({
               />
             </div>
             <div className="flex w-full justify-between">
-              <button disabled className="px-3 py-1 text-xl text-gray-400">
+              <button
+                disabled
+                className="px-3 py-1 text-xl text-gray-400 opacity-0"
+              >
                 Go Back
               </button>
               <motion.button
@@ -70,7 +73,8 @@ function InvoiceForm({
                   setStep(step + 1)
                   sessionStorage.setItem("step", step + 1)
                 }}
-                className="rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight"
+                disabled={invoiceState.template === "simple"}
+                className="rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight disabled:opacity-0"
               >
                 Next
               </motion.button>

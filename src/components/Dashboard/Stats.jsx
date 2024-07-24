@@ -8,7 +8,7 @@ const Stats = ({ title = "", number = 0, icon }) => {
         <p className="font-numbers text-2xl text-primary">{icon}</p>
       </div>
       <span className="flex h-full items-center font-numbers text-5xl font-semibold text-primary">
-        {title == "Total Revenue" ? number.toLocaleString() : number}
+        {title == "Total Revenue" ? number.toLocaleString("en-IN") : number}
       </span>
     </div>
   )

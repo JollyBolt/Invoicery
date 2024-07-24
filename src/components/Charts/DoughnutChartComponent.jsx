@@ -36,7 +36,7 @@ const DoughnutChartComponent = ({ chartData }) => {
       return (
         <div className="rounded-lg bg-border p-2 text-sm text-foreground">
           <p className="label">{`${customer}`}</p>
-          <p className="">{`Revenue: ₹${revenue.toLocaleString()}`}</p>
+          <p className="">{`Revenue: ₹${revenue.toLocaleString("en-IN")}`}</p>
           <p className="">{`Invoices: ${invoiceCount}`}</p>
         </div>
       )

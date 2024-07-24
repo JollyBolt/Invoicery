@@ -96,7 +96,7 @@ const AddProducts = ({
           {invoiceState.products &&
             invoiceState.products.toReversed().map((product, ind) => {
               return (
-                <div className="bg-border flex w-full justify-between rounded-md border border-primary p-2 pb-5 text-foreground">
+                <div className="flex w-full justify-between rounded-md border border-primary bg-border p-2 pb-5 text-foreground">
                   <div className="flex flex-1 flex-col gap-0.5 text-sm">
                     <p className="text-xl font-semibold">{product.name}</p>
                     <div className="flex w-full">
@@ -106,7 +106,7 @@ const AddProducts = ({
                       </p>
                       <p className="">
                         <span className="text-gray-400">Price: </span>₹
-                        {product.price.toLocaleString(undefined, {
+                        {product.price.toLocaleString("en-IN", {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         })}
@@ -126,14 +126,14 @@ const AddProducts = ({
                     <div className="flex">
                       <p className="w-1/2">
                         <span className="text-gray-400">Final Price: </span>₹
-                        {product.finalPrice.toLocaleString(undefined, {
+                        {product.finalPrice.toLocaleString("en-IN", {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         })}
                       </p>
                       <p className="">
                         <span className="text-gray-400">Amount: </span>₹
-                        {product.amount.toLocaleString(undefined, {
+                        {product.amount.toLocaleString("en-IN", {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         })}

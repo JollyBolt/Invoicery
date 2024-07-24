@@ -214,19 +214,28 @@ const CustomerDetail = () => {
                 <div className="rounded-rounded bg-background p-4">
                   <p className="font-light uppercase">Revenue This Month</p>
                   <p className="py-4 font-numbers text-4xl font-bold text-primary">
-                    ₹{revenue ? revenue?.revenueThisMonth.toLocaleString() : 0}
+                    ₹
+                    {revenue
+                      ? revenue?.revenueThisMonth.toLocaleString("en-IN")
+                      : 0}
                   </p>
                 </div>
                 <div className="rounded-rounded bg-background p-4">
                   <p className="font-light uppercase">Revenue This Year</p>
                   <p className="py-4 font-numbers text-4xl font-bold text-primary">
-                    ₹{revenue ? revenue?.revenueThisYear.toLocaleString() : 0}
+                    ₹
+                    {revenue
+                      ? revenue?.revenueThisYear.toLocaleString("en-IN")
+                      : 0}
                   </p>
                 </div>
                 <div className="rounded-rounded bg-background p-4">
                   <p className="font-light uppercase">Revenue Till Date</p>
                   <p className="py-4 font-numbers text-4xl font-bold text-primary">
-                    ₹{revenue ? revenue?.revenueTillDate.toLocaleString() : 0}
+                    ₹
+                    {revenue
+                      ? revenue?.revenueTillDate.toLocaleString("en-IN")
+                      : 0}
                   </p>
                 </div>
               </div>

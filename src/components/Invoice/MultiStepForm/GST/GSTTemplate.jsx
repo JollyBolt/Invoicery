@@ -200,13 +200,13 @@ const GSTTemplate = forwardRef((props, ref) => {
                     {product.quantity}
                   </div>
                   <div className="w-[15%] border-r border-foreground px-2 pb-1 text-right">
-                    {product.finalPrice.toLocaleString(undefined, {
+                    {product.finalPrice.toLocaleString("en-IN", {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
                     })}
                   </div>
                   <div className="w-[18%] border-r border-foreground px-2 pb-1 text-right">
-                    {product.amount.toLocaleString(undefined, {
+                    {product.amount.toLocaleString("en-IN", {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
                     })}
@@ -265,7 +265,7 @@ const GSTTemplate = forwardRef((props, ref) => {
               <p className="">
                 {miscellaneous === ""
                   ? 0
-                  : parseInt(miscellaneous).toLocaleString(undefined, {
+                  : parseInt(miscellaneous).toLocaleString("en-IN", {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
                     })}
@@ -275,7 +275,7 @@ const GSTTemplate = forwardRef((props, ref) => {
               <p className="w-[36%] text-right">Taxable Amount</p>
               <p className="">
                 {"₹ " +
-                  subTotal.toLocaleString(undefined, {
+                  subTotal.toLocaleString("en-IN", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
@@ -285,7 +285,7 @@ const GSTTemplate = forwardRef((props, ref) => {
               <p className="w-[36%] text-right">CGST {cgst}%</p>
               <p>
                 {"₹ " +
-                  (subTotal * cgst * 0.01).toLocaleString(undefined, {
+                  (subTotal * cgst * 0.01).toLocaleString("en-IN", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
@@ -295,7 +295,7 @@ const GSTTemplate = forwardRef((props, ref) => {
               <p className="w-[36%] text-right">SGST {sgst}%</p>
               <p>
                 {"₹ " +
-                  (subTotal * sgst * 0.01).toLocaleString(undefined, {
+                  (subTotal * sgst * 0.01).toLocaleString("en-IN", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
@@ -305,7 +305,7 @@ const GSTTemplate = forwardRef((props, ref) => {
               <p className="w-[36%] text-right">IGST {igst}%</p>
               <p>
                 {"₹ " +
-                  (subTotal * igst * 0.01).toLocaleString(undefined, {
+                  (subTotal * igst * 0.01).toLocaleString("en-IN", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
@@ -320,7 +320,7 @@ const GSTTemplate = forwardRef((props, ref) => {
             <p className="w-[36%] text-right text-lg">Total</p>
             <p className="text-lg font-bold">
               {"₹ " +
-                totalAmount.toLocaleString(undefined, {
+                totalAmount.toLocaleString("en-IN", {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
                 })}

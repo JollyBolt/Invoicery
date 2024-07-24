@@ -9,6 +9,7 @@ import {
 import { useSelector } from "react-redux"
 
 const AreaChartComponent = ({ yearData }) => {
+  console.log(typeof yearData[0].revenue)
   const { theme } = useSelector((state) => state.theme)
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
@@ -16,11 +17,14 @@ const AreaChartComponent = ({ yearData }) => {
       return (
         <div className="rounded-lg bg-border p-2 text-sm text-foreground">
           <p className="label">{`${month}`}</p>
-          <p className="intro">{`Revenue: ₹${revenue.toLocaleString()}`}</p>
+          <p className="intro">{`Revenue: ₹${revenue.toLocaleString("en-IN")}`}</p>
         </div>
       )
     }
     return null
+  }
+  const getMaxRevenue = () => {
+    return Math.max(...yearData.map((item) => item.revenue))
   }
   return (
     <ResponsiveContainer width="100%" height={300}>
@@ -30,7 +34,15 @@ const AreaChartComponent = ({ yearData }) => {
           padding={{ left: 30, right: 30 }}
           color="black"
         />
-        <YAxis padding={{ top: 30, bottom: 0 }} />
+        <YAxis
+          padding={{ top: 30, bottom: 0 }}
+          tickFormatter={(value) =>
+            new Intl.NumberFormat("en-In", {
+              notation: "compact",
+              compactDisplay: "short",
+            }).format(value)
+          }
+        />
         <Tooltip content={<CustomTooltip />} />
         <Area
           type="monotone"

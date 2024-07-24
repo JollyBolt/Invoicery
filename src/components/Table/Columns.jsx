@@ -35,7 +35,7 @@ export const productColumns = [
     cell: (row) => {
       return (
         "₹ " +
-        row.row.original.price.toLocaleString(undefined, {
+        row.row.original.price.toLocaleString("en-IN", {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })
@@ -116,7 +116,7 @@ export const invoiceColumns = [
     cell: (row) => {
       return (
         "₹ " +
-        row.row.original.totalAmount.toLocaleString(undefined, {
+        row.row.original.totalAmount.toLocaleString("en-IN", {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })
@@ -164,7 +164,7 @@ export const customerInvoicesColumns = [
     cell: (row) => {
       return (
         "₹ " +
-        row.row.original.totalAmount.toLocaleString(undefined, {
+        row.row.original.totalAmount.toLocaleString("en-IN", {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })

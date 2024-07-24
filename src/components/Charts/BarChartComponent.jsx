@@ -20,7 +20,7 @@ const BarChartComponent = ({ yearData }) => {
       return (
         <div className="rounded-lg bg-border p-2 text-sm text-foreground">
           <p className="label">{`${month}`}</p>
-          <p className="intro">{`Revenue: ₹${revenue.toLocaleString()}`}</p>
+          <p className="intro">{`Revenue: ₹${revenue.toLocaleString("en-IN")}`}</p>
         </div>
       )
     }
@@ -34,7 +34,14 @@ const BarChartComponent = ({ yearData }) => {
           padding={{ left: 30, right: 30 }}
           color="black"
         />
-        <YAxis />
+        <YAxis
+          tickFormatter={(value) =>
+            new Intl.NumberFormat("en-In", {
+              notation: "compact",
+              compactDisplay: "short",
+            }).format(value)
+          }
+        />
         <Tooltip content={<CustomTooltip />} />
         <Bar
           dataKey="revenue"

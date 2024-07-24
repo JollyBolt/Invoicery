@@ -221,7 +221,9 @@ const Dashboard = () => {
                         ₹
                         {yearlyRevenue?.revenueForYearlyChart.overallStats
                           .length > 0
-                          ? yearlyRevenue?.revenueForYearlyChart.overallStats[0].highestInvoiceValue.toLocaleString()
+                          ? yearlyRevenue?.revenueForYearlyChart.overallStats[0].highestInvoiceValue.toLocaleString(
+                              "en-IN",
+                            )
                           : 0}
                       </p>
                     </div>
@@ -231,7 +233,9 @@ const Dashboard = () => {
                         ₹
                         {yearlyRevenue?.revenueForYearlyChart.overallStats
                           .length > 0
-                          ? yearlyRevenue?.revenueForYearlyChart.overallStats[0].lowestInvoiceValue.toLocaleString()
+                          ? yearlyRevenue?.revenueForYearlyChart.overallStats[0].lowestInvoiceValue.toLocaleString(
+                              "en-IN",
+                            )
                           : 0}
                       </p>
                     </div>
@@ -241,7 +245,9 @@ const Dashboard = () => {
                         ₹
                         {yearlyRevenue?.revenueForYearlyChart.overallStats
                           .length > 0
-                          ? yearlyRevenue?.revenueForYearlyChart.overallStats[0].totalRevenue.toLocaleString()
+                          ? yearlyRevenue?.revenueForYearlyChart.overallStats[0].totalRevenue.toLocaleString(
+                              "en-IN",
+                            )
                           : 0}
                       </p>
                     </div>
@@ -279,7 +285,7 @@ const Dashboard = () => {
                     <td>{invoice.customer.name}</td>
                     <td>
                       {"₹ " +
-                        invoice.totalAmount.toLocaleString(undefined, {
+                        invoice.totalAmount.toLocaleString("en-IN", {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         })}
@@ -359,7 +365,9 @@ const Dashboard = () => {
                     <p className="font-numbers font-bold text-primary">
                       ₹
                       {monthlyRevenue?.monthlyStats?.length > 0
-                        ? monthlyRevenue?.monthlyStats[0]?.highestInvoiceValue.toLocaleString()
+                        ? monthlyRevenue?.monthlyStats[0]?.highestInvoiceValue.toLocaleString(
+                            "en-IN",
+                          )
                         : +0}
                     </p>
                   </div>
@@ -370,7 +378,9 @@ const Dashboard = () => {
                     <p className="font-numbers font-bold text-primary">
                       ₹
                       {monthlyRevenue?.monthlyStats?.length > 0
-                        ? monthlyRevenue.monthlyStats[0].totalRevenue.toLocaleString()
+                        ? monthlyRevenue.monthlyStats[0].totalRevenue.toLocaleString(
+                            "en-IN",
+                          )
                         : 0}
                     </p>
                   </div>
@@ -379,7 +389,9 @@ const Dashboard = () => {
                     <p className="font-numbers font-bold text-primary">
                       ₹
                       {monthlyRevenue?.monthlyStats.length > 0
-                        ? monthlyRevenue.monthlyStats[0].lowestInvoiceValue.toLocaleString()
+                        ? monthlyRevenue.monthlyStats[0].lowestInvoiceValue.toLocaleString(
+                            "en-IN",
+                          )
                         : 0}
                     </p>
                   </div>

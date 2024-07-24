@@ -2,6 +2,7 @@ import React, { forwardRef, useEffect, useMemo } from "react"
 import { useDispatch } from "react-redux"
 import { fetchSingleCustomer } from "../../redux/slices/customerSlice"
 import GSTTemplate from "./MultiStepForm/GST/GSTTemplate"
+import SimpleTemplate from "./MultiStepForm/Simple/SimpleTemplate"
 
 const InvoicePreview = forwardRef((props, ref) => {
   const dispatch = useDispatch()
@@ -169,12 +170,18 @@ const InvoicePreview = forwardRef((props, ref) => {
   }, [products, cgst, sgst, igst])
 
   return (
-    <GSTTemplate
-      invoiceState={invoiceState}
-      subTotal={subTotal}
-      total={total}
-      ref={ref}
-    />
+    <>
+      {invoiceState.template === "gst" ? (
+        <GSTTemplate
+          invoiceState={invoiceState}
+          subTotal={subTotal}
+          total={total}
+          ref={ref}
+        />
+      ) : (
+        <SimpleTemplate />
+      )}
+    </>
   )
 })
 

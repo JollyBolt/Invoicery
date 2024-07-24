@@ -165,7 +165,7 @@ function Sidebar() {
                   sessionStorage.clear()
                   location.reload()
                 }}
-                className={`text-red-500 transition-[border-radius] hover:bg-red-500 hover:text-white ${
+                className={`cursor-pointer text-red-500 transition-[border-radius] hover:bg-red-500 hover:text-white ${
                   open ? "rounded-rounded delay-0" : "rounded-[50%] delay-300"
                 } duration-400 flex items-center gap-3.5 p-2 ease-linear`}
               >

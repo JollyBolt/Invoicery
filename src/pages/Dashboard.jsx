@@ -75,6 +75,7 @@ const Dashboard = () => {
 
     setYearlyRevenue(data)
     setYearlyRevenueLoading(false)
+    setDashboardLoading(false)
   }
 
   const getDashboardMonthlyChartData = async (
@@ -114,11 +115,10 @@ const Dashboard = () => {
   const [dashboardLoading, setDashboardLoading] = useState(true)
 
   useEffect(() => {
-    getDashboardYearlyChartData(currentYearYearlyChart)
-    getDashboardMonthlyChartData(currentYearMonthlyChart, currentMonth)
     getStats()
+    getDashboardYearlyChartData(currentYearYearlyChart)
     dispatch(fetchAllInvoices({ limit: 10 }))
-    setDashboardLoading(false)
+    getDashboardMonthlyChartData(currentYearMonthlyChart, currentMonth)
   }, [])
 
   const monthNames = [

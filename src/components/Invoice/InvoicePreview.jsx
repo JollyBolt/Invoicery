@@ -31,168 +31,135 @@ const InvoicePreview = forwardRef((props, ref) => {
 
   useEffect(() => {
     //For template
-    const template = sessionStorage.getItem("template")
-    if (template) {
-      setInvoiceState((prevState) => {
-        return {
-          ...prevState,
-          template: template,
-        }
-      })
-    }
+    let template = "gst"
+    if (sessionStorage.getItem("template"))
+      template = sessionStorage.getItem("template")
 
     //For invoice details
-    const invoiceNumber = sessionStorage.getItem("invoiceNumber")
-    if (invoiceNumber) {
-      const date = sessionStorage.getItem("date")
-      setInvoiceState((prevState) => {
-        return {
-          ...prevState,
-          invoiceNumber,
-          invoiceDate: {
-            day: new Date(date).getDate(),
-            month: new Date(date).getMonth(),
-            year: new Date(date).getFullYear(),
-          },
-        }
-      })
-    }
-    const purchaseOrder = sessionStorage.getItem("purchaseOrder")
-    if (purchaseOrder) {
-      setInvoiceState((prevState) => {
-        return {
-          ...prevState,
-          purchaseOrder,
-        }
-      })
-    }
+    let invoiceNumber = ""
+    if (sessionStorage.getItem("invoiceNumber"))
+      invoiceNumber = sessionStorage.getItem("invoiceNumber")
 
-    if (sessionStorage.getItem("purchaseOrderDate")) {
-      let purchaseOrderDate = sessionStorage.getItem("purchaseOrderDate")
-      console.log(purchaseOrderDate)
-      setInvoiceState((prevState) => {
-        return {
-          ...prevState,
-          purchaseOrderDate: purchaseOrderDate,
-        }
-      })
-    }
+    let invoiceDate = ""
+    if (sessionStorage.getItem("date"))
+      invoiceDate = sessionStorage.getItem("date")
+
+    let purchaseOrder = ""
+    if (sessionStorage.getItem("purchaseOrder"))
+      purchaseOrder = sessionStorage.getItem("purchaseOrder")
+
+    let purchaseOrderDate = ""
+    if (sessionStorage.getItem("purchaseOrderDate"))
+      purchaseOrderDate = sessionStorage.getItem("purchaseOrderDate")
 
     //For customer
-    const customer = JSON.parse(sessionStorage.getItem("customer"))
-    if (customer) {
+    let customer = {
+      name: "",
+      contactPerson: "",
+      gstin: "",
+      phone: "",
+    }
+    if (sessionStorage.getItem("customer")) {
+      customer = JSON.parse(sessionStorage.getItem("customer"))
       dispatch(fetchSingleCustomer(customer.id))
-      setInvoiceState((prevState) => {
-        return {
-          ...prevState,
-          customer: {
-            ...prevState.customer,
-            name: customer.name,
-            gstin: customer.gstin,
-            contactPerson: customer.contactPerson,
-            phone: customer.phone,
-          },
-        }
-      })
     }
 
     //For Billing Address
-    const billingAddress = JSON.parse(sessionStorage.getItem("billingAddress"))
-    if (billingAddress) {
-      setInvoiceState((prevState) => {
-        return {
-          ...prevState,
-          customer: {
-            ...prevState.customer,
-            address: {
-              ...prevState.customer.address,
-              billing: {
-                streetAddress: billingAddress.streetAddress,
-                city: billingAddress.city,
-                state: billingAddress.state,
-                stateCode: billingAddress.stateCode,
-                zip: billingAddress.zip,
-                country: billingAddress.country,
-              },
-            },
-          },
-        }
-      })
+    let billingAddress = {
+      streetAddress: "",
+      city: "",
+      state: "",
+      stateCode: "",
+      zip: "",
+      country: "",
+    }
+    if (sessionStorage.getItem("billingAddress")) {
+      billingAddress = JSON.parse(sessionStorage.getItem("billingAddress"))
     }
 
     //For Shipping Address
-    const shippingAddress = JSON.parse(
-      sessionStorage.getItem("shippingAddress"),
-    )
-    if (shippingAddress) {
-      setInvoiceState((prevState) => {
-        return {
-          ...prevState,
-          customer: {
-            ...prevState.customer,
-            address: {
-              ...prevState.customer.address,
-              shipping: {
-                streetAddress: shippingAddress.streetAddress,
-                city: shippingAddress.city,
-                state: shippingAddress.state,
-                stateCode: shippingAddress.stateCode,
-                zip: shippingAddress.zip,
-                country: shippingAddress.country,
-              },
-            },
-          },
-        }
-      })
+    let shippingAddress = {
+      streetAddress: "",
+      city: "",
+      state: "",
+      stateCode: "",
+      zip: "",
+      country: "",
+    }
+    if (sessionStorage.getItem("shippingAddress")) {
+      shippingAddress = JSON.parse(sessionStorage.getItem("shippingAddress"))
     }
 
     //For Products
-    const products = JSON.parse(sessionStorage.getItem("products"))
-    if (products) {
-      setInvoiceState((prevState) => {
-        return {
-          ...prevState,
-          products,
-        }
-      })
-    }
+    let products = []
+    if (sessionStorage.getItem("products"))
+      products = JSON.parse(sessionStorage.getItem("products"))
 
     //For taxes and charges
+    let miscellaneous = 0
     if (sessionStorage.getItem("miscellaneous")) {
-      const miscellaneous =
+      miscellaneous =
         sessionStorage.getItem("miscellaneous") === ""
           ? 0
           : parseInt(sessionStorage.getItem("miscellaneous"))
-      setInvoiceState((prevState) => {
-        return {
-          ...prevState,
-          miscellaneous,
-        }
-      })
     }
 
-    const taxes = JSON.parse(sessionStorage.getItem("taxes"))
-    if (taxes) {
-      setInvoiceState((prevState) => {
-        return {
-          ...prevState,
-          taxes,
-        }
-      })
+    let taxes = {
+      cgst: 0,
+      sgst: 0,
+      igst: 0,
     }
+    if (sessionStorage.getItem("taxes"))
+      taxes = JSON.parse(sessionStorage.getItem("taxes"))
 
     //For terms and conditions
-    const termsNConditions = JSON.parse(
-      sessionStorage.getItem("termsNConditions"),
-    )
-    if (termsNConditions) {
-      setInvoiceState((prevState) => {
-        return {
-          ...prevState,
-          termsNConditions,
-        }
-      })
-    }
+    let termsNConditions = []
+    if (sessionStorage.getItem("termsNConditions"))
+      termsNConditions = JSON.parse(sessionStorage.getItem("termsNConditions"))
+
+    setInvoiceState((prevState) => {
+      return {
+        ...prevState,
+        template: template,
+        invoiceNumber: invoiceNumber,
+        invoiceDate: {
+          day: new Date(invoiceDate).getDate(),
+          month: new Date(invoiceDate).getMonth(),
+          year: new Date(invoiceDate).getFullYear(),
+        },
+        purchaseOrder: purchaseOrder,
+        purchaseOrderDate: purchaseOrderDate,
+        customer: {
+          ...prevState.customer,
+          name: customer.name,
+          gstin: customer.gstin,
+          contactPerson: customer.contactPerson,
+          phone: customer.phone,
+          address: {
+            billing: {
+              streetAddress: billingAddress.streetAddress,
+              city: billingAddress.city,
+              state: billingAddress.state,
+              stateCode: billingAddress.stateCode,
+              zip: billingAddress.zip,
+              country: billingAddress.country,
+            },
+            shipping: {
+              streetAddress: shippingAddress.streetAddress,
+              city: shippingAddress.city,
+              state: shippingAddress.state,
+              stateCode: shippingAddress.stateCode,
+              zip: shippingAddress.zip,
+              country: shippingAddress.country,
+            },
+          },
+        },
+        products: products,
+        miscellaneous: miscellaneous,
+        taxes: taxes,
+        termsNConditions: termsNConditions,
+      }
+    })
   }, [])
 
   useEffect(() => {

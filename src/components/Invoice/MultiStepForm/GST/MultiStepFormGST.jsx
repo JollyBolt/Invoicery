@@ -269,7 +269,6 @@ function MultiStepFormGST({
             className="rounded-rounded bg-primary px-3 py-1 text-xl font-semibold text-white transition-colors duration-150 hover:bg-primaryLight disabled:cursor-default disabled:bg-primaryLight disabled:text-disabledText"
             onClick={() => {
               if (step < 9) {
-                console.log(invoiceState)
                 setStep(step + 1)
                 sessionStorage.setItem("step", step + 1)
               }

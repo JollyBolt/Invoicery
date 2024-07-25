@@ -157,6 +157,7 @@ const InvoicePreview = forwardRef((props, ref) => {
           },
         },
         products: products,
+        totalAmount: Math.round(total),
         miscellaneous: miscellaneous,
         taxes: taxes,
         termsNConditions: termsNConditions,
@@ -164,32 +165,38 @@ const InvoicePreview = forwardRef((props, ref) => {
     })
   }, [])
 
-  useEffect(() => {
-    setInvoiceState((prevState) => {
-      return { ...prevState, totalAmount: Math.round(total) }
-    })
-  }, [products, cgst, sgst, igst])
+  // useEffect(() => {
+  //   setInvoiceState((prevState) => {
+  //     return { ...prevState, totalAmount: Math.round(total) }
+  //   })
+  // }, [products, cgst, sgst, igst])
+
+  // if (sessionStorage.getItem("mode") === "edit") {
+  //   return (
+  //     <>
+  //       {invoiceState.invoiceNumber != "" ? (
+  //         invoiceState.template === "gst" ? (
+  //           <GSTTemplate
+  //             invoiceState={invoiceState}
+  //             subTotal={subTotal}
+  //             total={total}
+  //             ref={ref}
+  //           />
+  //         ) : (
+  //           <SimpleTemplate />
+  //         )
+  //       ) : (
+  //         <div className="flex h-full items-center justify-center">
+  //           <Loader />
+  //         </div>
+  //       )}
+  //     </>
+  //   )
+  // }
 
   return (
     <>
-      {sessionStorage.getItem("mode") === "edit" ? (
-        invoiceState.invoiceNumber != "" ? (
-          invoiceState.template === "gst" ? (
-            <GSTTemplate
-              invoiceState={invoiceState}
-              subTotal={subTotal}
-              total={total}
-              ref={ref}
-            />
-          ) : (
-            <SimpleTemplate />
-          )
-        ) : (
-          <div className="flex h-full items-center justify-center">
-            <Loader />
-          </div>
-        )
-      ) : invoiceState.template === "gst" ? (
+      {invoiceState.template === "gst" ? (
         <GSTTemplate
           invoiceState={invoiceState}
           subTotal={subTotal}

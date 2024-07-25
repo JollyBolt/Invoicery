@@ -14,106 +14,66 @@ function EditInvoice() {
 
   const componentRef = useRef()
   const [invoiceState, setInvoiceState] = useState({
-    invoiceNumber: "",
-    invoiceDate: { day: "", month: 0, year: "" },
-    purchaseOrder: "",
-    purchaseOrderDate: "",
+    invoiceNumber: sessionStorage.getItem("invoiceNumber"),
+    invoiceDate: {
+      day: new Date(sessionStorage.getItem("date")).getDate(),
+      month: new Date(sessionStorage.getItem("date")).getMonth(),
+      year: new Date(sessionStorage.getItem("date")).getFullYear(),
+    },
+    purchaseOrder: sessionStorage.getItem("purchaseOrder")
+      ? sessionStorage.getItem("purchaseOrder")
+      : "",
+    purchaseOrderDate: sessionStorage.getItem("purchaseOrderDate")
+      ? sessionStorage.getItem("purchaseOrderDate")
+      : "",
     template: "gst",
     customer: {
-      name: "",
-      contactPerson: "",
-      gstin: "",
-      phone: "",
+      name: JSON.parse(sessionStorage.getItem("customer")).name,
+      contactPerson: JSON.parse(sessionStorage.getItem("customer"))
+        .contactPerson,
+      gstin: JSON.parse(sessionStorage.getItem("customer")).gstin,
+      phone: JSON.parse(sessionStorage.getItem("customer")).phone,
       address: {
         billing: {
-          streetAddress: "",
-          city: "",
-          state: "",
-          stateCode: "",
-          zip: "",
-          country: "",
+          streetAddress: JSON.parse(sessionStorage.getItem("customer")).address
+            .billing.streetAddress,
+          city: JSON.parse(sessionStorage.getItem("customer")).address.billing
+            .city,
+          state: JSON.parse(sessionStorage.getItem("customer")).address.billing
+            .streetAddress,
+          stateCode: JSON.parse(sessionStorage.getItem("customer")).address
+            .billing.stateCode,
+          zip: JSON.parse(sessionStorage.getItem("customer")).address.billing
+            .zip,
+          country: JSON.parse(sessionStorage.getItem("customer")).address
+            .billing.country,
         },
         shipping: {
-          streetAddress: "",
-          city: "",
-          state: "",
-          stateCode: "",
-          zip: "",
-          country: "",
+          streetAddress: JSON.parse(sessionStorage.getItem("customer")).address
+            .shipping.streetAddress,
+          city: JSON.parse(sessionStorage.getItem("customer")).address.shipping
+            .city,
+          state: JSON.parse(sessionStorage.getItem("customer")).address.shipping
+            .streetAddress,
+          stateCode: JSON.parse(sessionStorage.getItem("customer")).address
+            .shipping.stateCode,
+          zip: JSON.parse(sessionStorage.getItem("customer")).address.shipping
+            .zip,
+          country: JSON.parse(sessionStorage.getItem("customer")).address
+            .shipping.country,
         },
       },
     },
-    products: [
-      // {
-      //   name: "",
-      //   quantity: "",
-      //   price: "",
-      //   hsnCode: "",
-      //   finalPrice: null,
-      //   amount: null,
-      //   discount: {
-      //     value: null,
-      //     type: "",
-      //   },
-      // },
-    ],
-    miscellaneous: 0,
-    totalAmount: 0,
+    products: JSON.parse(sessionStorage.getItem("products")),
+    miscellaneous: parseInt(sessionStorage.getItem("miscellaneous")),
+    totalAmount: parseInt(sessionStorage.getItem("totalAmount")),
     taxes: {
-      cgst: 0,
-      sgst: 0,
-      igst: 0,
+      cgst: parseInt(JSON.parse(sessionStorage.getItem("taxes")).cgst),
+      sgst: parseInt(JSON.parse(sessionStorage.getItem("taxes")).sgst),
+      igst: parseInt(JSON.parse(sessionStorage.getItem("taxes")).igst),
     },
-    termsNConditions: [],
+    termsNConditions: JSON.parse(sessionStorage.getItem("termsNConditions")),
   })
-
-  useEffect(() => {
-    const invoice = JSON.parse(sessionStorage.getItem("invoiceState"))
-
-    !sessionStorage.getItem("invoiceNumber") &&
-      sessionStorage.setItem("invoiceNumber", invoice.invoiceNumber)
-    !sessionStorage.getItem("date") &&
-      sessionStorage.setItem(
-        "date",
-        invoice.invoiceDate.year +
-          "-" +
-          invoice.invoiceDate.month +
-          "-" +
-          invoice.invoiceDate.day,
-      )
-    !sessionStorage.getItem("purchaseOrder") &&
-      invoice?.purchaseOrder &&
-      sessionStorage.setItem("purchaseOrder", invoice.purchaseOrder)
-    !sessionStorage.getItem("purchaseOrderDate") &&
-      invoice?.purchaseOrderDate &&
-      sessionStorage.setItem("purchaseOrderDate", invoice.purchaseOrderDate)
-    !sessionStorage.getItem("billingAddress") &&
-      sessionStorage.setItem(
-        "billingAddress",
-        JSON.stringify(invoice?.customer?.address?.billing),
-      )
-    !sessionStorage.getItem("shippingAddress") &&
-      sessionStorage.setItem(
-        "shippingAddress",
-        JSON.stringify(invoice.customer.address.shipping),
-      )
-    !sessionStorage.getItem("customer") &&
-      sessionStorage.setItem("customer", JSON.stringify(invoice.customer))
-    !sessionStorage.getItem("products") &&
-      sessionStorage.setItem("products", JSON.stringify(invoice.products))
-    !sessionStorage.getItem("totalAmount") &&
-      sessionStorage.setItem("totalAmount", invoice.totalAmount.toString())
-    !sessionStorage.getItem("miscellaneous") &&
-      sessionStorage.setItem("miscellaneous", invoice.miscellaneous.toString())
-    !sessionStorage.getItem("taxes") &&
-      sessionStorage.setItem("taxes", JSON.stringify(invoice.taxes))
-    !sessionStorage.getItem("termsNConditions") &&
-      sessionStorage.setItem(
-        "termsNConditions",
-        JSON.stringify(invoice?.termsNConditions),
-      )
-    sessionStorage.removeItem("invoiceState")
-  }, [loggedIn])
 
   return (
     <>

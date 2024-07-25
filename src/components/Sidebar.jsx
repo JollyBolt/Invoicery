@@ -7,6 +7,7 @@ import { IoSunnyOutline, IoMoonOutline, IoPowerOutline } from "../assets/index"
 import { themeSlice } from "../redux/slices/themeSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { getProfile } from "../redux/slices/userSlice"
+import { authSlice,logout } from "../redux/slices/authSlice"
 
 function Sidebar() {
   const [open, setOpen] = useState(false)
@@ -15,18 +16,19 @@ function Sidebar() {
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
+  const { deleteToken } = authSlice.actions
   const { user, loading } = useSelector((state) => state.user)
-  const { loggedIn } = useSelector((state) => state.auth)
+  const { token } = useSelector((state) => state.auth)
 
   useEffect(() => {
     async function getUserData() {
-      if (loggedIn) {
+      if (token) {
         await dispatch(getProfile())
         // console.log(user)
       }
     }
     getUserData()
-  }, [loggedIn])
+  }, [token])
 
   const checkActive = (href) => {
     const n = href.length
@@ -156,55 +158,59 @@ function Sidebar() {
               </h2>
             </div>
 
-            {loggedIn && (
-              <div
-                onClick={() => {
-                  document.cookie =
-                    "authToken=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=.ishansen.in;"
-                  // navigate("/");
-                  sessionStorage.clear()
-                  location.reload()
-                }}
-                className={`cursor-pointer text-red-500 transition-[border-radius] hover:bg-red-500 hover:text-white ${
-                  open ? "rounded-rounded delay-0" : "rounded-[50%] delay-300"
-                } duration-400 flex items-center gap-3.5 p-2 ease-linear`}
-              >
-                <IoPowerOutline size={24} className="shrink-0" />
-
-                <h2
-                  className={`text-md select-none overflow-hidden whitespace-pre [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s] ${
-                    open ? "translate-x-0 opacity-100" : "translate-x-24"
-                  }`}
+            {token && (
+              <>
+                <div
+                  onClick={() => {
+                    document.cookie =
+                      "authToken=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=.ishansen.in;"
+                    dispatch(logout())
+                    dispatch(deleteToken())
+                    // navigate("/");
+                    sessionStorage.clear()
+                    // location.reload()
+                  }}
+                  className={`cursor-pointer text-red-500 transition-[border-radius] hover:bg-red-500 hover:text-white ${
+                    open ? "rounded-rounded delay-0" : "rounded-[50%] delay-300"
+                  } duration-400 flex items-center gap-3.5 p-2 ease-linear`}
                 >
-                  Logout
-                </h2>
-              </div>
-            )}
+                  <IoPowerOutline size={24} className="shrink-0" />
 
-            <div
-              className={`group flex items-center gap-3.5 rounded-md px-2 text-sm font-medium text-foreground`}
-            >
-              <div className="flex flex-row flex-nowrap">
-                {user.name &&
-                  user.name.split(" ").map(function (word, i) {
-                    return (
-                      <span key={i} className="inline-block text-lg">
-                        {word[0]}
-                      </span>
-                    )
-                  })}
-              </div>
-              <div
-                className={`text-md flex flex-col overflow-hidden whitespace-pre [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s] ${
-                  open ? "translate-x-0 opacity-100" : "translate-x-24"
-                }`}
-              >
-                <h3 className="text-lg font-semibold leading-none">
-                  {user.name}
-                </h3>
-                <p className="text-[10px]">{user.email}</p>
-              </div>
-            </div>
+                  <h2
+                    className={`text-md select-none overflow-hidden whitespace-pre [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s] ${
+                      open ? "translate-x-0 opacity-100" : "translate-x-24"
+                    }`}
+                  >
+                    Logout
+                  </h2>
+                </div>
+
+                <div
+                  className={`group flex items-center gap-3.5 rounded-md px-2 text-sm font-medium text-foreground`}
+                >
+                  <div className="flex flex-row flex-nowrap">
+                    {user.name &&
+                      user.name.split(" ").map(function (word, i) {
+                        return (
+                          <span key={i} className="inline-block text-lg">
+                            {word[0]}
+                          </span>
+                        )
+                      })}
+                  </div>
+                  <div
+                    className={`text-md flex flex-col overflow-hidden whitespace-pre [transition:transform_.3s_cubic-bezier(0.4,0,0.2,1),color_0s] ${
+                      open ? "translate-x-0 opacity-100" : "translate-x-24"
+                    }`}
+                  >
+                    <h3 className="text-lg font-semibold leading-none">
+                      {user.name}
+                    </h3>
+                    <p className="text-[10px]">{user.email}</p>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </nav>

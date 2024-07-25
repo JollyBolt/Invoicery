@@ -2,38 +2,45 @@ import { createSlice } from "@reduxjs/toolkit"
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 import getCookieValue from "../../utils/getCookieValue"
+import { authSlice } from "./authSlice"
 axios.defaults.withCredentials = true
+const { setToken } = authSlice.actions
 
-const getProfile = createAsyncThunk("user/getProfile", async () => {
+const getProfile = createAsyncThunk("user/getProfile", async (params, { dispatch, getState }) => {
   try {
+    const state = getState().auth
     const res = await axios.get(
       `${import.meta.env.VITE_URL}/api/v1/user/getUser`,
       {
         headers: {
-          Authorization: "Bearer " + getCookieValue("authToken"),
+          Authorization: "Bearer " + state.token,
         },
       },
     )
-    return res.data
+    dispatch(setToken(res.data.token))
+    console.log(res.data)
+    return res.data.data
   } catch (err) {
     console.log(err)
     return rejectWithValue(err)
   }
 })
 
-const editProfile = createAsyncThunk("user/editProfile", async (body) => {
+const editProfile = createAsyncThunk("user/editProfile", async (body, { dispatch, getState }) => {
   try {
+    const state = getState().auth
     const res = await axios.put(
       `${import.meta.env.VITE_URL}/api/v1/user/updateUser/${body._id}`,
       body,
       {
         headers: {
-          Authorization: "Bearer " + getCookieValue("authToken"),
+          Authorization: "Bearer " + state.token,
         },
       },
     )
+    dispatch(setToken(res.data.token))
     console.log(res.data)
-    return res.data
+    return res.data.data
   } catch (err) {
     console.log(err)
     return rejectWithValue(err)

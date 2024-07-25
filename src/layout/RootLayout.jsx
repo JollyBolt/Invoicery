@@ -2,12 +2,13 @@ import React from "react"
 import { useEffect } from "react"
 import { Outlet } from "react-router-dom"
 import Sidebar from "../components/Sidebar"
-import { useDispatch } from "react-redux"
+import { useDispatch,useSelector } from "react-redux"
 import { authSlice } from "../redux/slices/authSlice"
 
 const RootLayout = () => {
   // const { refreshAuth } = authSlice.actions
   const dispatch = useDispatch()
+  const {token}=useSelector((state)=>state.auth)
   // useEffect(() => {
   //   dispatch(refreshAuth())
   // }, [])

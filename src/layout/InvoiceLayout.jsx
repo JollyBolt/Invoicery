@@ -1,22 +1,16 @@
 import PageWrapper from "../hoc/PageWrapper"
 import { Outlet } from "react-router-dom"
-import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { authSlice } from "../redux/slices/authSlice"
 import Auth from "../components/Auth"
+import Loader from "../components/Loader"
 
 const InvoiceLayout = () => {
+  const {  token } = useSelector((state) => state.auth)
 
-  //Checking if authtoken exists, i.e., logged in on refresh
-  // const { refreshAuth } = authSlice.actions
-  const dispatch = useDispatch()
-  const { loggedIn, loading } = useSelector((state) => state.auth)
-  // useEffect(() => {
-  //   dispatch(refreshAuth())
-  // }, [])
   return (
     <div>
-      <div className="mt-4">{loggedIn === false ? <Auth /> : <Outlet />}</div>
+      <Outlet />
+      {/* {token ? <Outlet /> : token === null ? <Auth />:<Loader />  } */}
     </div>
   )
 }

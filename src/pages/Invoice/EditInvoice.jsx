@@ -4,7 +4,7 @@ import InvoiceForm from "../../components/Invoice/InvoiceForm"
 import { useDispatch, useSelector } from "react-redux"
 
 function EditInvoice() {
-  const { loggedIn } = useSelector((state) => state.auth)
+  const { token } = useSelector((state) => state.auth)
 
   const [template, setTemplate] = useState(
     sessionStorage.getItem("template")

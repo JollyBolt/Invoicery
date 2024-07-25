@@ -158,10 +158,7 @@ function Signup() {
         },
       }),
     )
-    // if(loggedIn){
-    //     console.log(loggedIn)
-    //     navigate('/')
-    // }
+
   }
 
   const [step, setStep] = useState(1)
@@ -274,11 +271,8 @@ function Signup() {
     }
   }
 
-  // const { refreshAuth } = authSlice.actions
-  const { loggedIn, loading } = useSelector((state) => state.auth)
-  // useEffect(() => {
-  //   dispatch(refreshAuth())
-  // }, [])
+
+  const {  loading } = useSelector((state) => state.auth)
 
   const navigate = useNavigate()
   return (

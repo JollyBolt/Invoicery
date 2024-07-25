@@ -13,7 +13,6 @@ import Table from "../components/Table/Table"
 import { productColumns } from "../components/Table/Columns"
 import { fetchAllProducts } from "../redux/slices/productSlice"
 import { useDebounce } from "../hooks/useDebounce"
-import Skeleton from "./Skeleton"
 import Loader from "../components/Loader"
 
 const Products = () => {
@@ -27,11 +26,11 @@ const Products = () => {
 
   //Checking if authtoken exists, i.e., logged in on refresh
   const dispatch = useDispatch()
-  const { loggedIn } = useSelector((state) => state.auth)
+  const {  token } = useSelector((state) => state.auth)
 
   useEffect(() => {
     async function getProducts() {
-      if (loggedIn) {
+      if (token !== null) {
         await dispatch(
           fetchAllProducts({
             search: debouncedSearch,
@@ -42,14 +41,16 @@ const Products = () => {
       }
     }
     getProducts()
-  }, [loggedIn, debouncedSearch, pagination])
+  }, [token, debouncedSearch, pagination])
 
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
-      {loggedIn == false ? (
+      {token === null ? (
+        <Auth />
+      ) : token === undefined && loading ? (
         <>
-          <Auth />
+          <Loader />
         </>
       ) : (
         <div
@@ -59,7 +60,7 @@ const Products = () => {
 
           {/* Search Bar & Add Product Button */}
           <div className="flex w-full flex-row flex-nowrap justify-between rounded-t-sm">
-            <div className="border-border w-1/3 rounded-md border bg-background p-2">
+            <div className="w-1/3 rounded-md border border-border bg-background p-2">
               <div className="justfy-betweem flex h-fit w-full flex-nowrap items-center">
                 <HiMagnifyingGlass className="inline pr-2 text-4xl text-foreground" />
                 <input

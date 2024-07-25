@@ -27,7 +27,6 @@ const CustomerTable = lazy(() => import("./pages/Customer/CustomerTable"))
 const CreateInvoice = lazy(() => import("./pages/Invoice/CreateInvoice"))
 
 function App() {
-
   return (
     <>
       <Routes>

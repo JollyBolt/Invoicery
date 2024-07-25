@@ -2,17 +2,21 @@ import { createSlice } from "@reduxjs/toolkit"
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import getCookieValue from "../../utils/getCookieValue"
 import axios from "axios"
+import { authSlice } from "./authSlice"
+
 axios.defaults.withCredentials = true
+const { setToken } = authSlice.actions
 
 const fetchAllCustomers = createAsyncThunk(
   "customers/fetchAllCustomers",
-  async ({ search = "", page = 0, limit = 10 }) => {
+  async ({ search = "", page = 0, limit = 10 }, { dispatch, getState }) => {
     try {
+      const state = getState().auth
       const res = await axios.get(
         `${import.meta.env.VITE_URL}/api/v1/customer/getallcustomers`,
         {
           headers: {
-            Authorization: "Bearer " + getCookieValue("authToken"),
+            Authorization: "Bearer " + state.token,
           },
           params: {
             search: search,
@@ -21,8 +25,9 @@ const fetchAllCustomers = createAsyncThunk(
           },
         },
       )
-
-      return res.data
+      dispatch(setToken(res.data.token))
+      console.log(res.data)
+      return res.data.data
     } catch (error) {
       console.log(error)
       return rejectWithValue(error)
@@ -32,20 +37,23 @@ const fetchAllCustomers = createAsyncThunk(
 
 const fetchSingleCustomer = createAsyncThunk(
   "customers/fetchSingleCustomer",
-  async (id) => {
+  async (id, { dispatch, getState }) => {
     try {
+      const state = getState().auth
       const res = await axios.get(
         `${import.meta.env.VITE_URL}/api/v1/customer/getcustomer`,
         {
           headers: {
-            Authorization: "Bearer " + getCookieValue("authToken"),
+            Authorization: "Bearer " + state.token,
           },
           params: {
             id: id,
           },
         },
       )
-      return res.data
+      dispatch(setToken(res.data.token))
+      console.log(res.data.token)
+      return res.data.data
     } catch (e) {
       console.log(e)
       return rejectWithValue(e)
@@ -55,34 +63,43 @@ const fetchSingleCustomer = createAsyncThunk(
 
 const postCustomer = createAsyncThunk(
   "customers/postCustomer",
-  async (customer) => {
-    const res = await axios.post(
-      `${import.meta.env.VITE_URL}/api/v1/customer/createcustomer`,
-      customer,
-      {
-        headers: {
-          Authorization: "Bearer " + getCookieValue("authToken"),
+  async (customer, { dispatch, getState }) => {
+    try {
+      const state = getState().auth
+      const res = await axios.post(
+        `${import.meta.env.VITE_URL}/api/v1/customer/createcustomer`,
+        customer,
+        {
+          headers: {
+            Authorization: "Bearer " + state.token,
+          },
         },
-      },
-    )
-    console.log(res.data)
-    return res.data
+      )
+      dispatch(setToken(res.data.token))
+      console.log(res.data)
+      return res.data
+    } catch (e) {
+      console.log(e)
+      return rejectWithValue(e)
+    }
   },
 )
 
 const editCustomer = createAsyncThunk(
   "customers/editCustomer",
-  async (params) => {
+  async (params, { dispatch, getState }) => {
     try {
+      const state = getState().auth
       const res = await axios.put(
         `${import.meta.env.VITE_URL}/api/v1/customer/editcustomer/${params.id}`,
         params.customer,
         {
           headers: {
-            Authorization: "Bearer " + getCookieValue("authToken"),
+            Authorization: "Bearer " + state.token,
           },
         },
       )
+      dispatch(setToken(res.data.token))
       console.log(res.data)
       return res.data
     } catch (e) {
@@ -94,16 +111,18 @@ const editCustomer = createAsyncThunk(
 
 const deleteCustomer = createAsyncThunk(
   "customers/deleteCustomer",
-  async (id) => {
+  async (id, { dispatch, getState }) => {
     try {
+      const state = getState().auth
       const res = await axios.delete(
         `${import.meta.env.VITE_URL}/api/v1/customer/deletecustomer/${id}`,
         {
           headers: {
-            Authorization: "Bearer " + getCookieValue("authToken"),
+            Authorization: "Bearer " + state.token,
           },
         },
       )
+      dispatch(setToken(res.data.token))
       return res.data
     } catch (e) {
       console.log(e)

@@ -18,33 +18,34 @@ const Profile = () => {
 
   const dispatch = useDispatch()
   //Checking if authtoken exists, i.e., logged in on refresh
-  const { loggedIn } = useSelector((state) => state.auth)
+  const {  token } = useSelector((state) => state.auth)
   const { user, loading } = useSelector((state) => state.user)
 
   useEffect(() => {
     async function getUserData() {
-      if (loggedIn) {
+      if (token !== null) {
         await dispatch(getProfile())
       }
     }
     getUserData()
-  }, [loggedIn])
+  }, [token])
 
   return (
-    <div className="mt-4 flex h-[calc(100dvh-88px)] w-full flex-col">
-      {!loading && <EditProfile open={open} setOpen={setOpen} />}
+    <>
+      {token && !loading && <EditProfile open={open} setOpen={setOpen} />}
 
       {editOpen && (
         <TnCModal editOpen={editOpen} setEditOpen={setEditOpen} user={user} />
       )}
 
-      {!loggedIn ? (
+      {token === null ? (
         <Auth />
-      ) : loading ? (
+      ) : token === undefined || loading ? (
         <>
           <Loader />
         </>
       ) : (
+        <div className="mt-4 flex h-[calc(100dvh-88px)] gap-4 w-full flex-col">
         <div className="flex h-full w-full flex-col flex-nowrap overflow-hidden rounded-rounded bg-background">
           <div className="w-full bg-primary p-5 text-white shadow-md shadow-slate-400 dark:shadow-none">
             <p className="p-3 text-6xl font-black">{user.name}</p>
@@ -194,8 +195,9 @@ const Profile = () => {
             </div>
           </div>
         </div>
-      )}
     </div>
+      )}
+    </>
   )
 }
 

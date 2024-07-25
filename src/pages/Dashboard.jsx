@@ -19,8 +19,9 @@ import YearChart from "../components/Charts/YearChart"
 import DoughnutChartComponent from "../components/Charts/DoughnutChartComponent"
 import AreaBarSwitch from "../components/Charts/AreaBarSwitch"
 import Loader from "../components/Loader"
-import Skeleton from "./Skeleton"
+import Skeleton from "../components/Skeleton"
 import { RiArrowDropDownLine } from "react-icons/ri"
+import { authSlice } from "../redux/slices/authSlice"
 
 const Dashboard = () => {
   const [currentYearYearlyChart, setCurrentYearYearlyChart] = useState(
@@ -36,18 +37,20 @@ const Dashboard = () => {
 
   const [stats, setStats] = useState(null)
 
-  const { loggedIn } = useSelector((state) => state.auth)
+  const {  token } = useSelector((state) => state.auth)
+  const { setToken } = authSlice.actions
   const dispatch = useDispatch()
   const getStats = async () => {
-    const { data } = await axios.get(
+    const res = await axios.get(
       `${import.meta.env.VITE_URL}/api/v1/stats/getstats`,
       {
         headers: {
-          Authorization: "Bearer " + getCookieValue("authToken"),
+          Authorization: "Bearer " + token,
         },
       },
     )
-    setStats(data.stats)
+    setStats(res.data.data)
+    dispatch(setToken(res.data.token))
   }
 
   const [yearlyRevenueLoading, setYearlyRevenueLoading] = useState(false)
@@ -56,19 +59,19 @@ const Dashboard = () => {
   const getDashboardYearlyChartData = async (year) => {
     setYearlyRevenueLoading(true)
     setYearlyRevenue(null)
-    const { data } = await axios.get(
+    const res = await axios.get(
       `${import.meta.env.VITE_URL}/api/v1/invoice/getdashboardyearlychartdata`,
       {
         headers: {
-          Authorization: "Bearer " + getCookieValue("authToken"),
+          Authorization: "Bearer " + token,
         },
         params: {
           year: year,
         },
       },
     )
-
-    setYearlyRevenue(data)
+    dispatch(setToken(res.data.token))
+    setYearlyRevenue(res.data.data)
     setYearlyRevenueLoading(false)
     setDashboardLoading(false)
   }
@@ -76,11 +79,11 @@ const Dashboard = () => {
   const getDashboardMonthlyChartData = async (year, month) => {
     setMonthlyRevenueLoading(true)
     setMonthlyRevenue(null)
-    const { data } = await axios.get(
+    const res = await axios.get(
       `${import.meta.env.VITE_URL}/api/v1/invoice/getdashboardmonthlychartdata`,
       {
         headers: {
-          Authorization: "Bearer " + getCookieValue("authToken"),
+          Authorization: "Bearer " + token,
         },
         params: {
           year: year,
@@ -88,7 +91,8 @@ const Dashboard = () => {
         },
       },
     )
-    setMonthlyRevenue(data)
+    dispatch(setToken(res.data.token))
+    setMonthlyRevenue(res.data.data)
     setMonthlyRevenueLoading(false)
   }
 
@@ -139,11 +143,11 @@ const Dashboard = () => {
 
   return (
     <div>
-      {loggedIn === false ? (
+      {token === null ? (
         <>
           <Auth />
         </>
-      ) : dashboardLoading ? (
+      ) : token === undefined ? (
         <>
           <Skeleton />
         </>

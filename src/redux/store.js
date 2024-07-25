@@ -1,17 +1,17 @@
+import { configureStore } from "@reduxjs/toolkit"
 import { productSlice } from "./slices/productSlice"
 import { customerSlice } from "./slices/customerSlice"
 import { invoiceSlice } from "./slices/invoiceSlice"
-import { authSlice } from "./slices/authSlice"
 import { userSlice } from "./slices/userSlice"
+import { authSlice } from "./slices/authSlice"
 import { themeSlice } from "./slices/themeSlice"
-import { configureStore } from "@reduxjs/toolkit"
 
 const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
-    user: userSlice.reducer,
     products: productSlice.reducer,
     customers: customerSlice.reducer,
+    user: userSlice.reducer,
     invoices: invoiceSlice.reducer,
     theme: themeSlice.reducer,
   },
@@ -22,7 +22,9 @@ const store = configureStore({
         ignoredActions: [
           "auth/login",
           "auth/signup",
-          "auth/refreshAuth",
+          "auth/setToken",
+          "auth/logout",
+          "auth/deleteToken",
           "theme/toggleTheme",
           "user/getProfile",
           "user/editProfile",

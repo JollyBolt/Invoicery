@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import PageWrapper from "../hoc/PageWrapper"
 import {
   FaAngleLeft,
@@ -20,6 +20,7 @@ import DoughnutChartComponent from "../components/Charts/DoughnutChartComponent"
 import AreaBarSwitch from "../components/Charts/AreaBarSwitch"
 import Loader from "../components/Loader"
 import Skeleton from "./Skeleton"
+import { RiArrowDropDownLine } from "react-icons/ri"
 
 const Dashboard = () => {
   const [currentYearYearlyChart, setCurrentYearYearlyChart] = useState(
@@ -48,17 +49,11 @@ const Dashboard = () => {
     )
     setStats(data.stats)
   }
-  // useEffect(() => {
-  //   if (loggedIn) {
-  //     getStats()
-  //     dispatch(fetchAllInvoices({ limit: 10 }))
-  //   }
-  // }, [loggedIn])
 
   const [yearlyRevenueLoading, setYearlyRevenueLoading] = useState(false)
   const [monthlyRevenueLoading, setMonthlyRevenueLoading] = useState(false)
 
-  const getDashboardYearlyChartData = async (currentYearYearlyChart) => {
+  const getDashboardYearlyChartData = async (year) => {
     setYearlyRevenueLoading(true)
     setYearlyRevenue(null)
     const { data } = await axios.get(
@@ -68,7 +63,7 @@ const Dashboard = () => {
           Authorization: "Bearer " + getCookieValue("authToken"),
         },
         params: {
-          year: currentYearYearlyChart,
+          year: year,
         },
       },
     )
@@ -78,10 +73,7 @@ const Dashboard = () => {
     setDashboardLoading(false)
   }
 
-  const getDashboardMonthlyChartData = async (
-    currentYearMonthlyChart,
-    currentMonth,
-  ) => {
+  const getDashboardMonthlyChartData = async (year, month) => {
     setMonthlyRevenueLoading(true)
     setMonthlyRevenue(null)
     const { data } = await axios.get(
@@ -91,26 +83,14 @@ const Dashboard = () => {
           Authorization: "Bearer " + getCookieValue("authToken"),
         },
         params: {
-          year: currentYearMonthlyChart,
-          month: currentMonth,
+          year: year,
+          month: month,
         },
       },
     )
     setMonthlyRevenue(data)
     setMonthlyRevenueLoading(false)
   }
-
-  // useEffect(() => {
-  //   if (loggedIn) {
-  //     getDashboardYearlyChartData()
-  //   }
-  // }, [loggedIn, currentYearYearlyChart])
-
-  // useEffect(() => {
-  //   if (loggedIn) {
-  //     getDashboardMonthlyChartData()
-  //   }
-  // }, [loggedIn, currentYearMonthlyChart, currentMonth])
 
   const [dashboardLoading, setDashboardLoading] = useState(true)
 
@@ -137,6 +117,25 @@ const Dashboard = () => {
   ]
 
   const [chart, setChart] = useState("area")
+
+  const monthRef = useRef()
+  const [monthPicker, setMonthPicker] = useState(false)
+
+  const handleClickOutside = (event) => {
+    if (monthRef.current && !monthRef.current.contains(event.target)) {
+      setMonthPicker(false)
+    }
+  }
+
+  useEffect(() => {
+    // Add event listener when the component is mounted
+    document.addEventListener("mousedown", handleClickOutside)
+
+    // Remove event listener when the component is unmounted
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
 
   return (
     <div>
@@ -182,34 +181,44 @@ const Dashboard = () => {
           </p>
           <div className="col-span-8 row-span-2 rounded-rounded bg-background p-5">
             <div className="mb-3 flex items-center justify-between">
-              <div className="flex items-center gap-3 text-xl">
-                <button
-                  onClick={() => {
-                    setCurrentYearYearlyChart((prev) => prev - 1)
-                    getDashboardYearlyChartData(currentYearYearlyChart - 1)
-                  }}
-                >
-                  <FaAngleLeft className="text-primary" />
-                </button>
-                <span className="font-numbers font-bold uppercase text-foreground">
-                  <span className="font-numbers">{currentYearYearlyChart}</span>{" "}
-                  Revenue
-                </span>
-                <button
-                  onClick={() => {
-                    setCurrentYearYearlyChart((prev) => parseInt(prev) + 1)
-                    getDashboardYearlyChartData(currentYearYearlyChart + 1)
-                  }}
-                >
-                  <FaAngleRight className="text-primary" />
-                </button>
-              </div>
+              <p className="text-xl font-bold uppercase text-foreground">
+                Monthly Revenue Chart
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 rounded-md border border-foreground/50 text-xl">
+                  <button
+                    onClick={() => {
+                      setCurrentYearYearlyChart((prev) => prev - 1)
+                      getDashboardYearlyChartData(currentYearYearlyChart - 1)
+                    }}
+                    className="border-r border-foreground/50 py-2"
+                  >
+                    <FaAngleLeft className="text-primary" />
+                  </button>
+                  <span className="borer-r border-foreground/50 font-numbers font-light text-foreground/50">
+                    {currentYearYearlyChart}
+                  </span>
+                  <button
+                    disabled={
+                      new Date().getFullYear().toString() ===
+                      currentYearYearlyChart.toString()
+                    }
+                    onClick={() => {
+                      setCurrentYearYearlyChart((prev) => parseInt(prev) + 1)
+                      getDashboardYearlyChartData(currentYearYearlyChart + 1)
+                    }}
+                    className="border-l border-foreground/50 py-2 disabled:opacity-30"
+                  >
+                    <FaAngleRight className="text-primary" />
+                  </button>
+                </div>
 
-              <AreaBarSwitch
-                chart={chart}
-                setChart={setChart}
-                style={"w-1/12"}
-              />
+                <AreaBarSwitch
+                  chart={chart}
+                  setChart={setChart}
+                  style={"w-1/12"}
+                />
+              </div>
             </div>
             {yearlyRevenueLoading || !yearlyRevenue ? (
               <Loader height="300px" />
@@ -322,60 +331,82 @@ const Dashboard = () => {
           {/* Monthly Chart */}
           <div className="col-span-3 rounded-rounded bg-background p-5">
             <div className="flex flex-col">
-              <div className="flex items-center gap-3 text-xl">
-                <button
-                  onClick={() => {
-                    setCurrentYearMonthlyChart((prev) => prev - 1)
-                    getDashboardMonthlyChartData(
-                      (parseInt(currentYearMonthlyChart) - 1).toString(),
-                      currentMonth,
-                    )
-                  }}
-                >
-                  <FaAngleLeft className="text-primary" />
-                </button>
-                <span className="font-numbers font-bold uppercase text-foreground">
-                  <span className="font-numbers">
-                    {currentYearMonthlyChart}
-                  </span>{" "}
-                  Revenue
-                </span>
-                <button
-                  onClick={() => {
-                    setCurrentYearMonthlyChart((prev) => parseInt(prev) + 1)
-                    getDashboardMonthlyChartData(
-                      (parseInt(currentYearMonthlyChart) + 1).toString(),
-                      currentMonth,
-                    )
-                  }}
-                >
-                  <FaAngleRight className="text-primary" />
-                </button>
-                <button
-                  onClick={() => {
-                    setCurrentMonth((prev) => (prev > 0 ? prev - 1 : 11))
-                    getDashboardMonthlyChartData(
-                      currentYearMonthlyChart,
-                      currentMonth > 0 ? currentMonth - 1 : 11,
-                    )
-                  }}
-                >
-                  <FaAngleLeft className="text-primary" />
-                </button>
-                <span className="font-bold uppercase text-foreground">
-                  {monthNames[currentMonth]}
-                </span>
-                <button
-                  onClick={() => {
-                    setCurrentMonth((prev) => (prev < 11 ? prev + 1 : 0))
-                    getDashboardMonthlyChartData(
-                      currentYearMonthlyChart,
-                      currentMonth < 11 ? currentMonth + 1 : 0,
-                    )
-                  }}
-                >
-                  <FaAngleRight className="text-primary" />
-                </button>
+              <div className="flex items-center justify-between gap-3 text-lg">
+                <p className="font-bold uppercase text-foreground">
+                  Customer Revenue Breakdown
+                </p>
+                <div className="flex items-center gap-2">
+                  {/* Month Selector */}
+                  <div
+                    className="relative flex cursor-pointer items-center rounded-md border border-foreground/50 px-2 py-1 text-lg font-light uppercase text-foreground/50"
+                    onClick={() => setMonthPicker((prev) => !prev)}
+                    ref={monthRef}
+                  >
+                    {monthNames[currentMonth]}
+                    <span className="text-primary">
+                      <RiArrowDropDownLine />
+                    </span>
+                    <div
+                      className={`absolute right-0 top-10 z-10 w-[160px] origin-top-right scale-0 rounded-md border border-border bg-background p-2 text-sm text-foreground ${monthPicker && "scale-100"} transition-all`}
+                      onClick={(e) => e.stopPropagation()}
+                      onBlur={() => setMonthPicker(false)}
+                    >
+                      <p className="mb-2 select-none border-b border-border text-center">
+                        Select Month
+                      </p>
+                      <div className="flex flex-wrap justify-evenly gap-1">
+                        {monthNames.map((month, index) => (
+                          <button
+                            key={index}
+                            onClick={() => {
+                              setCurrentMonth(index)
+                              getDashboardMonthlyChartData(
+                                currentYearMonthlyChart,
+                                index,
+                              )
+                              setMonthPicker(false)
+                            }}
+                            className={`p-1 uppercase hover:bg-muted`}
+                          >
+                            {month}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  {/* Year Selector */}
+                  <div className="flex items-center gap-3 rounded-md border border-foreground/50 text-lg">
+                    <button
+                      onClick={() => {
+                        setCurrentYearMonthlyChart((prev) => prev - 1)
+                        getDashboardMonthlyChartData(
+                          currentYearMonthlyChart - 1,
+                        )
+                      }}
+                      className="border-r border-foreground/50 py-2"
+                    >
+                      <FaAngleLeft className="text-primary" />
+                    </button>
+                    <span className="borer-r border-foreground/50 font-numbers font-light text-foreground/50">
+                      {currentYearMonthlyChart}
+                    </span>
+                    <button
+                      disabled={
+                        new Date().getFullYear().toString() ===
+                        currentYearMonthlyChart.toString()
+                      }
+                      onClick={() => {
+                        setCurrentYearMonthlyChart((prev) => parseInt(prev) + 1)
+                        getDashboardMonthlyChartData(
+                          currentYearMonthlyChart + 1,
+                        )
+                      }}
+                      className="border-l border-foreground/50 py-2 disabled:opacity-30"
+                    >
+                      <FaAngleRight className="text-primary" />
+                    </button>
+                  </div>
+                </div>
               </div>
 
               <div className="mx-auto flex h-[400px] w-[400px] items-center justify-center">

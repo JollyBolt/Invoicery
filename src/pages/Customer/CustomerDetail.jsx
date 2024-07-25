@@ -50,7 +50,7 @@ const CustomerDetail = () => {
     getCustomer()
   }, [])
 
-  const getCustomerDetailData = async () => {
+  const getCustomerDetailData = async (year) => {
     const { data } = await axios.get(
       `${import.meta.env.VITE_URL}/api/v1/invoice/getcustomerdetaildata`,
       {
@@ -58,7 +58,7 @@ const CustomerDetail = () => {
           Authorization: "Bearer " + getCookieValue("authToken"),
         },
         params: {
-          year: currentYear,
+          year: year,
           month: new Date().getMonth(),
           customer: sessionStorage.getItem("customerName"),
         },
@@ -68,8 +68,8 @@ const CustomerDetail = () => {
   }
 
   useEffect(() => {
-    getCustomerDetailData()
-  }, [currentYear])
+    getCustomerDetailData(currentYear)
+  }, [])
 
   const { invoices } = useSelector((state) => state.invoices)
   const [pagination, setPagination] = useState({
@@ -242,24 +242,46 @@ const CustomerDetail = () => {
               {/* Chart */}
               <div className="w-2/3 rounded-rounded bg-background p-4">
                 <div className="mb-3 flex items-center justify-between">
-                  <div className="flex items-center gap-3 text-xl">
-                    <button onClick={() => setCurrentYear((prev) => prev - 1)}>
-                      <FaAngleLeft color="#2807a0" />
-                    </button>
-                    <span className="font-numbers font-bold uppercase">
-                      <span className="font-numbers">{currentYear}</span>{" "}
-                      Revenue
-                    </span>
-                    <button onClick={() => setCurrentYear((prev) => prev + 1)}>
-                      <FaAngleRight color="#2807a0" />
-                    </button>
+                  <p className="text-xl font-bold uppercase text-foreground">
+                    Monthly Revenue Chart
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 rounded-md border border-foreground/50 text-xl">
+                      <button
+                        onClick={() => {
+                          setCurrentYear((prev) => prev - 1)
+                          getCustomerDetailData(currentYear - 1)
+                        }}
+                        className="border-r border-foreground/50 py-2"
+                      >
+                        <FaAngleLeft className="text-primary" />
+                      </button>
+                      <span className="borer-r border-foreground/50 font-numbers font-light text-foreground/50">
+                        {currentYear}
+                      </span>
+                      <button
+                        disabled={
+                          new Date().getFullYear().toString() ===
+                          currentYear.toString()
+                        }
+                        onClick={() => {
+                          setCurrentYear((prev) => parseInt(prev) + 1)
+                          getCustomerDetailData(currentYear + 1)
+                        }}
+                        className="border-l border-foreground/50 py-2 disabled:opacity-30"
+                      >
+                        <FaAngleRight className="text-primary" />
+                      </button>
+                    </div>
+
+                    <AreaBarSwitch
+                      chart={chart}
+                      setChart={setChart}
+                      style={"w-1/12"}
+                    />
                   </div>
-                  <AreaBarSwitch
-                    chart={chart}
-                    setChart={setChart}
-                    style={"w-1/5"}
-                  />
                 </div>
+
                 <>
                   <YearChart chart={chart} revenue={revenue?.revenueForChart} />
                 </>

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux"
 import { fetchSingleCustomer } from "../../redux/slices/customerSlice"
 import GSTTemplate from "./MultiStepForm/GST/GSTTemplate"
 import SimpleTemplate from "./MultiStepForm/Simple/SimpleTemplate"
+import Loader from "../Loader"
 
 const InvoicePreview = forwardRef((props, ref) => {
   const dispatch = useDispatch()
@@ -171,7 +172,24 @@ const InvoicePreview = forwardRef((props, ref) => {
 
   return (
     <>
-      {invoiceState.template === "gst" ? (
+      {sessionStorage.getItem("mode") === "edit" ? (
+        invoiceState.invoiceNumber == "" ? (
+          invoiceState.template === "gst" ? (
+            <GSTTemplate
+              invoiceState={invoiceState}
+              subTotal={subTotal}
+              total={total}
+              ref={ref}
+            />
+          ) : (
+            <SimpleTemplate />
+          )
+        ) : (
+          <div className="flex h-full items-center justify-center">
+            <Loader />
+          </div>
+        )
+      ) : invoiceState.template === "gst" ? (
         <GSTTemplate
           invoiceState={invoiceState}
           subTotal={subTotal}

@@ -173,7 +173,7 @@ const InvoicePreview = forwardRef((props, ref) => {
   return (
     <>
       {sessionStorage.getItem("mode") === "edit" ? (
-        invoiceState.invoiceNumber == "" ? (
+        invoiceState.invoiceNumber != "" ? (
           invoiceState.template === "gst" ? (
             <GSTTemplate
               invoiceState={invoiceState}

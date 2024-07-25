@@ -6,6 +6,7 @@ import {
   fetchAllCustomers,
   fetchSingleCustomer,
 } from "../../../../redux/slices/customerSlice"
+import { displayPhone } from "../../../../utils/displayPhone"
 
 const AddCustomer = ({
   register,
@@ -24,40 +25,39 @@ const AddCustomer = ({
   )
 
   const debouncedValue = useDebounce(value)
-  const [selectedCustomer, setSelectedCustomer] = useState()
+  const [selectedCustomer, setSelectedCustomer] = useState(
+    sessionStorage.getItem("customer") ? true : false,
+  )
 
   useEffect(() => {
-    const getCustomer = async () => {
-      await dispatch(fetchSingleCustomer(customer.id))
-      setSelectedCustomer(true)
-    }
-
     const customer = JSON.parse(sessionStorage.getItem("customer")) //Check if customer already selected in session storage
 
     if (customer) {
-      getCustomer()
+      dispatch(fetchSingleCustomer(customer.id))
     }
   }, [])
 
   useEffect(() => {
     async function getRecomendations() {
       if (debouncedValue.length > 2) {
-        await dispatch(fetchAllCustomers({ search: debouncedValue }))
+        dispatch(fetchAllCustomers({ search: debouncedValue }))
       }
     }
     getRecomendations()
   }, [debouncedValue])
 
   const handleSubmit = (customer) => {
-    setInvoiceState({
-      ...invoiceState,
-      customer: {
-        ...invoiceState.customer,
-        name: customer.client,
-        gstin: customer.gstin,
-        contactPerson: customer.contactPerson,
-        phone: customer.phone,
-      },
+    setInvoiceState((prevState) => {
+      return {
+        ...prevState,
+        customer: {
+          ...invoiceState.customer,
+          name: customer.client,
+          gstin: customer.gstin,
+          contactPerson: customer.contactPerson,
+          phone: customer.phone,
+        },
+      }
     })
     sessionStorage.setItem(
       "customer",
@@ -78,7 +78,7 @@ const AddCustomer = ({
   useEffect(() => {
     setFocus("customer")
   }, [])
-  
+
   return (
     <>
       <motion.div
@@ -190,7 +190,7 @@ const AddCustomer = ({
                 </div>
                 <div className="flex gap-10">
                   <p className="w-[30%]">Phone</p>
-                  <p>{invoiceState.customer?.phone}</p>
+                  <p>{displayPhone(invoiceState.customer?.phone)}</p>
                 </div>
               </div>
             </div>

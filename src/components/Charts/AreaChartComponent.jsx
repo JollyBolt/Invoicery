@@ -9,7 +9,6 @@ import {
 import { useSelector } from "react-redux"
 
 const AreaChartComponent = ({ yearData }) => {
-  console.log(typeof yearData[0].revenue)
   const { theme } = useSelector((state) => state.theme)
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
@@ -22,9 +21,6 @@ const AreaChartComponent = ({ yearData }) => {
       )
     }
     return null
-  }
-  const getMaxRevenue = () => {
-    return Math.max(...yearData.map((item) => item.revenue))
   }
   return (
     <ResponsiveContainer width="100%" height={300}>

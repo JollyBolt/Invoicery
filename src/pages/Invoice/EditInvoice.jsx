@@ -82,8 +82,10 @@ function EditInvoice() {
           invoice.invoiceDate.day,
       )
     !sessionStorage.getItem("purchaseOrder") &&
+      invoice?.purchaseOrder &&
       sessionStorage.setItem("purchaseOrder", invoice.purchaseOrder)
     !sessionStorage.getItem("purchaseOrderDate") &&
+      invoice?.purchaseOrderDate &&
       sessionStorage.setItem("purchaseOrderDate", invoice.purchaseOrderDate)
     !sessionStorage.getItem("billingAddress") &&
       sessionStorage.setItem(

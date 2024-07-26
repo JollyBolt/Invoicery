@@ -164,7 +164,7 @@ function Sidebar() {
                     dispatch(logout())
                     dispatch(deleteToken())
                     sessionStorage.clear()
-                    navigate('/')
+                    navigate("/")
                   }}
                   className={`cursor-pointer text-red-500 transition-[border-radius] hover:bg-red-500 hover:text-white ${
                     open ? "rounded-rounded delay-0" : "rounded-[50%] delay-300"

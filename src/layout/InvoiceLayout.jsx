@@ -8,7 +8,7 @@ const InvoiceLayout = () => {
   const { token } = useSelector((state) => state.auth)
 
   return (
-    <div>
+    <div className="mt-4">
       <Outlet />
       {/* {token ? <Outlet /> : token === null ? <Auth />:<Loader />  } */}
     </div>

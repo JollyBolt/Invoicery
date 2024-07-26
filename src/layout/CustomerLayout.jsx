@@ -15,7 +15,7 @@ const CustomerLayout = () => {
   // }, [])
 
   return (
-    <div>
+    <div className="mt-4">
    <Outlet/>
     </div>
   )

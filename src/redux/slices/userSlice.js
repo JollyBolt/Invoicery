@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
-import getCookieValue from "../../utils/getCookieValue"
 import { authSlice } from "./authSlice"
 axios.defaults.withCredentials = true
 const { setToken } = authSlice.actions

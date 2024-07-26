@@ -13,13 +13,12 @@ import { FaAngleLeft, FaAngleRight, FaPlus } from "../../assets"
 import { customerInvoicesColumns } from "../../components/Table/Columns"
 import EditCustomer from "../../components/Customer/EditCustomer"
 import axios from "axios"
-import getCookieValue from "../../utils/getCookieValue"
 import YearChart from "../../components/Charts/YearChart"
 import AreaBarSwitch from "../../components/Charts/AreaBarSwitch"
 import Loader from "../../components/Loader"
 import AddBillingAddressesModal from "../../components/Customer/AddBillingAddressesModal"
 import EditBillingAddressesModal from "../../components/Customer/EditBillingAddressesModal"
-import { authSlice } from "../../redux/slices/authSlice"
+
 
 const CustomerDetail = () => {
   const [currentYear, setCurrentYear] = useState(
@@ -34,7 +33,6 @@ const CustomerDetail = () => {
 
   const id = useParams().id
   const dispatch = useDispatch()
-  const { setToken } = authSlice.actions
   const { token } = useSelector((state) => state.auth)
   const { customers, loading } = useSelector(
     (state) => state.customers.customers,

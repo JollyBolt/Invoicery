@@ -26,7 +26,6 @@ const fetchAllCustomers = createAsyncThunk(
         },
       )
       dispatch(setToken(res.data.token))
-      console.log(res.data)
       return res.data.data
     } catch (error) {
       console.log(error)

@@ -9,7 +9,7 @@ const { setToken } = authSlice.actions
 
 const fetchAllProducts = createAsyncThunk(
   "products/fetchAllProducts",
-  async ({ search = "", page = 0, limit = 10 }, { dispatch, getState }) => {
+  async ({ search = "", page = 0, limit = 10 }, { dispatch, getState,rejectWithValue }) => {
     try {
       const state = getState().auth
       const res = await axios.get(
@@ -141,7 +141,7 @@ const productSlice = createSlice({
     builder.addCase(fetchAllProducts.fulfilled, (state, action) => {
       // console.log(action.payload);
       state.loading = false
-      state.products = action.payload
+      state.products = action.payload ? action.payload :[]
       state.error = ""
     })
     builder.addCase(fetchAllProducts.rejected, (state, action) => {

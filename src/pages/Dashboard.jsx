@@ -143,11 +143,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      {token === null ? (
-        <>
-          <Auth />
-        </>
-      ) : token === undefined ? (
+{dashboardLoading ? (
         <>
           <Skeleton />
         </>

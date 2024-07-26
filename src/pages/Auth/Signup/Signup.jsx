@@ -272,8 +272,7 @@ function Signup() {
   }
 
 
-  const {  loading } = useSelector((state) => state.auth)
-
+  const { token,loading } = useSelector((state) => state.auth)
   const navigate = useNavigate()
   return (
     <div className="flex h-screen flex-nowrap">
@@ -293,6 +292,7 @@ function Signup() {
           className="absolute left-5 top-5 rounded-full p-3 text-3xl text-white"
           onClick={() => {
             navigate("/")
+            console.log(token)
           }}
         >
           <motion.div className="flex items-center gap-x-2">

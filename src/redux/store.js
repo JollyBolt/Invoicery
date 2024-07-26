@@ -23,6 +23,7 @@ const store = configureStore({
           "auth/login",
           "auth/signup",
           "auth/setToken",
+          "auth/checkToken",
           "auth/logout",
           "auth/deleteToken",
           "theme/toggleTheme",

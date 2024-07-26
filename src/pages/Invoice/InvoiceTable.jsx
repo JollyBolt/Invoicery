@@ -44,13 +44,13 @@ const InvoiceTable = () => {
 
   return (
       <> 
-      {token === null ? (
+      {/* {token === null ? (
         <Auth />
       ) : token === undefined && loading ? (
         <>
         <Loader />
         </>
-      ) : (
+      ) : ( */}
         <div className="flex h-[calc(100dvh-80px)] flex-col gap-4 rounded-rounded">
           <div className="flex w-full flex-row flex-nowrap justify-between rounded-t-sm">
             <div className="w-1/3 rounded-md border border-border bg-background p-2">
@@ -144,7 +144,7 @@ const InvoiceTable = () => {
             </>
           )}
     </div>
-      )}
+      {/* )} */}
         </>
   )
 }

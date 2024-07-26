@@ -5,7 +5,7 @@ import Auth from "../components/Auth"
 import Loader from "../components/Loader"
 
 const InvoiceLayout = () => {
-  const {  token } = useSelector((state) => state.auth)
+  const { token } = useSelector((state) => state.auth)
 
   return (
     <div>

@@ -38,13 +38,14 @@ const Profile = () => {
         <TnCModal editOpen={editOpen} setEditOpen={setEditOpen} user={user} />
       )}
 
-      {token === null ? (
+      {/* {token === null ? (
         <Auth />
-      ) : token === undefined || loading ? (
+      ) : */}
+       {loading ? (
         <>
           <Loader />
         </>
-      ) : (
+      ) : ( 
         <div className="mt-4 flex h-[calc(100dvh-88px)] gap-4 w-full flex-col">
         <div className="flex h-full w-full flex-col flex-nowrap overflow-hidden rounded-rounded bg-background">
           <div className="w-full bg-primary p-5 text-white shadow-md shadow-slate-400 dark:shadow-none">
@@ -196,7 +197,7 @@ const Profile = () => {
           </div>
         </div>
     </div>
-      )}
+       )} 
     </>
   )
 }

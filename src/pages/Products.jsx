@@ -26,9 +26,10 @@ const Products = () => {
 
   //Checking if authtoken exists, i.e., logged in on refresh
   const dispatch = useDispatch()
-  const {  token } = useSelector((state) => state.auth)
+  const { token } = useSelector((state) => state.auth)
 
   useEffect(() => {
+    console.log(token)
     async function getProducts() {
       if (token !== null) {
         await dispatch(
@@ -46,13 +47,13 @@ const Products = () => {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
-      {token === null ? (
+      {/* {token === null ? (
         <Auth />
       ) : token === undefined && loading ? (
         <>
           <Loader />
         </>
-      ) : (
+      ) : ( */}
         <div
           className={`mt-4 h-[calc(100dvh-80px)] rounded-rounded ${products && "flex flex-col flex-nowrap items-center gap-4"}`}
         >
@@ -143,7 +144,7 @@ const Products = () => {
             </>
           )}
         </div>
-      )}
+      {/* )} */}
     </>
   )
 }

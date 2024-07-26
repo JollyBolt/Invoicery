@@ -1,13 +1,12 @@
 import { Link, useLocation } from "react-router-dom"
 import React, { useEffect, useState } from "react"
-import { HiMenuAlt2 } from "../assets/index"
 import { navLinks } from "../constants"
 import { useNavigate } from "react-router-dom"
 import { IoSunnyOutline, IoMoonOutline, IoPowerOutline } from "../assets/index"
 import { themeSlice } from "../redux/slices/themeSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { getProfile } from "../redux/slices/userSlice"
-import { authSlice,logout } from "../redux/slices/authSlice"
+import { authSlice, logout } from "../redux/slices/authSlice"
 
 function Sidebar() {
   const [open, setOpen] = useState(false)
@@ -22,13 +21,13 @@ function Sidebar() {
 
   useEffect(() => {
     async function getUserData() {
-      if (token) {
-        await dispatch(getProfile())
-        // console.log(user)
-      }
+      // if (token) {
+      await dispatch(getProfile())
+      // console.log(user)
+      // }
     }
     getUserData()
-  }, [token])
+  }, [])
 
   const checkActive = (href) => {
     const n = href.length
@@ -158,17 +157,14 @@ function Sidebar() {
               </h2>
             </div>
 
-            {token && (
+            {token && user && (
               <>
                 <div
                   onClick={() => {
-                    document.cookie =
-                      "authToken=; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=.ishansen.in;"
                     dispatch(logout())
                     dispatch(deleteToken())
-                    // navigate("/");
                     sessionStorage.clear()
-                    // location.reload()
+                    navigate('/')
                   }}
                   className={`cursor-pointer text-red-500 transition-[border-radius] hover:bg-red-500 hover:text-white ${
                     open ? "rounded-rounded delay-0" : "rounded-[50%] delay-300"

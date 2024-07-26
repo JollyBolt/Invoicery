@@ -72,7 +72,7 @@ const CustomerDetail = () => {
 
   useEffect(() => {
     getCustomerDetailData(currentYear)
-  }, [])
+  }, [token])
 
   const { invoices } = useSelector((state) => state.invoices)
   const [pagination, setPagination] = useState({

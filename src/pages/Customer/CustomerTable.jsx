@@ -49,14 +49,14 @@ const CustomerTable = () => {
 
   return (
     <>
-      {token === null ? (
+      {/* {token === null ? (
         <Auth />
       ) : token === undefined && loading ? (
         <>
           <Loader />
         </>
       ) : (
-        <>
+        <> */}
           <CreateCustomer open={open} setOpen={setOpen} />
           <div
             className={`flex h-[calc(100dvh-80px)] flex-col flex-nowrap gap-4 rounded-rounded`}
@@ -145,8 +145,8 @@ const CustomerTable = () => {
             )}
           </div>
         </>
-      )}
-    </>
+    //   )}
+    // </>
   )
 }
 

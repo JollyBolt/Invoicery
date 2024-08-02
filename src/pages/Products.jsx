@@ -29,7 +29,7 @@ const Products = () => {
   const { token } = useSelector((state) => state.auth)
 
   useEffect(() => {
-    console.log(token)
+
     async function getProducts() {
       if (token !== null) {
         await dispatch(

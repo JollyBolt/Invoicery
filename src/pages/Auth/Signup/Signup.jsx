@@ -292,7 +292,6 @@ function Signup() {
           className="absolute left-5 top-5 rounded-full p-3 text-3xl text-white"
           onClick={() => {
             navigate("/")
-            console.log(token)
           }}
         >
           <motion.div className="flex items-center gap-x-2">

@@ -1,12 +1,22 @@
 import React, { forwardRef, useEffect, useMemo } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { fetchSingleCustomer } from "../../redux/slices/customerSlice"
 import GSTTemplate from "./MultiStepForm/GST/GSTTemplate"
 import SimpleTemplate from "./MultiStepForm/Simple/SimpleTemplate"
 import Loader from "../Loader"
+import { getProfile } from "../../redux/slices/userSlice"
 
 const InvoicePreview = forwardRef((props, ref) => {
   const dispatch = useDispatch()
+  const { user, loading } = useSelector((state) => state.user)
+  useEffect(() => {
+    dispatch(getProfile())
+    if (!sessionStorage.getItem("termsNConditions"))
+      sessionStorage.setItem(
+        "termsNConditions",
+        JSON.stringify(user.termsNConditions),
+      )
+  }, [])
 
   const { invoiceState, setInvoiceState } = props
   const { products, taxes, miscellaneous = 0 } = invoiceState
@@ -200,6 +210,7 @@ const InvoicePreview = forwardRef((props, ref) => {
       {invoiceState.template === "gst" ? (
         <GSTTemplate
           invoiceState={invoiceState}
+          user={user}
           subTotal={subTotal}
           total={total}
           ref={ref}

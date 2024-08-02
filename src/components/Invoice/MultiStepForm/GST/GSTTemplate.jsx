@@ -6,12 +6,7 @@ import { displayPhone } from "../../../../utils/displayPhone"
 import { displayDate } from "../../../../utils/displayDate"
 
 const GSTTemplate = forwardRef((props, ref) => {
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(getProfile())
-  }, [])
-  const { user, loading } = useSelector((state) => state.user)
-  const { invoiceState, subTotal, total } = props
+  const { user, invoiceState, subTotal, total } = props
   const {
     invoiceNumber,
     invoiceDate,

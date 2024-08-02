@@ -165,11 +165,12 @@ const InvoicePreview = forwardRef((props, ref) => {
     })
   }, [])
 
-  // useEffect(() => {
-  //   setInvoiceState((prevState) => {
-  //     return { ...prevState, totalAmount: Math.round(total) }
-  //   })
-  // }, [products, cgst, sgst, igst])
+  useEffect(() => {
+    setInvoiceState((prevState) => {
+      return { ...prevState, totalAmount: Math.round(total) }
+    })
+    sessionStorage.setItem(`totalAmount`, Math.round(total))
+  }, [products, cgst, sgst, igst, miscellaneous])
 
   // if (sessionStorage.getItem("mode") === "edit") {
   //   return (

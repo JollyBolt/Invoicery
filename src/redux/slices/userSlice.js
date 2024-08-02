@@ -5,46 +5,50 @@ import { authSlice } from "./authSlice"
 axios.defaults.withCredentials = true
 const { setToken } = authSlice.actions
 
-const getProfile = createAsyncThunk("user/getProfile", async (params, { dispatch, getState }) => {
-  try {
-    const state = getState().auth
-    const res = await axios.get(
-      `${import.meta.env.VITE_URL}/api/v1/user/getUser`,
-      {
-        headers: {
-          Authorization: "Bearer " + state.token,
+const getProfile = createAsyncThunk(
+  "user/getProfile",
+  async (params, { dispatch, getState }) => {
+    try {
+      const state = getState().auth
+      const res = await axios.get(
+        `${import.meta.env.VITE_URL}/api/v1/user/getUser`,
+        {
+          headers: {
+            Authorization: "Bearer " + state.token,
+          },
         },
-      },
-    )
-    dispatch(setToken(res.data.token))
-    console.log(res.data)
-    return res.data.data
-  } catch (err) {
-    console.log(err)
-    return rejectWithValue(err)
-  }
-})
+      )
+      dispatch(setToken(res.data.token))
+      return res.data.data
+    } catch (err) {
+      console.log(err)
+      return rejectWithValue(err)
+    }
+  },
+)
 
-const editProfile = createAsyncThunk("user/editProfile", async (body, { dispatch, getState }) => {
-  try {
-    const state = getState().auth
-    const res = await axios.put(
-      `${import.meta.env.VITE_URL}/api/v1/user/updateUser/${body._id}`,
-      body,
-      {
-        headers: {
-          Authorization: "Bearer " + state.token,
+const editProfile = createAsyncThunk(
+  "user/editProfile",
+  async (body, { dispatch, getState }) => {
+    try {
+      const state = getState().auth
+      const res = await axios.put(
+        `${import.meta.env.VITE_URL}/api/v1/user/updateUser/${body._id}`,
+        body,
+        {
+          headers: {
+            Authorization: "Bearer " + state.token,
+          },
         },
-      },
-    )
-    dispatch(setToken(res.data.token))
-    console.log(res.data)
-    return res.data.data
-  } catch (err) {
-    console.log(err)
-    return rejectWithValue(err)
-  }
-})
+      )
+      dispatch(setToken(res.data.token))
+      return res.data.data
+    } catch (err) {
+      console.log(err)
+      return rejectWithValue(err)
+    }
+  },
+)
 
 const userSlice = createSlice({
   name: "user",

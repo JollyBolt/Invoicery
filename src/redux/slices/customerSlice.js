@@ -50,7 +50,6 @@ const fetchSingleCustomer = createAsyncThunk(
         },
       )
       dispatch(setToken(res.data.token))
-      console.log(res.data.token)
       return res.data.data
     } catch (e) {
       console.log(e)
@@ -74,7 +73,6 @@ const postCustomer = createAsyncThunk(
         },
       )
       dispatch(setToken(res.data.token))
-      console.log(res.data)
       return res.data
     } catch (e) {
       console.log(e)
@@ -98,7 +96,6 @@ const editCustomer = createAsyncThunk(
         },
       )
       dispatch(setToken(res.data.token))
-      console.log(res.data)
       return res.data
     } catch (e) {
       console.log(e)

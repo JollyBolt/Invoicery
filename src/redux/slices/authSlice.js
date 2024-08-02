@@ -9,7 +9,6 @@ const login = createAsyncThunk("auth/login", async (body, { getState }) => {
       `${import.meta.env.VITE_URL}/api/v1/auth/login`,
       body,
     )
-    console.log(getState())
     return res.data
   } catch (err) {
     console.log(err)
@@ -46,7 +45,6 @@ const logout = createAsyncThunk(
           },
         },
       )
-      console.log(res.data)
       return res.data
     } catch (err) {
       console.log(err)
@@ -70,7 +68,6 @@ const checkToken = createAsyncThunk(
           },
         },
       )
-      console.log(res.data.token)
       return res.data.token
     } catch (err) {
       console.log(err)

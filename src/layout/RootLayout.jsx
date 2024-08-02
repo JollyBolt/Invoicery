@@ -12,8 +12,6 @@ const RootLayout = () => {
   const { token } = useSelector((state) => state.auth)
   useEffect(() => {
     dispatch(checkToken())
-    console.log("HI")
-    console.log(token)
   }, [])
   return (
     <div className="bg-muted">

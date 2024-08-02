@@ -1,4 +1,5 @@
 //Sidebar Icons
+import logo from "./svg/logo.svg"
 import { MdDashboard } from "react-icons/md"
 import { BsBoxSeamFill } from "react-icons/bs"
 import { FaCircleUser } from "react-icons/fa6"
@@ -74,6 +75,7 @@ import { IoPowerOutline } from "react-icons/io5"
 import { MdEdit, MdDelete } from "react-icons/md"
 
 export {
+  logo,
   MdDashboard,
   BsBoxSeamFill,
   FaCircleUser,

@@ -7,6 +7,7 @@ import { themeSlice } from "../redux/slices/themeSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { getProfile } from "../redux/slices/userSlice"
 import { authSlice, logout } from "../redux/slices/authSlice"
+import Logo from "../assets/svg/logo.svg?react"
 
 function Sidebar() {
   const [open, setOpen] = useState(false)
@@ -15,6 +16,8 @@ function Sidebar() {
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
+  const { theme } = useSelector((state) => state.theme)
+
   const { deleteToken } = authSlice.actions
   const { user, loading } = useSelector((state) => state.user)
   const { token } = useSelector((state) => state.auth)
@@ -86,20 +89,17 @@ function Sidebar() {
         >
           <div>
             <div className="relative mt-4 flex flex-col justify-between gap-4">
-              <div className="flex gap-3.5 overflow-hidden text-nowrap px-2">
-                <div className="flex w-6 shrink-0 -skew-x-12 justify-center border border-primary text-2xl font-extrabold uppercase text-primary">
-                  I{" "}
+              <div className="flex items-end overflow-hidden text-nowrap px-2">
+                <div className="flex w-5 shrink-0 items-end justify-center text-2xl font-extrabold uppercase text-primary">
+                  <Logo
+                    className="h-12 text-primary"
+                    fill={theme === "light" ? "#2807a1" : "#5122F5"}
+                  />
                 </div>
                 <h2
-                  style={{
-                    transitionDelay: `${2}00ms`,
-                    color: `hsl(var(--primary))`,
-                  }}
-                  className={`inline whitespace-pre text-2xl font-black uppercase text-transparent duration-500 ${
-                    !open && "translate-x-28 overflow-hidden opacity-0"
-                  }`}
+                  className={`${!open && "translate-x-28 opacity-0"} inline overflow-hidden whitespace-pre text-3xl font-black uppercase text-primary duration-500`}
                 >
-                  Invoicery
+                  nvoice{"₹"}y
                 </h2>
               </div>
 

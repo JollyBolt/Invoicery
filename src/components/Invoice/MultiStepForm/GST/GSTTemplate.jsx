@@ -76,7 +76,7 @@ const GSTTemplate = forwardRef((props, ref) => {
       <div className="border border-b-0 border-foreground text-sm">
         <div className="border-b border-foreground p-1">
           <p className="text-base font-bold">Issued to</p>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-0.5">
             <div className="flex justify-between">
               <div className="flex w-[60%]">
                 <p className="w-[30%] font-semibold">Organization</p>

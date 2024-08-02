@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from "react"
+import React, { useEffect, useMemo, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useReactToPrint } from "react-to-print"
 import GSTTemplate from "./MultiStepForm/GST/GSTTemplate"
@@ -6,11 +6,19 @@ import { IoClose } from "react-icons/io5"
 import { MdEdit } from "react-icons/md"
 import { IoIosPrint } from "react-icons/io"
 import { useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { getProfile } from "../../redux/slices/userSlice"
 
 const ViewInvoice = ({ modalOpen, setModalOpen, invoiceState }) => {
   const { products, taxes } = invoiceState
   const { cgst, sgst, igst } = taxes
   const navigate = useNavigate()
+
+  const dispatch = useDispatch()
+  const { user, loading } = useSelector((state) => state.user)
+  useEffect(() => {
+    dispatch(getProfile())
+  }, [])
 
   const ref = useRef()
 
@@ -49,6 +57,7 @@ const ViewInvoice = ({ modalOpen, setModalOpen, invoiceState }) => {
               <div className="w-[60%]">
                 <GSTTemplate
                   invoiceState={invoiceState}
+                  user={user}
                   subTotal={subTotal}
                   total={total}
                   ref={ref}

@@ -7,7 +7,9 @@ import { themeSlice } from "../redux/slices/themeSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { getProfile } from "../redux/slices/userSlice"
 import { authSlice, logout } from "../redux/slices/authSlice"
-import Logo from "../assets/svg/logo.svg?react"
+// import Logo from "../assets/svg/logo.svg?react"
+import { logo } from "../assets/index"
+// import Logo from "./Logo"
 
 function Sidebar() {
   const [open, setOpen] = useState(false)
@@ -89,17 +91,21 @@ function Sidebar() {
         >
           <div>
             <div className="relative mt-4 flex flex-col justify-between gap-4">
-              <div className="flex items-end overflow-hidden text-nowrap px-2">
-                <div className="flex w-5 shrink-0 items-end justify-center text-2xl font-extrabold uppercase text-primary">
-                  <Logo
-                    className="h-12 text-primary"
-                    fill={theme === "light" ? "#2807a1" : "#5122F5"}
-                  />
+              <div className="flex items-center overflow-hidden text-nowrap gap-2 ">
+                <div className="flex w-5 shrink-0 items-center justify-center text-3xl font-extrabold text-primary  rounded-md bg-primary text-white px-5 py-0.5 pt-1">
+                  <p className="-skew-x-[25deg] -translate-y-1 matemasie-regular select-none text-primar">i</p>
+                  {/* <Logo
+                    color={theme === "light" ? "#2807a1" : "#5122F5"}
+                  /> */}
+                  {/* <Logo
+                    // color={theme === "light" ? "#2807a1" : "#5122F5"}
+                  /> */}
+                  {/* <img src={logo} alt="logo" className="text-red-500 h-12 w-20"/> */}
                 </div>
                 <h2
                   className={`${!open && "translate-x-28 opacity-0"} inline overflow-hidden whitespace-pre text-3xl font-black uppercase text-primary duration-500`}
                 >
-                  nvoice{"₹"}y
+                  Invoice{"₹"}y
                 </h2>
               </div>
 
